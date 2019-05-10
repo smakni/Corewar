@@ -1,0 +1,6 @@
+*.out
+*.a
+*/libft/*.a
+*.vscode
+*.o
+*.cor
