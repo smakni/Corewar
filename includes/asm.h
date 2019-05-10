@@ -15,4 +15,10 @@ typedef struct	s_op
 	int			dontknowwhat;
 }				t_op;
 
+typedef struct	s_data
+{
+	char			*line;
+	struct s_data	*next;
+}				t_data;
+
 #endif
