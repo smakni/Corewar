@@ -18,12 +18,12 @@ int		save_label_address(char *line)
 	return (1);
 }
 
-int		choose_instruction(char *line)
+int		choose_instruction(char *line, int *index)
 {
 	if (ft_strncmp(line, "live", 4) == 0)
 		ft_printf("instruction_live\n");
 	else if (ft_strncmp(line, "sti", 3) == 0)
-		ft_printf("instruction_sti\n");
+		ft_encode_sti(line, index);
 	else if (ft_strncmp(line, "and", 3) == 0)
 		ft_printf("instruction_and\n");
 	else if (ft_strncmp(line, "add", 3) == 0)
@@ -69,13 +69,16 @@ int		jump_initial_spaces(char *line)
 
 int		main(int ac, char **av)
 {
+	char	bytecode[100];
 	char	*line;
 	int 	fd;
-	int		i;
-	int		label_flag;
+	int	i;
+	int	index;
+	int	label_flag;
 
 	if (ac == 2)
 	{
+		index = 0;
 		fd = open(av[1], O_RDONLY);
 		while (get_next_line(fd, &line) > 0)
 		{
@@ -96,7 +99,7 @@ int		main(int ac, char **av)
 					if (label_flag == 0)
 						i = 0;
 					i += jump_initial_spaces(&line[i]);
-					if (choose_instruction(&line[i]) == -1)
+					if (choose_instruction(&line[i], &index) == -1)
 					{
 						ft_printf("ERROR\n");
 						exit (-1);
@@ -108,6 +111,8 @@ int		main(int ac, char **av)
 			free(line);
 			ft_printf("END_READ\n\n");
 		}
+		ft_printf("\n>>>>BYTECODE<<<<\n");
+		write(0, bytecode, 100);
 	}
 	return (0);
 }
