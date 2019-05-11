@@ -26,6 +26,8 @@ int		choose_instruction(char *line)
 		ft_printf("instruction_sti\n");
 	else if (ft_strncmp(line, "and", 3) == 0)
 		ft_printf("instruction_and\n");
+	else if (ft_strncmp(line, "add", 3) == 0)
+		ft_printf("instruction_add\n");
 	else if (ft_strncmp(line, "sub", 3) == 0)
 		ft_printf("instruction_sub\n");
 	else if (ft_strncmp(line, "or", 2) == 0)
@@ -94,7 +96,6 @@ int		main(int ac, char **av)
 					if (label_flag == 0)
 						i = 0;
 					i += jump_initial_spaces(&line[i]);
-					ft_printf("line = %s\n", &line[i]);
 					if (choose_instruction(&line[i]) == -1)
 					{
 						ft_printf("ERROR\n");
