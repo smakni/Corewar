@@ -20,41 +20,40 @@ int		save_label_address(char *line)
 
 int		choose_instruction(char *line)
 {
-	if (ft_strcmp(line, "live") == 0)
+	if (ft_strncmp(line, "live", 4) == 0)
 		ft_printf("instruction_live\n");
-	else if (ft_strcmp(line, "sti") == 0)
+	else if (ft_strncmp(line, "sti", 3) == 0)
 		ft_printf("instruction_sti\n");
-	else if (ft_strcmp(line, "and") == 0)
+	else if (ft_strncmp(line, "and", 3) == 0)
 		ft_printf("instruction_and\n");
-	else if (ft_strcmp(line, "sub") == 0)
+	else if (ft_strncmp(line, "sub", 3) == 0)
 		ft_printf("instruction_sub\n");
-	else if (ft_strcmp(line, "or") == 0)
+	else if (ft_strncmp(line, "or", 2) == 0)
 		ft_printf("instruction_or\n");
-	else if (ft_strcmp(line, "xor") == 0)
+	else if (ft_strncmp(line, "xor", 3) == 0)
 		ft_printf("instruction_xor\n");
-	else if (ft_strcmp(line, "zjmp") == 0)
+	else if (ft_strncmp(line, "zjmp", 3) == 0)
 		ft_printf("instruction_zjmp\n");
-	else if (ft_strcmp(line, "ldi") == 0)
+	else if (ft_strncmp(line, "ldi", 3) == 0)
 		ft_printf("instruction_ldi\n");
-	else if (ft_strcmp(line, "fork") == 0)
+	else if (ft_strncmp(line, "fork", 4) == 0)
 		ft_printf("instruction_fork\n");
-	else if (ft_strcmp(line, "lld") == 0)
+	else if (ft_strncmp(line, "lld", 3) == 0)
 		ft_printf("instruction_lld\n");
-	else if (ft_strcmp(line, "lldi") == 0)
+	else if (ft_strncmp(line, "lldi", 4) == 0)
 		ft_printf("instruction_lldi\n");
-	else if (ft_strcmp(line, "ld") == 0)
+	else if (ft_strncmp(line, "ld", 2) == 0)
 		ft_printf("instruction_ld\n");
-	else if (ft_strcmp(line, "st") == 0)
+	else if (ft_strncmp(line, "st", 2) == 0)
 		ft_printf("instruction_st\n");
-	else if (ft_strcmp(line, "lfork") == 0)
+	else if (ft_strncmp(line, "lfork", 4) == 0)
 		ft_printf("instruction_fork\n");
-	else if (ft_strcmp(line, "aff") == 0)
+	else if (ft_strncmp(line, "aff", 3) == 0)
 		ft_printf("instruction_aff\n");
 	else
 		return (-1);
 	return (0);
 }
-
 
 int		jump_initial_spaces(char *line)
 {
@@ -66,35 +65,13 @@ int		jump_initial_spaces(char *line)
 	return(i);
 }
 
-char	*trim_line(char *line, char c)
-{
-	int i;
-
-	i = 0;
-	while (line[i] != c)
-		i++;
-	return (ft_strsub_free(line, i + 1, ft_strlen(line) - i));
-	
-}
-
-void	free_tab(char **tab)
-{
-	int i;
-	
-	i = 0;
-	while(tab[i] != NULL)
-		free(tab[i++]);
-	free(tab);
-}
-
 int		main(int ac, char **av)
 {
-	char	**tab;
 	char	*line;
 	int 	fd;
 	int		i;
 	int		label_flag;
-	
+
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDONLY);
@@ -110,21 +87,19 @@ int		main(int ac, char **av)
 					ft_printf("line_name/comment\n", line);
 					break ;
 				}
-				else if (line[i] == ':' && label_flag == 0) 
-				{
+				else if (line[i] == ':') 
 					label_flag = save_label_address(line);
-					line = trim_line(line, ':');
-					i = 0;
-				}
 				else if (line[i] == ' ' || line[i] == '\t')
 				{
-					tab = splitwhitespaces(line);
-					if (choose_instruction(tab[0]) == -1)
+					if (label_flag == 0)
+						i = 0;
+					i += jump_initial_spaces(&line[i]);
+					ft_printf("line = %s\n", &line[i]);
+					if (choose_instruction(&line[i]) == -1)
 					{
 						ft_printf("ERROR\n");
 						exit (-1);
 					}
-					free_tab(tab);
 					break ;
 				}
 				i++;
