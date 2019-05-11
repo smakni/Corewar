@@ -7,6 +7,7 @@
 # define IDENTICAL	0
 
 int		ft_strccmp(const char *s1, const char *s2, const char limit);
+int		ft_encode_sti(const char *str, int *index);
 
 typedef struct	s_op
 {
