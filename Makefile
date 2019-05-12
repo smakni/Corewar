@@ -1,14 +1,14 @@
-NAME1	=	asm
+NAME_ASM	=	asm
 
 SOURCES	=	main.c\
-			mem_init.c
+			mem_init.c\
 			ft_strccmp.c\
 			encode_sti.c\
 			encode_param.c\
 			encode_cmd.c\
-			memorize_label.c\
+			memorize_label.c
 
-DIR_ASM	=	asm
+DIR_ASM	=	asm/src
 
 DIR_H	=	includes
 
@@ -32,29 +32,30 @@ RM		=	rm -rf
 
 CLEAN	=	clean
 
-all:		$(NAME)
+all:		$(NAME_ASM)
 
 $(LIB):
 			@make -C $(LIB_PATH)
 
-$(NAME):	$(LIB) $(OBJS) $(HDR) Makefile
-			@$(CC) $(CFLAGS) -I$(DIR_H) -o $(NAME) $(SRCS) $(LIB)
-			@echo "Lem-in		: lem-in file has been successfully created."
+$(NAME_ASM):	$(LIB) $(OBJS) $(HDR) Makefile
+			@$(CC) $(CFLAGS) -I$(DIR_H) -o $(NAME_ASM) $(SRCS) $(LIB)
+			@echo "Corewar	: asm file has been successfully created."
 
 $(DIR_O)/%.o: %.c
 			@mkdir -p temporary
-			@mkdir -p temporary/srcs
+			@mkdir -p temporary/asm
+			@mkdir -p temporary/asm/src
 			@$(CC) $(CFLAGS) -I$(DIR_H) -o $@ -c $<
 
 clean:	
 			@$(RM) $(DIR_O)
 			@make clean -C $(LIB_PATH)
-			@echo "Lem-in		: *.o files have been deleted."
+			@echo "Corewar	: *.o files have been deleted."
 
 fclean:		clean
-			@$(RM) $(NAME)
+			@$(RM) $(NAME_ASM)
 			@make fclean -C $(LIB_PATH)
-			@echo "Lem-in		: lem-in file has been deleted."
+			@echo "Corewar	: asm file has been deleted."
 
 re:			fclean all
 

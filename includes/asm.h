@@ -26,18 +26,21 @@ typedef struct	s_data
 	struct s_data	*next;
 }				t_data;
 
-typedef struct	s_rex
+typedef struct	s_parser
 {
-	char	**str;
 	char	bytecode[CHAMP_MAX_SIZE + 1];
+	char	*line;
+	char	*err_msg;
+	int		err_code;
+	int		fd;
 	int		index;
-	int		error;
-}				t_rex;
+
+}				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2, const char limit);
 int				ft_encode_cmd(const char *str, int *index);
 int				ft_encode_param(const char *param, const int type_param, int *index);
 int				ft_memorize_label(const char *param, int *index);
-t_rex			*rex_init(char **str);
+t_parser		*parser_init(void);
 
 #endif

@@ -12,6 +12,20 @@
 
 #include "../../includes/asm.h"
 
+static int	clean_quit(t_parser **data, const int ret)
+{
+	if (data == NULL)
+	{
+		ft_printf("{red}Fail to malloc {bold}struct s_parser{reset}{red}.{reset}\n");
+		return (ret);
+	}
+	if ((*data)->err_code > 0)
+		ft_printf("{red}%s{reset}\n", (*data)->err_msg);
+	ft_strdel(&(*data)->line);
+	ft_memdel((void*)data);
+	return (ret);
+}
+
 int		save_label_address(char *line)
 {
 	ft_printf("save_label_address\n");
@@ -23,7 +37,8 @@ int		choose_instruction(char *line, int *index)
 	if (ft_strncmp(line, "live", 4) == 0)
 		ft_printf("instruction_live\n");
 	else if (ft_strncmp(line, "sti", 3) == 0)
-		ft_encode_sti(line, index);
+		ft_printf("instruction_sti\n");
+		// ft_encode_sti(line, index);
 	else if (ft_strncmp(line, "and", 3) == 0)
 		ft_printf("instruction_and\n");
 	else if (ft_strncmp(line, "add", 3) == 0)
@@ -57,62 +72,69 @@ int		choose_instruction(char *line, int *index)
 	return (0);
 }
 
-int		jump_initial_spaces(char *line)
+int		safe_open(const char *pathname, t_parser *data)
 {
-	int i;
+	int		fd;
 
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	return(i);
+	fd = open(pathname, O_RDONLY);
+	if (fd < 0)
+	{
+		data->err_code = 1;
+		data->err_msg = "Open() failed: Please, check permissions or pathname.";
+		return (FAIL);
+	}
+	data->fd = fd;
+	return (SUCCESS);
 }
 
 int		main(int ac, char **av)
 {
-	char	bytecode[100];
-	char	*line;
-	int 	fd;
+	t_parser	*data;
+
 	int	i;
-	int	index;
 	int	label_flag;
 
 	if (ac == 2)
 	{
-		index = 0;
-		fd = open(av[1], O_RDONLY);
-		while (get_next_line(fd, &line) > 0)
+		if (!(data = parser_init()))
+			return (clean_quit(NULL, 1));
+		if (safe_open(av[1], data) == FAIL)
+			return (clean_quit(&data, 1));
+		while (get_next_line(data->fd, &data->line) > 0)
 		{
-			ft_printf("READ>>{%s}\n", line);
-			i = jump_initial_spaces(line);
+			ft_printf("READ>>{%s}\n", data->line);
+			i = ft_strspn(data->line, " \t");
 			label_flag = 0;
-			while (line[i])
+			while (data->line[i])
 			{
-				if (line[i] == '.')
+				if (data->line[i] == '.')
 				{
-					ft_printf("line_name/comment\n", line);
+					ft_printf("line_name/comment\n", data->line);
 					break ;
 				}
-				else if (line[i] == ':') 
-					label_flag = save_label_address(line);
-				else if (line[i] == ' ' || line[i] == '\t')
+				else if (data->line[i] == ':') 
+					label_flag = save_label_address(data->line);
+				else if (data->line[i] == ' ' || data->line[i] == '\t')
 				{
 					if (label_flag == 0)
 						i = 0;
-					i += jump_initial_spaces(&line[i]);
-					if (choose_instruction(&line[i], &index) == -1)
+					i += ft_strspn(&data->line[i], " \t");
+					if (choose_instruction(&data->line[i], &data->index) == -1)
 					{
 						ft_printf("ERROR\n");
-						exit (-1);
+						return (clean_quit(&data, 1));
 					}
 					break ;
 				}
 				i++;
 			}
-			free(line);
+			ft_strdel(&data->line);
 			ft_printf("END_READ\n\n");
 		}
 		ft_printf("\n>>>>BYTECODE<<<<\n");
-		write(0, bytecode, 100);
+		write(1, data->bytecode, data->index);
+		clean_quit(&data, 0);
+		close(data->fd);
 	}
 	return (0);
 }
