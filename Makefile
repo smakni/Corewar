@@ -16,6 +16,15 @@ DIR_O_P2	=	$(DIR_O)/tmp_corewar/
 
 SOURCES_P1	=	encode_param.c\
 				encode_sti.c\
+				encode_sub.c\
+				encode_and.c\
+				encode_or.c\
+				encode_xor.c\
+				encode_zjmp.c\
+				encode_ldi.c\
+				encode_fork.c\
+				encode_byte_param.c\
+				parse_args.c\
 				ft_strccmp.c\
 				main.c\
 				mem_init.c\

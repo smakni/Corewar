@@ -35,41 +35,22 @@ int		save_label_address(char *line)
 
 int		choose_instruction(t_parser *data, int i)
 {
-	// if (ft_strncmp(line, "live", 4) == 0)
-	// 	ft_printf("instruction_live\n");
 	if (ft_strccmp("sti", &data->line[i]) == IDENTICAL)
 		return (ft_encode_sti(data));
-		//ft_printf("instruction_sti\n");
-	// else if (ft_strncmp(line, "and", 3) == 0)
-	// 	ft_printf("instruction_and\n");
-	// else if (ft_strncmp(line, "add", 3) == 0)
-	// 	ft_printf("instruction_add\n");
-	// else if (ft_strncmp(line, "sub", 3) == 0)
-	// 	ft_printf("instruction_sub\n");
-	// else if (ft_strncmp(line, "or", 2) == 0)
-	// 	ft_printf("instruction_or\n");
-	// else if (ft_strncmp(line, "xor", 3) == 0)
-	// 	ft_printf("instruction_xor\n");
-	// else if (ft_strncmp(line, "zjmp", 3) == 0)
-	// 	ft_printf("instruction_zjmp\n");
-	// else if (ft_strncmp(line, "ldi", 3) == 0)
-	// 	ft_printf("instruction_ldi\n");
-	// else if (ft_strncmp(line, "fork", 4) == 0)
-	// 	ft_printf("instruction_fork\n");
-	// else if (ft_strncmp(line, "lld", 3) == 0)
-	// 	ft_printf("instruction_lld\n");
-	// else if (ft_strncmp(line, "lldi", 4) == 0)
-	// 	ft_printf("instruction_lldi\n");
-	// else if (ft_strncmp(line, "ld", 2) == 0)
-	// 	ft_printf("instruction_ld\n");
-	// else if (ft_strncmp(line, "st", 2) == 0)
-	// 	ft_printf("instruction_st\n");
-	// else if (ft_strncmp(line, "lfork", 4) == 0)
-	// 	ft_printf("instruction_fork\n");
-	// else if (ft_strncmp(line, "aff", 3) == 0)
-	// 	ft_printf("instruction_aff\n");
-	//else
-	//	return (-1);
+	if (ft_strccmp("sub", &data->line[i]) == IDENTICAL)
+		return (ft_encode_sub(data));
+	if (ft_strccmp("and", &data->line[i]) == IDENTICAL)
+		return (ft_encode_and(data));
+	if (ft_strccmp("or", &data->line[i]) == IDENTICAL)
+		return (ft_encode_or(data));
+	if (ft_strccmp("xor", &data->line[i]) == IDENTICAL)
+		return (ft_encode_xor(data));
+	if (ft_strccmp("zjmp", &data->line[i]) == IDENTICAL)
+		return (ft_encode_zjmp(data));
+	if (ft_strccmp("ldi", &data->line[i]) == IDENTICAL)
+		return (ft_encode_ldi(data));
+	if (ft_strccmp("fork", &data->line[i]) == IDENTICAL)
+		return (ft_encode_fork(data));
 	return (0);
 }
 

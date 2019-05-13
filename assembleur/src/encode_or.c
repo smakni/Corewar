@@ -6,14 +6,14 @@ static int		clean_quit(void **params, const int ret)
 	return (ret);
 }
 
-int				ft_encode_sti(t_parser *data)
+int				ft_encode_or(t_parser *data)
 {
 	int		i;
 	char	**params;
 
-	data->bytecode[data->index] = 11;
+	data->bytecode[data->index] = 7;
 	data->index++;
-	i = ft_strspn(data->line, " \t") + 3;
+	i = ft_strspn(data->line, " \t") + 2;
 	i += ft_strspn(&data->line[i], " \t");
 	if (!(params = ft_strsplit(&data->line[i], ',')))
 		return (FAIL);
@@ -21,11 +21,11 @@ int				ft_encode_sti(t_parser *data)
 		return (clean_quit((void*)params, FAIL));
 	if (!(ft_parse_args(data, params)))
 		return (clean_quit((void*)params, FAIL));
-	if (!(ft_encode_param(params[0], T_REG, data, 1)))
+	if (!(ft_encode_param(params[0], T_REG | T_DIR | T_IND, data, 0)))
 		return (clean_quit((void*)params, FAIL));
-	if (!(ft_encode_param(params[1], T_REG | T_DIR | T_IND, data, 1)))
+	if (!(ft_encode_param(params[1], T_REG | T_DIR | T_IND, data, 0)))
 		return (clean_quit((void*)params, FAIL));
-	if (!(ft_encode_param(params[2], T_REG | T_DIR, data, 1)))
+	if (!(ft_encode_param(params[2], T_REG, data, 0)))
 		return (clean_quit((void*)params, FAIL));
 	return (clean_quit((void*)params, SUCCESS));
 }
