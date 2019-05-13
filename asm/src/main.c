@@ -72,20 +72,6 @@ int		choose_instruction(t_parser *data, int i)
 	return (0);
 }
 
-int		safe_open(const char *pathname, t_parser *data)
-{
-	int		fd;
-
-	fd = open(pathname, O_RDONLY);
-	if (fd < 0)
-	{
-		data->err_code = 1;
-		data->err_msg = "Open() failed: Please, check permissions or pathname.";
-		return (FAIL);
-	}
-	data->fd = fd;
-	return (SUCCESS);
-}
 
 int		main(int ac, char **av)
 {
@@ -97,7 +83,7 @@ int		main(int ac, char **av)
 	{
 		if (!(data = parser_init()))
 			return (clean_quit(NULL, 1));
-		if (safe_open(av[1], data) == FAIL)
+		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
 		while (get_next_line(data->fd, &data->line) > 0)
 		{
@@ -132,8 +118,10 @@ int		main(int ac, char **av)
 		}
 		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
 		write(1, data->bytecode, data->index);
-	//	clean_quit(&data, 0);
 		close(data->fd);
+		ft_write_cor(data, av[1]);
+	//	clean_quit(&data, 0);
+
 	}
 	return (0);
 }
