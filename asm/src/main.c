@@ -32,43 +32,43 @@ int		save_label_address(char *line)
 	return (1);
 }
 
-int		choose_instruction(char *line, int *index)
+int		choose_instruction(t_parser *data, int i)
 {
-	if (ft_strncmp(line, "live", 4) == 0)
-		ft_printf("instruction_live\n");
-	else if (ft_strncmp(line, "sti", 3) == 0)
-		ft_printf("instruction_sti\n");
-		// ft_encode_sti(line, index);
-	else if (ft_strncmp(line, "and", 3) == 0)
-		ft_printf("instruction_and\n");
-	else if (ft_strncmp(line, "add", 3) == 0)
-		ft_printf("instruction_add\n");
-	else if (ft_strncmp(line, "sub", 3) == 0)
-		ft_printf("instruction_sub\n");
-	else if (ft_strncmp(line, "or", 2) == 0)
-		ft_printf("instruction_or\n");
-	else if (ft_strncmp(line, "xor", 3) == 0)
-		ft_printf("instruction_xor\n");
-	else if (ft_strncmp(line, "zjmp", 3) == 0)
-		ft_printf("instruction_zjmp\n");
-	else if (ft_strncmp(line, "ldi", 3) == 0)
-		ft_printf("instruction_ldi\n");
-	else if (ft_strncmp(line, "fork", 4) == 0)
-		ft_printf("instruction_fork\n");
-	else if (ft_strncmp(line, "lld", 3) == 0)
-		ft_printf("instruction_lld\n");
-	else if (ft_strncmp(line, "lldi", 4) == 0)
-		ft_printf("instruction_lldi\n");
-	else if (ft_strncmp(line, "ld", 2) == 0)
-		ft_printf("instruction_ld\n");
-	else if (ft_strncmp(line, "st", 2) == 0)
-		ft_printf("instruction_st\n");
-	else if (ft_strncmp(line, "lfork", 4) == 0)
-		ft_printf("instruction_fork\n");
-	else if (ft_strncmp(line, "aff", 3) == 0)
-		ft_printf("instruction_aff\n");
-	else
-		return (-1);
+	// if (ft_strncmp(line, "live", 4) == 0)
+	// 	ft_printf("instruction_live\n");
+	if (ft_strccmp("sti", &data->line[i], ' ') == IDENTICAL)
+		return (ft_encode_sti(data));
+		//ft_printf("instruction_sti\n");
+	// else if (ft_strncmp(line, "and", 3) == 0)
+	// 	ft_printf("instruction_and\n");
+	// else if (ft_strncmp(line, "add", 3) == 0)
+	// 	ft_printf("instruction_add\n");
+	// else if (ft_strncmp(line, "sub", 3) == 0)
+	// 	ft_printf("instruction_sub\n");
+	// else if (ft_strncmp(line, "or", 2) == 0)
+	// 	ft_printf("instruction_or\n");
+	// else if (ft_strncmp(line, "xor", 3) == 0)
+	// 	ft_printf("instruction_xor\n");
+	// else if (ft_strncmp(line, "zjmp", 3) == 0)
+	// 	ft_printf("instruction_zjmp\n");
+	// else if (ft_strncmp(line, "ldi", 3) == 0)
+	// 	ft_printf("instruction_ldi\n");
+	// else if (ft_strncmp(line, "fork", 4) == 0)
+	// 	ft_printf("instruction_fork\n");
+	// else if (ft_strncmp(line, "lld", 3) == 0)
+	// 	ft_printf("instruction_lld\n");
+	// else if (ft_strncmp(line, "lldi", 4) == 0)
+	// 	ft_printf("instruction_lldi\n");
+	// else if (ft_strncmp(line, "ld", 2) == 0)
+	// 	ft_printf("instruction_ld\n");
+	// else if (ft_strncmp(line, "st", 2) == 0)
+	// 	ft_printf("instruction_st\n");
+	// else if (ft_strncmp(line, "lfork", 4) == 0)
+	// 	ft_printf("instruction_fork\n");
+	// else if (ft_strncmp(line, "aff", 3) == 0)
+	// 	ft_printf("instruction_aff\n");
+	//else
+	//	return (-1);
 	return (0);
 }
 
@@ -90,7 +90,6 @@ int		safe_open(const char *pathname, t_parser *data)
 int		main(int ac, char **av)
 {
 	t_parser	*data;
-
 	int	i;
 	int	label_flag;
 
@@ -119,7 +118,7 @@ int		main(int ac, char **av)
 					if (label_flag == 0)
 						i = 0;
 					i += ft_strspn(&data->line[i], " \t");
-					if (choose_instruction(&data->line[i], &data->index) == -1)
+					if (choose_instruction(data, i) == -1)
 					{
 						ft_printf("ERROR\n");
 						return (clean_quit(&data, 1));
@@ -131,9 +130,9 @@ int		main(int ac, char **av)
 			ft_strdel(&data->line);
 			ft_printf("END_READ\n\n");
 		}
-		ft_printf("\n>>>>BYTECODE<<<<\n");
+		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
 		write(1, data->bytecode, data->index);
-		clean_quit(&data, 0);
+	//	clean_quit(&data, 0);
 		close(data->fd);
 	}
 	return (0);
