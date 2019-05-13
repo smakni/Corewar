@@ -1,62 +1,80 @@
-NAME_ASM	=	asm
+NAME_P1	=	asm
+NAME_P2	=	corewar
 
-SOURCES	=	main.c\
-			mem_init.c\
-			ft_strccmp.c\
-			encode_sti.c\
-			encode_param.c\
-			encode_cmd.c\
-			memorize_label.c
+ASM_PATH	=	assembleur/src/
+COR_PATH	=	corewar/src/
 
-DIR_ASM	=	asm/src
+LIB_PATH	=	libft/
 
-DIR_H	=	includes
+HDR_PATH	=	includes
 
-DIR_O	=	temporary
+LIB			=	$(LIB_PATH)libft.a
 
-SRCS	=	$(addprefix $(DIR_ASM)/,$(SOURCES))
+DIR_O		=	temporary
+DIR_O_P1	=	$(DIR_O)/tmp_asm/
+DIR_O_P2	=	$(DIR_O)/tmp_corewar/
 
-OBJS	=	$(addprefix $(DIR_O)/,$(SRCS:.c=.o))
+SOURCES_P1	=	encode_param.c\
+				encode_sti.c\
+				ft_strccmp.c\
+				main.c\
+				mem_init.c\
+				memorize_label.c\
+				safe_open.c\
+				write_cor.c
 
-CC		=	gcc
+SRCS_P1	=	$(addprefix $(ASM_PATH),$(SOURCES_P1))
+OBJS_P1	=	$(addprefix $(DIR_O_P1),$(SOURCES_P1:.c=.o))
+
+SOURCES_P2	=	
+
+HDR		=	$(HDR_PATH)/asm.h
+
+SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
+OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))
+
+CC		=	clang
 
 CFLAGS	=	-Wall -Werror -Wextra
 
-LIB_PATH=	libft
-
-LIB		=	$(LIB_PATH)/libft.a
-
-HDR		=	$(DIR_H)/lem_in.h
-
-RM		=	rm -rf
+RM		=	rm -f
 
 CLEAN	=	clean
 
-all:		$(NAME_ASM)
+all		:	$(NAME_P1) #$(NAME_P2)
 
-$(LIB):
+$(LIB)	:
 			@make -C $(LIB_PATH)
 
-$(NAME_ASM):	$(LIB) $(OBJS) $(HDR) Makefile
-			@$(CC) $(CFLAGS) -I$(DIR_H) -o $(NAME_ASM) $(SRCS) $(LIB)
-			@echo "Corewar	: asm file has been successfully created."
+$(NAME_P1)	:	$(OBJS_P1) $(HDR) $(LIB) Makefile
+				@$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
+				@echo "ASM	: assembleur has been successfully created."
 
-$(DIR_O)/%.o: %.c
-			@mkdir -p temporary
-			@mkdir -p temporary/asm
-			@mkdir -p temporary/asm/src
-			@$(CC) $(CFLAGS) -I$(DIR_H) -o $@ -c $<
+#$(NAME_P2)	:	$(OBJS_P2) $(HDR) $(LIB) Makefile
+				# @$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
+				# @echo "Corewar	: corewar has been successfully created."
+			
 
-clean:	
-			@$(RM) $(DIR_O)
+$(DIR_O_P1)%.o: $(ASM_PATH)%.c
+		@mkdir -p temporary
+		@mkdir -p temporary/tmp_asm
+		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
+
+# $(DIR_O_P2)/%.o: $(COR_PATH)/%.c
+# 		@mkdir -p temporary/tmp_push_swap
+# 		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
+
+clean	:
+			@$(RM) $(OBJS_P1)
+			@rm -rf $(DIR_O)
 			@make clean -C $(LIB_PATH)
-			@echo "Corewar	: *.o files have been deleted."
+			@echo "Corewar : All .o files have been deleted."
 
-fclean:		clean
-			@$(RM) $(NAME_ASM)
+fclean	:	clean
 			@make fclean -C $(LIB_PATH)
-			@echo "Corewar	: asm file has been deleted."
+			@$(RM) $(NAME_P1) $(LIB)
+			@echo "Corewar	: exe have been deleted."
 
-re:			fclean all
+re		:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY:	all clean fclean re

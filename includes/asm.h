@@ -45,7 +45,6 @@ int				safe_open(const char *pathname, t_parser *data, const int flags);
 
 /*	ENCODING FUNCTIONS	*/
 
-int				ft_encode_cmd(const char *str, int *index);
 int				ft_encode_param(const char *rough_param, const int type_param, t_parser *data);
 int				ft_encode_sti(t_parser *data);
 

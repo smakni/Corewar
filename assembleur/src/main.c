@@ -28,6 +28,7 @@ static int	clean_quit(t_parser **data, const int ret)
 
 int		save_label_address(char *line)
 {
+	(void)line;
 	ft_printf("save_label_address\n");
 	return (1);
 }
