@@ -37,7 +37,7 @@ typedef struct	s_parser
 
 }				t_parser;
 
-int				ft_strccmp(const char *s1, const char *s2, const char limit);
+int				ft_strccmp(const char *s1, const char *s2);
 int				ft_memorize_label(const char *param, t_parser *data);
 t_parser		*parser_init(void);
 int				ft_write_cor(t_parser *data, const char *path_name);
@@ -45,7 +45,6 @@ int				safe_open(const char *pathname, t_parser *data, const int flags);
 
 /*	ENCODING FUNCTIONS	*/
 
-int				ft_encode_cmd(const char *str, int *index);
 int				ft_encode_param(const char *rough_param, const int type_param, t_parser *data);
 int				ft_encode_sti(t_parser *data);
 
