@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/10 19:00:46 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/14 01:07:16 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ int		choose_instruction(t_parser *data, int i)
 		return (ft_encode_ldi(data));
 	if (ft_strccmp("fork", &data->line[i]) == IDENTICAL)
 		return (ft_encode_fork(data));
+	if (ft_strccmp("live", &data->line[i]) == IDENTICAL)
+		return (ft_encode_live(data));
+	if (ft_strccmp("ld", &data->line[i]) == IDENTICAL)
+		return (ft_encode_ld(data));
+	if (ft_strccmp("st", &data->line[i]) == IDENTICAL)
+		return (ft_encode_st(data));
+	if (ft_strccmp("add", &data->line[i]) == IDENTICAL)
+		return (ft_encode_add(data));
 	return (0);
 }
 
