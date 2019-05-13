@@ -36,7 +36,7 @@ int		choose_instruction(t_parser *data, int i)
 {
 	// if (ft_strncmp(line, "live", 4) == 0)
 	// 	ft_printf("instruction_live\n");
-	if (ft_strccmp("sti", &data->line[i], ' ') == IDENTICAL)
+	if (ft_strccmp("sti", &data->line[i]) == IDENTICAL)
 		return (ft_encode_sti(data));
 		//ft_printf("instruction_sti\n");
 	// else if (ft_strncmp(line, "and", 3) == 0)
