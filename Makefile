@@ -15,6 +15,7 @@ DIR_O_P1	=	$(DIR_O)/tmp_asm/
 DIR_O_P2	=	$(DIR_O)/tmp_corewar/
 
 SOURCES_P1	=	encode_param.c\
+				choose_encoding.c\
 				encode_sti.c\
 				encode_sub.c\
 				encode_and.c\

@@ -48,6 +48,8 @@ int				safe_open(const char *pathname, t_parser *data, const int flags);
 int				ft_parse_args(t_parser *data, char **params);
 int				ft_encode_byte_param(const char *param);
 int				ft_encode_param(const char *rough_param, const int type_param, t_parser *data, int is_index);
+int				choose_encoding(t_parser *data, int i);
+int				choose_encoding_suite(t_parser *data, int i);
 int				ft_encode_sti(t_parser *data);
 int				ft_encode_and(t_parser *data);
 int				ft_encode_sub(t_parser *data);
