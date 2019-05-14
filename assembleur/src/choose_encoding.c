@@ -2,6 +2,7 @@
 
 int		choose_encoding(t_parser *data, int i)
 {
+	data->index_instruction = data->index;
 	if (ft_strccmp("live", &data->line[i]) == IDENTICAL)
 		return (ft_encode_live(data));
 	if (ft_strccmp("ld", &data->line[i]) == IDENTICAL)
@@ -39,5 +40,5 @@ int		choose_encoding_suite(t_parser *data, int i)
 		return (ft_encode_lfork(data));
 	if (ft_strccmp("aff", &data->line[i]) == IDENTICAL)
 		return (ft_encode_aff(data));
-	return (0);
+	return (FAIL);
 }

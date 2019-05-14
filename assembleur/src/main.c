@@ -26,11 +26,21 @@ static int	clean_quit(t_parser **data, const int ret)
 	return (ret);
 }
 
-int		save_label_address(char *line)
+int		save_label_address(t_parser *data)
 {
-	(void)line;
-	ft_printf("save_label_address\n");
-	return (1);
+	t_bytes	*elem;
+
+	if (!(elem = bytes_init(data)))
+		return (FAIL);
+	if (!(elem->label = ft_strcdup(data->line, ':')))
+	{
+		data->err_code = 2;
+		data->err_msg = "Fail to malloc a char*";
+		return (FAIL);
+	}
+	elem->index = data->index;
+	ft_add_byte_elem(&data->labels, elem);
+	return (SUCCESS);
 }
 
 void	line_parser(t_parser *data, int i, int label_flag)
@@ -43,7 +53,7 @@ void	line_parser(t_parser *data, int i, int label_flag)
 			break ;
 		}
 		else if (data->line[i] == ':') 
-			label_flag = save_label_address(data->line);
+			label_flag = save_label_address(data);
 		else if (data->line[i] == ' ' || data->line[i] == '\t')
 		{
 			if (label_flag == 0)
@@ -70,8 +80,19 @@ int		reader(t_parser *data)
 		line_parser(data, i, label_flag);
 		ft_strdel(&data->line);
 	}
-	return (clean_quit(&data, 0));
+	return (SUCCESS);
 }
+
+// static int 	print_list(t_bytes *list)
+// {
+// 	ft_printf("addr list => %p\n", list);
+// 	while (list)
+// 	{
+// 		ft_printf("Label -> %s | %i | %i\n", list->label, list->index, list->size);
+// 		list = list->next;
+// 	}
+// 	return (SUCCESS);
+// }
 
 int		main(int ac, char **av)
 {
@@ -84,13 +105,13 @@ int		main(int ac, char **av)
 			return (clean_quit(NULL, 1));
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
-			reader(data);
+		reader(data);
 			ft_printf("END_READ\n\n");
 		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
 		write(1, data->bytecode, data->index);
 		close(data->fd);
+		ft_fill_addr(data);
 		ft_write_cor(data, av[1]);
-	//	clean_quit(&data, 0);
 	}
 	return (0);
 }
