@@ -19,8 +19,6 @@ int     ft_encode_live(t_parser *data)
 	    return (FAIL);
     if (ft_arrlen((void*)params) != 1)
 	    return (clean_quit((void*)params, FAIL));
-    if (!(ft_parse_args(data, params)))
-        return (clean_quit((void*)params, FAIL));
     if (!(ft_encode_param(params[0], T_DIR, data, 0)))
         return (clean_quit((void*)params, FAIL));
     return (clean_quit((void*)params, SUCCESS));
