@@ -66,5 +66,8 @@ int				ft_encode_lldi(t_parser *data);
 int				ft_encode_st(t_parser *data);
 int				ft_encode_add(t_parser *data);
 int				ft_encode_aff(t_parser *data);
+int				encode_header(t_parser *data, int i);
+void			encode_name(t_parser *data, int i);
+void			encode_comment(t_parser *data, int i);
 
 #endif
