@@ -58,9 +58,13 @@ int				ft_encode_xor(t_parser *data);
 int				ft_encode_zjmp(t_parser *data);
 int				ft_encode_ldi(t_parser *data);
 int				ft_encode_fork(t_parser *data);
+int				ft_encode_lfork(t_parser *data);
 int				ft_encode_live(t_parser *data);
 int				ft_encode_ld(t_parser *data);
+int				ft_encode_lld(t_parser *data);
+int				ft_encode_lldi(t_parser *data);
 int				ft_encode_st(t_parser *data);
 int				ft_encode_add(t_parser *data);
+int				ft_encode_aff(t_parser *data);
 
 #endif

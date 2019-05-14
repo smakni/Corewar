@@ -24,10 +24,14 @@ SOURCES_P1	=	encode_param.c\
 				encode_zjmp.c\
 				encode_ldi.c\
 				encode_fork.c\
+				encode_lfork.c\
 				encode_live.c \
 				encode_ld.c\
+				encode_lld.c\
+				encode_lldi.c\
 				encode_st.c\
 				encode_add.c\
+				encode_aff.c\
 				encode_byte_param.c\
 				parse_args.c\
 				ft_strccmp.c\
