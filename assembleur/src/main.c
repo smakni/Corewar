@@ -26,10 +26,20 @@ static int	clean_quit(t_parser **data, const int ret)
 	return (ret);
 }
 
-int		save_label_address(char *line)
+int		save_label_address(t_parser *data)
 {
-	(void)line;
-	ft_printf("save_label_address\n");
+	t_bytes	*elem;
+
+	if (!(elem = bytes_init(data)))
+		return (FAIL);
+	if (!(elem->label = ft_strcdup(data->line, ':')))
+	{
+		data->err_code = 2;
+		data->err_msg = "Fail to malloc a char*";
+		return (FAIL);
+	}
+	elem->index = data->index;
+	ft_add_byte_elem(&data->labels, elem);
 	return (1);
 }
 
@@ -43,7 +53,7 @@ void	line_parser(t_parser *data, int i, int label_flag)
 			break ;
 		}
 		else if (data->line[i] == ':') 
-			label_flag = save_label_address(data->line);
+			label_flag = save_label_address(data);
 		else if (data->line[i] == ' ' || data->line[i] == '\t')
 		{
 			if (label_flag == 0)

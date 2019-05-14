@@ -20,28 +20,34 @@ typedef struct	s_op
 	int			dontknowwhat;
 }				t_op;
 
-typedef struct	s_data
+typedef struct	s_bytes
 {
-	char			*line;
-	struct s_data	*next;
-}				t_data;
+	char			*label;
+	int				index;
+	int				size;
+	struct s_bytes	*next;
+}				t_bytes;
 
 typedef struct	s_parser
 {
+	t_bytes	*blanks;
+	t_bytes	*labels;
 	char	bytecode[CHAMP_MAX_SIZE + 1];
 	char	*line;
 	char	*err_msg;
 	int		err_code;
 	int		fd;
 	int		index;
-
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);
 int				ft_memorize_label(const char *param, t_parser *data, int is_index);
 t_parser		*parser_init(void);
+t_bytes			*bytes_init(t_parser *data);
 int				ft_write_cor(t_parser *data, const char *path_name);
 int				safe_open(const char *pathname, t_parser *data, const int flags);
+
+void	ft_add_byte_elem(t_bytes **list, t_bytes *elem);
 
 /*	ENCODING FUNCTIONS	*/
 
