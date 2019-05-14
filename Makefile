@@ -40,7 +40,7 @@ SOURCES_P1	=	encode_param.c\
 				memorize_label.c\
 				safe_open.c\
 				write_cor.c\
-				encode_name.c\
+				encode_header.c\
 				add_byte_elem.c\
 				del_byte_elem.c\
 				fill_addr.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vm <vm@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/14 19:33:04 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/15 00:37:29 by vm               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int		main(int ac, char **av)
 //		write(1, data->bytecode, data->index);
 		close(data->fd);
 		ft_fill_addr(data);
-		data->bytecode[139] = data->index;
 		ft_write_cor(data, av[1]);
 	}
 	return (0);

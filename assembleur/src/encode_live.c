@@ -11,6 +11,7 @@ int     ft_encode_live(t_parser *data)
     int     i;
     char    **params;
 
+	data->bytecode[139] += 5;
     data->bytecode[data->index] = 1;
     data->index++;
     i = ft_strspn(data->line, " \t") + 4;

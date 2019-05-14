@@ -4,6 +4,7 @@ int				ft_encode_zjmp(t_parser *data)
 {
 	int		i;
 
+	data->bytecode[139] += 3;
 	data->bytecode[data->index] = 9;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 4;
