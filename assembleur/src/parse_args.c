@@ -16,7 +16,7 @@ int		ft_parse_args(t_parser *data, char **params)
 		byte <<= 2;
 		i++;
 	}
-	while (i < 2)
+	while (i < 3)
 	{
 		byte <<= 2;
 		i++;
