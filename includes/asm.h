@@ -25,6 +25,7 @@ typedef struct	s_bytes
 	char			*label;
 	int				index;
 	int				size;
+	int				index_instruction;
 	struct s_bytes	*next;
 }				t_bytes;
 
@@ -38,19 +39,22 @@ typedef struct	s_parser
 	int		err_code;
 	int		fd;
 	int		index;
+	int		index_instruction;
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);
-int				ft_memorize_label(const char *param, t_parser *data, int is_index);
+int				ft_memorize_blank_label(const char *param, t_parser *data, int is_index);
 t_parser		*parser_init(void);
 t_bytes			*bytes_init(t_parser *data);
 int				ft_write_cor(t_parser *data, const char *path_name);
 int				safe_open(const char *pathname, t_parser *data, const int flags);
 
 void	ft_add_byte_elem(t_bytes **list, t_bytes *elem);
+void	ft_del_byte_elem(t_bytes **list, t_bytes *elem);
 
 /*	ENCODING FUNCTIONS	*/
 
+void			ft_fill_addr(t_parser *data);
 int				ft_parse_args(t_parser *data, char **params);
 int				ft_encode_byte_param(const char *param);
 int				ft_encode_param(const char *rough_param, const int type_param, t_parser *data, int is_index);

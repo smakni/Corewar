@@ -10,6 +10,7 @@ t_parser	*parser_init(void)
 	new->labels = NULL;
 	new->line = NULL;
 	new->index = 0;
+	new->index_instruction = 0;
 	new->err_code = 0;
 	new->err_msg = NULL;
 	new->fd = -1;
@@ -28,6 +29,7 @@ t_bytes		*bytes_init(t_parser *data)
 	}
 	new->label = NULL;
 	new->index = 0;
+	new->index_instruction = 0;
 	new->size = 0;
 	new->next = NULL;
 	return (new);

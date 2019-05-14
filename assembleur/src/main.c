@@ -40,7 +40,7 @@ int		save_label_address(t_parser *data)
 	}
 	elem->index = data->index;
 	ft_add_byte_elem(&data->labels, elem);
-	return (1);
+	return (SUCCESS);
 }
 
 void	line_parser(t_parser *data, int i, int label_flag)
@@ -80,8 +80,19 @@ int		reader(t_parser *data)
 		line_parser(data, i, label_flag);
 		ft_strdel(&data->line);
 	}
-	return (clean_quit(&data, 0));
+	return (SUCCESS);
 }
+
+// static int 	print_list(t_bytes *list)
+// {
+// 	ft_printf("addr list => %p\n", list);
+// 	while (list)
+// 	{
+// 		ft_printf("Label -> %s | %i | %i\n", list->label, list->index, list->size);
+// 		list = list->next;
+// 	}
+// 	return (SUCCESS);
+// }
 
 int		main(int ac, char **av)
 {
@@ -94,13 +105,13 @@ int		main(int ac, char **av)
 			return (clean_quit(NULL, 1));
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
-			reader(data);
+		reader(data);
 			ft_printf("END_READ\n\n");
 		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
 		write(1, data->bytecode, data->index);
 		close(data->fd);
+		ft_fill_addr(data);
 		ft_write_cor(data, av[1]);
-	//	clean_quit(&data, 0);
 	}
 	return (0);
 }

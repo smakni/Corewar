@@ -40,7 +40,9 @@ SOURCES_P1	=	encode_param.c\
 				memorize_label.c\
 				safe_open.c\
 				write_cor.c\
-				add_byte_elem.c
+				add_byte_elem.c\
+				del_byte_elem.c\
+				fill_addr.c
 
 SRCS_P1	=	$(addprefix $(ASM_PATH),$(SOURCES_P1))
 OBJS_P1	=	$(addprefix $(DIR_O_P1),$(SOURCES_P1:.c=.o))

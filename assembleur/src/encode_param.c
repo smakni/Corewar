@@ -21,7 +21,7 @@ static int	ft_encode_direct(char *param, t_parser *data, int is_index)
 	if (ft_strlen(param) <= 1)
 		return (clean_quit(&param, FAIL));
 	if (param[1] == ':')
-		ft_memorize_label(param, data, is_index);
+		ft_memorize_blank_label(param, data, is_index);
 	else
 	{
 		if (ft_str_is_numeric(&param[1]) == false)
