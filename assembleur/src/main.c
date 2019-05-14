@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/14 19:26:55 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/14 19:33:04 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	line_parser(t_parser *data, int i, int label_flag)
 	{
 		if (data->line[i] == '.')
 		{
-			encode_header(data, i);
+			//encode_header(data, i);
 			break ;
 		}
 		else if (data->line[i] == ':') 
