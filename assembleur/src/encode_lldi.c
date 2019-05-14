@@ -24,7 +24,7 @@ int				ft_encode_lldi(t_parser *data)
 		return (clean_quit((void*)params, FAIL));
 	if (!(ft_encode_param(params[0], T_REG | T_DIR | T_IND, data, 1)))
 		return (clean_quit((void*)params, FAIL));
-	if (!(ft_encode_param(params[1], T_DIR | T_REG, data, 0)))
+	if (!(ft_encode_param(params[1], T_DIR | T_REG, data, 1)))
 		return (clean_quit((void*)params, FAIL));	
 	if (!(ft_encode_param(params[2], T_REG, data, 0)))
 		return (clean_quit((void*)params, FAIL));	

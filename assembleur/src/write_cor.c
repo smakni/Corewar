@@ -15,6 +15,7 @@ int	ft_write_cor(t_parser *data, const char *path_name)
 	if (!(safe_open(cor_file, data, O_CREAT | O_TRUNC | O_WRONLY)))
 		return (FAIL);
 	write(data->fd, data->bytecode, data->index);
+	ft_printf("Writing output program to %s\n", cor_file);
 	close (data->fd);
 	ft_strdel(&tmp);
 	ft_strdel(&cor_file);
