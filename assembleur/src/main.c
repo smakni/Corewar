@@ -49,7 +49,7 @@ void	line_parser(t_parser *data, int i, int label_flag)
 	{
 		if (data->line[i] == '.')
 		{
-			//encode_header(data, i);
+			encode_header(data, i);
 			break ;
 		}
 		else if (data->line[i] == ':') 
@@ -74,7 +74,7 @@ int		reader(t_parser *data)
 	
 	while (get_next_line(data->fd, &data->line) > 0)
 	{
-		ft_printf("READ>>{%s}\n", data->line);
+//		ft_printf("READ>>{%s}\n", data->line);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
 		line_parser(data, i, label_flag);
@@ -106,11 +106,12 @@ int		main(int ac, char **av)
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
 		reader(data);
-			ft_printf("END_READ\n\n");
-		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
-		write(1, data->bytecode, data->index);
+//			ft_printf("END_READ\n\n");
+//		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
+//		write(1, data->bytecode, data->index);
 		close(data->fd);
 		ft_fill_addr(data);
+		data->bytecode[139] = data->index;
 		ft_write_cor(data, av[1]);
 	}
 	return (0);

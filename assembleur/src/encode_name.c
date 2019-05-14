@@ -40,13 +40,15 @@ void	encode_name(t_parser *data, int i)
 
 void	encode_comment(t_parser *data, int i)
 {
+	data->index++;
+	//write in bytecode[index] program size
 	while (data->line[i] && data->line[i] != '\0' && data->line[i] != '"')
 	{
 		data->bytecode[data->index] = data->line[i];
 		i++;
 		data->index++;
 	}
-	while (data->index < 2048)
+	while (data->index < 2192)
 		data->bytecode[data->index++] = 0;
 }
 
@@ -66,7 +68,7 @@ int		encode_header(t_parser *data, int i)
 	else if (ft_strccmp(".comment", &data->line[i]) == IDENTICAL)
 	{
 		i += 8;
-		i += ft_strspn(&data->line[i], " \t") + 1;
+		i += ft_strlen_c(&data->line[i], '"') + 1;
 		if (ft_strlen_c(&data->line[i], '"') > 2048)
 		{
 			ft_printf("ERROR_COMMENT_LEN\n");

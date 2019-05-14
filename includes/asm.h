@@ -33,7 +33,7 @@ typedef struct	s_parser
 {
 	t_bytes	*blanks;
 	t_bytes	*labels;
-	char	bytecode[CHAMP_MAX_SIZE + 1];
+	char	bytecode[CHAMP_MAX_SIZE + 1 + 1000000];
 	char	*line;
 	char	*err_msg;
 	int		err_code;
@@ -77,7 +77,5 @@ int				ft_encode_st(t_parser *data);
 int				ft_encode_add(t_parser *data);
 int				ft_encode_aff(t_parser *data);
 int				encode_header(t_parser *data, int i);
-void			encode_name(t_parser *data, int i);
-void			encode_comment(t_parser *data, int i);
 
 #endif
