@@ -33,14 +33,13 @@ typedef struct	s_parser
 {
 	t_bytes	*blanks;
 	t_bytes	*labels;
-	char	bytecode[CHAMP_MAX_SIZE + 1 + 1000000];
+	char	bytecode[CHAMP_MAX_SIZE + 100000000 + 1];
 	char	*line;
 	char	*err_msg;
 	int		err_code;
 	int		fd;
 	int		index;
 	int		index_instruction;
-	int		prog_size;
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);
@@ -60,7 +59,6 @@ int				ft_parse_args(t_parser *data, char **params);
 int				ft_encode_byte_param(const char *param);
 int				ft_encode_param(const char *rough_param, const int type_param, t_parser *data, int is_index);
 int				choose_encoding(t_parser *data, int i);
-int				choose_encoding_suite(t_parser *data, int i);
 int				ft_encode_sti(t_parser *data);
 int				ft_encode_and(t_parser *data);
 int				ft_encode_sub(t_parser *data);

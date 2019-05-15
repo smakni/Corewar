@@ -4,7 +4,6 @@ int				ft_encode_fork(t_parser *data)
 {
 	int		i;
 
-	data->prog_size += 3;
 	data->bytecode[data->index] = 12;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 4;

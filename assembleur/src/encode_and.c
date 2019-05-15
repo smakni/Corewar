@@ -11,7 +11,6 @@ int				ft_encode_and(t_parser *data)
 	int		i;
 	char	**params;
 
-	data->prog_size += 8;
 	data->bytecode[data->index] = 6;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 3;

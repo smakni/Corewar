@@ -12,7 +12,10 @@ int		ft_encode_byte_param(const char *param)
 		return (0b10);
 	if (!(trimmed = ft_strtrim(param)))
 		return (FAIL);
-	if (ft_str_is_numeric(trimmed))
+	i = 0;
+	if (trimmed[i] == '-')
+		i++;
+	if (ft_str_is_numeric(&trimmed[i]))
 		return (0b11);
 	return (FAIL);
 }

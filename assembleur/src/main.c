@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/15 13:02:14 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/15 15:45:05 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ static int	clean_quit(t_parser **data, const int ret)
 int		save_label_address(t_parser *data)
 {
 	t_bytes	*elem;
+	int 	i;
 
 	if (!(elem = bytes_init(data)))
 		return (FAIL);
-	if (!(elem->label = ft_strcdup(data->line, ':')))
+	i = ft_strspn(data->line, " \t");
+	if (!(elem->label = ft_strcdup(&data->line[i], ':')))
 	{
 		data->err_code = 2;
 		data->err_msg = "Fail to malloc a char*";
@@ -47,7 +49,9 @@ void	line_parser(t_parser *data, int i, int label_flag)
 {
 	while (data->line[i])
 	{
-		if (data->line[i] == '.')
+		if (data->line[i] == '#')
+			return ;
+		else if (data->line[i] == '.')
 		{
 			encode_header(data, i);
 			break ;
@@ -98,7 +102,7 @@ void	write_prog_size(t_parser *data)
 {
 	int tmp;
 
-	tmp = data->prog_size;
+	tmp = data->index - 2192;
 	data->bytecode[136] = tmp >> 24;
 	data->bytecode[137] = tmp >> 16;
 	data->bytecode[138] = tmp >> 8;
