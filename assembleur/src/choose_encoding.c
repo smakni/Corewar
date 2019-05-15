@@ -1,20 +1,52 @@
 #include"../../includes/asm.h"
 
-static int 		ft_strlen_c(char *str, char c)
+static int	clean_quit(char **tmp, const int ret)
 {
-	int i;
+	ft_strdel(tmp);
+	return (ret);
+}
 
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	return (i);
+static char *insert_space(t_parser *data, char *tmp)
+{
+	char	*tmp2;
+	int 	j;
+
+	j = 0;
+	tmp2 = NULL;
+	while (tmp[j] && tmp[j] != ' ' && tmp[j] != '\t' 
+				&& tmp[j] != '%' && tmp[j] != ':')
+		j++;
+	if (tmp[j] == '%' || tmp[j] == ':')
+	{
+		j = 0;
+		if (!(tmp2 = ft_memalloc(sizeof(char) * ((ft_strlen(tmp) + 2)))))
+		{
+			data->err_code = 2;
+			data->err_msg = "Fail to malloc a char*";
+			return (NULL);
+		}
+		while (tmp[j] != '%' && tmp[j] != ':')
+		{
+			tmp2[j] = tmp[j];
+			j++;
+		}
+		tmp2[j++] = ' ';
+		while (tmp[j - 1])
+		{
+			tmp2[j] = tmp[j - 1];
+			j++;
+		}
+	}
+	return (tmp2);
 }
 
 static int		ft_format_line(t_parser *data, int i)
 {
 	char *tmp;
+	char *tmp2;
 
-	tmp = NULL;
+	data->index_instruction = data->index;
+	ft_printf("line = %s\n", &data->line[i]);
 	if (ft_strrchr(data->line, '#'))
 	{
 		if (!(tmp = ft_strsub(data->line, i, ft_strlen_c(&data->line[i], '#'))))
@@ -28,9 +60,14 @@ static int		ft_format_line(t_parser *data, int i)
 	else
 		if (!(tmp = ft_strdup(&data->line[i])))
 			return (FAIL);
+	tmp2 = insert_space(data, tmp);
+	if (data->err_code != 0)
+		return (clean_quit(&tmp, FAIL));
 	ft_strdel(&data->line);
-	data->line = tmp;
-	data->index_instruction = data->index;
+	data->line = (tmp2 == NULL) ? tmp : tmp2;
+	ft_printf("format_line = %s\n", data->line);
+	if (tmp2)
+		ft_strdel(&tmp);
 	return (SUCCESS);
 }
 

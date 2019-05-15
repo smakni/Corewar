@@ -39,4 +39,5 @@ void	ft_fill_addr(t_parser *data)
 		}
 		ft_del_byte_elem(&data->labels, data->labels);
 	}
+	//ft_printf("blanks = %p\n", data->blanks);
 }

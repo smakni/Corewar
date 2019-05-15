@@ -14,6 +14,7 @@ t_parser	*parser_init(void)
 	new->err_code = 0;
 	new->err_msg = NULL;
 	new->fd = -1;
+	new->comment_flag = 0;
 	return (new);
 }
 

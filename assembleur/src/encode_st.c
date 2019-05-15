@@ -12,14 +12,12 @@ int				ft_encode_st(t_parser *data)
 	int		i;
 	char	**params;
 
-	ft_printf(">>>>ST<<<<<\n");
 	data->bytecode[data->index] = 3;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 2;
 	i += ft_strspn(&data->line[i], " \t");
 	if (!(params = ft_strsplit(&data->line[i], ',')))
 		return (FAIL);
-	ft_printtab(params);
 	if (ft_arrlen((void*)params) != 2)
 		return (clean_quit((void*)params, FAIL));
 	if (!(ft_parse_args(data, params)))

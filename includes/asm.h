@@ -40,6 +40,7 @@ typedef struct	s_parser
 	int		fd;
 	int		index;
 	int		index_instruction;
+	int		comment_flag;
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);
@@ -76,5 +77,6 @@ int				ft_encode_st(t_parser *data);
 int				ft_encode_add(t_parser *data);
 int				ft_encode_aff(t_parser *data);
 int				encode_header(t_parser *data, int i);
+int				ft_strlen_c(const char *str, char c);
 
 #endif

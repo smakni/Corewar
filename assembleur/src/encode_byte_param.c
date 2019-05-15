@@ -15,7 +15,7 @@ int		ft_encode_byte_param(const char *param)
 	i = 0;
 	if (trimmed[i] == '-')
 		i++;
-	if (ft_str_is_numeric(&trimmed[i]))
+	if (ft_str_is_numeric(&trimmed[i]) || trimmed[0] == ':')
 		return (0b11);
 	return (FAIL);
 }

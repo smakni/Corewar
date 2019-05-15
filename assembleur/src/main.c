@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/15 15:45:05 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/15 18:41:09 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,32 @@ int		save_label_address(t_parser *data)
 	return (SUCCESS);
 }
 
-void	line_parser(t_parser *data, int i, int label_flag)
+int		line_parser(t_parser *data, int i, int label_flag)
 {
 	while (data->line[i])
 	{
 		if (data->line[i] == '#')
-			return ;
+			return (SUCCESS);
 		else if (data->line[i] == '.')
 		{
-			encode_header(data, i);
-			break ;
+			if (!(encode_header(data, i)))
+				return (FAIL);
 		}
 		else if (data->line[i] == ':') 
 			label_flag = save_label_address(data);
-		else if (data->line[i] == ' ' || data->line[i] == '\t')
+		else if (data->line[i] == ' ' || data->line[i] == '\t' || data->line[i] == '%')
 		{
 			if (label_flag == 0)
 				i = 0;
 			i += ft_strspn(&data->line[i], " \t");
+			ft_printf("parsing = %s\n", &data->line[i]);
 			if (choose_encoding(data, i) == -1)
 				ft_printf("ERROR\n");
 			break ;
 		}
 		i++;
 	}
+	return (SUCCESS);
 }
 
 int		reader(t_parser *data)
@@ -81,7 +83,8 @@ int		reader(t_parser *data)
 		//ft_printf("READ>>{%s}\n", data->line);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
-		line_parser(data, i, label_flag);
+		if (!(line_parser(data, i, label_flag)))
+			return (FAIL);
 		ft_strdel(&data->line);
 	}
 	return (SUCCESS);
@@ -120,7 +123,8 @@ int		main(int ac, char **av)
 			return (clean_quit(NULL, 1));
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
-		reader(data);
+		if (!(reader(data)))
+			return (1);
 		close(data->fd);
 		ft_fill_addr(data);
 		write_prog_size(data);
