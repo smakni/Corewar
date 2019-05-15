@@ -12,7 +12,7 @@ int				ft_encode_lldi(t_parser *data)
 	int		i;
 	char	**params;
 
-	data->bytecode[139] += 7;
+	data->prog_size += 7;
 	data->bytecode[data->index] = 14;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 4;

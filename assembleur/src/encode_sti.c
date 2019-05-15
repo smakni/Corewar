@@ -11,7 +11,8 @@ int				ft_encode_sti(t_parser *data)
 	int		i;
 	char	**params;
 
-	data->bytecode[139] += 7;
+//	check_param_encode for instrucution size
+	data->prog_size += 6;
 	data->bytecode[data->index] = 11;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 3;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vm <vm@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/15 00:37:29 by vm               ###   ########.fr       */
+/*   Updated: 2019/05/15 13:02:14 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		reader(t_parser *data)
 	
 	while (get_next_line(data->fd, &data->line) > 0)
 	{
-//		ft_printf("READ>>{%s}\n", data->line);
+		//ft_printf("READ>>{%s}\n", data->line);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
 		line_parser(data, i, label_flag);
@@ -94,6 +94,17 @@ int		reader(t_parser *data)
 // 	return (SUCCESS);
 // }
 
+void	write_prog_size(t_parser *data)
+{
+	int tmp;
+
+	tmp = data->prog_size;
+	data->bytecode[136] = tmp >> 24;
+	data->bytecode[137] = tmp >> 16;
+	data->bytecode[138] = tmp >> 8;
+	data->bytecode[139] = tmp;
+}
+
 int		main(int ac, char **av)
 {
 	t_parser	*data;
@@ -106,11 +117,9 @@ int		main(int ac, char **av)
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
 		reader(data);
-//			ft_printf("END_READ\n\n");
-//		ft_printf("\n>>>>BYTECODE<<<<\n%i\n", data->index);
-//		write(1, data->bytecode, data->index);
 		close(data->fd);
 		ft_fill_addr(data);
+		write_prog_size(data);
 		ft_write_cor(data, av[1]);
 	}
 	return (0);

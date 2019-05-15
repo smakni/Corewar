@@ -4,7 +4,7 @@ int				ft_encode_lfork(t_parser *data)
 {
 	int		i;
 
-	data->bytecode[139] += 3;
+	data->prog_size += 3;
 	data->bytecode[data->index] = 15;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 5;

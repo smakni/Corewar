@@ -40,6 +40,7 @@ typedef struct	s_parser
 	int		fd;
 	int		index;
 	int		index_instruction;
+	int		prog_size;
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);

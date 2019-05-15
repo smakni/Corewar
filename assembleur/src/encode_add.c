@@ -12,7 +12,7 @@ int				ft_encode_add(t_parser *data)
 	int		i;
 	char	**params;
 
-	data->bytecode[139] += 5;
+	data->prog_size += 5;
 	data->bytecode[data->index] = 4;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 3;
