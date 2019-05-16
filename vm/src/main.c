@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/16 17:32:20 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:57:37 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static void	ft_print_memory(t_env *env)
 	int		i;
 
 	i = 0;
-/*	while (i < 4096)
+	while (i < 4096)
 	{
 		ft_printf("%.2x ", env->memory[i]);
 		i++;
 		if (i % 64 == 0)
 			ft_putendl("");
-	}*/
+	}
 	i = 0;
 	while (i < env->nb_champs)
 	{
@@ -47,6 +47,7 @@ int			main(int argc, char **argv)
 		ft_parse_argc(argc, argv, &env);
 	else
 		return (ft_display_commands());
+	write_champ(&env, argv[1]);
 	ft_print_memory(&env);
 	return (0);
 }

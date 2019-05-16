@@ -50,7 +50,8 @@ SRCS_P1	=	$(addprefix $(ASM_PATH),$(SOURCES_P1))
 OBJS_P1	=	$(addprefix $(DIR_O_P1),$(SOURCES_P1:.c=.o))
 
 SOURCES_P2	=	main.c\
-				ft_parse_argc.c
+				ft_parse_argc.c\
+				write_champ.c
 
 HDR		=	$(HDR_PATH)/
 
