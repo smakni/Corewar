@@ -9,34 +9,33 @@ static int	clean_quit(char **tmp, const int ret)
 static char *insert_space(t_parser *data, char *tmp)
 {
 	char	*tmp2;
+	char	*tmp3;
 	int 	j;
 
 	j = 0;
 	tmp2 = NULL;
-	while (tmp[j] && tmp[j] != ' ' && tmp[j] != '\t' 
-				&& tmp[j] != '%' && tmp[j] != ':')
-		j++;
-	if (tmp[j] == '%' || tmp[j] == ':')
+	(void)data;
+	//check_error_code
+	while (tmp[j] && tmp[j + 1])
 	{
-		j = 0;
-		if (!(tmp2 = ft_memalloc(sizeof(char) * ((ft_strlen(tmp) + 2)))))
-		{
-			data->err_code = 2;
-			data->err_msg = "Fail to malloc a char*";
-			return (NULL);
-		}
-		while (tmp[j] != '%' && tmp[j] != ':')
-		{
-			tmp2[j] = tmp[j];
-			j++;
-		}
-		tmp2[j++] = ' ';
-		while (tmp[j - 1])
-		{
-			tmp2[j] = tmp[j - 1];
-			j++;
-		}
+		if (tmp[j] == ' ' || tmp[j] == '\t' || tmp[j] == '%' 
+			|| tmp[j] == ':' || ft_isdigit(tmp[j]) || tmp[j] == '-')
+			break ;
+		if (tmp[j] == 'r' && ft_isdigit(tmp[j + 1]))
+			break ;
+		j++;
 	}
+	if (tmp[j] == '\0' || tmp[j] == ' ' || tmp[j] == '\t')
+		return (tmp2);
+	if (!(tmp2 = ft_memjoin((void *)tmp, j, (void *)" ", 1)))
+		return (FAIL);
+	tmp3 = tmp2;
+	if (!(tmp2 = ft_strjoin(tmp2, &tmp[j])))
+	{
+		ft_strdel(&tmp3);
+		return (FAIL);
+	}
+	ft_strdel(&tmp3);
 	return (tmp2);
 }
 
@@ -46,7 +45,7 @@ static int		ft_format_line(t_parser *data, int i)
 	char *tmp2;
 
 	data->index_instruction = data->index;
-	ft_printf("line = %s\n", &data->line[i]);
+	ft_printf("init_line = %s\n", &data->line[i]);
 	if (ft_strrchr(data->line, '#'))
 	{
 		if (!(tmp = ft_strsub(data->line, i, ft_strlen_c(&data->line[i], '#'))))

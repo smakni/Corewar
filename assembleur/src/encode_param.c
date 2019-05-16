@@ -77,7 +77,6 @@ int			ft_encode_param(const char *rough_param, const int type_param, t_parser *d
 	i = 0;
 	if (!(param = ft_strtrim(rough_param)))
 		return (FAIL);
-	//ft_printf("param = {%s}\n", rough_param);
 	if (T_REG & type_param)
 		if (param[0] == 'r')
 			return (ft_encode_register(param, data));

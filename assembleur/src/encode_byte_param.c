@@ -7,15 +7,15 @@ int		ft_encode_byte_param(const char *param)
 
 	i = ft_strspn(param, " \t");
 	if (param[i] == 'r')
-		return (0b01);
+		return (REG_CODE);
 	if (param[i] == '%')
-		return (0b10);
+		return (DIR_CODE);
 	if (!(trimmed = ft_strtrim(param)))
 		return (FAIL);
 	i = 0;
 	if (trimmed[i] == '-')
 		i++;
 	if (ft_str_is_numeric(&trimmed[i]) || trimmed[0] == ':')
-		return (0b11);
+		return (IND_CODE);
 	return (FAIL);
 }

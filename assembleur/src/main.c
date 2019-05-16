@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/15 18:41:09 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/16 14:47:10 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,21 @@ int		line_parser(t_parser *data, int i, int label_flag)
 		{
 			if (!(encode_header(data, i)))
 				return (FAIL);
+			break ;
 		}
-		else if (data->line[i] == ':') 
-			label_flag = save_label_address(data);
-		else if (data->line[i] == ' ' || data->line[i] == '\t' || data->line[i] == '%')
+		else if (data->line[i] == ':' && label_flag == 0)
 		{
+			label_flag = i + 1;
+			save_label_address(data);
+		}
+		else if (data->line[i] == ' ' || data->line[i] == '\t' || data->line[i] == '%' 
+				|| data->line[i] == ':')
+		{
+			ft_printf("OPPPP\n");
 			if (label_flag == 0)
 				i = 0;
+			else
+				i = label_flag;
 			i += ft_strspn(&data->line[i], " \t");
 			ft_printf("parsing = %s\n", &data->line[i]);
 			if (choose_encoding(data, i) == -1)
