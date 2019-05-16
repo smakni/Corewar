@@ -14,7 +14,6 @@ static char *insert_space(t_parser *data, char *tmp)
 
 	j = 0;
 	tmp2 = NULL;
-	(void)data; //check_error_code
 	while (tmp[j] && tmp[j + 1])
 	{
 		if (tmp[j] == ' ' || tmp[j] == '\t' || tmp[j] == '%' 
@@ -73,6 +72,8 @@ static int		ft_format_line(t_parser *data, int i)
 
 static int		choose_encoding_suite(t_parser *data)
 {
+	if (ft_strccmp("fork", data->line) == IDENTICAL)
+		return (ft_encode_fork(data));
 	if (ft_strccmp("lld", data->line) == IDENTICAL)
 		return (ft_encode_lld(data));
 	if (ft_strccmp("lldi", data->line) == IDENTICAL)
@@ -81,12 +82,15 @@ static int		choose_encoding_suite(t_parser *data)
 		return (ft_encode_lfork(data));
 	if (ft_strccmp("aff", data->line) == IDENTICAL)
 		return (ft_encode_aff(data));
+	data->err_code = 7;
+	data->err_msg = "Invalid instruction near line ";
 	return (FAIL);
 }
 
 int		choose_encoding(t_parser *data, int i)
 {
-	ft_format_line(data, i);
+	if (!(ft_format_line(data, i)))
+		return (FAIL);
 	if (ft_strccmp("live", data->line) == IDENTICAL)
 		return (ft_encode_live(data));
 	if (ft_strccmp("ld", data->line) == IDENTICAL)
@@ -109,7 +113,5 @@ int		choose_encoding(t_parser *data, int i)
 		return (ft_encode_ldi(data));
 	if (ft_strccmp("sti", data->line) == IDENTICAL)
 		return (ft_encode_sti(data));
-	if (ft_strccmp("fork", data->line) == IDENTICAL)
-		return (ft_encode_fork(data));
 	return (choose_encoding_suite(data));
 }

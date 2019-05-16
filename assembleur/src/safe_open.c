@@ -19,7 +19,7 @@ int			safe_open(const char *pathname, t_parser *data, const int flags)
 	if (fd < 0)
 	{
 		data->err_code = 1;
-		data->err_msg = "Open() failed: Please, check permissions or pathname.";
+		data->err_msg = "Can't read source file ";
 		return (FAIL);
 	}
 	if (!(flags & O_CREAT))

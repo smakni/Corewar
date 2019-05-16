@@ -22,10 +22,15 @@ static int	clean_quit(t_parser **data, const int ret)
 	if ((*data)->err_code > 0)
 	{
 		ft_printf("{red}%s", (*data)->err_msg);
-		if ((*data)->err_code == 3 || (*data)->err_code == 4)
+		if ((*data)->err_code == 1)
+			ft_printf("%s", (*data)->pathname);
+		else if (ft_instr((*data)->err_code + 48, "347"))
 			ft_printf("%i", (*data)->nb_line);
 		ft_printf(".\n{reset}");
 	}
+	ft_bytesdel(&(*data)->labels);
+	ft_bytesdel(&(*data)->blanks);
+	close((*data)->fd);
 	ft_strdel(&(*data)->line);
 	ft_memdel((void*)data);
 	return (ret);
@@ -65,10 +70,11 @@ int		line_parser(t_parser *data, int i, int label_flag)
 		else if (data->line[i] == ':' && label_flag == 0)
 		{
 			label_flag = i + 1;
-			save_label_address(data);
+			if (!(save_label_address(data)))
+				return (FAIL);
 		}
-		else if (data->line[i] == ' ' || data->line[i] == '\t' || data->line[i] == '%' 
-				|| data->line[i] == ':')
+		else if (data->line[i] == ' ' || data->line[i] == '\t'
+			|| data->line[i] == '%' || data->line[i] == ':')
 		{
 			if (label_flag == 0)
 				i = 0;
@@ -88,8 +94,9 @@ int		reader(t_parser *data)
 {
 	int i;
 	int label_flag;
-	
-	while (get_next_line(data->fd, &data->line, &data->eol) > 0)
+	int	ret;
+
+	while ((ret = get_next_line(data->fd, &data->line, &data->eol)) > 0)
 	{
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
@@ -97,12 +104,19 @@ int		reader(t_parser *data)
 		{
 			data->err_code = 5;
 			data->err_msg = "Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)";
+			ft_strdel(&data->line);
 			return (FAIL);
 		}
 		if (!(line_parser(data, i, label_flag)))
 			return (FAIL);
 		ft_strdel(&data->line);
 		data->nb_line++;
+	}
+	if (ret == -1)
+	{
+		data->err_code = 4;
+		data->err_msg = "Syntax error near line ";
+		return (FAIL);
 	}
 	return (SUCCESS);
 }
@@ -125,7 +139,7 @@ int		main(int ac, char **av)
 	data = NULL;
 	if (ac == 2)
 	{
-		if (!(data = parser_init()))
+		if (!(data = parser_init(av[1])))
 			return (clean_quit(NULL, 1));
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));

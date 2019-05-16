@@ -88,7 +88,7 @@ static int		read_fd(int fd, t_file *list)
 	{
 		ret = read(fd, buf, BUFF_SIZE);
 		buf[ret] = '\0';
-		if (!(list->str = ft_strjoin(list->str, buf)))
+		if (!(list->str = ft_strjoin(list->str, buf)) || buf[0] == '\0')
 			return (-1);
 	}
 	while (!ft_strchr(list->str, '\n') && ret >= 0)

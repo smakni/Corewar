@@ -3,7 +3,7 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 
 0 : Pas d'erreur, les traitement a ete correctement effectue.
 1 : Erreur d'ouverture de fichier.
-	->	"Fail to open %pathname%."
+	-> "Can't read source file %s."
 2 : Erreur d'allocation memoire.
 	->	"Fail to malloc."
 3 : Erreur de syntax.
@@ -12,3 +12,7 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Invalid parameter near line %i."
 5 : Pas de ligne vide a la fin du fichier.
 	->	"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)"
+6 : Echec lors de la creation du fichier .cor
+	->	"Fail to create .cor file."
+7 : Instruction invalide
+	->	"Invalid instruction near line %i."

@@ -34,6 +34,7 @@ typedef struct	s_parser
 	t_bytes	*blanks;
 	t_bytes	*labels;
 	char	bytecode[CHAMP_MAX_SIZE + 100000000 + 1];
+	char	*pathname;
 	char	*line;
 	int		nb_line;
 	char	*err_msg;
@@ -47,13 +48,18 @@ typedef struct	s_parser
 
 int				ft_strccmp(const char *s1, const char *s2);
 int				ft_memorize_blank_label(const char *param, t_parser *data, int is_index);
-t_parser		*parser_init(void);
-t_bytes			*bytes_init(t_parser *data);
 int				ft_write_cor(t_parser *data, const char *path_name);
 int				safe_open(const char *pathname, t_parser *data, const int flags);
 
-void	ft_add_byte_elem(t_bytes **list, t_bytes *elem);
-void	ft_del_byte_elem(t_bytes **list, t_bytes *elem);
+void			ft_add_byte_elem(t_bytes **list, t_bytes *elem);
+void			ft_del_byte_elem(t_bytes **list, t_bytes *elem);
+
+/*	MEMORY FUNCTIONS	*/
+
+t_parser		*parser_init(char *av);
+t_bytes			*bytes_init(t_parser *data);
+void			ft_bytesdel(t_bytes **list);
+
 
 /*	ENCODING FUNCTIONS	*/
 
