@@ -8,7 +8,7 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Fail to malloc."
 3 : Erreur de syntax.
 	->	"Syntax error near line %i."
-4 : Parametre invalid.
+4 : Parametre invalide.
 	->	"Invalid parameter near line %i."
 5 : Pas de ligne vide a la fin du fichier.
 	->	"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)"
@@ -16,3 +16,5 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Fail to create .cor file."
 7 : Instruction invalide
 	->	"Invalid instruction near line %i."
+8 : Erreur lexicale
+	->	"Lexical error near line %i."

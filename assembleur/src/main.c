@@ -24,7 +24,7 @@ static int	clean_quit(t_parser **data, const int ret)
 		ft_printf("{red}%s", (*data)->err_msg);
 		if ((*data)->err_code == 1)
 			ft_printf("%s", (*data)->pathname);
-		else if (ft_instr((*data)->err_code + 48, "347"))
+		else if (ft_instr((*data)->err_code + 48, "3478"))
 			ft_printf("%i", (*data)->nb_line);
 		ft_printf(".\n{reset}");
 	}
