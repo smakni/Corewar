@@ -11,7 +11,6 @@ int				ft_encode_sti(t_parser *data)
 	int		i;
 	char	**params;
 
-	//ft_printf(">>>STI<<<<\n");
 	data->bytecode[data->index] = 11;
 	data->index++;
 	i = ft_strspn(data->line, " \t") + 3;
@@ -24,12 +23,9 @@ int				ft_encode_sti(t_parser *data)
 		return (clean_quit((void*)params, FAIL));
 	if (!(ft_encode_param(params[0], T_REG, data, 1)))
 		return (clean_quit((void*)params, FAIL));
-	//ft_printf(">>>END_1<<<<\n");
 	if (!(ft_encode_param(params[1], T_REG | T_DIR | T_IND, data, 1)))
 		return (clean_quit((void*)params, FAIL));
-	//ft_printf(">>>END_2<<<<\n");
 	if (!(ft_encode_param(params[2], T_REG | T_DIR, data, 1)))
 		return (clean_quit((void*)params, FAIL));
-	//ft_printf(">>>END_3<<<<\n");
 	return (clean_quit((void*)params, SUCCESS));
 }

@@ -1,8 +1,7 @@
 .name "korZ"
-.comment "i'm Zork"          
-
-	aff r15
-
+.comment "i'm Zork"
+	sti r1,%:live,%255
+	ld %0,r16
 live:
-	live r1
-
+	live %10
+	zjmp %:live

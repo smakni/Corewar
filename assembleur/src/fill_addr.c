@@ -21,8 +21,6 @@ void	ft_fill_addr(t_parser *data)
 		while ((tmp = search_data(data->blanks, data->labels->label)))
 		{
 			replace = data->labels->index - tmp->index_instruction;
-			/*if (ft_strcmp(data->labels->label, "bite") == 0)
-				ft_printf("data->labels->index = %i\ntmp->index_instrucution = %i\nreplace = %i\n\n", data->labels->index, tmp->index_instruction, replace);*/
 			if (tmp->size == 4)
 			{
 				data->bytecode[tmp->index] = replace >> 24;
@@ -39,5 +37,4 @@ void	ft_fill_addr(t_parser *data)
 		}
 		ft_del_byte_elem(&data->labels, data->labels);
 	}
-	//ft_printf("blanks = %p\n", data->blanks);
 }

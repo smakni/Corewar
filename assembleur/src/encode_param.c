@@ -92,5 +92,8 @@ int			ft_encode_param(const char *rough_param, const int type_param, t_parser *d
 		if (param[0] == ':')
 			return (ft_memorize_blank_label(param, data, is_index));
 	}
+	ft_strdel(&param);
+	data->err_code = 4;
+	data->err_msg = "Invalid parameter near line ";
 	return (FAIL);
 }

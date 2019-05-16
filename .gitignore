@@ -7,3 +7,4 @@
 *.o
 *.cor
 *.dSYM
+*.DS_Store

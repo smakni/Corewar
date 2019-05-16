@@ -14,26 +14,29 @@ static char *insert_space(t_parser *data, char *tmp)
 
 	j = 0;
 	tmp2 = NULL;
-	(void)data;
-	//check_error_code
+	(void)data; //check_error_code
 	while (tmp[j] && tmp[j + 1])
 	{
 		if (tmp[j] == ' ' || tmp[j] == '\t' || tmp[j] == '%' 
 			|| tmp[j] == ':' || ft_isdigit(tmp[j]) || tmp[j] == '-')
 			break ;
 		if (tmp[j] == 'r' && ft_isdigit(tmp[j + 1]))
-			break ;
+		{
+			data->err_code = 3;
+			data->err_msg = "Syntax error near line ";
+			return (NULL);
+		}
 		j++;
 	}
 	if (tmp[j] == '\0' || tmp[j] == ' ' || tmp[j] == '\t')
 		return (tmp2);
 	if (!(tmp2 = ft_memjoin((void *)tmp, j, (void *)" ", 1)))
-		return (FAIL);
+		return (NULL);
 	tmp3 = tmp2;
 	if (!(tmp2 = ft_strjoin(tmp2, &tmp[j])))
 	{
 		ft_strdel(&tmp3);
-		return (FAIL);
+		return (NULL);
 	}
 	ft_strdel(&tmp3);
 	return (tmp2);
@@ -45,7 +48,6 @@ static int		ft_format_line(t_parser *data, int i)
 	char *tmp2;
 
 	data->index_instruction = data->index;
-	ft_printf("init_line = %s\n", &data->line[i]);
 	if (ft_strrchr(data->line, '#'))
 	{
 		if (!(tmp = ft_strsub(data->line, i, ft_strlen_c(&data->line[i], '#'))))
@@ -64,7 +66,6 @@ static int		ft_format_line(t_parser *data, int i)
 		return (clean_quit(&tmp, FAIL));
 	ft_strdel(&data->line);
 	data->line = (tmp2 == NULL) ? tmp : tmp2;
-	ft_printf("format_line = %s\n", data->line);
 	if (tmp2)
 		ft_strdel(&tmp);
 	return (SUCCESS);

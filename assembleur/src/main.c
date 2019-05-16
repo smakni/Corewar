@@ -20,7 +20,12 @@ static int	clean_quit(t_parser **data, const int ret)
 		return (ret);
 	}
 	if ((*data)->err_code > 0)
-		ft_printf("{red}%s{reset}\n", (*data)->err_msg);
+	{
+		ft_printf("{red}%s", (*data)->err_msg);
+		if ((*data)->err_code == 3 || (*data)->err_code == 4)
+			ft_printf("%i", (*data)->nb_line);
+		ft_printf(".\n{reset}");
+	}
 	ft_strdel(&(*data)->line);
 	ft_memdel((void*)data);
 	return (ret);
@@ -65,15 +70,13 @@ int		line_parser(t_parser *data, int i, int label_flag)
 		else if (data->line[i] == ' ' || data->line[i] == '\t' || data->line[i] == '%' 
 				|| data->line[i] == ':')
 		{
-			ft_printf("OPPPP\n");
 			if (label_flag == 0)
 				i = 0;
 			else
 				i = label_flag;
 			i += ft_strspn(&data->line[i], " \t");
-			ft_printf("parsing = %s\n", &data->line[i]);
-			if (choose_encoding(data, i) == -1)
-				ft_printf("ERROR\n");
+			if (!(choose_encoding(data, i)))
+				return (FAIL);
 			break ;
 		}
 		i++;
@@ -86,28 +89,23 @@ int		reader(t_parser *data)
 	int i;
 	int label_flag;
 	
-	while (get_next_line(data->fd, &data->line) > 0)
+	while (get_next_line(data->fd, &data->line, &data->eol) > 0)
 	{
-		//ft_printf("READ>>{%s}\n", data->line);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
+		if (data->eol == 1 && data->line[i] != '\0')
+		{
+			data->err_code = 5;
+			data->err_msg = "Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)";
+			return (FAIL);
+		}
 		if (!(line_parser(data, i, label_flag)))
 			return (FAIL);
 		ft_strdel(&data->line);
+		data->nb_line++;
 	}
 	return (SUCCESS);
 }
-
-// static int 	print_list(t_bytes *list)
-// {
-// 	ft_printf("addr list => %p\n", list);
-// 	while (list)
-// 	{
-// 		ft_printf("Label -> %s | %i | %i\n", list->label, list->index, list->size);
-// 		list = list->next;
-// 	}
-// 	return (SUCCESS);
-// }
 
 void	write_prog_size(t_parser *data)
 {
@@ -132,11 +130,13 @@ int		main(int ac, char **av)
 		if (safe_open(av[1], data, O_RDONLY) == FAIL)
 			return (clean_quit(&data, 1));
 		if (!(reader(data)))
-			return (1);
+			return (clean_quit(&data, 1));
 		close(data->fd);
 		ft_fill_addr(data);
 		write_prog_size(data);
 		ft_write_cor(data, av[1]);
+		ft_strdel(&data->line);
+		ft_memdel((void*)&data);
 	}
 	return (0);
 }

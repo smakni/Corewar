@@ -275,7 +275,7 @@ char				*ft_strndup(const char *s, size_t n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 void				ft_printtab(char **tab);
 void				ft_strrev(char *s);
-int					get_next_line(const int fd, char **line);
+int					get_next_line(const int fd, char **line, int *eol);
 void				print_bits(unsigned char c);
 void				ft_putchar_err(char c);
 void				ft_putstr_err(char *str);

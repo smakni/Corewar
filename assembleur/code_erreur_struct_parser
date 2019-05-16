@@ -6,3 +6,9 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Fail to open %pathname%."
 2 : Erreur d'allocation memoire.
 	->	"Fail to malloc."
+3 : Erreur de syntax.
+	->	"Syntax error near line %i."
+4 : Parametre invalid.
+	->	"Invalid parameter near line %i."
+5 : Pas de ligne vide a la fin du fichier.
+	->	"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)"
