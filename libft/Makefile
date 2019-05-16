@@ -181,7 +181,8 @@ SRCS	=	ft_memset.c		\
 			parse_format.c\
 			select_conversion.c\
 			ft_lstadd_back.c\
-			ft_lstpop.c
+			ft_lstpop.c\
+			ft_arrjoin.c
 
 DIR_O	=	temporary
 
