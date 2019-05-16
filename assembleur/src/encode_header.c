@@ -45,7 +45,7 @@ int		encode_multi_name(t_parser *data)
 	data->bytecode[data->index] = 0x0a;
 	ft_strdel(&data->line);
 	while (get_next_line(data->fd, &data->line, &data->eol) > 0 
-			&& ft_strchr(data->line, '\"') == NULL)
+		&& ft_strchr(data->line, '\"') == NULL)
 	{
 		if (!(encode_name(data, 0)))
 			return(FAIL);
@@ -64,16 +64,16 @@ int		encode_multi_comment(t_parser *data)
 	data->bytecode[data->index] = 0x0a;
 	ft_strdel(&data->line);
 	while (get_next_line(data->fd, &data->line, &data->eol) > 0 
-			&& ft_strchr(data->line, '\"') == NULL)
+		&& ft_strchr(data->line, '\"') == NULL)
 	{
 		if (!(encode_comment(data, 0)))
-			return(FAIL);
+			return (FAIL);
 		ft_strdel(&data->line);
 		data->bytecode[data->index] = 0x0a;
 		data->nb_line++;
 	}
 	if (!(encode_comment(data, 0)))
-		return(FAIL);
+		return (FAIL);
 	data->nb_line++;
 	return (SUCCESS);
 }
@@ -114,6 +114,12 @@ int		encode_header(t_parser *data, int i)
 				return (FAIL);
 		while (data->index < 0x890)
 			data->bytecode[data->index++] = 0;
+	}
+	else
+	{
+		data->err_code = 8;
+		data->err_msg = "Lexical error near line ";
+		return (FAIL);
 	}
 	return (SUCCESS);
 }

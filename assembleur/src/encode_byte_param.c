@@ -16,6 +16,10 @@ int		ft_encode_byte_param(const char *param)
 	if (trimmed[i] == '-')
 		i++;
 	if (ft_str_is_numeric(&trimmed[i]) || trimmed[0] == ':')
+	{
+		ft_strdel(&trimmed);
 		return (IND_CODE);
+	}
+	ft_strdel(&trimmed);
 	return (FAIL);
 }
