@@ -73,7 +73,6 @@ static void	ft_sort_argc(t_env *env, t_champ *tmp)
 void		ft_parse_argc(int argc, char **argv, t_env *env)
 {
 	int		i;
-	int		j;
 	t_champ	tmp[4];
 
 	ft_bzero(tmp, 4*sizeof(t_champ));

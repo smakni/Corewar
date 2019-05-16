@@ -41,7 +41,6 @@ static void	ft_print_memory(t_env *env)
 int			main(int argc, char **argv)
 {
 	t_env	env;
-	int		i;
 
 	ft_bzero(&env, sizeof(t_env));
 	if (argc > 1)

@@ -2,7 +2,7 @@ NAME_P1	=	asm
 NAME_P2	=	corewar
 
 ASM_PATH	=	assembleur/src/
-COR_PATH	=	corewar/src/
+COR_PATH	=	vm/src/
 
 LIB_PATH	=	libft/
 
@@ -49,9 +49,10 @@ SOURCES_P1	=	encode_param.c\
 SRCS_P1	=	$(addprefix $(ASM_PATH),$(SOURCES_P1))
 OBJS_P1	=	$(addprefix $(DIR_O_P1),$(SOURCES_P1:.c=.o))
 
-SOURCES_P2	=	
+SOURCES_P2	=	main.c\
+				ft_parse_argc.c
 
-HDR		=	$(HDR_PATH)/asm.h
+HDR		=	$(HDR_PATH)/
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
 OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))
@@ -64,7 +65,7 @@ RM		=	rm -f
 
 CLEAN	=	clean
 
-all		:	$(NAME_P1) #$(NAME_P2)
+all		:	$(NAME_P1) $(NAME_P2)
 
 $(LIB)	:
 			@make -C $(LIB_PATH)
@@ -73,9 +74,9 @@ $(NAME_P1)	:	$(OBJS_P1) $(HDR) $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
 				@echo "ASM	: assembleur has been successfully created."
 
-#$(NAME_P2)	:	$(OBJS_P2) $(HDR) $(LIB) Makefile
-				# @$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
-				# @echo "Corewar	: corewar has been successfully created."
+$(NAME_P2)	:	$(OBJS_P2) $(HDR) $(LIB) Makefile
+				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
+				@echo "Corewar	: corewar has been successfully created."
 			
 
 $(DIR_O_P1)%.o: $(ASM_PATH)%.c
@@ -83,19 +84,19 @@ $(DIR_O_P1)%.o: $(ASM_PATH)%.c
 		@mkdir -p temporary/tmp_asm
 		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
 
-# $(DIR_O_P2)/%.o: $(COR_PATH)/%.c
-# 		@mkdir -p temporary/tmp_push_swap
-# 		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
+$(DIR_O_P2)%.o: $(COR_PATH)%.c
+		@mkdir -p temporary/tmp_corewar
+		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
 
 clean	:
-			@$(RM) $(OBJS_P1)
+			@$(RM) $(OBJS_P1) $(OBJS_P2)
 			@rm -rf $(DIR_O)
 			@make clean -C $(LIB_PATH)
 			@echo "Corewar : All .o files have been deleted."
 
 fclean	:	clean
 			@make fclean -C $(LIB_PATH)
-			@$(RM) $(NAME_P1) $(LIB)
+			@$(RM) $(NAME_P1) $(NAME_P2) $(LIB)
 			@echo "Corewar	: exe have been deleted."
 
 re		:	fclean all
