@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/17 14:17:13 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/17 16:54:38 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ typedef struct	s_env
 
 void			ft_parse_argc(int argc, char **argv, t_env *env);
 void			write_champ(t_env *env);
+int				read_multi_bytes(unsigned char *line, int index, int nb_bytes);
 
 #endif
