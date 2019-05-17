@@ -31,19 +31,19 @@ typedef struct	s_bytes
 
 typedef struct	s_parser
 {
-	t_bytes	*blanks;
-	t_bytes	*labels;
-	char	bytecode[CHAMP_MAX_SIZE + 100000000 + 1];
-	char	*pathname;
-	char	*line;
-	int		nb_line;
-	char	*err_msg;
-	int		err_code;
-	int		fd;
-	int		index;
-	int		index_instruction;
-	int		comment_flag;
-	int		eol;
+	t_bytes			*blanks;
+	t_bytes			*labels;
+	unsigned char	bytecode[CHAMP_MAX_SIZE + 100000000 + 1];
+	char			*pathname;
+	char			*line;
+	int				nb_line;
+	char			*err_msg;
+	int				err_code;
+	int				fd;
+	int				index;
+	int				index_instruction;
+	int				comment_flag;
+	int				eol;
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);

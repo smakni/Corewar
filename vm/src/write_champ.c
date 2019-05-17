@@ -6,27 +6,37 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/16 19:41:58 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:42:37 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void	write_champ(t_env *env, char *argv)
+void	write_champ(t_env *env)
 {
 	int i;
+	int j;
 	int fd;
-	char line[4096];
+	int tmp;
+	unsigned char line[MAX_CHAMP_CODE_SIZE];
 
 	i = 0;
-	while (i < env->nb_champs)
+	j = 0;
+	tmp = 0;
+	while (j < env->nb_champs)
 	{
-		if (env->champ[i].player_nb == 1)
-		{
-			fd = open(argv, O_RDONLY);
-			read(fd, &line, 4096);
-			ft_memcpy(env->memory, &line[0x890], line[0x8b]);
-		}
-		i++;
+		ft_printf("CHAMP_NAME = %s\n", env->champ[j].name);
+		fd = open(env->champ[j].name, O_RDONLY);
+		ft_printf("FD = %d\n", fd);
+		read(fd, &line, MAX_CHAMP_CODE_SIZE);
+		tmp = line[0x8b];
+		tmp += line[0x8a] << 8;
+		if (tmp > MAX_CHAMP_CODE_SIZE)
+			ft_printf("SIZE_ERROR\n");
+		exit (0);
+		ft_memcpy(&env->memory[i], &line[0x890], line[0x8b]);
+		close(fd);
+		i += 1024;
+		j++;
 	}
 }

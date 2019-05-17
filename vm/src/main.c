@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/16 18:57:37 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/17 14:17:17 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			main(int argc, char **argv)
 		ft_parse_argc(argc, argv, &env);
 	else
 		return (ft_display_commands());
-	write_champ(&env, argv[1]);
+	write_champ(&env);
 	ft_print_memory(&env);
 	return (0);
 }
