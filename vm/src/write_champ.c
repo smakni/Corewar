@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/17 15:50:06 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:54:27 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	write_champ(t_env *env)
 			ft_printf("SIZE_ERROR\n");
 			exit (0);
 		}
-		ft_memcpy(&env->memory[i], &line[0x890], line[0x8b]);
+		ft_memcpy(&env->memory[i], &line[0x890], tmp);
 		close(fd);
 		i += 4096 / env->nb_champs;
 		j++;
