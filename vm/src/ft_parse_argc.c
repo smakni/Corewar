@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/16 18:05:48 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:51:34 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	ft_check_duplicate(t_champ *tmp, int nb)
 	int		j;
 
 	i = 0;
-	ft_printf("nb:%d\n", nb);
 	while (i < nb)
 	{
 		j = 0;
