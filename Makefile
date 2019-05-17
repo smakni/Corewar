@@ -62,6 +62,8 @@ CC		=	clang
 
 CFLAGS	=	-Wall -Werror -Wextra
 
+FFLAGS	=	-g3
+
 RM		=	rm -f
 
 CLEAN	=	clean
@@ -78,7 +80,6 @@ $(NAME_P1)	:	$(OBJS_P1) $(HDR) $(LIB) Makefile
 $(NAME_P2)	:	$(OBJS_P2) $(HDR) $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
 				@echo "Corewar	: corewar has been successfully created."
-			
 
 $(DIR_O_P1)%.o: $(ASM_PATH)%.c
 		@mkdir -p temporary
@@ -88,6 +89,10 @@ $(DIR_O_P1)%.o: $(ASM_PATH)%.c
 $(DIR_O_P2)%.o: $(COR_PATH)%.c
 		@mkdir -p temporary/tmp_corewar
 		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
+
+sanitize:
+			@$(CC) $(CFLAGS) $(FFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
+			@echo "Corewar	: corewar in debug mode has been successfully created."
 
 clean	:
 			@$(RM) $(OBJS_P1) $(OBJS_P2)
@@ -102,4 +107,4 @@ fclean	:	clean
 
 re		:	fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:	all sanitize clean fclean re
