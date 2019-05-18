@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/16 14:47:10 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/18 21:38:12 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,30 @@ static int	clean_quit(t_parser **data, const int ret)
 	return (ret);
 }
 
+int		check_label_chars(char *str)
+{
+	while (*str && *str != ':')
+	{
+		if (ft_strchr(LABEL_CHARS, *str) == 0)
+		{
+			ft_printf("label char error\n");
+			return (0);
+		}
+		str++;
+	}
+	return (1);	
+}
+
 int		save_label_address(t_parser *data)
 {
 	t_bytes	*elem;
 	int 	i;
 
+	i = ft_strspn(data->line, " \t");
+	if (!check_label_chars(&data->line[i]))
+		return (FAIL);
 	if (!(elem = bytes_init(data)))
 		return (FAIL);
-	i = ft_strspn(data->line, " \t");
 	if (!(elem->label = ft_strcdup(&data->line[i], ':')))
 	{
 		data->err_code = 2;

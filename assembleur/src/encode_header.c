@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encode_header.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 16:41:43 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/16 15:02:10 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/18 21:14:12 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		encode_multi_comment(t_parser *data)
 
 int		encode_header(t_parser *data, int i)
 {
-	if (ft_strncmp(".name", &data->line[i], 5) == IDENTICAL)
+	if (ft_strncmp(NAME_CMD_STRING, &data->line[i], 5) == IDENTICAL)
 	{
 		data->index = 0;
 		data->bytecode[data->index++] = 0;
@@ -100,7 +100,7 @@ int		encode_header(t_parser *data, int i)
 			data->bytecode[data->index++] = 0;
 		data->index = 0x890;
 	}
-	else if (ft_strncmp(".comment", &data->line[i], 8) == IDENTICAL)
+	else if (ft_strncmp(COMMENT_CMD_STRING, &data->line[i], 8) == IDENTICAL)
 	{
 		if (data->line[i + 8] != '\t' && data->line[i + 8] != ' ' && data->line[i + 8] != '"')
 			return (FAIL);
