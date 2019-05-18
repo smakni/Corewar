@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/18 21:42:56 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/18 21:49:34 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct	s_champ
 
 typedef struct	s_env
 {
-	t_champ				champ[4];
 	char				*err_msg;
 	int					err_code;
 	int					fd;
