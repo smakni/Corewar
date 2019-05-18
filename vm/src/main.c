@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/18 19:53:34 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/18 21:54:24 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_print_memory(t_env *env)
 	while (i < env->nb_champs)
 	{
 		ft_printf("player's name : %s [r1 = %x] | player's nb : %d | com : %s\n",
-		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].header.magic,
+		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].player_nb,
 		env->champ[i].header.comment);
 		i++;
 	}
