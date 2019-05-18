@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/17 15:51:34 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/18 19:56:30 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		ft_parse_argc(int argc, char **argv, t_env *env)
 	int		i;
 	t_champ	tmp[4];
 
-	ft_bzero(tmp, 4*sizeof(t_champ));
+	ft_bzero(tmp, 4 * sizeof(t_champ));
 	i = 0;
 	while (i < argc)
 	{
@@ -90,7 +90,8 @@ void		ft_parse_argc(int argc, char **argv, t_env *env)
 		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
-			tmp[env->nb_champs].name = argv[i];
+			ft_memcpy(tmp[env->nb_champs].header.prog_name,
+						argv[i], PROG_NAME_LENGTH + 1);
 			env->nb_champs++;
 		}
 		i++;

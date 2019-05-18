@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/17 16:54:38 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/18 21:11:25 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 
 typedef struct	s_champ
 {
-	char		*name;
 	int			player_nb;
+	header_t	header;
+	int			r[REG_NUMBER];
+	char		carry;
+	int			pc;
+
 }				t_champ;
 
 typedef struct	s_env
 {
 	int					dump;
 	int					nb_champs;
-	t_champ				champ[4];
-	unsigned char		memory[4096];
+	t_champ				champ[MAX_PLAYERS];
+	unsigned char		memory[MEM_SIZE];
 }				t_env;
 
 void			ft_parse_argc(int argc, char **argv, t_env *env);
