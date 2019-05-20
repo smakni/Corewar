@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/20 01:45:17 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/20 15:42:36 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ static void	ft_print_memory(t_env *env)
 	i = 0;
 	while (i < env->nb_champs)
 	{
-		ft_printf("player's name : %s [r1 = %x] | player's nb : %d | com : %s\n",
-		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].player_nb,
-		env->champ[i].header.comment);
+		ft_printf("player's name : %s [r1 = %x] | nb_lives = %d\n",
+		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].lives);
 		i++;
 	}
 }
