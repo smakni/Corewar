@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/20 13:41:26 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/20 13:50:33 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		read_memory(t_env *env)
 			ft_printf(">>READ_CHAMP[%d]<<\n", j);
 			if (env->champ[j].cycles == 0)
 				op_len = exec_op(env, j);
-			while (test < op_len)
+			while (debug < op_len)
 			{
 				ft_printf("read = %.2x\n",env->memory[env->champ[j].pc++]);
 				debug++;
