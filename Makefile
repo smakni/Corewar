@@ -53,7 +53,8 @@ SOURCES_P2	=	main.c\
 				ft_parse_argc.c\
 				write_champ.c\
 				read_multi_bytes.c\
-				read_memory.c
+				read_memory.c\
+				exec_op.c
 
 HDR		=	$(HDR_PATH)/
 
