@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/18 21:09:21 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/20 17:44:11 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	write_champ(t_env *env)
 
 	i = 0;
 	j = 0;
-	r1 = 0xfffff;
+	r1 = 0xffffffff;
 	while (j < env->nb_champs)
 	{
 		fd = open(env->champ[j].header.prog_name, O_RDONLY);

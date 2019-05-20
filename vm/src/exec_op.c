@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/20 16:00:49 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:36:52 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		exec_op(t_env *env, int j)
 	}
 	else if (env->memory[env->champ[j].pc] == 0x02)
 	{
+		op_ld(env, j);
+		ft_printf("r5 = %x\n", env->champ[j].r[5]);
 		ft_printf("ld\n");
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
