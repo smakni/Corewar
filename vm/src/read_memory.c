@@ -34,10 +34,10 @@ int		read_memory(t_env *env)
 	j = 0;
 	rounds = 1;
 	ft_printf("ROUND[%3d]\n", rounds);
-	env->memory[1] = 255;
-	env->memory[2] = 255;
-	env->memory[3] = 255;
-	env->memory[4] = 255;
+	//env->memory[1] = 255;
+	//env->memory[2] = 255;
+	//env->memory[3] = 255;
+	//env->memory[4] = 255;
 	while (rounds < 4)
 	{
 		j = 0;
@@ -51,10 +51,10 @@ int		read_memory(t_env *env)
 				env->champ[j].pc -= MEM_SIZE;
 			else
 				env->champ[j].pc += op_len;
-			usleep(1000);
+			//usleep(1000);
 			j++;
 		}
-		if (i == 5000) //CYCLE_TO_DIE
+		if (i == 10) //CYCLE_TO_DIE
 		{
 			rounds++;
 			i = 0;

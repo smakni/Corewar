@@ -22,7 +22,7 @@ void	write_champ(t_env *env)
 
 	i = 0;
 	j = 0;
-	r1 = 0xfffff;
+	r1 = 0xffffffff;
 	while (j < env->nb_champs)
 	{
 		fd = open(env->champ[j].header.prog_name, O_RDONLY);

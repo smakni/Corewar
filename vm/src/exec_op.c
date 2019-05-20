@@ -97,6 +97,7 @@ int		exec_op(t_env *env, int j)
 	else if (env->memory[env->champ[j].pc] == 0x0b)
 	{
 		ft_printf("sti\n");
+		op_sti(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 1));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0c)
