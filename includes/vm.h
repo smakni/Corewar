@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/20 15:44:56 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:34:13 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int				safe_open(const char *pathname, t_env *data, const int flags);
 int				exec_op(t_env *env, int j);
 void			op_live(t_env *env, int j);
 void			op_sti(t_env *env, int j);
+void			op_ld(t_env *env, int j);
 
 #endif

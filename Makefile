@@ -56,7 +56,8 @@ SOURCES_P2	=	main.c\
 				read_memory.c\
 				exec_op.c\
 				op_live.c\
-				op_sti.c
+				op_sti.c\
+				op_ld.c
 
 HDR		=	$(HDR_PATH)/
 

@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/20 16:05:47 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:35:41 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ int		read_memory(t_env *env)
 	j = 0;
 	rounds = 1;
 	ft_printf("ROUND[%3d]\n", rounds);
-	//env->memory[1] = 255;
-	//env->memory[2] = 255;
-	//env->memory[3] = 255;
-	//env->memory[4] = 255;
+	env->memory[10] = 255;
+	env->memory[11] = 255;
+	env->memory[12] = 255;
+	env->memory[13] = 255;
 	while (rounds < 4)
 	{
 		j = 0;
 		while (j < env->nb_champs)
 		{
 			debug = 0;
-			ft_printf(">>READ_CHAMP[%d]<<PC>>[%d]\n", j, env->champ[j].pc);
+			//ft_printf(">>READ_CHAMP[%d]<<PC>>[%d]\n", j, env->champ[j].pc);
 			if (env->champ[j].cycles == 0)
 				op_len = exec_op(env, j);
 			if (env->champ[j].pc >= MEM_SIZE)
