@@ -34,10 +34,10 @@ int		read_memory(t_env *env)
 	j = 0;
 	rounds = 1;
 	ft_printf("ROUND[%3d]\n", rounds);
-	env->memory[10] = 255;
-	env->memory[11] = 255;
-	env->memory[12] = 255;
-	env->memory[13] = 255;
+	// env->memory[20] = 255;
+	// env->memory[21] = 255;
+	// env->memory[22] = 255;
+	// env->memory[23] = 255;
 	while (rounds < 4)
 	{
 		j = 0;

@@ -47,9 +47,18 @@ void			write_champ(t_env *env);
 int				read_memory(t_env *env);
 int				read_multi_bytes(unsigned char *line, int index, int nb_bytes);
 int				safe_open(const char *pathname, t_env *data, const int flags);
+int				type_param(unsigned char byte, int param);
+int				get_value(t_env *env, int j, int *cursor, int param);
+int				get_value_index(t_env *env, int j, int *cursor, int param);
 int				exec_op(t_env *env, int j);
 void			op_live(t_env *env, int j);
 void			op_sti(t_env *env, int j);
 void			op_ld(t_env *env, int j);
+void			op_st(t_env *env ,int j);
+void			op_add(t_env *env ,int j);
+void			op_sub(t_env *env ,int j);
+void			op_and(t_env *env ,int j);
+void			op_or(t_env *env, int j);
+void			op_xor(t_env *env, int j);
 
 #endif

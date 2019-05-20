@@ -54,10 +54,18 @@ SOURCES_P2	=	main.c\
 				write_champ.c\
 				read_multi_bytes.c\
 				read_memory.c\
+				type_param.c\
 				exec_op.c\
+				get_value.c\
 				op_live.c\
 				op_sti.c\
-				op_ld.c
+				op_ld.c\
+				op_st.c\
+				op_add.c\
+				op_sub.c\
+				op_and.c\
+				op_or.c\
+				op_xor.c
 
 HDR		=	$(HDR_PATH)/
 

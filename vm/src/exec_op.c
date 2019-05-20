@@ -59,31 +59,37 @@ int		exec_op(t_env *env, int j)
 	else if (env->memory[env->champ[j].pc] == 0x03)
 	{
 		ft_printf("st\n");
+		op_st(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x04)
 	{
 		ft_printf("add\n");
+		op_add(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x05)
 	{
 		ft_printf("sub\n");
+		op_sub(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x06)
 	{
 		ft_printf("and\n");
+		op_and(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x07)
 	{
 		ft_printf("or\n");
+		op_or(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x08)
 	{
 		ft_printf("xor\n");
+		op_xor(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x09)
