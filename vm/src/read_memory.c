@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/20 17:35:41 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/21 00:45:01 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int		read_memory(t_env *env)
 	int 			rounds;
 	int				op_len;
 	int				debug;
+	t_fork 			*fork;
 
 	i = 0;
 	j = 0;
 	rounds = 1;
+	fork = NULL;
 	ft_printf("ROUND[%3d]\n", rounds);
 	// env->memory[20] = 255;
 	// env->memory[21] = 255;
@@ -46,7 +48,7 @@ int		read_memory(t_env *env)
 			debug = 0;
 			//ft_printf(">>READ_CHAMP[%d]<<PC>>[%d]\n", j, env->champ[j].pc);
 			if (env->champ[j].cycles == 0)
-				op_len = exec_op(env, j);
+				op_len = exec_op(env, j, &fork);
 			if (env->champ[j].pc >= MEM_SIZE)
 				env->champ[j].pc -= MEM_SIZE;
 			else

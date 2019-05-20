@@ -1,4 +1,4 @@
-.name "korZ22222"
+.name "korZ"
 .comment "i'm Zork"          
 
 	#live %1

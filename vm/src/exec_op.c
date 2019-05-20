@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/20 17:36:52 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/20 23:42:06 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int 	decode_byte_param(unsigned char param, int is_index)
 	return (op_len);
 }
 
-int		exec_op(t_env *env, int j)
+int		exec_op(t_env *env, int j, t_fork **fork)
 {
 	if (env->memory[env->champ[j].pc] == 0x01)
 	{	
@@ -111,6 +111,7 @@ int		exec_op(t_env *env, int j)
 	else if (env->memory[env->champ[j].pc] == 0x0c)
 	{
 		ft_printf("fork\n");
+		op_fork(env, fork, j);
 		return (3);
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0d)

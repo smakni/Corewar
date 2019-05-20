@@ -65,7 +65,8 @@ SOURCES_P2	=	main.c\
 				op_sub.c\
 				op_and.c\
 				op_or.c\
-				op_xor.c
+				op_xor.c\
+				op_fork.c
 
 HDR		=	$(HDR_PATH)/
 
@@ -76,7 +77,7 @@ CC		=	clang
 
 CFLAGS	=	-Wall -Werror -Wextra
 
-FFLAGS	=	-g3
+FFLAGS	=	-g3 -fsanitize=address
 
 RM		=	rm -f
 
@@ -90,6 +91,7 @@ $(LIB)	:
 $(NAME_P1)	:	$(OBJS_P1) $(HDR) $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
 				@echo "ASM	: assembleur has been successfully created."
+
 
 $(NAME_P2)	:	$(OBJS_P2) $(HDR) $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
