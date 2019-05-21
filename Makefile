@@ -5,10 +5,9 @@ ASM_PATH	=	assembleur/src/
 COR_PATH	=	vm/src/
 
 LIB_PATH	=	libft/
-
-HDR_PATH	=	includes
-
 LIB			=	$(LIB_PATH)libft.a
+
+HDR		=	includes/
 
 DIR_O		=	temporary
 DIR_O_P1	=	$(DIR_O)/tmp_asm/
@@ -71,7 +70,6 @@ SOURCES_P2	=	main.c\
 				op_ldi.c\
 				check_cycles.c
 
-HDR		=	$(HDR_PATH)/
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
 OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))
@@ -86,17 +84,17 @@ RM		=	rm -f
 
 CLEAN	=	clean
 
-all		:	$(NAME_P1) $(NAME_P2)
+all:	$(NAME_P1) $(NAME_P2)
 
-$(LIB)	:
+$(LIB):
 			@make -C $(LIB_PATH)
 
-$(NAME_P1)	:	$(OBJS_P1) $(HDR) $(LIB) Makefile
+$(NAME_P1):	$(OBJS_P1) $(HDR) $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
 				@echo "ASM	: assembleur has been successfully created."
 
 
-$(NAME_P2)	:	$(OBJS_P2) $(HDR) $(LIB) Makefile
+$(NAME_P2):	$(OBJS_P2) $(HDR) $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
 				@echo "Corewar	: corewar has been successfully created."
 
@@ -113,17 +111,17 @@ sanitize:
 			@$(CC) $(CFLAGS) $(FFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
 			@echo "Corewar	: corewar in debug mode has been successfully created."
 
-clean	:
+clean:
 			@$(RM) $(OBJS_P1) $(OBJS_P2)
 			@rm -rf $(DIR_O)
 			@make clean -C $(LIB_PATH)
 			@echo "Corewar : All .o files have been deleted."
 
-fclean	:	clean
+fclean:	clean
 			@make fclean -C $(LIB_PATH)
 			@$(RM) $(NAME_P1) $(NAME_P2) $(LIB)
 			@echo "Corewar	: exe have been deleted."
 
-re		:	fclean all
+re:	fclean all
 
 .PHONY:	all sanitize clean fclean re
