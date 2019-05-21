@@ -66,7 +66,10 @@ SOURCES_P2	=	main.c\
 				op_and.c\
 				op_or.c\
 				op_xor.c\
-				op_fork.c
+				op_fork.c\
+				op_zjmp.c\
+				op_ldi.c\
+				check_cycles.c
 
 HDR		=	$(HDR_PATH)/
 

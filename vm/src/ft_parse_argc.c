@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/18 19:56:30 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/21 15:40:59 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-
+/*
 static void	ft_check_duplicate(t_champ *tmp, int nb)
 {
 	int		i;
@@ -97,4 +97,18 @@ void		ft_parse_argc(int argc, char **argv, t_env *env)
 		i++;
 	}
 	ft_sort_argc(env, tmp);
+}
+*/
+
+void		ft_parse_argc(int argc, char **argv, t_env *env)
+{
+	(void)argc;
+	argv++;
+	while (*argv)
+	{
+		ft_memcpy(env->champ[env->nb_champs].header.prog_name,
+					*argv, PROG_NAME_LENGTH + 1);
+		env->nb_champs++;
+		argv++;
+	}
 }

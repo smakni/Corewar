@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/20 15:42:36 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/21 17:01:33 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_display_commands(void)
 	return (-1);
 }
 
-static void	ft_print_memory(t_env *env)
+void	ft_print_memory(t_env *env)
 {
 	int		i;
 
@@ -43,9 +43,13 @@ int			main(int argc, char **argv)
 {
 	t_env	env;
 
-	ft_bzero(&env, sizeof(t_env));
 	if (argc > 1)
+	{
+		ft_bzero(&env, sizeof(t_env));
+		if (!(env.champ = (t_champ *)malloc(sizeof(t_champ) * ARR_SIZE)))
+			return (-1);
 		ft_parse_argc(argc, argv, &env);
+	}
 	else
 		return (ft_display_commands());
 	write_champ(&env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/21 00:06:39 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/21 17:32:30 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 # define MAX_CHAMP_CODE_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
 # define FAIL		0
 # define SUCCESS	1
+# define ARR_SIZE	1024
 
 typedef struct	s_champ
 {
-	int			player_nb;
+	unsigned	player_nb;
 	header_t	header;
 	int			r[REG_NUMBER];
 	char		carry;
@@ -31,21 +32,17 @@ typedef struct	s_champ
 	int			lives;
 }				t_champ;
 
-typedef	struct s_fork
-{
-	t_champ			champ_cpy;
-	struct	s_fork	*next;
-}				t_fork;
-
 typedef struct	s_env
 {
+	unsigned char		memory[MEM_SIZE];
+	t_champ				*champ;
 	char				*err_msg;
 	int					err_code;
 	int					fd;
 	int					dump;
 	int					nb_champs;
-	t_champ				champ[MAX_PLAYERS];
-	unsigned char		memory[MEM_SIZE];
+	int					nb_realloc;
+	int					champ_live[4];
 }				t_env;
 
 void			ft_parse_argc(int argc, char **argv, t_env *env);
@@ -56,7 +53,7 @@ int				safe_open(const char *pathname, t_env *data, const int flags);
 int				type_param(unsigned char byte, int param);
 int				get_value(t_env *env, int j, int *cursor, int param);
 int				get_value_index(t_env *env, int j, int *cursor, int param);
-int				exec_op(t_env *env, int j, t_fork **fork);
+int				exec_op(t_env *env, int j);
 void			op_live(t_env *env, int j);
 void			op_sti(t_env *env, int j);
 void			op_ld(t_env *env, int j);
@@ -66,6 +63,13 @@ void			op_sub(t_env *env ,int j);
 void			op_and(t_env *env ,int j);
 void			op_or(t_env *env, int j);
 void			op_xor(t_env *env, int j);
-void			op_fork(t_env *env, t_fork **fork, int j);
+int				op_fork(t_env *env, int j);
+void			op_zjmp(t_env *env, int j);
+int				check_cycles(t_env *env, int j);
+void			op_ldi(t_env *env ,int j);
+void			op_lldi(t_env *env ,int j);
+
+// DEBUG
+void	ft_print_memory(t_env *env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/20 23:42:06 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/21 17:55:41 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int 	decode_byte_param(unsigned char param, int is_index)
 	return (op_len);
 }
 
-int		exec_op(t_env *env, int j, t_fork **fork)
+int		exec_op(t_env *env, int j)
 {
 	if (env->memory[env->champ[j].pc] == 0x01)
 	{	
@@ -100,6 +100,7 @@ int		exec_op(t_env *env, int j, t_fork **fork)
 	else if (env->memory[env->champ[j].pc] == 0x0a)
 	{
 		ft_printf("ldi\n");
+		op_ldi(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 1));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0b)
@@ -111,7 +112,7 @@ int		exec_op(t_env *env, int j, t_fork **fork)
 	else if (env->memory[env->champ[j].pc] == 0x0c)
 	{
 		ft_printf("fork\n");
-		op_fork(env, fork, j);
+		op_fork(env, j);
 		return (3);
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0d)

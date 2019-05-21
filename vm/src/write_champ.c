@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/20 17:44:11 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/21 17:15:51 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	write_champ(t_env *env)
 	int i;
 	int j;
 	int fd;
-	int	r1;
+	int	id;
 	unsigned char line[MAX_CHAMP_CODE_SIZE + 1];
 
 	i = 0;
 	j = 0;
-	r1 = 0xffffffff;
+	id = 0xffffffff;
 	while (j < env->nb_champs)
 	{
 		fd = open(env->champ[j].header.prog_name, O_RDONLY);
@@ -38,8 +38,10 @@ void	write_champ(t_env *env)
 		}
 		ft_memcpy(&env->memory[i], &line[0x890],
 					env->champ[j].header.prog_size);
-		env->champ[j].r[1] = r1--;
+		env->champ[j].player_nb = id;
+		env->champ[j].r[1] = id--;
 		env->champ[j].pc = i;
+		env->champ[j].cycles = check_cycles(env, j);
 		close(fd);
 		i += 4096 / env->nb_champs;
 		j++;

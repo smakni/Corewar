@@ -8,7 +8,7 @@ static int	get_addr(t_env *env, int value)
 	return (ret);
 }
 
-int	get_value(t_env *env, int j, int *cursor, int param)
+int			get_value(t_env *env, int j, int *cursor, int param)
 {
 	int	value;
 
@@ -34,7 +34,7 @@ int	get_value(t_env *env, int j, int *cursor, int param)
 	return (value);
 }
 
-int	get_value_index(t_env *env, int j, int *cursor, int param)
+int			get_value_index(t_env *env, int j, int *cursor, int param)
 {
 	int	value;
 

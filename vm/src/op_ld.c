@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/20 17:54:14 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/21 19:04:09 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void		op_ld(t_env *env ,int j)
 
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
 	{
-		mem_index = env->champ[j].pc + env->memory[env->champ[j].pc + 5] + 3;
+		mem_index = env->champ[j].pc + 5;
 		r_index = env->memory[env->champ[j].pc + 6];
 	}
 	else
 	{
-		mem_index = env->champ[j].pc + env->memory[env->champ[j].pc + 3] + 3;
+		mem_index = env->champ[j].pc + (env->memory[env->champ[j].pc + 3] + 3) % IDX_MOD;
 		r_index = env->memory[env->champ[j].pc + 4];
 	}
 	to_store = read_multi_bytes(env->memory, mem_index, DIR_SIZE);
