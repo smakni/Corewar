@@ -11,9 +11,9 @@
 	#ldi 42,%42,r1
 	#ld 7, r5
 	#sti r5,%20,%21
-	fork %45
-	fork %45
-	fork %45
+	#fork %45
+	#fork %45
+	#fork %45
 	#live %1
 	#sub r1,r2,r3
 	#add r1,r2,r3

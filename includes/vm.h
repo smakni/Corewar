@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/21 17:32:30 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/22 01:34:59 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 
 typedef struct	s_champ
 {
-	unsigned	player_nb;
 	header_t	header;
-	int			r[REG_NUMBER];
-	char		carry;
+	unsigned	player_nb;
 	unsigned	pc;
+	int			r[REG_NUMBER];
+	int			last_live;
 	char		cycles;
-	int			lives;
+	char		last_return;
+	char		carry;
 }				t_champ;
 
 typedef struct	s_env
@@ -42,7 +43,9 @@ typedef struct	s_env
 	int					dump;
 	int					nb_champs;
 	int					nb_realloc;
-	int					champ_live[4];
+	int					champ_live[MAX_PLAYERS];
+	int					cycle_to_die;
+	int					cycle_index;
 }				t_env;
 
 void			ft_parse_argc(int argc, char **argv, t_env *env);
@@ -68,6 +71,7 @@ void			op_zjmp(t_env *env, int j);
 int				check_cycles(t_env *env, int j);
 void			op_ldi(t_env *env ,int j);
 void			op_lldi(t_env *env ,int j);
+int				del_process(t_env *env);
 
 // DEBUG
 void	ft_print_memory(t_env *env);

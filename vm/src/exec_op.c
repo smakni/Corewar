@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/21 17:55:41 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/22 01:02:15 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ int		exec_op(t_env *env, int j)
 {
 	if (env->memory[env->champ[j].pc] == 0x01)
 	{	
-		op_live(env, j);
 		ft_printf("live\n");
+		op_live(env, j);
 		return (5);
 	}
 	else if (env->memory[env->champ[j].pc] == 0x02)
 	{
+		ft_printf("ld\n");
 		op_ld(env, j);
 		ft_printf("r5 = %x\n", env->champ[j].r[5]);
-		ft_printf("ld\n");
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x03)
@@ -95,12 +95,13 @@ int		exec_op(t_env *env, int j)
 	else if (env->memory[env->champ[j].pc] == 0x09)
 	{
 		ft_printf("zjump\n");
+		op_zjmp(env, j);
 		return (3); //return address of the jump
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0a)
 	{
 		ft_printf("ldi\n");
-		op_ldi(env, j);
+	//	op_ldi(env, j);
 		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 1));
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0b)

@@ -1,47 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_fork.c                                          :+:      :+:    :+:   */
+/*   del_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/22 01:36:43 by sabri            ###   ########.fr       */
+/*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
+/*   Updated: 2019/05/22 01:39:28 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../includes/vm.h"
+#include "../../includes/vm.h"
 
-static int	ft_realloc_tab(t_env *env)
+int		del_process(t_env *env)
 {
 	t_champ *tmp;
 	int 	i;
+	int		j;
+	int 	save;
 
-	env->nb_realloc++;
 	i = 0;
+	j = 0;
+	save = env->nb_champs;
 	if (!(tmp = (t_champ *)malloc(sizeof(t_champ)
 							* (ARR_SIZE * env->nb_realloc))))
 		return (-1);
-	while (i < env->nb_champs)
+	while (j < save)
 	{
-		tmp[i] = env->champ[i];
-		i++;
+		if (env->champ[j].last_live == -1)
+		{
+			tmp[i] = env->champ[j];
+			i++;
+		}
+		j++;
+		env->nb_champs--;
 	}
 	ft_memdel((void *)&env->champ);
 	env->champ = tmp;
-	return (0);
-}
-
-int			op_fork(t_env *env, int j)
-{
-	if (env->nb_champs == ARR_SIZE * env->nb_realloc)
-		if (ft_realloc_tab(env) == -1)
-			return (-1);
-	env->champ[env->nb_champs] = env->champ[j];
-	env->champ[env->nb_champs].pc = read_multi_bytes(env->memory,
-								env->champ[env->nb_champs].pc + 2, 2);
-	env->champ[env->nb_champs].last_live = -1;
-	env->nb_champs++;
-	env->champ[j].cycles = check_cycles(env, j);
 	return (0);
 }

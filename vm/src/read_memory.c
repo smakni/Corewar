@@ -3,59 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/21 17:05:33 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/22 01:45:50 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
+int		check_live(t_env *env)
+{
+	int i;
+	int total_lives;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (total_lives >= NBR_LIVE)
+		{
+			env->cycle_to_die -= CYCLE_DELTA;
+			return (1);
+		}
+		total_lives = env->champ_live[i++];
+	}
+	return (0);
+}
+
+static int	reset_cycles(t_env *env)
+{
+	env->cycle_to_die -= 200;
+	check_live(env);
+	ft_print_memory(env);
+	//del_process(env);
+	//check_last_live for winner
+	if (env->cycle_to_die <= 0)
+	{
+		ft_printf(">>>>>>>>>>>>>>END_PROG<<<<<<<<<<<<<\n");
+		return (0);
+	}
+	return (1);
+}	
+
 int		read_memory(t_env *env)
 {
-	int 			i;
 	int				j;
 	int 			rounds;
 	int				op_len;
-	int				debug;
 
-	i = 0;
 	j = 0;
 	rounds = 1;
+	env->cycle_to_die = CYCLE_TO_DIE;
 	ft_printf("ROUND[%3d]\n", rounds);
-	while (rounds < 4)
+	while (env->cycle_to_die > 0)
 	{
 		j = 0;
+		ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 		while (j < env->nb_champs)
 		{
-			debug = 0;
-			ft_printf(">>READ_CHAMP[%d]<<PC>>[%d]\n", j, env->champ[j].pc);
-			ft_printf(">>>TO_WAIT>>>[%2d]\n", env->champ[j].cycles);
+			ft_printf("CHAMP[%d]<<PC[%d]\n", j, env->champ[j].pc);
+			ft_printf("[%2d]\n", env->champ[j].cycles);
 			if (env->champ[j].cycles == 0)
 			{
 				op_len = exec_op(env, j);
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
-				else
-					env->champ[j].pc += op_len;
+				env->champ[j].pc += op_len;
 				env->champ[j].cycles = check_cycles(env, j);
 			}
-			else
+			else if (env->champ[j].cycles > 0)
 				env->champ[j].cycles--;
-			usleep(10000);
 			j++;
 		}
-		if (i == 100) //CYCLE_TO_DIE
+		if (env->cycle_index == env->cycle_to_die) //CYCLE_TO_DIE - DELTA
 		{
-			rounds++;
-			i = 0;
+			if ((env->cycle_index = reset_cycles(env)) == -1)
+				return (0);
+			else
+				env->cycle_index = 0;
 			ft_printf("ROUND[%3d]\n", rounds);
-			// usleep(500000);
+			rounds++;
 		}
-		ft_print_memory(env);
-		read(0, 0, 1);
-		i++;
+	//	read(0, 0, 1);
+		env->cycle_index++;
 	}
 	return (0);
 }

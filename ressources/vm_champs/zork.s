@@ -1,7 +1,7 @@
-.name "korZ"
+.name "korZ_live"
 .comment "i'm Zork"          
 
-	sti r1,%:live,%42
+	sti r1,%:live,%1
 	ld %0, r16
 
 live:

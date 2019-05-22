@@ -68,7 +68,8 @@ SOURCES_P2	=	main.c\
 				op_fork.c\
 				op_zjmp.c\
 				op_ldi.c\
-				check_cycles.c
+				check_cycles.c\
+				del_process.c
 
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
