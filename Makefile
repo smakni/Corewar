@@ -54,6 +54,7 @@ SOURCES_P2	=	main.c\
 				read_multi_bytes.c\
 				read_memory.c\
 				type_param.c\
+				decode_byte_param.c\
 				exec_op.c\
 				get_value.c\
 				op_live.c\
@@ -68,6 +69,9 @@ SOURCES_P2	=	main.c\
 				op_fork.c\
 				op_zjmp.c\
 				op_ldi.c\
+				op_lld.c\
+				op_lfork.c\
+				op_aff.c\
 				check_cycles.c\
 				del_process.c
 
