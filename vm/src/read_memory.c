@@ -50,7 +50,7 @@ int		read_memory(t_env *env)
 	int				j;
 	int				i;
 	int 			rounds;
-	int				op_len;
+	// int				op_len;
 	int				check_delta;
 
 	j = 0;
@@ -71,10 +71,10 @@ int		read_memory(t_env *env)
 				exit (0);
 			if (env->champ[j].cycles == 0)
 			{
-				op_len = exec_op(env, j);
+				exec_op(env, j);
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
-				env->champ[j].pc += op_len;
+				// env->champ[j].pc += op_len;
 				env->champ[j].cycles = check_cycles(env, j);
 			}
 			else if (env->champ[j].cycles > 0)

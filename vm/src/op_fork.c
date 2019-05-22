@@ -21,7 +21,10 @@ static int	ft_realloc_tab(t_env *env)
 	i = 0;
 	if (!(tmp = (t_champ *)malloc(sizeof(t_champ)
 							* (ARR_SIZE * env->nb_realloc))))
+	{
+		ft_memdel((void *)&env->champ);
 		return (-1);
+	}
 	while (i < env->nb_champs)
 	{
 		tmp[i] = env->champ[i];
@@ -32,16 +35,19 @@ static int	ft_realloc_tab(t_env *env)
 	return (0);
 }
 
-int			op_fork(t_env *env, int j)
+void		op_fork(t_env *env, int j)
 {
 	if (env->nb_champs == ARR_SIZE * env->nb_realloc)
 		if (ft_realloc_tab(env) == -1)
-			return (-1);
+		{
+			env->err_code = 2;
+			env->err_msg = "Fail to malloc.";
+			return ;
+		}
 	env->champ[env->nb_champs] = env->champ[j];
 	env->champ[env->nb_champs].pc = read_multi_bytes(env->memory,
 								env->champ[env->nb_champs].pc + 2, 2);
 	env->champ[env->nb_champs].last_live = -1;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
-	return (0);
 }
