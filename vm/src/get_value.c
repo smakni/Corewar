@@ -22,14 +22,12 @@ int			get_value(t_env *env, int j, int *cursor, int param)
 	{
 		*cursor += DIR_SIZE;
 		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, DIR_SIZE);
-	ft_printf("value %i\n", value);
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == IND_CODE)
 	{
 		*cursor += IND_SIZE;
 		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		value = get_addr(env, value);
-	ft_printf("value %i\n", value);
 	}
 	return (value);
 }
@@ -48,7 +46,6 @@ int			get_value_index(t_env *env, int j, int *cursor, int param)
 	{
 		*cursor += IND_SIZE;
 		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
-	ft_printf("value %i\n", value);
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == IND_CODE)
 	{

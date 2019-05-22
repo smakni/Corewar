@@ -95,7 +95,8 @@ int		read_memory(t_env *env)
 			ft_printf("ROUND[%3d]\n", rounds);
 			rounds++;
 		}
-	//	read(0, 0, 1);
+		ft_print_memory(env);
+		read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

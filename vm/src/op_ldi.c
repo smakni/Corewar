@@ -12,54 +12,65 @@
 
 #include "../../includes/vm.h"
 
-void		op_ldi(t_env *env ,int j)
+static int	read_bytes(t_env *env, int index)
+{
+	int	ret;
+
+	ret = 0;
+	ret += env->memory[index] << 24;
+	ret += env->memory[index + 1] << 16;
+	ret += env->memory[index + 2] << 8;
+	ret += env->memory[index + 3];
+	return (ret);
+}
+
+static int	read_ind_size_bytes(t_env *env, int index)
+{
+	int	ret;
+
+	ret = 0;
+	ret += env->memory[index] << 8;
+	ret += env->memory[index + 1];
+	return (ret);
+}
+
+void		op_ldi(t_env *env, int j)
 {
 	int	v1;
 	int	v2;
 	int	reg;
-	int to_store;
+	int sum;
 	int	cursor;
 
 	cursor = 1;
 	v1 = get_value_index(env, j, &cursor, 1);
 	v2 = get_value_index(env, j, &cursor, 2);
 	reg = env->memory[cursor + 1];
-	if (type_param(env->memory[env->champ[j]. pc + 1], 1) == REG_CODE)
-	{
-		to_store = read_multi_bytes(env->memory,
-				env->champ[j].pc + (v1 % IDX_MOD) + 1,
-				1);
-	}
+	ft_printf("v1, v2, reg = %i, %x, %i\n", v1, v2, reg);
+	if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
+		sum = read_ind_size_bytes(env, env->champ[j].pc + (v1 % IDX_MOD));
 	else
-	{
-		to_store = read_multi_bytes(env->memory,
-				env->champ[j].pc + (v1 % IDX_MOD) + 2,
-				IND_SIZE); 
-	}
-		to_store += v2;
-		to_store = read_multi_bytes(env->memory,
-				env->champ[j].pc + (to_store % IDX_MOD) + 3,
-				REG_SIZE);
-	//ft_printf("cursor = %i\n", env->champ[j].pc);
-	//to_store = read_multi_bytes(env->memory, env->champ[j].pc + ((v1 + v2) % IDX_MOD) + 3, REG_SIZE);
-	env->champ[j].r[reg] = to_store;
+		sum = v1;
+	sum += v2;
+	sum = read_bytes(env, env->champ[j].pc + (sum % IDX_MOD));
+	env->champ[j].r[reg] = sum;
+	ft_printf("in reg = %#.8x\n", env->champ[j].r[reg]);
 }
 
-void		op_lldi(t_env *env ,int j)
+void		op_lldi(t_env *env, int j)
 {
 	int	v1;
 	int	v2;
 	int	v3;
-	int	to_store;
-	//int	reg;
+	int	sum;
 	int	cursor;
 
 	cursor = 1;
 	v1 = get_value_index(env, j, &cursor, 1);
 	v2 = get_value_index(env, j, &cursor, 2);
 	v3 = get_value_index(env, j, &cursor, 3);
-	to_store = read_multi_bytes(env->memory,
+	sum = read_multi_bytes(env->memory,
 				env->champ[j].pc + v1 + v2 + 4, REG_SIZE);
-	env->champ[j].r[v3] = to_store;
+	env->champ[j].r[v3] = sum;
 
 }

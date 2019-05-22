@@ -2,7 +2,7 @@
 .comment "i'm Zork"          
 
 	#live %1
-	ldi %1,%1,r5
+	ldi 2,%1,r5
 	sti r5, %33, %40
 	#and %514,2,r3
 	#or %1,15,r3
