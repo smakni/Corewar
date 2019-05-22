@@ -31,7 +31,7 @@ void	ft_print_memory(t_env *env)
 			ft_putendl("");
 	}
 	i = 0;
-	while (i < 4)
+	while (i < env->nb_champs)
 	{
 		ft_printf("player's name : %s [r1 = %x] | nb_lives = %d\n",
 		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ_live[i]);
@@ -72,6 +72,6 @@ int			main(int argc, char **argv)
 	write_champ(&env);
 	read_memory(&env);
 	//check_last_live(&env);
-	//ft_print_memory(&env);
+	// ft_print_memory(&env);
 	return (0);
 }

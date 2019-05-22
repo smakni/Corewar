@@ -27,7 +27,9 @@ int		del_process(t_env *env)
 	{
 		if (env->champ[j].last_live > -1)
 		{
-			tmp[i] = env->champ[j];
+			ft_printf("AVANT\n");
+			tmp[i] = env->champ[j]; // acces a une valeur free -> error
+			ft_printf("APRES\n");
 			i++;
 		}
 		j++;

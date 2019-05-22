@@ -18,7 +18,7 @@ int		check_live(t_env *env)
 	int total_lives;
 
 	i = 0;
-	while (i < 4)
+	while (i < env->nb_champs)
 	{
 		if (total_lives >= NBR_LIVE)
 		{
@@ -32,10 +32,10 @@ int		check_live(t_env *env)
 
 static int	reset_cycles(t_env *env)
 {
-	//env->cycle_to_die -= 500;
+	env->cycle_to_die -= 500;
 	check_live(env);
+	del_process(env);
 	ft_print_memory(env);
-	//del_process(env);
 	//check_last_live for winner
 	if (env->cycle_to_die <= 0)
 	{
@@ -93,10 +93,10 @@ int		read_memory(t_env *env)
 				check_delta = 0;
 			}
 			ft_printf("ROUND[%3d]\n", rounds);
+			read(0, 0, 1);
 			rounds++;
 		}
-		ft_print_memory(env);
-		read(0, 0, 1);
+		// ft_print_memory(env);
 		env->cycle_index++;
 		i++;
 	}
