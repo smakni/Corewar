@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/22 01:02:15 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/22 13:35:31 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		exec_op(t_env *env, int j)
 	{
 		ft_printf("zjump\n");
 		op_zjmp(env, j);
-		return (3); //return address of the jump
+		return (0); //return address of the jump
 	}
 	else if (env->memory[env->champ[j].pc] == 0x0a)
 	{

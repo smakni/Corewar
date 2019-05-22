@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cycles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:38:30 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/21 17:15:46 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/22 13:43:39 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		check_cycles(t_env *env, int j)
 	op_cycles[15] = 1000;
 	op_cycles[16] = 2;
 	index = env->memory[env->champ[j].pc];
+	ft_printf("INDEX = %d\n", index);
 	if (index > 16 || index < 0)
 		return (0);
 	return (op_cycles[index]);

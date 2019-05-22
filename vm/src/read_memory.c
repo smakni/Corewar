@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/22 01:45:50 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/22 13:43:00 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		check_live(t_env *env)
 
 static int	reset_cycles(t_env *env)
 {
-	env->cycle_to_die -= 200;
+	//env->cycle_to_die -= 500;
 	check_live(env);
 	ft_print_memory(env);
 	//del_process(env);
@@ -48,12 +48,16 @@ static int	reset_cycles(t_env *env)
 int		read_memory(t_env *env)
 {
 	int				j;
+	int				i;
 	int 			rounds;
 	int				op_len;
+	int				check_delta;
 
 	j = 0;
 	rounds = 1;
+	check_delta = 0;
 	env->cycle_to_die = CYCLE_TO_DIE;
+	i = 0;
 	ft_printf("ROUND[%3d]\n", rounds);
 	while (env->cycle_to_die > 0)
 	{
@@ -63,6 +67,8 @@ int		read_memory(t_env *env)
 		{
 			ft_printf("CHAMP[%d]<<PC[%d]\n", j, env->champ[j].pc);
 			ft_printf("[%2d]\n", env->champ[j].cycles);
+			if (env->champ[j].cycles == -24)
+				exit (0);
 			if (env->champ[j].cycles == 0)
 			{
 				op_len = exec_op(env, j);
@@ -75,17 +81,23 @@ int		read_memory(t_env *env)
 				env->champ[j].cycles--;
 			j++;
 		}
-		if (env->cycle_index == env->cycle_to_die) //CYCLE_TO_DIE - DELTA
+		if (i == env->cycle_to_die) //CYCLE_TO_DIE - DELTA
 		{
-			if ((env->cycle_index = reset_cycles(env)) == -1)
-				return (0);
+			if ((i = reset_cycles(env)) == 0)
+				check_delta++;
 			else
-				env->cycle_index = 0;
+				i = 0;
+			if (check_delta == MAX_CHECKS)
+			{
+				env->cycle_to_die -= CYCLE_DELTA;
+				check_delta = 0;
+			}
 			ft_printf("ROUND[%3d]\n", rounds);
 			rounds++;
 		}
 	//	read(0, 0, 1);
 		env->cycle_index++;
+		i++;
 	}
 	return (0);
 }

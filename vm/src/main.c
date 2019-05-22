@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/22 01:50:01 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/22 13:21:37 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			main(int argc, char **argv)
 		return (ft_display_commands());
 	write_champ(&env);
 	read_memory(&env);
-	check_last_live(&env);
-	ft_print_memory(&env);
+	//check_last_live(&env);
+	//ft_print_memory(&env);
 	return (0);
 }
