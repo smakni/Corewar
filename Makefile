@@ -95,12 +95,12 @@ all:	$(NAME_P1) $(NAME_P2)
 $(LIB):
 			@make -C $(LIB_PATH)
 
-$(NAME_P1):	$(OBJS_P1) $(HDR) $(LIB) Makefile
+$(NAME_P1):	$(OBJS_P1) $(HDR)asm.h $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
 				@echo "ASM	: assembleur has been successfully created."
 
 
-$(NAME_P2):	$(OBJS_P2) $(HDR) $(LIB) Makefile
+$(NAME_P2):	$(OBJS_P2) $(HDR)vm.h $(LIB) Makefile
 				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
 				@echo "Corewar	: corewar has been successfully created."
 
