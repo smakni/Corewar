@@ -6,17 +6,16 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 20:10:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 20:18:09 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void	write_champ(t_env *env)
+int		write_champ(t_env *env)
 {
 	int i;
 	int j;
-	int fd;
 	int	id;
 	unsigned char line[MAX_CHAMP_CODE_SIZE + 1];
 
@@ -25,8 +24,9 @@ void	write_champ(t_env *env)
 	id = 0xffffffff;
 	while (j < env->nb_champs)
 	{
-		fd = open(env->champ[j].header.prog_name, O_RDONLY);
-		read(fd, &line, MAX_CHAMP_CODE_SIZE);
+		if (!(safe_open(env->champ[j].header.prog_name, env, O_RDONLY)))
+			return (FAIL);
+		read(env->fd, &line, MAX_CHAMP_CODE_SIZE);
 		ft_memcpy(env->champ[j].header.prog_name, &line[4], PROG_NAME_LENGTH);
 		ft_memcpy(env->champ[j].header.comment,
 					&line[0x8c], COMMENT_LENGTH - 10);
@@ -34,7 +34,7 @@ void	write_champ(t_env *env)
 		if (env->champ[j].header.prog_size > CHAMP_MAX_SIZE)
 		{
 			ft_printf("SIZE_ERROR\n");
-			exit (0);
+			return (FAIL);
 		}
 		ft_memcpy(&env->memory[i], &line[0x890],
 					env->champ[j].header.prog_size);
@@ -43,8 +43,10 @@ void	write_champ(t_env *env)
 		env->champ[j].pc = i;
 		env->champ[j].cycles = check_cycles(env, j);
 		env->champ[j].last_live = -1; 
-		close(fd);
+		if (close(env->fd) < 0)
+			return (FAIL);
 		i += 4096 / env->nb_champs;
 		j++;
 	}
+	return (SUCCESS);
 }

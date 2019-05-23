@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 20:07:19 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 20:15:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_env
 }				t_env;
 
 int				ft_parse_argc(int argc, char **argv, t_env *env);
-void			write_champ(t_env *env);
+int				write_champ(t_env *env);
 int				read_memory(t_env *env);
 int				read_multi_bytes(unsigned char *line, int index, int nb_bytes);
 int				read_bytes(t_env *env, int index);

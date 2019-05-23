@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 20:09:26 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 20:17:36 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,12 @@ int			main(int argc, char **argv)
 		if (!(env.champ = (t_champ *)malloc(sizeof(t_champ) * ARR_SIZE)))
 			return (-1);
 		if (ft_parse_argc(argc, argv, &env) == FAIL)
-			return (clean_quit(&env, FAIL));
+			return (clean_quit(&env, -1));
 	}
 	else
 		return (ft_display_commands());
-	write_champ(&env);
+	if (write_champ(&env) == FAIL)
+		return (clean_quit(&env, -1));
 	read_memory(&env);
 	check_last_live(&env);
 	ft_print_memory(&env);
