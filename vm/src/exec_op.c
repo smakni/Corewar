@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/22 13:35:31 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 18:40:31 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void		exec_op(t_env *env, int j)
 		op_fun[index - 1](env, j);
 	else
 		env->champ[j].pc++;
-	ft_printf("in reg = %#.8x\n", env->champ[j].r[2]);
 }
 
 // int		exec_op(t_env *env, int j)
