@@ -6,11 +6,17 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 20:04:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 20:09:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+static int	clean_quit(t_env *env, const int ret)
+{
+	ft_memdel((void*)&env->champ);
+	return (ret);
+}
 
 static int	ft_display_commands(void)
 {
@@ -91,7 +97,8 @@ int			main(int argc, char **argv)
 		env.nb_realloc = 1;
 		if (!(env.champ = (t_champ *)malloc(sizeof(t_champ) * ARR_SIZE)))
 			return (-1);
-		ft_parse_argc(argc, argv, &env);
+		if (ft_parse_argc(argc, argv, &env) == FAIL)
+			return (clean_quit(&env, FAIL));
 	}
 	else
 		return (ft_display_commands());

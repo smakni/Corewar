@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/21 15:40:59 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/23 20:07:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		ft_parse_argc(int argc, char **argv, t_env *env)
 }
 */
 
-void		ft_parse_argc(int argc, char **argv, t_env *env)
+int		ft_parse_argc(int argc, char **argv, t_env *env)
 {
 	(void)argc;
 	argv++;
@@ -111,4 +111,7 @@ void		ft_parse_argc(int argc, char **argv, t_env *env)
 		env->nb_champs++;
 		argv++;
 	}
+	if (env->nb_champs <= 0 ||env->nb_champs > 4)
+		return (FAIL);
+	return (SUCCESS);
 }
