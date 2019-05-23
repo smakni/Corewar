@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 16:41:30 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 18:38:30 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int		del_process(t_env *env)
 
 	i = 0;
 	j = 0;
-	if (env->nb_realloc == 0)
-		env->nb_realloc = 1;
 	if (!(tmp = (t_champ *)malloc(sizeof(t_champ)
 							* (ARR_SIZE * env->nb_realloc))))
 		return (-1);

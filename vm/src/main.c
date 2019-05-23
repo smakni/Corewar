@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 15:27:54 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 18:39:24 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			main(int argc, char **argv)
 	if (argc > 1)
 	{
 		ft_bzero(&env, sizeof(t_env));
+		env.nb_realloc = 1;
 		if (!(env.champ = (t_champ *)malloc(sizeof(t_champ) * ARR_SIZE)))
 			return (-1);
 		ft_parse_argc(argc, argv, &env);
@@ -73,6 +74,6 @@ int			main(int argc, char **argv)
 	write_champ(&env);
 	read_memory(&env);
 	check_last_live(&env);
-	// ft_print_memory(&env);
+	ft_print_memory(&env);
 	return (0);
 }
