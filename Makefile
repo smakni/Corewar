@@ -70,6 +70,7 @@ SOURCES_P2	=	main.c\
 				op_zjmp.c\
 				op_ldi.c\
 				op_lld.c\
+				op_lldi.c\
 				op_lfork.c\
 				op_aff.c\
 				check_cycles.c\

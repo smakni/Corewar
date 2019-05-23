@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 18:47:00 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 18:52:19 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,20 @@ static int	ft_realloc_tab(t_env *env)
 
 void		op_fork(t_env *env, int j)
 {
+	int	param;
+
 	if (env->nb_champs == ARR_SIZE * env->nb_realloc)
 		if (ft_realloc_tab(env) == -1)
 		{
 			env->err_code = 2;
 			env->err_msg = "Fail to malloc.";
-			return ;
+			return ;read_multi_bytes(env->memory,
+								env->champ[env->nb_champs].pc + 2, 2);
 		}
 	env->champ[env->nb_champs] = env->champ[j];
-	env->champ[env->nb_champs].pc += read_multi_bytes(env->memory,
-								env->champ[env->nb_champs].pc + 2, 2) % IDX_MOD;
+	param = read_multi_bytes(env->memory,
+								env->champ[env->nb_champs].pc + 2, 2);
+	env->champ[env->nb_champs].pc += param % (IDX_MOD);
 	env->champ[env->nb_champs].last_live = -1;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
