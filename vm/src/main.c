@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 20:17:36 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/24 00:13:50 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ void	ft_print_memory(t_env *env)
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");
+		i = 0;
+	while (i < env->nb_champs)
+	{
+		ft_printf("id : %s [%x] | last_lives = {%d}\n",
+		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].last_live);
+		ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->champ[i].pc);
+		ft_printf("OP{%.2x}", env->memory[env->champ[i].pc]);
+		ft_printf("[%2d]\n", env->champ[i].cycles);
+		i++;
+	}
+	i = 0;
+	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_champs);
+	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 	while (i < 4096)
 	{
 		int j = 0;
@@ -59,14 +72,6 @@ void	ft_print_memory(t_env *env)
 		i++;
 		if (i % 64 == 0)
 			ft_putendl("");
-	}
-	return ;
-	i = 0;
-	while (i < env->nb_champs)
-	{
-		ft_printf("player's name : %s [r1 = %x] | nb_lives = %d\n",
-		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].last_live);
-		i++;
 	}
 }
 
@@ -106,6 +111,6 @@ int			main(int argc, char **argv)
 		return (clean_quit(&env, -1));
 	read_memory(&env);
 	check_last_live(&env);
-	ft_print_memory(&env);
+	//ft_print_memory(&env);
 	return (0);
 }

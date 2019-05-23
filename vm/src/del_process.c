@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 18:38:30 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 00:41:11 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int		del_process(t_env *env)
 	while (j < env->nb_champs)
 	{
 		if (env->champ[j].last_live > -1)
-			tmp[i++] = env->champ[j];
+		{
+			tmp[i] = env->champ[j];
+			tmp[i++].last_live = -1;
+		}
 		j++;
 	}
 	ft_memdel((void *)&env->champ);

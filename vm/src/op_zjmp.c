@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:20:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 19:14:13 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 00:52:43 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	op_zjmp(t_env *env, int j)
 		//ft_printf("INDEX_JUMP = %d\n", index);
 		env->champ[j].pc -= index % IDX_MOD;
 	}
+	env->champ[j].carry = 0;
 }

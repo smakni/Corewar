@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 19:01:11 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/24 00:16:47 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		op_fork(t_env *env, int j)
 	env->champ[env->nb_champs] = env->champ[j];
 	param = read_multi_bytes(env->memory,
 								env->champ[env->nb_champs].pc + 2, 2);
-	env->champ[env->nb_champs].pc = param % (IDX_MOD);
+	env->champ[env->nb_champs].pc += param % (IDX_MOD);
 	env->champ[env->nb_champs].last_live = -1;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);

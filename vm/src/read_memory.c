@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 19:53:25 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 01:41:06 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_live(t_env *env)
 
 	i = 0;
 	total_lives = 0;
-	while (i < env->nb_champs)
+	while (i < 4)
 	{
 		if (total_lives >= NBR_LIVE)
 		{
@@ -33,10 +33,8 @@ int		check_live(t_env *env)
 
 static int	reset_cycles(t_env *env)
 {
-	env->cycle_to_die -= 500;
-	check_live(env);
+	//env->cycle_to_die -= 500;
 	del_process(env);
-	ft_print_memory(env);
 	if (env->cycle_to_die <= 0)
 	{
 		ft_printf(">>>>>>>>>>>>>>END_PROG<<<<<<<<<<<<<\n");
@@ -49,23 +47,18 @@ int		read_memory(t_env *env)
 {
 	int				j;
 	int				i;
-	int 			rounds;
 	int				check_delta;
 
 	j = 0;
-	rounds = 1;
 	check_delta = 0;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	i = 0;
-//	ft_printf("ROUND[%3d]\n", rounds);
-	while (env->cycle_to_die > 0)
+	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
 		j = 0;
 		//ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 		while (j < env->nb_champs)
 		{
-		//	ft_printf("CHAMP[%d]<<PC[%d]\n", j, env->champ[j].pc);
-		//	ft_printf("[%2d]\n", env->champ[j].cycles);
 			if (env->champ[j].cycles == 0)
 			{
 				exec_op(env, j);
@@ -79,19 +72,16 @@ int		read_memory(t_env *env)
 		}
 		if (i == env->cycle_to_die)
 		{
-			reset_cycles(env);
 			if ((i = check_live(env)) == 0)
 				check_delta++;
 			else
 				i = 0;
+			reset_cycles(env);
 			if (check_delta == MAX_CHECKS)
 			{
 				env->cycle_to_die -= CYCLE_DELTA;
 				check_delta = 0;
 			}
-			//ft_printf("ROUND[%3d]\n", rounds);
-			//ft_printf("NB_PROCESS>>[%4d]\n", env->nb_champs);
-			rounds++;
 		}
 		ft_print_memory(env);
 		read(0, 0, 1);
