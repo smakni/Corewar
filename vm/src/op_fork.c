@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 18:52:19 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 19:00:28 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void		op_fork(t_env *env, int j)
 		{
 			env->err_code = 2;
 			env->err_msg = "Fail to malloc.";
-			return ;read_multi_bytes(env->memory,
-								env->champ[env->nb_champs].pc + 2, 2);
+			return ;
 		}
 	env->champ[env->nb_champs] = env->champ[j];
 	param = read_multi_bytes(env->memory,
 								env->champ[env->nb_champs].pc + 2, 2);
-	env->champ[env->nb_champs].pc += param % (IDX_MOD);
+	env->champ[env->nb_champs].pc = param % (IDX_MOD);
 	env->champ[env->nb_champs].last_live = -1;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
+	env->champ[j].pc += 3;
 }
