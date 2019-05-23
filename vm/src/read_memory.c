@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/22 13:43:00 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 16:46:00 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		check_live(t_env *env)
 	int total_lives;
 
 	i = 0;
+	total_lives = 0;
 	while (i < env->nb_champs)
 	{
 		if (total_lives >= NBR_LIVE)
@@ -25,7 +26,7 @@ int		check_live(t_env *env)
 			env->cycle_to_die -= CYCLE_DELTA;
 			return (1);
 		}
-		total_lives = env->champ_live[i++];
+		total_lives += env->champ_live[i++];
 	}
 	return (0);
 }
@@ -34,9 +35,8 @@ static int	reset_cycles(t_env *env)
 {
 	env->cycle_to_die -= 500;
 	check_live(env);
-	// del_process(env);
+	del_process(env);
 	ft_print_memory(env);
-	//check_last_live for winner
 	if (env->cycle_to_die <= 0)
 	{
 		ft_printf(">>>>>>>>>>>>>>END_PROG<<<<<<<<<<<<<\n");
@@ -50,7 +50,6 @@ int		read_memory(t_env *env)
 	int				j;
 	int				i;
 	int 			rounds;
-	// int				op_len;
 	int				check_delta;
 
 	j = 0;
@@ -74,16 +73,16 @@ int		read_memory(t_env *env)
 				exec_op(env, j);
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
-				// env->champ[j].pc += op_len;
 				env->champ[j].cycles = check_cycles(env, j);
 			}
 			else if (env->champ[j].cycles > 0)
 				env->champ[j].cycles--;
 			j++;
 		}
-		if (i == env->cycle_to_die) //CYCLE_TO_DIE - DELTA
+		if (i == env->cycle_to_die)
 		{
-			if ((i = reset_cycles(env)) == 0)
+			reset_cycles(env);
+			if ((i = check_live(env)) == 0)
 				check_delta++;
 			else
 				i = 0;

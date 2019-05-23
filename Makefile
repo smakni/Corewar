@@ -83,7 +83,7 @@ CC		=	clang
 
 CFLAGS	=	-Wall -Werror -Wextra
 
-FFLAGS	=	-g3 -fsanitize=address
+FFLAGS	=	-g3
 
 RM		=	rm -f
 
