@@ -36,4 +36,5 @@ void		op_live(t_env *env, int j)
 		env->champ_live[2] += 1;
 	else if (id == 0xfffffffc)
 		env->champ_live[3] += 1;
+	env->champ[j].pc += 5;
 }

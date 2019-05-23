@@ -12,4 +12,5 @@ void		op_and(t_env *env, int j)
 	diff &= value;
 	cursor++;
 	env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
+	env->champ[j].pc += 1 + cursor;
 }

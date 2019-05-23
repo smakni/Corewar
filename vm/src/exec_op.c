@@ -35,9 +35,10 @@ void		exec_op(t_env *env, int j)
 	op_fun[15] = op_aff;
 	index = env->memory[env->champ[j].pc];
 	if (index >= 0x01 && index <= 0x10)
-		op_fun[index](env, j);
+		op_fun[index - 1](env, j);
 	else
 		env->champ[j].pc++;
+	ft_printf("in reg = %#.8x\n", env->champ[j].r[2]);
 }
 
 // int		exec_op(t_env *env, int j)

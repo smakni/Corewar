@@ -14,4 +14,5 @@ void		op_sub(t_env *env ,int j)
 	diff -= reg_content;
 	cursor++;
 	env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
+	env->champ[j].pc += 1 + cursor;
 }

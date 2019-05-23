@@ -49,4 +49,5 @@ void		op_ld(t_env *env ,int j)
 	env->champ[j].r[r_index] = to_store;
 	ft_printf("r[%d] = %x\n", r_index, env->champ[j].r[r_index]);
 	env->champ[j].carry = 1;
+	env->champ[j].pc += 1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0);
 }

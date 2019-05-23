@@ -15,4 +15,5 @@ void		op_add(t_env *env ,int j)
 	sum += reg_content;
 	cursor++;
 	env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = sum;
+	env->champ[j].pc += 1 + cursor;
 }

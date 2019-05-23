@@ -45,7 +45,9 @@ void		op_ldi(t_env *env, int j)
 	cursor = 1;
 	v1 = get_value_index(env, j, &cursor, 1);
 	v2 = get_value_index(env, j, &cursor, 2);
-	reg = env->memory[cursor + 1];
+	ft_printf("cursor = %i\n", env->champ[j].pc + cursor);
+	cursor++;
+	reg = env->memory[env->champ[j].pc + cursor];
 	ft_printf("v1, v2, reg = %i, %x, %i\n", v1, v2, reg);
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
 		sum = read_ind_size_bytes(env, env->champ[j].pc + (v1 % IDX_MOD));
@@ -55,6 +57,7 @@ void		op_ldi(t_env *env, int j)
 	sum = read_bytes(env, env->champ[j].pc + (sum % IDX_MOD));
 	env->champ[j].r[reg] = sum;
 	ft_printf("in reg = %#.8x\n", env->champ[j].r[reg]);
+	env->champ[j].pc += cursor + 1;
 }
 
 void		op_lldi(t_env *env, int j)
@@ -72,5 +75,5 @@ void		op_lldi(t_env *env, int j)
 	sum = read_multi_bytes(env->memory,
 				env->champ[j].pc + v1 + v2 + 4, REG_SIZE);
 	env->champ[j].r[v3] = sum;
-
+	env->champ[j].pc += 1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 1);
 }

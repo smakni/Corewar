@@ -15,4 +15,5 @@ void	op_sti(t_env *env, int j)
 	env->memory[dest + 1] = reg_content >> 16;
 	env->memory[dest + 2] = reg_content >> 8;
 	env->memory[dest + 3] = reg_content;
+	env->champ[j].pc += 1 + cursor;
 }

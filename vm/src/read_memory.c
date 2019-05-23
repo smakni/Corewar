@@ -34,7 +34,7 @@ static int	reset_cycles(t_env *env)
 {
 	env->cycle_to_die -= 500;
 	check_live(env);
-	del_process(env);
+	// del_process(env);
 	ft_print_memory(env);
 	//check_last_live for winner
 	if (env->cycle_to_die <= 0)
@@ -93,10 +93,10 @@ int		read_memory(t_env *env)
 				check_delta = 0;
 			}
 			ft_printf("ROUND[%3d]\n", rounds);
-			read(0, 0, 1);
 			rounds++;
 		}
-		// ft_print_memory(env);
+		ft_print_memory(env);
+		read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}
