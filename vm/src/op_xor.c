@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/23 17:17:32 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 19:23:21 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void		op_xor(t_env *env, int j)
 	cursor++;
 	env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
 	env->champ[j].pc += 1 + cursor;
+	env->champ[j].carry = 1;
 }
