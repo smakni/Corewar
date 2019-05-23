@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 18:47:06 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 19:55:42 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_print_memory(t_env *env)
 	int		i;
 
 	i = 0;
+	ft_putendl("");
 	while (i < 4096)
 	{
 		ft_printf("%.2x ", env->memory[i]);
@@ -31,11 +32,12 @@ void	ft_print_memory(t_env *env)
 		if (i % 64 == 0)
 			ft_putendl("");
 	}
+	return ;
 	i = 0;
 	while (i < env->nb_champs)
 	{
 		ft_printf("player's name : %s [r1 = %x] | nb_lives = %d\n",
-		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ_live[i]);
+		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].last_live);
 		i++;
 	}
 }
@@ -53,7 +55,7 @@ int 		check_last_live(t_env *env)
 			save = i;
 		i++;
 	}
-	ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ_live[0]);
+	ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ_live[save]);
 	return (save);
 }
 
@@ -61,7 +63,6 @@ int			main(int argc, char **argv)
 {
 	t_env	env;
 
-	ft_printf("overflow %i\n", 3825205504);
 	if (argc > 1)
 	{
 		ft_bzero(&env, sizeof(t_env));

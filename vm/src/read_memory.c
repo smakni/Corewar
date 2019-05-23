@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 16:46:00 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 19:53:25 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,15 @@ int		read_memory(t_env *env)
 	check_delta = 0;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	i = 0;
-	ft_printf("ROUND[%3d]\n", rounds);
+//	ft_printf("ROUND[%3d]\n", rounds);
 	while (env->cycle_to_die > 0)
 	{
 		j = 0;
-		ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
+		//ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 		while (j < env->nb_champs)
 		{
-			ft_printf("CHAMP[%d]<<PC[%d]\n", j, env->champ[j].pc);
-			ft_printf("[%2d]\n", env->champ[j].cycles);
-			if (env->champ[j].cycles == -24)
-				exit (0);
+		//	ft_printf("CHAMP[%d]<<PC[%d]\n", j, env->champ[j].pc);
+		//	ft_printf("[%2d]\n", env->champ[j].cycles);
 			if (env->champ[j].cycles == 0)
 			{
 				exec_op(env, j);
@@ -91,7 +89,8 @@ int		read_memory(t_env *env)
 				env->cycle_to_die -= CYCLE_DELTA;
 				check_delta = 0;
 			}
-			ft_printf("ROUND[%3d]\n", rounds);
+			//ft_printf("ROUND[%3d]\n", rounds);
+			//ft_printf("NB_PROCESS>>[%4d]\n", env->nb_champs);
 			rounds++;
 		}
 		ft_print_memory(env);

@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 15:05:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/22 13:10:57 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 19:13:34 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void		op_live(t_env *env, int j)
 		env->champ[j].pc += 4;
 	}
 	id = read_multi_bytes(env->memory, env->champ[j].pc + 4, 4);
-	ft_printf("ID = %x\n", id);
+	//ft_printf("ID = %x\n", id);
 	if (env->champ[j].player_nb == id)
 		env->champ[j].last_live = env->cycle_index;
 	if (id == 0xffffffff)
 	{	
-		ft_printf("ADD_LIVE TO P1\n");
+		//ft_printf("ADD_LIVE TO P1\n");
 		env->champ_live[0] += 1;
 	}
 	else if (id == 0xfffffffe)
