@@ -14,7 +14,8 @@
 
 static int	ft_display_commands(void)
 {
-	ft_printf("Commands and options for running the vm displayed here\n");
+	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
+	ft_printf("	-Maximum number of champions : 4\n");
 	return (-1);
 }
 
