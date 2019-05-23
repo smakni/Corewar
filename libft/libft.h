@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:39:54 by jergauth          #+#    #+#             */
-/*   Updated: 2019/03/21 16:32:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 19:48:16 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define BG_BLUE	"\033[44m"
 # define BG_MAGENTA	"\033[45m"
 # define BG_CYAN	"\033[46m"
+# define BG_WHITE	"\033[47m"
 # define CLEAR		"\e[1;1H\e[2J"
 
 typedef struct		s_buf

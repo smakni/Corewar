@@ -2,4 +2,4 @@
 .comment "i'm Zork"          
 
 	ld	%42, r2
-	aff r2
+	fork %60

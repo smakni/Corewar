@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 18:48:51 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 19:54:59 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,33 @@ static int	ft_display_commands(void)
 void	ft_print_memory(t_env *env)
 {
 	int		i;
+	int	flag = 0;
 
+	ft_printf("{CLEAR}");
 	i = 0;
 	while (i < 4096)
 	{
-		ft_printf("%.2x ", env->memory[i]);
+		int j = 0;
+		while (j < env->nb_champs)
+		{
+			if (env->champ[j].pc == (unsigned)i)
+			{
+				flag = 1;
+				if (env->champ[j].player_nb == 0xffffffff)
+					ft_printf("{BG_GREEN}");
+				else if (env->champ[j].player_nb == 0xfffffffe)
+					ft_printf("{BG_BLUE}");
+				else if (env->champ[j].player_nb == 0xfffffffd)
+					ft_printf("{BG_RED}");
+				else if (env->champ[j].player_nb == 0xfffffffc)
+					ft_printf("{BG_CYAN}");
+			}
+			j++;
+		}
+		ft_printf("%.2x", env->memory[i]);
+		if (flag == 1)
+			ft_printf("{reset}");
+		ft_printf(" ");
 		i++;
 		if (i % 64 == 0)
 			ft_putendl("");
