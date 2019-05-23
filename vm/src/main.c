@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 15:27:54 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 17:45:01 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			main(int argc, char **argv)
 {
 	t_env	env;
 
+	ft_printf("overflow %i\n", 3825205504);
 	if (argc > 1)
 	{
 		ft_bzero(&env, sizeof(t_env));

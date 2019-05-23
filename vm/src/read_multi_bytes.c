@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_multi_bytes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:53:38 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/22 16:27:04 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/23 18:27:39 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,16 @@ int		read_multi_bytes(unsigned char *line, int index, int nb_bytes)
 		multi_byte += line[index - 3 % MEM_SIZE] << 24;
 	}
 	return (multi_byte);
+}
+
+int	read_bytes(t_env *env, int index)
+{
+	int	ret;
+
+	ret = 0;
+	ret += env->memory[index] << 24;
+	ret += env->memory[index + 1] << 16;
+	ret += env->memory[index + 2] << 8;
+	ret += env->memory[index + 3];
+	return (ret);
 }

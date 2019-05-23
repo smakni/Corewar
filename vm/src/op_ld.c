@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/22 17:18:46 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/23 18:28:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-
-static int	read_bytes(t_env *env, int index)
-{
-	int	ret;
-
-	ret = 0;
-	ret += env->memory[index] << 24;
-	ret += env->memory[index + 1] << 16;
-	ret += env->memory[index + 2] << 8;
-	ret += env->memory[index + 3];
-	return (ret);
-}
 
 void		op_ld(t_env *env ,int j)
 {

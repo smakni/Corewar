@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_ldi.c                                           :+:      :+:    :+:   */
+/*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 18:27:56 by jergauth         ###   ########.fr       */
+/*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
+/*   Updated: 2019/05/23 18:27:32 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_ldi(t_env *env, int j)
+void		op_lldi(t_env *env, int j)
 {
 	int	v1;
 	int	v2;
@@ -28,12 +28,12 @@ void		op_ldi(t_env *env, int j)
 	reg = env->memory[env->champ[j].pc + cursor];
 	ft_printf("v1, v2, reg = %i, %x, %i\n", v1, v2, reg);
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
-		sum = read_bytes(env, env->champ[j].pc + (v1 % IDX_MOD));
+		sum = read_bytes(env, env->champ[j].pc + (v1 % MEM_SIZE));
 	else
 		sum = v1;
 	sum += v2;
-	ft_printf("IND VALUE = %i\nV2 VALUE = %#.8x\n", env->champ[j].pc + (sum % (IDX_MOD)), v2);
-	sum = env->champ[j].pc + (sum % (IDX_MOD));
+	ft_printf("IND VALUE = %i\nV2 VALUE = %#.8x\n", env->champ[j].pc + (sum % MEM_SIZE), v2);
+	sum = env->champ[j].pc + (sum % MEM_SIZE);
 	if (sum < 0)
 		sum += MEM_SIZE;
 	sum = read_bytes(env, sum);
