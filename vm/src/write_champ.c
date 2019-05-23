@@ -6,7 +6,11 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/05/23 19:14:32 by sabri            ###   ########.fr       */
+=======
+/*   Updated: 2019/05/23 18:54:07 by jergauth         ###   ########.fr       */
+>>>>>>> 7c9c03cc0b9ca74795e4fb56a1fc690e250aa2b2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +46,10 @@ void	write_champ(t_env *env)
 		env->champ[j].r[1] = id--;
 		env->champ[j].pc = i;
 		env->champ[j].cycles = check_cycles(env, j);
+<<<<<<< HEAD
 	//	ft_printf("cycles = %i\n", env->champ[j].cycles);
+=======
+>>>>>>> 7c9c03cc0b9ca74795e4fb56a1fc690e250aa2b2
 		env->champ[j].last_live = -1; 
 		close(fd);
 		i += 4096 / env->nb_champs;

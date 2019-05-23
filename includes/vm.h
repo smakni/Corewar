@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 18:27:27 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/23 18:57:27 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct	s_champ
 	unsigned	pc;
 	int			r[REG_NUMBER];
 	int			last_live;
-	char		cycles;
+	int			cycles;
 	char		last_return;
 	char		carry;
 }				t_champ;

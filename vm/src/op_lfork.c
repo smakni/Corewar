@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:34 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/23 18:45:53 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/23 19:01:38 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void		op_lfork(t_env *env, int j)
 	env->champ[env->nb_champs].last_live = -1;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
+	env->champ[j].pc += 3;
 }
