@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 16:14:53 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 16:36:34 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		op_fork(t_env *env, int j)
 								env->champ[env->nb_champs].pc + 2, 2);
 	env->champ[env->nb_champs].pc += param % (IDX_MOD);
 	env->champ[env->nb_champs].last_live = -1;
-	env->champ[env->nb_champs].nb_live = 0;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
 	env->champ[j].pc += 3;

@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:20:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 13:48:13 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 16:47:32 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,4 @@ void	op_zjmp(t_env *env, int j)
 	}
 	else
 		env->champ[j].pc += 3;
-	env->champ[j].carry = 0;
 }
