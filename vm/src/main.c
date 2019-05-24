@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/24 00:13:50 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 16:11:37 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_print_memory(t_env *env)
 		i = 0;
 	while (i < env->nb_champs)
 	{
-		ft_printf("id : %s [%x] | last_lives = {%d}\n",
-		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].last_live);
+		ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
+		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].nb_live, env->champ[i].last_live);
 		ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->champ[i].pc);
 		ft_printf("OP{%.2x}", env->memory[env->champ[i].pc]);
 		ft_printf("[%2d]\n", env->champ[i].cycles);
@@ -88,7 +88,7 @@ int 		check_last_live(t_env *env)
 			save = i;
 		i++;
 	}
-	ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ_live[save]);
+	ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ[save].last_live);
 	return (save);
 }
 

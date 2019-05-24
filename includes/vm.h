@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 13:56:12 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 16:01:24 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_champ
 	unsigned	pc;
 	unsigned 	r[REG_NUMBER + 1];
 	int			last_live;
+	int			nb_live;
 	int			cycles;
 	char		last_return;
 	char		carry;
@@ -43,7 +44,6 @@ typedef struct	s_env
 	int					dump;
 	int					nb_champs;
 	int					nb_realloc;
-	int					champ_live[MAX_PLAYERS];
 	int					cycle_to_die;
 	int					cycle_index;
 }				t_env;

@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 14:01:31 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 16:09:36 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,13 @@ int		check_live(t_env *env)
 
 	i = 0;
 	total_lives = 0;
-	while (i < 4)
+	while (i < env->nb_champs)
 	{
-		if (total_lives >= NBR_LIVE)
-		{
-			env->cycle_to_die -= CYCLE_DELTA;
-			// return (1);
-		}
-		total_lives += env->champ_live[i];
-		env->champ_live[i] = 0;
+		total_lives += env->champ[i].nb_live;
 		i++;
 	}
+	if (total_lives >= NBR_LIVE)
+		env->cycle_to_die -= CYCLE_DELTA;
 	return (0);
 }
 
@@ -66,9 +62,6 @@ int		read_memory(t_env *env)
 				exec_op(env, j);
 				if (env->err_code != 0)
 					return (FAIL);
-				if (env->champ[j].last_return == 1)
-					env->champ[j].carry = 0;
-				env->champ[j].last_return = 0;
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
 				env->champ[j].cycles = check_cycles(env, j);
