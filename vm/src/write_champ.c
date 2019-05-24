@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 21:32:04 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 21:46:34 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		write_champ(t_env *env)
 	i = 0;
 	j = 0;
 	id = 0xffffffff;
-	ft_memset(line, 0, MEM_SIZE);
 	while (j < env->nb_champs)
 	{
 		if (!(safe_open(env->champ[j].header.prog_name, env, O_RDONLY)))
