@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 01:41:06 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 14:01:31 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int		read_memory(t_env *env)
 			if (env->champ[j].cycles == 0)
 			{
 				exec_op(env, j);
+				if (env->champ[j].last_return == 1)
+					env->champ[j].carry = 1;
+				else
+					env->champ[j].carry = 0;
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
 				env->champ[j].cycles = check_cycles(env, j);
@@ -84,7 +88,7 @@ int		read_memory(t_env *env)
 			}
 		}
 		ft_print_memory(env);
-		read(0, 0, 1);
+		//read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

@@ -2,13 +2,13 @@
 
 void	op_sti(t_env *env, int j)
 {
-	int		reg_content;
-	int		cursor;
-	short	dest;
+	unsigned	reg_content;
+	int			cursor;
+	short		dest;
 
 	dest = env->champ[j].pc;
 	cursor = 1;
-	reg_content = get_value_index(env, j, &cursor, 1);
+	reg_content = (unsigned)get_value_index(env, j, &cursor, 1);
 	dest += get_value_index(env, j, &cursor, 2);
 	dest += get_value_index(env, j, &cursor, 3);
 	env->memory[dest] = reg_content >> 24;

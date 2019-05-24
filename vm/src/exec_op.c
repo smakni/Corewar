@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 00:23:04 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 13:51:32 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		exec_op(t_env *env, int j)
+void	exec_op(t_env *env, int j)
 {
 	void	(*op_fun[16])(t_env*, int);
 	int		index;
@@ -35,7 +35,13 @@ void		exec_op(t_env *env, int j)
 	op_fun[15] = op_aff;
 	index = env->memory[env->champ[j].pc];
 	if (index >= 0x01 && index <= 0x10)
+	{
 		op_fun[index - 1](env, j);
+		env->champ[j].last_return = 1;
+	}
 	else
+	{
 		env->champ[j].pc++;
+		env->champ[j].last_return = 0;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 20:15:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/24 13:56:12 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct	s_champ
 	header_t	header;
 	unsigned	player_nb;
 	unsigned	pc;
-	int			r[REG_NUMBER];
+	unsigned 	r[REG_NUMBER + 1];
 	int			last_live;
 	int			cycles;
 	char		last_return;
