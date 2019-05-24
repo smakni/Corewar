@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 16:01:24 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 21:22:44 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef struct	s_env
 	int					err_code;
 	int					fd;
 	int					dump;
-	int					nb_champs;
-	int					nb_realloc;
-	int					cycle_to_die;
+	unsigned			nb_champs;
+	unsigned			nb_realloc;
+	unsigned			cycle_to_die;
 	int					cycle_index;
 }				t_env;
 
@@ -56,26 +56,26 @@ int				read_bytes(t_env *env, int index);
 int				safe_open(const char *pathname, t_env *data, const int flags);
 int				type_param(unsigned char byte, int param);
 int 			decode_byte_param(unsigned char param, int is_index);
-int				get_value(t_env *env, int j, int *cursor, int param);
-int				get_value_index(t_env *env, int j, int *cursor, int param);
-int				check_cycles(t_env *env, int j);
-void			exec_op(t_env *env, int j);
-void			op_live(t_env *env, int j);
-void			op_sti(t_env *env, int j);
-void			op_ld(t_env *env, int j);
-void			op_st(t_env *env ,int j);
-void			op_add(t_env *env ,int j);
-void			op_sub(t_env *env ,int j);
-void			op_and(t_env *env ,int j);
-void			op_or(t_env *env, int j);
-void			op_xor(t_env *env, int j);
-void			op_fork(t_env *env, int j);
-void			op_zjmp(t_env *env, int j);
-void			op_ldi(t_env *env ,int j);
-void			op_lldi(t_env *env ,int j);
-void			op_lld(t_env *env, int j);
-void			op_lfork(t_env *env, int j);
-void			op_aff(t_env *env, int j);
+int				get_value(t_env *env, unsigned j, int *cursor, int param);
+int				get_value_index(t_env *env, unsigned j, int *cursor, int param);
+int				check_cycles(t_env *env, unsigned j);
+void			exec_op(t_env *env, unsigned j);
+void			op_live(t_env *env, unsigned j);
+void			op_sti(t_env *env, unsigned j);
+void			op_ld(t_env *env, unsigned j);
+void			op_st(t_env *env ,unsigned j);
+void			op_add(t_env *env ,unsigned j);
+void			op_sub(t_env *env ,unsigned j);
+void			op_and(t_env *env ,unsigned j);
+void			op_or(t_env *env, unsigned j);
+void			op_xor(t_env *env, unsigned j);
+void			op_fork(t_env *env, unsigned j);
+void			op_zjmp(t_env *env, unsigned j);
+void			op_ldi(t_env *env ,unsigned j);
+void			op_lldi(t_env *env ,unsigned j);
+void			op_lld(t_env *env, unsigned j);
+void			op_lfork(t_env *env, unsigned j);
+void			op_aff(t_env *env, unsigned j);
 
 int				del_process(t_env *env);
 

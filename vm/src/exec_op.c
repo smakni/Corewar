@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 13:51:32 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 21:21:21 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void	exec_op(t_env *env, int j)
+void	exec_op(t_env *env, unsigned j)
 {
-	void	(*op_fun[16])(t_env*, int);
+	void	(*op_fun[16])(t_env*, unsigned);
 	int		index;
 
 	op_fun[0] = op_live;

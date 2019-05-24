@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 16:09:36 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 21:20:17 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		check_live(t_env *env)
 {
-	int i;
-	int total_lives;
+	unsigned i;
+	unsigned total_lives;
 
 	i = 0;
 	total_lives = 0;
@@ -25,7 +25,10 @@ int		check_live(t_env *env)
 		i++;
 	}
 	if (total_lives >= NBR_LIVE)
+	{
 		env->cycle_to_die -= CYCLE_DELTA;
+		return (1);
+	}
 	return (0);
 }
 
@@ -43,8 +46,8 @@ static int	reset_cycles(t_env *env)
 
 int		read_memory(t_env *env)
 {
-	int				j;
-	int				i;
+	unsigned		j;
+	unsigned		i;
 	int				check_delta;
 
 	j = 0;
@@ -59,11 +62,11 @@ int		read_memory(t_env *env)
 		{
 			if (env->champ[j].cycles == 0)
 			{
+				if (env->champ[j].pc >= MEM_SIZE)
+					env->champ[j].pc -= MEM_SIZE;
 				exec_op(env, j);
 				if (env->err_code != 0)
 					return (FAIL);
-				if (env->champ[j].pc >= MEM_SIZE)
-					env->champ[j].pc -= MEM_SIZE;
 				env->champ[j].cycles = check_cycles(env, j);
 			}
 			else if (env->champ[j].cycles > 0)

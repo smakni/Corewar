@@ -6,13 +6,13 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 19:13:06 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 21:16:07 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_ld(t_env *env ,int j)
+void		op_ld(t_env *env ,unsigned j)
 {
 	int r_index;
 	int	to_store;

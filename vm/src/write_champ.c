@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 20:18:09 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/24 21:32:04 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int		write_champ(t_env *env)
 {
-	int i;
-	int j;
+	unsigned i;
+	unsigned j;
 	int	id;
 	unsigned char line[MAX_CHAMP_CODE_SIZE + 1];
 
 	i = 0;
 	j = 0;
 	id = 0xffffffff;
+	ft_memset(line, 0, MEM_SIZE);
 	while (j < env->nb_champs)
 	{
 		if (!(safe_open(env->champ[j].header.prog_name, env, O_RDONLY)))

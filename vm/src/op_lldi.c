@@ -6,13 +6,13 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/23 19:23:57 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 21:17:41 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_lldi(t_env *env, int j)
+void		op_lldi(t_env *env, unsigned j)
 {
 	int	v1;
 	int	v2;

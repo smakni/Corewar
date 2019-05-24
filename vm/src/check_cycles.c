@@ -6,13 +6,13 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:38:30 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/23 20:02:36 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 21:15:03 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-int		check_cycles(t_env *env, int j)
+int		check_cycles(t_env *env, unsigned j)
 {
 	int op_cycles[17];
 	int index;
@@ -29,7 +29,7 @@ int		check_cycles(t_env *env, int j)
 	op_cycles[9] = 20;
 	op_cycles[10] = 25;
 	op_cycles[11] = 25;
-	op_cycles[12] = 800;
+	op_cycles[12] = 100;
 	op_cycles[13] = 10;
 	op_cycles[14] = 50;
 	op_cycles[15] = 1000;

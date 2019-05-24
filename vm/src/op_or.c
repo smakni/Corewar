@@ -6,13 +6,13 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/23 19:23:11 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 21:16:53 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_or(t_env *env, int j)
+void		op_or(t_env *env, unsigned j)
 {
 	int cursor;
 	int	value;

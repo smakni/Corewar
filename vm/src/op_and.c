@@ -1,6 +1,6 @@
 #include "../../includes/vm.h"
 
-void		op_and(t_env *env, int j)
+void		op_and(t_env *env, unsigned j)
 {
 	int cursor;
 	int	value;

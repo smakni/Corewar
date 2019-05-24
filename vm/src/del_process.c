@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 16:10:20 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 21:23:15 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int		del_process(t_env *env)
 {
 	t_champ *tmp;
-	int 	i;
-	int		j;
+	unsigned 	i;
+	unsigned	j;
 
 	i = 0;
 	j = 0;

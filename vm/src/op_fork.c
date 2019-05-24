@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 16:36:34 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 21:21:44 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_realloc_tab(t_env *env)
 {
 	t_champ *tmp;
-	int 	i;
+	unsigned 	i;
 
 	env->nb_realloc++;
 	i = 0;
@@ -35,7 +35,7 @@ static int	ft_realloc_tab(t_env *env)
 	return (0);
 }
 
-void		op_fork(t_env *env, int j)
+void		op_fork(t_env *env, unsigned j)
 {
 	int	param;
 
@@ -50,7 +50,6 @@ void		op_fork(t_env *env, int j)
 	param = read_multi_bytes(env->memory,
 								env->champ[env->nb_champs].pc + 2, 2);
 	env->champ[env->nb_champs].pc += param % (IDX_MOD);
-	env->champ[env->nb_champs].last_live = -1;
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
 	env->champ[j].pc += 3;

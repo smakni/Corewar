@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/24 16:11:37 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/24 21:12:15 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static int	ft_display_commands(void)
 
 void	ft_print_memory(t_env *env)
 {
-	int		i;
+	unsigned	i;
 	int	flag = 0;
 
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");
-		i = 0;
+		i = 0;/*
 	while (i < env->nb_champs)
 	{
 		ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
@@ -42,13 +42,13 @@ void	ft_print_memory(t_env *env)
 		ft_printf("OP{%.2x}", env->memory[env->champ[i].pc]);
 		ft_printf("[%2d]\n", env->champ[i].cycles);
 		i++;
-	}
+	}*/
 	i = 0;
 	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_champs);
 	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 	while (i < 4096)
 	{
-		int j = 0;
+		unsigned j = 0;
 		while (j < env->nb_champs)
 		{
 			if (env->champ[j].pc == (unsigned)i)
@@ -77,7 +77,7 @@ void	ft_print_memory(t_env *env)
 
 int 		check_last_live(t_env *env)
 {
-	int i;
+	unsigned i;
 	int save;
 
 	i = 0;

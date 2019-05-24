@@ -6,13 +6,13 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/23 19:23:21 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/24 21:17:00 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_xor(t_env *env, int j)
+void		op_xor(t_env *env, unsigned j)
 {
 	int cursor;
 	int	value;
