@@ -80,8 +80,10 @@ int		encode_multi_comment(t_parser *data)
 
 int		encode_header(t_parser *data, int i)
 {
+	data->syntax_flag = 1;
 	if (ft_strncmp(NAME_CMD_STRING, &data->line[i], 5) == IDENTICAL)
 	{
+		data->header_flag += 1;
 		data->index = 0;
 		data->bytecode[data->index++] = 0;
 		data->bytecode[data->index++] = (char)234;
@@ -102,6 +104,7 @@ int		encode_header(t_parser *data, int i)
 	}
 	else if (ft_strncmp(COMMENT_CMD_STRING, &data->line[i], 8) == IDENTICAL)
 	{
+		data->header_flag += 1;
 		if (data->line[i + 8] != '\t' && data->line[i + 8] != ' ' && data->line[i + 8] != '"')
 			return (FAIL);
 		i += 8;

@@ -55,6 +55,7 @@ int		save_label_address(t_parser *data)
 	t_bytes	*elem;
 	int 	i;
 
+	data->syntax_flag = 1;
 	i = ft_strspn(data->line, " \t");
 	if (!check_label_chars(&data->line[i]))
 		return (FAIL);
@@ -73,6 +74,7 @@ int		save_label_address(t_parser *data)
 
 int		line_parser(t_parser *data, int i, int label_flag)
 {
+	data->syntax_flag = 0;
 	while (data->line[i])
 	{
 		if (data->line[i] == '#')
@@ -103,6 +105,12 @@ int		line_parser(t_parser *data, int i, int label_flag)
 		}
 		i++;
 	}
+	if (data->syntax_flag == 0 && ft_strspn(data->line, " \t") != (size_t)i)
+	{
+		data->err_code = 4;
+		data->err_msg = "Syntax error near line ";
+		return (FAIL);
+	}
 	return (SUCCESS);
 }
 
@@ -132,6 +140,12 @@ int		reader(t_parser *data)
 	{
 		data->err_code = 4;
 		data->err_msg = "Syntax error near line ";
+		return (FAIL);
+	}
+	if (data->header_flag != 2)
+	{
+		data->err_code = 9;
+		data->err_msg = "Name and/or Comment missing";
 		return (FAIL);
 	}
 	return (SUCCESS);

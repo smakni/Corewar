@@ -18,3 +18,5 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Invalid instruction near line %i."
 8 : Erreur lexicale
 	->	"Lexical error near line %i."
+9 : name et/ou comment manquant
+	->	"Name and/or Comment missing."

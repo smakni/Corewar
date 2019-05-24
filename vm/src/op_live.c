@@ -22,7 +22,6 @@ void		op_live(t_env *env, int j)
 		env->champ[j].pc += 4;
 	}
 	id = (unsigned)read_multi_bytes(env->memory, env->champ[j].pc + 4, 4);
-	//ft_printf("ID = %x\n", id);
 	if (env->champ[j].player_nb == id)
 		env->champ[j].last_live = env->cycle_index;
 	env->champ[j].nb_live++;
