@@ -4,6 +4,7 @@
 # include "../libft/libft.h"
 # include "../ressources/op.h"
 
+# define MAX_CHAMP_CODE_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
 # define IDENTICAL	0
 # define SUCCESS	1
 # define FAIL		0
@@ -33,7 +34,7 @@ typedef struct	s_parser
 {
 	t_bytes			*blanks;
 	t_bytes			*labels;
-	unsigned char	bytecode[CHAMP_MAX_SIZE + 100000000 + 1];
+	unsigned char	bytecode[MAX_CHAMP_CODE_SIZE + 1];
 	char			*pathname;
 	char			*line;
 	int				nb_line;
@@ -44,6 +45,8 @@ typedef struct	s_parser
 	int				index_instruction;
 	int				comment_flag;
 	int				eol;
+	char			header_flag;
+	char			syntax_flag;
 }				t_parser;
 
 int				ft_strccmp(const char *s1, const char *s2);

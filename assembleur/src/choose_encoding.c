@@ -89,6 +89,7 @@ static int		choose_encoding_suite(t_parser *data)
 
 int		choose_encoding(t_parser *data, int i)
 {
+	data->syntax_flag = 1;
 	if (!(ft_format_line(data, i)))
 		return (FAIL);
 	if (ft_strccmp("live", data->line) == IDENTICAL)
