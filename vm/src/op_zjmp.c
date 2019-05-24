@@ -21,8 +21,8 @@ void	op_zjmp(t_env *env, int j)
 		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2] + 1;
 		//ft_printf("INDEX_JUMP = %d\n", index);
 		env->champ[j].pc -= index % IDX_MOD;
-		env->champ[j].carry = 0;
 	}
 	else
 		env->champ[j].pc += 3;
+	env->champ[j].carry = 0;
 }

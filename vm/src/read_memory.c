@@ -24,16 +24,18 @@ int		check_live(t_env *env)
 		if (total_lives >= NBR_LIVE)
 		{
 			env->cycle_to_die -= CYCLE_DELTA;
-			return (1);
+			// return (1);
 		}
-		total_lives += env->champ_live[i++];
+		total_lives += env->champ_live[i];
+		env->champ_live[i] = 0;
+		i++;
 	}
 	return (0);
 }
 
 static int	reset_cycles(t_env *env)
 {
-	//env->cycle_to_die -= 500;
+	// env->cycle_to_die -= 500;
 	del_process(env);
 	if (env->cycle_to_die <= 0)
 	{
@@ -62,10 +64,11 @@ int		read_memory(t_env *env)
 			if (env->champ[j].cycles == 0)
 			{
 				exec_op(env, j);
+				if (env->err_code != 0)
+					return (FAIL);
 				if (env->champ[j].last_return == 1)
-					env->champ[j].carry = 1;
-				else
 					env->champ[j].carry = 0;
+				env->champ[j].last_return = 0;
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
 				env->champ[j].cycles = check_cycles(env, j);
@@ -92,5 +95,5 @@ int		read_memory(t_env *env)
 		env->cycle_index++;
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }

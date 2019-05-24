@@ -1,5 +1,10 @@
 .name "korZ_live"
 .comment "i'm Zork"          
 
-	ldi	%4,%0,r3
-	st r3, 60
+	sti	r1, %:live,%1
+	ld %0, r16
+
+live:
+		live %1
+		#fork %45
+		zjmp %:live

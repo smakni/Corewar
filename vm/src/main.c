@@ -109,7 +109,8 @@ int			main(int argc, char **argv)
 		return (ft_display_commands());
 	if (write_champ(&env) == FAIL)
 		return (clean_quit(&env, -1));
-	read_memory(&env);
+	if (read_memory(&env) == FAIL)
+		return (clean_quit(&env, -1));
 	check_last_live(&env);
 	//ft_print_memory(&env);
 	return (0);

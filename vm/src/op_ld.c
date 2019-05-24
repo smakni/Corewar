@@ -32,10 +32,12 @@ void		op_ld(t_env *env ,int j)
 		r_index = env->memory[env->champ[j].pc + 4];
 		to_store = read_bytes(env, env->champ[j].pc + (param_1 % IDX_MOD));
 	}
-	//ft_printf("to_store = %x\n", to_store);
+	if (to_store == 0)
+		env->champ[j].carry = 1;
+	else
+		env->champ[j].carry = 0;
 	//ft_printf("r = %d\n", r_index);
 	env->champ[j].r[r_index] = to_store;
 	//ft_printf("r[%d] = %x\n", r_index, env->champ[j].r[r_index]);
-	env->champ[j].carry = 1;
 	env->champ[j].pc += 1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0);
 }

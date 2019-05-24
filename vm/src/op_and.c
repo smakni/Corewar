@@ -11,7 +11,10 @@ void		op_and(t_env *env, int j)
 	value = get_value(env, j, &cursor, 2);
 	diff &= value;
 	cursor++;
+	if (diff == 0)
+		env->champ[j].carry = 1;
+	else
+		env->champ[j].carry = 0;
 	env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
 	env->champ[j].pc += 1 + cursor;
-	env->champ[j].carry = 1;
 }
