@@ -30,6 +30,8 @@ void	ft_print_memory(t_env *env)
 	unsigned	i;
 	int	flag = 0;
 
+//	visu(env);
+//	return ;
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");

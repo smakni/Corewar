@@ -75,7 +75,8 @@ SOURCES_P2	=	main.c\
 				op_lfork.c\
 				op_aff.c\
 				check_cycles.c\
-				del_process.c
+				del_process.c\
+				visu.c
 
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
@@ -102,7 +103,7 @@ $(NAME_P1):	$(OBJS_P1) $(HDR)asm.h $(LIB) Makefile
 
 
 $(NAME_P2):	$(OBJS_P2) $(HDR)vm.h $(LIB) Makefile
-				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
+				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR) -lncurses
 				@echo "Corewar	: corewar has been successfully created."
 
 $(DIR_O_P1)%.o: $(ASM_PATH)%.c

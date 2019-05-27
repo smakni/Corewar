@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 21:22:44 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/27 18:59:05 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int				del_process(t_env *env);
 
 // DEBUG
 void	ft_print_memory(t_env *env);
+void	visu(t_env *env);
 
 #endif
