@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../ressources/op.h"
+# include <curses.h>
 
 # define MAX_CHAMP_CODE_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
 # define FAIL		0
@@ -46,6 +47,11 @@ typedef struct	s_env
 	unsigned			nb_realloc;
 	unsigned			cycle_to_die;
 	int					cycle_index;
+	int					visu;
+	WINDOW				*around_memory;
+	WINDOW				*mem;
+	WINDOW				*around_infos;
+	WINDOW				*infos;
 }				t_env;
 
 int				ft_parse_argc(int argc, char **argv, t_env *env);
@@ -82,5 +88,6 @@ int				del_process(t_env *env);
 // DEBUG
 void	ft_print_memory(t_env *env);
 void	visu(t_env *env);
+void	visu_first(t_env *env);
 
 #endif

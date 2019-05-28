@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-/*
-static void	ft_check_duplicate(t_champ *tmp, int nb)
+
+static int ft_check_duplicate(t_champ *tmp, unsigned int nb)
 {
-	int		i;
-	int		j;
+	unsigned int i;
+	unsigned int j;
 
 	i = 0;
 	while (i < nb)
@@ -24,28 +24,30 @@ static void	ft_check_duplicate(t_champ *tmp, int nb)
 		if (tmp[i].player_nb > nb)
 		{
 			ft_printf("error, player number too high\n", tmp[i].player_nb);
-			exit(-1);
+			return (FAIL);
 		}
 		while (j < nb)
 		{
 			if (j != i && tmp[i].player_nb == tmp[j].player_nb && tmp[i].player_nb != 0)
 			{
 				ft_printf("error\n");
-				exit(-1);
+				return (FAIL);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (SUCCESS);
 }
 
-static void	ft_sort_argc(t_env *env, t_champ *tmp)
+static int ft_sort_argc(t_env *env, t_champ *tmp)
 {
-	int		i;
-	int		j;
+	unsigned int i;
+	unsigned int j;
 
 	i = 0;
-	ft_check_duplicate(tmp, env->nb_champs);
+	if (ft_check_duplicate(tmp, env->nb_champs) == FAIL)
+		return (FAIL);
 	while (++i < env->nb_champs + 1)
 	{
 		j = -1;
@@ -53,7 +55,7 @@ static void	ft_sort_argc(t_env *env, t_champ *tmp)
 			if (tmp[j].player_nb == i)
 			{
 				env->champ[i - 1] = tmp[j];
-				break ;
+				break;
 			}
 		if (j == env->nb_champs)
 		{
@@ -63,16 +65,17 @@ static void	ft_sort_argc(t_env *env, t_champ *tmp)
 				{
 					tmp[j].player_nb = i;
 					env->champ[i - 1] = tmp[j];
-					break ;
+					break;
 				}
 		}
 	}
+	return (SUCCESS);
 }
 
-void		ft_parse_argc(int argc, char **argv, t_env *env)
+int		ft_parse_argc(int argc, char **argv, t_env *env)
 {
-	int		i;
-	t_champ	tmp[4];
+	int i;
+	t_champ tmp[4];
 
 	ft_bzero(tmp, 4 * sizeof(t_champ));
 	i = 0;
@@ -85,20 +88,23 @@ void		ft_parse_argc(int argc, char **argv, t_env *env)
 			else
 			{
 				ft_printf("error\n");
-				exit(-1);
+				return (FAIL);
 			}
 		}
+		else if (ft_strequ(argv[i], "-visu"))
+			env->visu = 1;
 		else if (ft_strstr(argv[i], ".cor"))
 		{
 			ft_memcpy(tmp[env->nb_champs].header.prog_name,
-						argv[i], PROG_NAME_LENGTH + 1);
+					  argv[i], PROG_NAME_LENGTH + 1);
 			env->nb_champs++;
 		}
 		i++;
 	}
 	ft_sort_argc(env, tmp);
+	return (SUCCESS);
 }
-*/
+/*
 
 int		ft_parse_argc(int argc, char **argv, t_env *env)
 {
@@ -114,4 +120,4 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 	if (env->nb_champs <= 0 ||env->nb_champs > 4)
 		return (FAIL);
 	return (SUCCESS);
-}
+}*/

@@ -116,7 +116,7 @@ $(DIR_O_P2)%.o: $(COR_PATH)%.c
 		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
 
 sanitize:
-			@$(CC) $(CFLAGS) $(FFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR)
+			@$(CC) $(CFLAGS) $(FFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR) -lncurses
 			@echo "Corewar	: corewar in debug mode has been successfully created."
 
 clean:

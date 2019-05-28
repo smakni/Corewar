@@ -12,30 +12,33 @@
 
 #include "../../includes/vm.h"
 
-static int	clean_quit(t_env *env, const int ret)
+static int clean_quit(t_env *env, const int ret)
 {
-	ft_memdel((void*)&env->champ);
+	ft_memdel((void *)&env->champ);
 	return (ret);
 }
 
-static int	ft_display_commands(void)
+static int ft_display_commands(void)
 {
 	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
 	ft_printf("	-Maximum number of champions : 4\n");
 	return (-1);
 }
 
-void	ft_print_memory(t_env *env)
+void ft_print_memory(t_env *env)
 {
-	unsigned	i;
-	int	flag = 0;
+	unsigned i;
+	int flag = 0;
 
-//	visu(env);
-//	return ;
+	if (env->visu == 1)
+	{
+		visu(env);
+		return;
+	}
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");
-		i = 0;/*
+	i = 0; /*
 	while (i < env->nb_champs)
 	{
 		ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
@@ -77,7 +80,7 @@ void	ft_print_memory(t_env *env)
 	}
 }
 
-int 		check_last_live(t_env *env)
+int check_last_live(t_env *env)
 {
 	unsigned i;
 	int save;
@@ -94,9 +97,9 @@ int 		check_last_live(t_env *env)
 	return (save);
 }
 
-int			main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_env	env;
+	t_env env;
 
 	if (argc > 1)
 	{
@@ -111,6 +114,8 @@ int			main(int argc, char **argv)
 		return (ft_display_commands());
 	if (write_champ(&env) == FAIL)
 		return (clean_quit(&env, -1));
+	if (env.visu == 1)
+		visu(&env);
 	if (read_memory(&env) == FAIL)
 		return (clean_quit(&env, -1));
 	check_last_live(&env);

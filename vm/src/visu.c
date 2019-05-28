@@ -13,7 +13,7 @@
 #include "../../includes/vm.h"
 #include <curses.h>
 
-void visu(t_env *env)
+void visu_first(t_env *env)
 {
 	WINDOW	*around_memory;
 	WINDOW	*memory = NULL;
@@ -21,7 +21,7 @@ void visu(t_env *env)
 	int		i;
 
 	initscr();
-	while (1)
+	//while (1)
 	{
 		wclear(memory);
 		start_color();
@@ -49,7 +49,52 @@ void visu(t_env *env)
 			
 		}
 		refresh();
-		getch();
+		//if (getch())
+		//	break ;
+	}
+	delwin(memory);
+	delwin(infos);
+	endwin();
+}
+
+void visu(t_env *env)
+{
+	WINDOW	*around_memory;
+	WINDOW	*memory = NULL;
+	WINDOW	*infos;
+	int		i;
+
+initscr();
+	//while (1)
+	{
+		wclear(memory);
+		start_color();
+		init_color(COLOR_CYAN, 460, 460, 460);
+		init_color(COLOR_MAGENTA, 520, 520, 520);
+		init_pair(1, COLOR_CYAN, COLOR_BLACK);
+		init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
+		attron(COLOR_PAIR(2));
+		attron(A_REVERSE | A_STANDOUT);
+		around_memory = subwin(stdscr, 68, 197, 0, 0);
+		wborder(around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+		infos = subwin(stdscr, 68, 58, 0, 196);
+		wborder(infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+		attroff(A_REVERSE | A_STANDOUT);
+		attron(COLOR_PAIR(1));
+		memory = subwin(stdscr, 64, 193, 2, 3);
+		i = 0;
+		while (i < 4096)
+		{
+			wprintw(memory, "%.2x", env->memory[i]);
+			wprintw(memory, " ");
+			i++;
+			if (i % 64 == 0)
+				wprintw(memory, "\n");
+			
+		}
+		refresh();
+		//if (getch())
+		//	break ;
 	}
 	delwin(memory);
 	delwin(infos);
