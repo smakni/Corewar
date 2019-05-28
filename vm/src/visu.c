@@ -53,7 +53,7 @@ static void print_infos(t_env *env)
 //	else
 //		i += 2 * env->save_nb_champs;
 	mvwprintw(env->infos, i += 2, 6, "Cycle : %d", env->cycle_index);
-	mvwprintw(env->infos, i += 2, 6, "CYCLE_TO_DIE : %d", CYCLE_TO_DIE);
+	mvwprintw(env->infos, i += 2, 6, "CYCLE_TO_DIE : %d", env->cycle_to_die);
 	mvwprintw(env->infos, i += 2, 6, "CYCLE_DELTA : %d", CYCLE_DELTA);
 	mvwprintw(env->infos, i += 2, 6, "NBR_LIVE : %d", NBR_LIVE);
 	mvwprintw(env->infos, i += 2, 6, "MAX_CHECKS : %d", MAX_CHECKS);
