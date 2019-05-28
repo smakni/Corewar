@@ -28,8 +28,8 @@ void	op_zjmp(t_env *env, unsigned j)
 			index = read_multi_bytes(env->memory, env->champ[j].pc + 2, 2);
 			env->champ[j].pc += (index % IDX_MOD);
 		}
-		ft_printf("INDEX_JUMP = %d\n", index);
-		ft_printf("pc = %d\n", env->champ[j].pc);
+	//	ft_printf("INDEX_JUMP = %d\n", index);
+	//	ft_printf("pc = %d\n", env->champ[j].pc);
 				//exit (0);
 		env->champ[j].pc %= MEM_SIZE;
 	}

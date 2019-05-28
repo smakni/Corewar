@@ -44,6 +44,7 @@ typedef struct	s_env
 	int					fd;
 	int					dump;
 	unsigned			nb_champs;
+	unsigned			save_nb_champs;
 	unsigned			nb_realloc;
 	unsigned			cycle_to_die;
 	int					cycle_index;
@@ -87,7 +88,7 @@ int				del_process(t_env *env);
 
 // DEBUG
 void	ft_print_memory(t_env *env);
-void	visu(t_env *env);
-void	visu_first(t_env *env);
+void	first_visu(t_env *env);
+void	update_visu(t_env *env);
 
 #endif
