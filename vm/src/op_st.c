@@ -1,13 +1,15 @@
 #include "../../includes/vm.h"
 
-void		op_st(t_env *env ,unsigned j)
+void op_st(t_env *env, unsigned j)
 {
 	int cursor;
-	int	reg_content;
-	int	dest;
-	int	i;
+	int reg_content;
+	int dest;
+	int k;
+	int			x;
+	int			y;
 
-	i = 0;
+	k = 0;
 	cursor = 2;
 	reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
 	//ft_printf("reg num -> %x\nreg_cont = %x\n", env->memory[env->champ[j].pc + cursor], reg_content);
@@ -22,22 +24,31 @@ void		op_st(t_env *env ,unsigned j)
 	env->memory[dest + 1] = reg_content >> 16;
 	env->memory[dest + 2] = reg_content >> 8;
 	env->memory[dest + 3] = reg_content;
+	env->champ[j].pc += 1 + cursor;
 	if (env->visu == 1)
 	{
 		if (env->champ[j].player_nb == 0xffffffff)
-			wattron(env->mem, COLOR_PAIR(4));
+			j = 0;
 		else if (env->champ[j].player_nb == 0xfffffffe)
-			wattron(env->mem, COLOR_PAIR(5));
+			j = 1;
 		else if (env->champ[j].player_nb == 0xfffffffd)
-			wattron(env->mem, COLOR_PAIR(6));
+			j = 2;
 		else if (env->champ[j].player_nb == 0xfffffffc)
-			wattron(env->mem, COLOR_PAIR(7));
-		while (i < 4)
+			j = 3;
+		wattron(env->mem, COLOR_PAIR(4 + j));
+		x = dest % 64;
+		y = dest / 64;
+		while (k < 4)
 		{
-			mvwprintw(env->mem, (dest + i) / 64, (dest + i) % 64 * 3, "%.2x", env->memory[dest + i]);
-			i++;
+			mvwprintw(env->mem, y, x, "%.2x", env->memory[dest + k]);
+			x += 3;
+			if (x >= 192)
+			{
+				x -= 192;
+				y++;
+			}
+			k++;
 		}
 		wrefresh(env->mem);
 	}
-	env->champ[j].pc += 1 + cursor;
 }

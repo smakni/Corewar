@@ -5,9 +5,11 @@ void	op_sti(t_env *env, unsigned j)
 	unsigned	reg_content;
 	int			cursor;
 	short		dest;
-	int			i;
+	int			k;
+	int			x;
+	int			y;
 
-	i = 0;
+	k = 0;
 	dest = env->champ[j].pc;
 	cursor = 1;
 	reg_content = (unsigned)get_value_index(env, j, &cursor, 1);
@@ -17,22 +19,31 @@ void	op_sti(t_env *env, unsigned j)
 	env->memory[dest + 1] = reg_content >> 16;
 	env->memory[dest + 2] = reg_content >> 8;
 	env->memory[dest + 3] = reg_content;
+	env->champ[j].pc += 1 + cursor;
 	if (env->visu == 1)
 	{
 		if (env->champ[j].player_nb == 0xffffffff)
-			wattron(env->mem, COLOR_PAIR(4));
+			j = 0;
 		else if (env->champ[j].player_nb == 0xfffffffe)
-			wattron(env->mem, COLOR_PAIR(5));
+			j = 1;
 		else if (env->champ[j].player_nb == 0xfffffffd)
-			wattron(env->mem, COLOR_PAIR(6));
+			j = 2;
 		else if (env->champ[j].player_nb == 0xfffffffc)
-			wattron(env->mem, COLOR_PAIR(7));
-		while (i < 4)
+			j = 3;
+		wattron(env->mem, COLOR_PAIR(4 + j));
+		x = dest % 64 * 3;
+		y = dest / 64;
+		while (k < 4)
 		{
-			mvwprintw(env->mem, (dest + i) / 64, (dest + i) % 64 * 3, "%.2x", env->memory[dest + i]);
-			i++;
+			mvwprintw(env->mem, y, x, "%.2x", env->memory[dest + k]);
+				x += 3;
+				if (x >= 192)
+				{
+					x -= 192;
+					y++;
+				}
+			k++;
 		}
 		wrefresh(env->mem);
 	}
-	env->champ[j].pc += 1 + cursor;
 }

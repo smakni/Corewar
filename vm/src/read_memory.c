@@ -65,6 +65,7 @@ int		read_memory(t_env *env)
 				if (env->champ[j].pc >= MEM_SIZE)
 					env->champ[j].pc -= MEM_SIZE;
 				exec_op(env, j);
+				print_pc(env);
 				if (env->err_code != 0)
 					return (FAIL);
 				env->champ[j].cycles = check_cycles(env, j);

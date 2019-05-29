@@ -26,6 +26,10 @@ static void init_color_palet(void)
 	init_pair(5, COLOR_BLUE, COLOR_BLACK);
 	init_pair(6, COLOR_RED, COLOR_BLACK);
 	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(8, COLOR_BLACK, COLOR_GREEN);
+	init_pair(9, COLOR_BLACK, COLOR_BLUE);
+	init_pair(10, COLOR_BLACK, COLOR_RED);
+	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
 }
 
 void print_infos(t_env *env)
@@ -71,30 +75,53 @@ void first_visu(t_env *env)
 	noecho();
 	cbreak();
 	env->save_nb_champs = env->nb_champs;
-		init_color_palet();
-		attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
-		env->around_memory = subwin(stdscr, 68, 197, 0, 0);
-		wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-		env->around_infos = subwin(stdscr, 68, 58, 0, 196);
-		wborder(env->around_infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-		attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
-		env->mem = subwin(stdscr, 64, 193, 2, 3);
-		env->infos = subwin(stdscr, 68, 58, 2, 193);
-		//	update_visu(env);
-		wattron(env->mem, COLOR_PAIR(1));
-		while (i < 4096)
-		{
-			wprintw(env->mem, "%.2x", env->memory[i]);
-			wprintw(env->mem, " ");
-			i++;
-			if (i % 64 == 0)
-				wprintw(env->mem, "\n");
-		}
-		wattroff(env->mem, COLOR_PAIR(1));
-		refresh();
-		wrefresh(env->mem);
+	init_color_palet();
+	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
+	env->around_memory = subwin(stdscr, 68, 197, 0, 0);
+	wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	env->around_infos = subwin(stdscr, 68, 58, 0, 196);
+	wborder(env->around_infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
+	env->mem = subwin(stdscr, 64, 193, 2, 3);
+	env->infos = subwin(stdscr, 68, 58, 2, 193);
+	//	update_visu(env);
+	wattron(env->mem, COLOR_PAIR(1));
+	while (i < 4096)
+	{
+		wprintw(env->mem, "%.2x", env->memory[i]);
+		wprintw(env->mem, " ");
+		i++;
+		if (i % 64 == 0)
+			wprintw(env->mem, "\n");
+	}
+	wattroff(env->mem, COLOR_PAIR(1));
+	refresh();
+	wrefresh(env->mem);
 }
 
+void print_pc(t_env *env)
+{
+	unsigned i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < env->nb_champs)
+	{
+		if (env->champ[i].player_nb == 0xffffffff)
+			j = 0;
+		else if (env->champ[i].player_nb == 0xfffffffe)
+			j = 1;
+		else if (env->champ[i].player_nb == 0xfffffffd)
+			j = 2;
+		else if (env->champ[i].player_nb == 0xfffffffc)
+			j = 3;
+		wattron(env->mem, COLOR_PAIR(8 + j));
+		mvwprintw(env->mem, env->champ[i].pc / 64, env->champ[i].pc % 64, "%.2x", env->memory[env->champ[i].pc]);
+		i++;
+	}
+	wrefresh(env->mem);
+}
 
 void update_visu(t_env *env, unsigned j)
 {
