@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:34 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/29 14:52:38 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/29 16:42:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ static int	ft_realloc_tab(t_env *env)
 
 void		op_lfork(t_env *env, unsigned j)
 {
-	int index;
-	
-	if (env->nb_champs == ARR_SIZE * env->nb_realloc)
+	int	index;
+
+	//aff_memory(env, j, 3);
+	if (env->nb_champs >= ARR_SIZE * env->nb_realloc)
 		if (ft_realloc_tab(env) == -1)
 		{
 			env->err_code = 2;
@@ -49,15 +50,17 @@ void		op_lfork(t_env *env, unsigned j)
 	env->champ[env->nb_champs] = env->champ[j];
 	if (env->memory[env->champ[j].pc + 1] >= 254)
 	{
-		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2] + 1;
+		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2];
 		env->champ[env->nb_champs].pc -= (index % MEM_SIZE);
 	}
 	else
 	{
-		index = read_multi_bytes(env->memory, env->champ[j].pc + 2, 2) + 1;
+		index = read_multi_bytes(env->memory, env->champ[j].pc + 2, 2);
 		env->champ[env->nb_champs].pc += (index % MEM_SIZE);
 	}
 	env->champ[env->nb_champs].nb_live = 0;
+	env->champ[env->nb_champs].cycles = check_cycles(env, env->nb_champs);
+	//ft_printf("PC = %d\n", env->champ[env->nb_champs].pc);
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
 	env->champ[j].pc += 3;

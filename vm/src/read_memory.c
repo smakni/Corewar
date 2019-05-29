@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/29 15:24:40 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/29 16:45:18 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		aff_memory(t_env *env, unsigned j, int len)
 
 int		read_memory(t_env *env)
 {
-	unsigned		j;
+	int				j;
 	int				i;
 	int				check_delta;
 
@@ -67,8 +67,8 @@ int		read_memory(t_env *env)
 	i = 0;
 	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
-		j = 0;
-		while (j < env->nb_champs)
+		j = env->nb_champs - 1;
+		while (j >= 0)
 		{
 			if (env->champ[j].cycles == 0)
 			{
@@ -83,7 +83,7 @@ int		read_memory(t_env *env)
 			}
 			else if (env->champ[j].cycles > 0)
 				env->champ[j].cycles--;
-			j++;
+			j--;
 		}
 		if (i == env->cycle_to_die)
 		{
