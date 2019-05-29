@@ -4,22 +4,22 @@
 # include "../libft/libft.h"
 # include "../ressources/op.h"
 
-# define MAX_CHAMP_CODE_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
+# define SIZE_BUFFER	4096
 # define IDENTICAL	0
 # define SUCCESS	1
 # define FAIL		0
 
-typedef struct	s_op
-{
-	char		*cmd;
-	int			nb_arg;
-	int			*arg_type;
-	int			code_cmd;
-	int			cycles;
-	char		*msg;
-	int			oct_code;
-	int			dontknowwhat;
-}				t_op;
+// typedef struct	s_op
+// {
+// 	char		*cmd;
+// 	int			nb_arg;
+// 	int			*arg_type;
+// 	int			code_cmd;
+// 	int			cycles;
+// 	char		*msg;
+// 	int			oct_code;
+// 	int			dontknowwhat;
+// }				t_op;
 
 typedef struct	s_bytes
 {
@@ -34,14 +34,15 @@ typedef struct	s_parser
 {
 	t_bytes			*blanks;
 	t_bytes			*labels;
-	unsigned char	bytecode[MAX_CHAMP_CODE_SIZE + 1];
+	unsigned char	*bytecode;
 	char			*pathname;
 	char			*line;
 	int				nb_line;
 	char			*err_msg;
 	int				err_code;
 	int				fd;
-	int				index;
+	unsigned int	index;
+	unsigned int	nb_realloc;
 	int				index_instruction;
 	int				comment_flag;
 	int				eol;

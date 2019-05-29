@@ -7,6 +7,12 @@ t_parser	*parser_init(char *pathname)
 	if (!(new = (t_parser*)malloc(sizeof(*new))))
 		return (NULL);
 	ft_bzero((void*)new, sizeof(*new));
+	if (!(new->bytecode = (unsigned char*)malloc(sizeof *new->bytecode * SIZE_BUFFER)))
+	{
+		ft_memdel((void*)&new);
+		return (FAIL);
+	}
+	new->nb_realloc = 1;
 	new->pathname = pathname;
 	new->nb_line = 1;
 	new->fd = -1;
