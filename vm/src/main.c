@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/24 21:12:15 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/29 14:44:47 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int ft_display_commands(void)
 
 void ft_print_memory(t_env *env)
 {
-	unsigned i;
+	int	i;
 	int flag = 0;
 
 	if (env->visu == 1)
@@ -38,8 +38,8 @@ void ft_print_memory(t_env *env)
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");
-	i = 0; /*
-	while (i < env->nb_champs)
+	i = 0;/*
+	while ((unsigned)i < env->nb_champs)
 	{
 		ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
 		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].nb_live, env->champ[i].last_live);
@@ -56,7 +56,7 @@ void ft_print_memory(t_env *env)
 		unsigned j = 0;
 		while (j < env->nb_champs)
 		{
-			if (env->champ[j].pc == (unsigned)i)
+			if (env->champ[j].pc == i)
 			{
 				flag = 1;
 				if (env->champ[j].player_nb == 0xffffffff)
@@ -83,7 +83,7 @@ void ft_print_memory(t_env *env)
 int check_last_live(t_env *env)
 {
 	unsigned i;
-	int save;
+	unsigned save;
 
 	i = 0;
 	save = 0;

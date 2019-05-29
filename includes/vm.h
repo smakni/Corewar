@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/27 18:59:05 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/29 14:13:04 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ typedef struct	s_champ
 {
 	header_t	header;
 	unsigned	player_nb;
-	unsigned	pc;
+	int			pc;
 	unsigned 	r[REG_NUMBER + 1];
-	int			last_live;
+	unsigned	last_live;
 	int			nb_live;
 	int			cycles;
 	char		last_return;
@@ -46,8 +46,8 @@ typedef struct	s_env
 	unsigned			nb_champs;
 	unsigned			save_nb_champs;
 	unsigned			nb_realloc;
-	unsigned			cycle_to_die;
-	int					cycle_index;
+	int					cycle_to_die;
+	unsigned			cycle_index;
 	int					visu;
 	WINDOW				*around_memory;
 	WINDOW				*mem;
@@ -83,6 +83,7 @@ void			op_lldi(t_env *env ,unsigned j);
 void			op_lld(t_env *env, unsigned j);
 void			op_lfork(t_env *env, unsigned j);
 void			op_aff(t_env *env, unsigned j);
+void			aff_memory(t_env *env, unsigned j, int len);
 
 int				del_process(t_env *env);
 
