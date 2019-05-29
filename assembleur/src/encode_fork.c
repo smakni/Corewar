@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   encode_fork.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/29 16:20:35 by jergauth          #+#    #+#             */
+/*   Updated: 2019/05/29 16:20:42 by jergauth         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/asm.h"
 
-int				ft_encode_fork(t_parser *data)
+int	ft_encode_fork(t_parser *data)
 {
-	int		i;
+	int	i;
 
 	data->bytecode[data->index] = 12;
 	data->index++;
