@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/18 21:38:12 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/29 15:39:17 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	clean_quit(t_parser **data, const int ret)
 	ft_bytesdel(&(*data)->labels);
 	ft_bytesdel(&(*data)->blanks);
 	close((*data)->fd);
+	ft_memdel((void*)&(*data)->bytecode);
 	ft_strdel(&(*data)->line);
 	ft_memdel((void*)data);
 	return (ret);
@@ -114,6 +115,22 @@ int		line_parser(t_parser *data, int i, int label_flag)
 	return (SUCCESS);
 }
 
+int		ft_realloc_bytecode(t_parser *data)
+{
+	unsigned char	*tmp;
+
+	tmp = data->bytecode;
+	data->nb_realloc++;
+	if (!(data->bytecode = (unsigned char*)malloc(data->nb_realloc * sizeof *data->bytecode * SIZE_BUFFER)))
+	{
+		ft_memdel((void*)&tmp);
+		return (FAIL);
+	}
+	ft_memcpy(data->bytecode, tmp, data->index);
+	ft_memdel((void*)&tmp);
+	return (SUCCESS);
+}
+
 int		reader(t_parser *data)
 {
 	int i;
@@ -122,6 +139,9 @@ int		reader(t_parser *data)
 
 	while ((ret = get_next_line(data->fd, &data->line, &data->eol)) > 0)
 	{
+		if (data->index >= SIZE_BUFFER * data->nb_realloc - 10)
+			if (!(ft_realloc_bytecode(data)))
+				return (FAIL);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
 		if (data->eol == 1 && data->line[i] != '\0')
@@ -142,10 +162,10 @@ int		reader(t_parser *data)
 		data->err_msg = "Syntax error near line ";
 		return (FAIL);
 	}
-	if (data->header_flag != 2)
+	if (data->header_name_flag != 1 || data->header_comment_flag != 1)
 	{
 		data->err_code = 9;
-		data->err_msg = "Name and/or Comment missing";
+		data->err_msg = "Wrong Name and/or Comment";
 		return (FAIL);
 	}
 	return (SUCCESS);
@@ -179,6 +199,7 @@ int		main(int ac, char **av)
 		ft_fill_addr(data);
 		write_prog_size(data);
 		ft_write_cor(data, av[1]);
+		ft_memdel((void*)&data->bytecode);
 		ft_strdel(&data->line);
 		ft_memdel((void*)&data);
 	}
