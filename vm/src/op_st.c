@@ -25,6 +25,7 @@ void op_st(t_env *env, unsigned j)
 	env->memory[dest + 2] = reg_content >> 8;
 	env->memory[dest + 3] = reg_content;
 	env->champ[j].pc += 1 + cursor;
+	mvwprintw(env->infos, 1, 6, "dest:%d", dest);
 	if (env->visu == 1)
 	{
 		if (env->champ[j].player_nb == 0xffffffff)

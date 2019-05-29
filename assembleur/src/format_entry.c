@@ -90,8 +90,7 @@ int			ft_format_line(t_parser *data, int i)
 	data->index_instruction = data->index;
 	if (!(tmp = ft_format_line_extension(data, i)))
 		return (FAIL);
-	if (!(tmp2 = insert_space(data, tmp)))
-		return (clean_quit(&tmp, FAIL));
+	tmp2 = insert_space(data, tmp);
 	if (data->err_code != 0)
 		return (clean_quit(&tmp, FAIL));
 	ft_strdel(&data->line);
