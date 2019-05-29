@@ -99,30 +99,6 @@ void first_visu(t_env *env)
 	wrefresh(env->mem);
 }
 
-void print_pc(t_env *env)
-{
-	unsigned i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i < env->nb_champs)
-	{
-		if (env->champ[i].player_nb == 0xffffffff)
-			j = 0;
-		else if (env->champ[i].player_nb == 0xfffffffe)
-			j = 1;
-		else if (env->champ[i].player_nb == 0xfffffffd)
-			j = 2;
-		else if (env->champ[i].player_nb == 0xfffffffc)
-			j = 3;
-		wattron(env->mem, COLOR_PAIR(8 + j));
-		mvwprintw(env->mem, env->champ[i].pc / 64, env->champ[i].pc % 64, "%.2x", env->memory[env->champ[i].pc]);
-		i++;
-	}
-	wrefresh(env->mem);
-}
-
 void update_visu(t_env *env, unsigned j)
 {
 	int i;

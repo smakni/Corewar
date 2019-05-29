@@ -93,7 +93,23 @@ int check_last_live(t_env *env)
 			save = i;
 		i++;
 	}
-	ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ[save].last_live);
+	if (env->visu == 1)
+	{
+		mvwprintw(env->infos, 50, 6, ">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ[save].last_live);
+		wrefresh(env->infos);
+		while (1)
+			if (getch() == ' ')
+			{
+				delwin(env->mem);
+				delwin(env->infos);
+				delwin(env->around_infos);
+				delwin(env->around_memory);
+				endwin();
+            	break ;
+			}
+	}
+	else
+		ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ[save].last_live);
 	return (save);
 }
 
