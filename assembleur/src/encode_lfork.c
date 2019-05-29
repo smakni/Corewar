@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   encode_lfork.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/29 16:19:53 by jergauth          #+#    #+#             */
+/*   Updated: 2019/05/29 16:20:06 by jergauth         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/asm.h"
 
-int				ft_encode_lfork(t_parser *data)
+int	ft_encode_lfork(t_parser *data)
 {
-	int		i;
+	int	i;
 
 	data->bytecode[data->index] = 15;
 	data->index++;
