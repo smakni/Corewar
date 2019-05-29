@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/29 15:25:15 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:39:17 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,10 @@ int		reader(t_parser *data)
 		data->err_msg = "Syntax error near line ";
 		return (FAIL);
 	}
-	if (data->header_flag != 2)
+	if (data->header_name_flag != 1 || data->header_comment_flag != 1)
 	{
 		data->err_code = 9;
-		data->err_msg = "Name and/or Comment missing";
+		data->err_msg = "Wrong Name and/or Comment";
 		return (FAIL);
 	}
 	return (SUCCESS);

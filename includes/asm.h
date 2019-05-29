@@ -9,18 +9,6 @@
 # define SUCCESS	1
 # define FAIL		0
 
-// typedef struct	s_op
-// {
-// 	char		*cmd;
-// 	int			nb_arg;
-// 	int			*arg_type;
-// 	int			code_cmd;
-// 	int			cycles;
-// 	char		*msg;
-// 	int			oct_code;
-// 	int			dontknowwhat;
-// }				t_op;
-
 typedef struct	s_bytes
 {
 	char			*label;
@@ -46,7 +34,8 @@ typedef struct	s_parser
 	int				index_instruction;
 	int				comment_flag;
 	int				eol;
-	char			header_flag;
+	char			header_name_flag;
+	char			header_comment_flag;
 	char			syntax_flag;
 }				t_parser;
 
