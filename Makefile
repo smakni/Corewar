@@ -15,6 +15,12 @@ DIR_O_P2	=	$(DIR_O)/tmp_corewar/
 
 SOURCES_P1	=	encode_param.c\
 				choose_encoding.c\
+				handle_labels.c\
+				parser.c\
+				format_entry.c\
+				encode_comment.c\
+				encode_name.c\
+				encode_types.c\
 				encode_sti.c\
 				encode_sub.c\
 				encode_and.c\

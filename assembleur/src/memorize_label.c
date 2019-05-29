@@ -1,9 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memorize_label.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/29 16:06:39 by jergauth          #+#    #+#             */
+/*   Updated: 2019/05/29 16:09:49 by jergauth         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/asm.h"
 
-int		ft_memorize_blank_label(const char *param, t_parser *data, int is_index)
+static void	increment_values(const char *param, t_bytes *elem, t_parser *data,
+				const int is_index)
+{
+	if (is_index || param[0] == ':')
+	{
+		elem->size = 2;
+		data->index += 2;
+	}
+	else
+	{
+		elem->size = 4;
+		data->index += 4;
+	}
+}
+
+int			ft_memorize_blank_label(const char *param, t_parser *data,
+				const int is_index)
 {
 	t_bytes	*elem;
-	int 	i;
+	int		i;
 
 	if (!(elem = bytes_init(data)))
 		return (FAIL);
@@ -16,16 +44,7 @@ int		ft_memorize_blank_label(const char *param, t_parser *data, int is_index)
 	}
 	elem->index = data->index;
 	elem->index_instruction = data->index_instruction;
-	if (is_index || param[0] == ':')
-	{
-		elem->size = 2;
-		data->index += 2;
-	}
-	else
-	{
-		elem->size = 4;
-		data->index += 4;
-	}
+	increment_values(param, elem, data, is_index);
 	ft_add_byte_elem(&data->blanks, elem);
 	return (SUCCESS);
 }

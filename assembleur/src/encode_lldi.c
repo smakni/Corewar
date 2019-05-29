@@ -1,5 +1,16 @@
-#include "../../includes/asm.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   encode_lldi.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/29 16:19:31 by jergauth          #+#    #+#             */
+/*   Updated: 2019/05/29 16:25:13 by jergauth         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../includes/asm.h"
 
 static int		clean_quit(void **params, const int ret)
 {
@@ -25,8 +36,8 @@ int				ft_encode_lldi(t_parser *data)
 	if (!(ft_encode_param(params[0], T_REG | T_DIR | T_IND, data, 1)))
 		return (clean_quit((void*)params, FAIL));
 	if (!(ft_encode_param(params[1], T_DIR | T_REG, data, 1)))
-		return (clean_quit((void*)params, FAIL));	
+		return (clean_quit((void*)params, FAIL));
 	if (!(ft_encode_param(params[2], T_REG, data, 0)))
-		return (clean_quit((void*)params, FAIL));	
+		return (clean_quit((void*)params, FAIL));
 	return (clean_quit((void*)params, SUCCESS));
 }
