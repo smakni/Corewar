@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/24 21:21:44 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/29 15:12:25 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ static int	ft_realloc_tab(t_env *env)
 
 void		op_fork(t_env *env, unsigned j)
 {
-	int	param;
+	int	index;
 
-	if (env->nb_champs == ARR_SIZE * env->nb_realloc)
+	//aff_memory(env, j, 3);
+	if (env->nb_champs >= ARR_SIZE * env->nb_realloc)
 		if (ft_realloc_tab(env) == -1)
 		{
 			env->err_code = 2;
@@ -47,9 +48,20 @@ void		op_fork(t_env *env, unsigned j)
 			return ;
 		}
 	env->champ[env->nb_champs] = env->champ[j];
-	param = read_multi_bytes(env->memory,
-								env->champ[env->nb_champs].pc + 2, 2);
-	env->champ[env->nb_champs].pc += param % (IDX_MOD);
+	if (env->memory[env->champ[j].pc + 2] == 0)
+		env->champ[env->nb_champs].pc = 0;
+	if (env->memory[env->champ[j].pc + 1] >= 254)
+	{
+		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2] + 1;
+		env->champ[env->nb_champs].pc -= (index % IDX_MOD);
+	}
+	else
+	{
+		index = read_multi_bytes(env->memory, env->champ[j].pc + 2, 2) + 1;
+		env->champ[env->nb_champs].pc += (index % IDX_MOD);
+	}
+	env->champ[env->nb_champs].nb_live = 0;
+	//ft_printf("PC = %d\n", env->champ[env->nb_champs].pc);
 	env->nb_champs++;
 	env->champ[j].cycles = check_cycles(env, j);
 	env->champ[j].pc += 3;
