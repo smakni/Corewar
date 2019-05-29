@@ -98,6 +98,15 @@ int		read_memory(t_env *env)
 			}
 		}
 		ft_print_memory(env);
+		print_infos(env);
+	if (env->cycle_index == 1)
+		timeout(0);
+	if (env->cycle_index > 0 && getch() == ' ')
+	{
+		while (1)
+			if (getch() == ' ')
+				break;
+	}
 		//read(0, 0, 1);
 		env->cycle_index++;
 		i++;

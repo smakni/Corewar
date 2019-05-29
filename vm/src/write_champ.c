@@ -16,6 +16,9 @@ int		write_champ(t_env *env)
 {
 	unsigned i;
 	unsigned j;
+	unsigned k;
+	unsigned	x;
+	unsigned	y;
 	int	id;
 	unsigned char line[MAX_CHAMP_CODE_SIZE + 1];
 
@@ -45,8 +48,42 @@ int		write_champ(t_env *env)
 		env->champ[j].last_live = 0; 
 		if (close(env->fd) < 0)
 			return (FAIL);
+		if (env->visu == 1)
+		{
+			k = 0;
+			wattron(env->mem, COLOR_PAIR(4 + j));
+			x = k % 64 + (4096 * j / env->nb_champs % 64);
+			if (x >= 64)
+			{
+				x -= 64;
+				x *= 3;
+				y = k / 64 + (4096 / env->nb_champs / 64 * j) + 1;
+			}
+			else
+			{
+				x *= 3;
+				y = k / 64 + (4096 / env->nb_champs / 64 * j);
+			}
+			while (k < env->champ[j].header.prog_size)
+			{
+				mvwprintw(env->mem, y, x, "%.2x", env->memory[k]);
+				x += 3;
+				if (x >= 192)
+				{
+					x -= 192;
+					y++;
+				}
+				k++;
+			}
+			wattroff(env->mem, COLOR_PAIR(4 + j));
+		}
 		i += 4096 / env->nb_champs;
 		j++;
 	}
+	print_infos(env);
+	wrefresh(env->mem);
+	wrefresh(env->infos);
+	if (getch())
+		return (SUCCESS);
 	return (SUCCESS);
 }

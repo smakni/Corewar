@@ -32,7 +32,7 @@ void ft_print_memory(t_env *env)
 
 	if (env->visu == 1)
 	{
-		update_visu(env);
+		//update_visu(env);
 		return;
 	}
 	ft_printf("{CLEAR}");
@@ -112,13 +112,10 @@ int main(int argc, char **argv)
 	}
 	else
 		return (ft_display_commands());
+	if (env.visu == 1)
+		first_visu(&env);
 	if (write_champ(&env) == FAIL)
 		return (clean_quit(&env, -1));
-	if (env.visu == 1)
-	{
-		ft_printf("SALUT TOI\n");
-		first_visu(&env);
-	}
 	if (read_memory(&env) == FAIL)
 		return (clean_quit(&env, -1));
 	check_last_live(&env);

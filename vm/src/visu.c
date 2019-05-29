@@ -28,7 +28,7 @@ static void init_color_palet(void)
 	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
 }
 
-static void print_infos(t_env *env)
+void print_infos(t_env *env)
 {
 	int i;
 	unsigned j;
@@ -36,23 +36,24 @@ static void print_infos(t_env *env)
 	i = 3;
 	j = 0;
 	wattron(env->infos, COLOR_PAIR(3));
-//	if (env->cycle_index == 0)
-		while (j < env->save_nb_champs)
-		{
-			mvwprintw(env->infos, i, 6, "Player %d: ", j + 1);
-			wattron(env->infos, COLOR_PAIR(4 + j));
-			wprintw(env->infos, "%s", env->champ[j].header.prog_name);
-			i += 1;
-			wattroff(env->infos, COLOR_PAIR(4 + j));
-			mvwprintw(env->infos, i, 6, "Last live : %d", env->champ[j].last_live);
-			i += 1;
-			mvwprintw(env->infos, i, 6, "Total lives : %d", env->champ[j].nb_live);
-			i += 2;
-			j++;
-		}
-//	else
-//		i += 2 * env->save_nb_champs;
+	//	if (env->cycle_index == 0)
+	while (j < env->save_nb_champs)
+	{
+		mvwprintw(env->infos, i, 6, "Player %d: ", j + 1);
+		wattron(env->infos, COLOR_PAIR(4 + j));
+		wprintw(env->infos, "%s", env->champ[j].header.prog_name);
+		i += 1;
+		wattroff(env->infos, COLOR_PAIR(4 + j));
+		mvwprintw(env->infos, i, 6, "Last live : %d", env->champ[j].last_live);
+		//		i += 1;
+		//			mvwprintw(env->infos, i, 6, "Total lives : %d", env->champ[j].nb_live);
+		i += 2;
+		j++;
+	}
+	//	else
+	//		i += 2 * env->save_nb_champs;
 	mvwprintw(env->infos, i += 2, 6, "Cycle : %d", env->cycle_index);
+	mvwprintw(env->infos, i += 2, 6, "Nb Processes : %d", env->nb_champs);
 	mvwprintw(env->infos, i += 2, 6, "CYCLE_TO_DIE : %d", env->cycle_to_die);
 	mvwprintw(env->infos, i += 2, 6, "CYCLE_DELTA : %d", CYCLE_DELTA);
 	mvwprintw(env->infos, i += 2, 6, "NBR_LIVE : %d", NBR_LIVE);
@@ -63,12 +64,13 @@ static void print_infos(t_env *env)
 
 void first_visu(t_env *env)
 {
+	int i;
+
+	i = 0;
 	initscr();
 	noecho();
 	cbreak();
 	env->save_nb_champs = env->nb_champs;
-	while (1)
-	{
 		init_color_palet();
 		attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 		env->around_memory = subwin(stdscr, 68, 197, 0, 0);
@@ -78,13 +80,51 @@ void first_visu(t_env *env)
 		attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 		env->mem = subwin(stdscr, 64, 193, 2, 3);
 		env->infos = subwin(stdscr, 68, 58, 2, 193);
-		update_visu(env);
+		//	update_visu(env);
+		wattron(env->mem, COLOR_PAIR(1));
+		while (i < 4096)
+		{
+			wprintw(env->mem, "%.2x", env->memory[i]);
+			wprintw(env->mem, " ");
+			i++;
+			if (i % 64 == 0)
+				wprintw(env->mem, "\n");
+		}
+		wattroff(env->mem, COLOR_PAIR(1));
 		refresh();
-		if (getch())
-			break;
-	}
+		wrefresh(env->mem);
 }
 
+
+void update_visu(t_env *env, unsigned j)
+{
+	int i;
+
+	i = 0;
+	if (env->cycle_index == 1)
+		timeout(0);
+	if (env->cycle_index > 0 && getch() == ' ')
+	{
+		while (1)
+			if (getch() == ' ')
+				break;
+	}
+	wattron(env->mem, COLOR_PAIR(j + 4));
+	while (i < 4096)
+	{
+		wprintw(env->mem, "%.2x", env->memory[i]);
+		wprintw(env->mem, " ");
+		wattron(env->mem, COLOR_PAIR(1));
+		i++;
+		if (i % 64 == 0)
+			wprintw(env->mem, "\n");
+	}
+	wmove(env->mem, 0, 0);
+	wrefresh(env->mem);
+	wattroff(env->mem, COLOR_PAIR(1));
+	print_infos(env);
+}
+/*
 void update_visu(t_env *env)
 {
 	int i;
@@ -129,4 +169,4 @@ void update_visu(t_env *env)
 	wrefresh(env->mem);
 	wattroff(env->mem, COLOR_PAIR(1));
 	print_infos(env);
-}
+}*/
