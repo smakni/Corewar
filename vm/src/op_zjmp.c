@@ -15,7 +15,9 @@
 void	op_zjmp(t_env *env, unsigned j)
 {
 	int index;
+	int	save;
 
+	save = env->champ[j].pc;
 	if (env->champ[j].carry == 1)
 	{
 		if (env->memory[env->champ[j].pc + 1] >= 254)
@@ -35,4 +37,6 @@ void	op_zjmp(t_env *env, unsigned j)
 	}
 	else
 		env->champ[j].pc += 3;
+	if (env->visu == 1)
+		redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
 }
