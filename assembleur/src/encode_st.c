@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:12:35 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 16:24:56 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/30 20:48:47 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int				ft_encode_st(t_parser *data)
 	if (!(params = ft_strsplit(&data->line[i], ',')))
 		return (FAIL);
 	if (ft_arrlen((void*)params) != 2)
+	{
+		data->err_code = 3;
+		data->err_msg = "Syntax error near line ";
 		return (clean_quit((void*)params, FAIL));
+	}
 	if (!(ft_parse_args(data, params)))
 		return (clean_quit((void*)params, FAIL));
 	if (!(ft_encode_param(params[0], T_REG, data, 0)))
