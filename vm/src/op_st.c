@@ -37,7 +37,7 @@ void op_st(t_env *env, unsigned j)
 		else if (env->champ[j].player_nb == 0xfffffffc)
 			j = 3;
 		wattron(env->mem, COLOR_PAIR(4 + j));
-		x = dest % 64;
+		x = dest % 64 * 3;
 		y = dest / 64;
 		while (k < 4)
 		{

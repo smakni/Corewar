@@ -37,11 +37,13 @@ void	exec_op(t_env *env, unsigned j)
 	op_fun[15] = op_aff;
 	index = env->memory[env->champ[j].pc];
 	if (index >= 0x01 && index <= 0x10)
+	{
 		op_fun[index - 1](env, j);
+		if (env->visu == 1)
+			redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
+	}
 	else
 	{
 		env->champ[j].pc++;
 	}
-	if (env->visu == 1)
-		redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
 }
