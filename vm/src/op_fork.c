@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/29 16:26:42 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/31 18:01:15 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,8 @@ void		op_fork(t_env *env, unsigned j)
 			return ;
 		}
 	env->champ[env->nb_champs] = env->champ[j];
-	if (env->memory[env->champ[j].pc + 1] >= 254)
-	{
-		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2];
-		env->champ[env->nb_champs].pc -= (index % IDX_MOD);
-	}
-	else
-	{
-		index = read_multi_bytes(env->memory, env->champ[j].pc + 2, 2);
-		env->champ[env->nb_champs].pc += (index % IDX_MOD);
-	}
+	index = read_bytes(env->memory, env->champ[j].pc + 1, 2);
+	env->champ[env->nb_champs].pc += index;
 	env->champ[env->nb_champs].nb_live = 0;
 	env->champ[env->nb_champs].cycles = check_cycles(env, env->nb_champs);
 	//ft_printf("PC = %d\n", env->champ[env->nb_champs].pc);

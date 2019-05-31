@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:34 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/29 16:42:23 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/31 17:07:50 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		op_lfork(t_env *env, unsigned j)
 	}
 	else
 	{
-		index = read_multi_bytes(env->memory, env->champ[j].pc + 2, 2);
+		index = read_bytes(env->memory, env->champ[j].pc + 2, 2);
 		env->champ[env->nb_champs].pc += (index % MEM_SIZE);
 	}
 	env->champ[env->nb_champs].nb_live = 0;

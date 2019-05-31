@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/29 14:13:04 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/31 17:06:31 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ typedef struct	s_env
 int				ft_parse_argc(int argc, char **argv, t_env *env);
 int				write_champ(t_env *env);
 int				read_memory(t_env *env);
-int				read_multi_bytes(unsigned char *line, int index, int nb_bytes);
-int				read_bytes(t_env *env, int index);
+int				read_bytes(unsigned char *line, int index, int n);
 int				safe_open(const char *pathname, t_env *data, const int flags);
 int				type_param(unsigned char byte, int param);
 int 			decode_byte_param(unsigned char param, int is_index);
@@ -85,8 +84,9 @@ void			op_lld(t_env *env, unsigned j);
 void			op_lfork(t_env *env, unsigned j);
 void			op_aff(t_env *env, unsigned j);
 void			aff_memory(t_env *env, unsigned j, int len);
-
 int				del_process(t_env *env);
+int				check_sign(t_env *env, int index, int n);
+
 
 // DEBUG
 void	ft_print_memory(t_env *env);
