@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/31 16:07:04 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/05/31 19:16:31 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int read_memory(t_env *env)
 		ft_print_memory(env);
 		print_infos(env);
 		key_events(env);
-		//	read(0, 0, 1);
+			read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

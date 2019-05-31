@@ -38,6 +38,7 @@ zork4_:		live	%42
 		zjmp	%-5		
 			
 back_wall:      live	%42	
+		st r1,r8
 		st	r8,-400
 		st	r8,-400
 		st	r8,-400
