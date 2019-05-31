@@ -17,7 +17,7 @@ void op_st(t_env *env, unsigned j)
 		cursor += IND_SIZE;
 	else
 		cursor += REG_SIZE;
-	dest = read_multi_bytes(env->memory, env->champ[j].pc + cursor, IND_SIZE);
+	dest = read_bytes(env->memory, env->champ[j].pc + cursor, IND_SIZE);
 	dest = (env->champ[j].pc + dest) % IDX_MOD;
 	//ft_printf("reg content %x\n", reg_content);
 	env->memory[dest] = reg_content >> 24;

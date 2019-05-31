@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/29 14:04:08 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/31 17:19:50 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		write_champ(t_env *env)
 		ft_memcpy(env->champ[j].header.prog_name, &line[4], PROG_NAME_LENGTH);
 		ft_memcpy(env->champ[j].header.comment,
 					&line[0x8c], COMMENT_LENGTH - 10);
-		env->champ[j].header.prog_size = read_multi_bytes(line, 0x8b, 2);
+		env->champ[j].header.prog_size = read_bytes(line, 0x8a, 2);
 		if (env->champ[j].header.prog_size > CHAMP_MAX_SIZE)
 		{
 			ft_printf("SIZE_ERROR\n");

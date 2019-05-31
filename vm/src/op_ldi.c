@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 21:17:34 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/31 17:13:41 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		op_ldi(t_env *env, unsigned j)
 	reg = env->memory[env->champ[j].pc + cursor];
 	//ft_printf("v1, v2, reg = %i, %x, %i\n", v1, v2, reg);
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
-		sum = read_bytes(env, env->champ[j].pc + (v1 % IDX_MOD));
+		sum = read_bytes(env->memory, env->champ[j].pc + (v1 % IDX_MOD), 2);
 	else
 		sum = v1;
 	sum += v2;
@@ -36,7 +36,7 @@ void		op_ldi(t_env *env, unsigned j)
 	sum = env->champ[j].pc + (sum % (IDX_MOD));
 	if (sum < 0)
 		sum += MEM_SIZE;
-	sum = read_bytes(env, sum);
+	sum = read_bytes(env->memory, sum, 4);
 	env->champ[j].r[reg] = sum;
 	//ft_printf("in reg = %#.8x\n", env->champ[j].r[reg]);
 	env->champ[j].pc += cursor + 1;
