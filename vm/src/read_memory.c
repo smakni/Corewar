@@ -12,7 +12,7 @@
 
 #include "../../includes/vm.h"
 
-int		check_live(t_env *env)
+int check_live(t_env *env)
 {
 	unsigned i;
 	unsigned total_lives;
@@ -32,15 +32,15 @@ int		check_live(t_env *env)
 	return (0);
 }
 
-static int	reset_cycles(t_env *env)
+static int reset_cycles(t_env *env)
 {
 	del_process(env);
 	if (env->cycle_to_die <= 0)
 		return (0);
 	return (1);
-}	
+}
 
-void		aff_memory(t_env *env, unsigned j, int len)
+void aff_memory(t_env *env, unsigned j, int len)
 {
 	int i;
 
@@ -55,11 +55,11 @@ void		aff_memory(t_env *env, unsigned j, int len)
 	ft_printf("]\n");
 }
 
-int		read_memory(t_env *env)
+int read_memory(t_env *env)
 {
-	int				j;
-	int				i;
-	int				check_delta;
+	int j;
+	int i;
+	int check_delta;
 
 	j = 0;
 	check_delta = 0;
@@ -99,15 +99,8 @@ int		read_memory(t_env *env)
 		}
 		ft_print_memory(env);
 		print_infos(env);
-	if (env->cycle_index == 1)
-		timeout(0);
-	if (env->cycle_index > 0 && getch() == ' ')
-	{
-		while (1)
-			if (getch() == ' ')
-				break;
-	}
-		read(0, 0, 1);
+		key_events(env);
+		//	read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

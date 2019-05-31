@@ -83,7 +83,5 @@ int		write_champ(t_env *env)
 	print_infos(env);
 	wrefresh(env->mem);
 	wrefresh(env->infos);
-	if (getch())
-		return (SUCCESS);
 	return (SUCCESS);
 }

@@ -43,6 +43,7 @@ typedef struct	s_env
 	int					err_code;
 	int					fd;
 	int					dump;
+	int					speed;
 	unsigned			nb_champs;
 	unsigned			save_nb_champs;
 	unsigned			nb_realloc;
@@ -93,5 +94,6 @@ void	first_visu(t_env *env);
 void	update_visu(t_env *env, unsigned j);
 void	print_infos(t_env *env);
 void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len);
+void	key_events(t_env *env);
 
 #endif

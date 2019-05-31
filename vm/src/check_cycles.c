@@ -29,7 +29,7 @@ int		check_cycles(t_env *env, unsigned j)
 	op_cycles[9] = 20;
 	op_cycles[10] = 25;
 	op_cycles[11] = 25;
-	op_cycles[12] = 100;
+	op_cycles[12] = 800;
 	op_cycles[13] = 10;
 	op_cycles[14] = 50;
 	op_cycles[15] = 1000;

@@ -32,20 +32,19 @@ static void init_color_palet(void)
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
 }
 
-void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
+void redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
 {
-	int		x;
+	int x;
 
 	x = pc % 64 * 3;
 	mvwprintw(env->infos, 40, 6, "Pc %d: ", pc);
 	mvwprintw(env->infos, 42, 6, "Player_nb : %u", player_nb);
 	mvwprintw(env->infos, 44, 6, "len %d: ", len);
 	mvwprintw(env->infos, 46, 6, "x %d: ", pc % 64 * 3);
-	
+
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 8));
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 8));
-	
 
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 4));
 	pc -= len;
@@ -53,7 +52,7 @@ void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattroff(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 4));
 	wrefresh(env->mem);
-	read(0,0,1);
+	//read(0,0,1);
 }
 
 void print_infos(t_env *env)
@@ -63,6 +62,8 @@ void print_infos(t_env *env)
 
 	i = 3;
 	j = 0;
+	if (env->speed == 0)
+		env->speed = 50;
 	wattron(env->infos, COLOR_PAIR(3));
 	//	if (env->cycle_index == 0)
 	while (j < env->save_nb_champs)
@@ -86,8 +87,44 @@ void print_infos(t_env *env)
 	mvwprintw(env->infos, i += 2, 6, "CYCLE_DELTA : %d", CYCLE_DELTA);
 	mvwprintw(env->infos, i += 2, 6, "NBR_LIVE : %d", NBR_LIVE);
 	mvwprintw(env->infos, i += 2, 6, "MAX_CHECKS : %d", MAX_CHECKS);
+	mvwprintw(env->infos, i += 2, 6, "speed : %- 5d", env->speed);
 	wattroff(env->infos, COLOR_PAIR(3));
 	wrefresh(env->infos);
+	usleep(1000000 / env->speed);
+}
+
+void key_events(t_env *env)
+{
+	int key;
+
+	key = 0;
+
+	if (env->cycle_index > 0)
+		timeout(0);
+	key = getch();
+	if (key == 'w' && env->speed > 10)
+		env->speed -= 10;
+	if (key == 'e' && env->speed < 1000)
+		env->speed += 10;
+	if (env->cycle_index > 0 && key == ' ')
+	{
+		while (1)
+		{
+			key = getch();
+			if (key == ' ')
+				break;
+			if (key == 'w' && env->speed > 10)
+			{
+				env->speed -= 10;
+				print_infos(env);
+			}
+			if (key == 'e' && env->speed < 1000)
+			{
+				env->speed += 10;
+				print_infos(env);
+			}
+		}
+	}
 }
 
 void first_visu(t_env *env)
@@ -128,14 +165,14 @@ void update_visu(t_env *env, unsigned j)
 	int i;
 
 	i = 0;
-	if (env->cycle_index == 1)
+	/*	if (env->cycle_index == 1)
 		timeout(0);
 	if (env->cycle_index > 0 && getch() == ' ')
 	{
 		while (1)
 			if (getch() == ' ')
 				break;
-	}
+	}*/
 	wattron(env->mem, COLOR_PAIR(j + 4));
 	while (i < 4096)
 	{
