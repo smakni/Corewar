@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:40:47 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/31 17:51:06 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/31 18:53:41 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	op_sti(t_env *env, unsigned j)
 	if (type_param(env->memory[env->champ[j].pc + 1], 2) == IND_CODE)
 	{
 		v1 = get_value_index(env, j, &cursor, 2);
-		dest += read_bytes(env, env->champ[j].pc + (v1 % IDX_MOD));
+		dest += read_bytes(env->memory, env->champ[j].pc + (v1 % IDX_MOD), 4);
 	}
 	else
 		dest += get_value_index(env, j, &cursor, 2);
 	dest += get_value_index(env, j, &cursor, 3);
 	dest %= IDX_MOD;
-	ft_printf("%i\n", dest);
+//	ft_printf("%i\n", dest);
 	env->memory[dest] = reg_content >> 24;
 	env->memory[dest + 1] = reg_content >> 16;
 	env->memory[dest + 2] = reg_content >> 8;

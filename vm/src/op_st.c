@@ -7,11 +7,11 @@ static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
 	short	ret;
 
 	v1 = env->memory[current_pos + *cursor];
-	ft_printf("v1 %i @ %i\n", v1, *cursor);
+	//ft_printf("v1 %i @ %i\n", v1, *cursor);
 	(*cursor)++;
 	v2 = env->memory[current_pos + *cursor];
 	(*cursor)++;
-	ft_printf("v2 %i\n", v2);
+//	ft_printf("v2 %i\n", v2);
 	ret = v2 - v1;
 	if (ret < 0)
 		ret--;
@@ -30,7 +30,7 @@ void op_st(t_env *env, unsigned j)
 
 	k = 0;
 	current_pos = env->champ[j].pc;
-ft_printf("cur pos %i\n", current_pos);
+//ft_printf("cur pos %i\n", current_pos);
 	cursor = 1;
 	reg_content = get_value(env, j, &cursor, 1);
 	cursor++;
@@ -50,12 +50,10 @@ ft_printf("cur pos %i\n", current_pos);
 	{
 		dest = env->memory[env->champ[j].pc + cursor];
 		cursor++;
-		ft_printf("dest reg %i\n", dest);
+//		ft_printf("dest reg %i\n", dest);
 		env->champ[j].r[dest] = reg_content;
 	}
 	env->champ[j].pc += cursor;
-
-	mvwprintw(env->infos, 1, 6, "dest:%d", dest);
 	if (env->visu == 1)
 	{
 		mvwprintw(env->infos, 1, 6, "dest:%d", dest);
