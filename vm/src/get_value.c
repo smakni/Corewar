@@ -17,6 +17,7 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 	{
 		(*cursor)++;
 		value = env->champ[j].r[env->memory[env->champ[j].pc + *cursor]];
+		ft_printf("mem %#x\n", env->memory[env->champ[j].pc + *cursor]);
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == DIR_CODE)
 	{
@@ -31,6 +32,7 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		value = get_addr(env, value);
 		*cursor += IND_SIZE - 1;
 	}
+	ft_printf("value %i\n", value);
 	return (value);
 }
 
