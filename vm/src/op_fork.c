@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/29 16:26:42 by smakni           ###   ########.fr       */
+/*   Updated: 2019/05/31 17:33:24 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		op_fork(t_env *env, unsigned j)
 	env->champ[env->nb_champs] = env->champ[j];
 	if (env->memory[env->champ[j].pc + 1] >= 254)
 	{
-		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2];
+		index = env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2];
 		env->champ[env->nb_champs].pc -= (index % IDX_MOD);
 	}
 	else
