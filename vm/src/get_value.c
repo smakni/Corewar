@@ -4,7 +4,7 @@ static int	get_addr(t_env *env, int value)
 {
 	int	ret;
 
-	ret = read_multi_bytes(env->memory, (value + DIR_SIZE - 1) % IDX_MOD, DIR_SIZE);
+	ret = read_bytes(env->memory, (value - 1) % IDX_MOD, DIR_SIZE);
 	return (ret);
 }
 
@@ -21,14 +21,16 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == DIR_CODE)
 	{
-		*cursor += DIR_SIZE;
-		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, DIR_SIZE);
+		(*cursor)++;
+		value = read_bytes(env->memory, env->champ[j].pc + *cursor, DIR_SIZE);
+		*cursor += DIR_SIZE - 1;
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == IND_CODE)
 	{
-		*cursor += IND_SIZE;
-		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
+		(*cursor)++;
+		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		value = get_addr(env, value);
+		*cursor += IND_SIZE - 1;
 	}
 	ft_printf("value %i\n", value);
 	return (value);
@@ -46,13 +48,15 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == DIR_CODE)
 	{
-		*cursor += IND_SIZE;
-		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
+		(*cursor)++;
+		value = read_bytes(env->memory, env->champ[j].pc + *cursor, DIR_SIZE);
+		(*cursor) += DIR_SIZE - 1;
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == IND_CODE)
 	{
-		*cursor += IND_SIZE;
-		value = read_multi_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
+		(*cursor)++;
+		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
+		(*cursor) += IND_SIZE - 1;
 	}
 	ft_printf("value %i\n", value);
 	return (value);

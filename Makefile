@@ -82,7 +82,8 @@ SOURCES_P2	=	main.c\
 				op_aff.c\
 				check_cycles.c\
 				del_process.c\
-				visu.c
+				visu.c\
+				check_sign.c
 
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))

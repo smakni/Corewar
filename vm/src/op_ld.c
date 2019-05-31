@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/24 21:16:07 by sabri            ###   ########.fr       */
+/*   Updated: 2019/05/31 17:15:18 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void		op_ld(t_env *env ,unsigned j)
 	param_1 = 0;
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
 	{
-		to_store = read_bytes(env, env->champ[j].pc + 2);
+		to_store = read_bytes(env->memory, env->champ[j].pc + 2, 2);
 		//ft_printf("DIRECT>>param_1 = %d\n", param_1);
 		r_index = env->memory[env->champ[j].pc + 6];
 	}
 	else
 	{
-		param_1 = read_multi_bytes(env->memory, env->champ[j].pc + 3, 2);
+		param_1 = read_bytes(env->memory, env->champ[j].pc + 2, 2);
 		//ft_printf("INDIRECT>mem_index = %d\n", param_1);
 		r_index = env->memory[env->champ[j].pc + 4];
-		to_store = read_bytes(env, env->champ[j].pc + (param_1 % IDX_MOD));
+		to_store = read_bytes(env->memory, env->champ[j].pc + (param_1 % IDX_MOD), 4);
 	}
 	if (to_store == 0)
 		env->champ[j].carry = 1;
