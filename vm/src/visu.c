@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/27 11:30:38 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/30 20:35:21 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,30 @@ static void init_color_palet(void)
 	init_pair(9, COLOR_BLACK, COLOR_BLUE);
 	init_pair(10, COLOR_BLACK, COLOR_RED);
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+}
+
+void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
+{
+	int		x;
+
+	x = pc % 64 * 3;
+	mvwprintw(env->infos, 40, 6, "Pc %d: ", pc);
+	mvwprintw(env->infos, 42, 6, "Player_nb : %u", player_nb);
+	mvwprintw(env->infos, 44, 6, "len %d: ", len);
+	mvwprintw(env->infos, 46, 6, "x %d: ", pc % 64 * 3);
+	
+	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 8));
+	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
+	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 8));
+	
+
+	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 4));
+	pc -= len;
+	x = pc % 64 * 3;
+	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
+	wattroff(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 4));
+	wrefresh(env->mem);
+	read(0,0,1);
 }
 
 void print_infos(t_env *env)
@@ -127,49 +151,3 @@ void update_visu(t_env *env, unsigned j)
 	wattroff(env->mem, COLOR_PAIR(1));
 	print_infos(env);
 }
-/*
-void update_visu(t_env *env)
-{
-	int i;
-	unsigned j;
-
-	i = 0;
-	if (env->cycle_index == 1)
-		timeout(0);
-	if (env->cycle_index > 0 && getch() == ' ')
-	{
-		while (1)
-			if (getch() == ' ')
-				break;
-	}
-	wattron(env->mem, COLOR_PAIR(1));
-	while (i < 4096)
-	{
-		j = 0;
-		while (j < env->nb_champs)
-		{
-			if (env->champ[j].pc == (unsigned)i)
-			{
-				if (env->champ[j].player_nb == 0xffffffff)
-					wattron(env->mem, COLOR_PAIR(4));
-				else if (env->champ[j].player_nb == 0xfffffffe)
-					wattron(env->mem, COLOR_PAIR(5));
-				else if (env->champ[j].player_nb == 0xfffffffd)
-					wattron(env->mem, COLOR_PAIR(6));
-				else if (env->champ[j].player_nb == 0xfffffffc)
-					wattron(env->mem, COLOR_PAIR(7));
-			}
-			j++;
-		}
-		wprintw(env->mem, "%.2x", env->memory[i]);
-		wprintw(env->mem, " ");
-		wattron(env->mem, COLOR_PAIR(1));
-		i++;
-		if (i % 64 == 0)
-			wprintw(env->mem, "\n");
-	}
-	wmove(env->mem, 0, 0);
-	wrefresh(env->mem);
-	wattroff(env->mem, COLOR_PAIR(1));
-	print_infos(env);
-}*/

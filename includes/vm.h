@@ -92,5 +92,6 @@ void	ft_print_memory(t_env *env);
 void	first_visu(t_env *env);
 void	update_visu(t_env *env, unsigned j);
 void	print_infos(t_env *env);
+void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len);
 
 #endif

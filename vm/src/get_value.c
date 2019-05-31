@@ -56,5 +56,6 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		(*cursor) += IND_SIZE - 1;
 	}
+	ft_printf("value %i\n", value);
 	return (value);
 }
