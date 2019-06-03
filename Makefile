@@ -58,7 +58,7 @@ SOURCES_P2	=	main.c\
 				ft_parse_argc.c\
 				safe_open.c\
 				write_champ.c\
-				read_multi_bytes.c\
+				read_bytes.c\
 				read_memory.c\
 				type_param.c\
 				decode_byte_param.c\

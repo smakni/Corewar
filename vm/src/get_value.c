@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_value.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
+/*   Updated: 2019/06/03 22:45:39 by cmoulini         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/vm.h"
 
 static int	get_addr(t_env *env, int value)
@@ -17,7 +29,6 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 	{
 		(*cursor)++;
 		value = env->champ[j].r[env->memory[env->champ[j].pc + *cursor]];
-		//ft_printf("mem %#x\n", env->memory[env->champ[j].pc + *cursor]);
 	}
 	else if (type_param(env->memory[env->champ[j].pc + 1], param) == DIR_CODE)
 	{
@@ -32,7 +43,6 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		value = get_addr(env, value);
 		*cursor += IND_SIZE - 1;
 	}
-	//ft_printf("value %i\n", value);
 	return (value);
 }
 
@@ -58,6 +68,5 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		(*cursor) += IND_SIZE - 1;
 	}
-	//ft_printf("value %i\n", value);
 	return (value);
 }

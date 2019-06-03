@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cycles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:38:30 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/31 18:45:34 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/03 22:47:31 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_cycles(t_env *env, unsigned j)
 	op_cycles[9] = 20;
 	op_cycles[10] = 25;
 	op_cycles[11] = 25;
-	op_cycles[12] = 800;
+	op_cycles[12] = 10;
 	op_cycles[13] = 10;
 	op_cycles[14] = 50;
 	op_cycles[15] = 1000;
