@@ -12,51 +12,65 @@
 
 #include "../includes/asm.h"
 
-static int	line_parser_extension(t_parser *data, int i, int label_flag)
-{
-	if (data->line[i] == '.')
-	{
-		if (!(encode_header(data, i)))
-			return (FAIL);
-		return (2);
-	}
-	else if (data->line[i] == ':' && label_flag == 0)
-	{
-		label_flag = i + 1;
-		if (!(save_label_address(data)))
-			return (FAIL);
-	}
-	else if (data->line[i] == ' ' || data->line[i] == '\t'
-		|| data->line[i] == '%' || data->line[i] == ':')
-	{
-		if (label_flag == 0)
-			i = 0;
-		else
-			i = label_flag;
-		i += ft_strspn(&data->line[i], " \t");
-		if (!(choose_encoding(data, i)))
-			return (FAIL);
-		return (2);
-	}
-	return (SUCCESS);
-}
+// static int	line_parser_extension(t_parser *data, int i, int label_flag)
+// {
+// 	if (data->line[i] == '.')
+// 	{
+// 		if (!(encode_header(data, i)))
+// 			return (FAIL);
+// 		return (2);
+// 	}
+// 	else if (data->line[i] == ':' && label_flag == 0)
+// 	{
+// 		label_flag = i + 1;
+// 		if (!(save_label_address(data)))
+// 			return (FAIL);
+// 	}
+// 	else if (data->line[i] == ' ' || data->line[i] == '\t'
+// 		|| data->line[i] == '%' || data->line[i] == ':')
+// 	{
+// 		if (label_flag == 0)
+// 			i = 0;
+// 		else
+// 			i = label_flag;
+// 		i += ft_strspn(&data->line[i], " \t");
+// 		if (!(choose_encoding(data, i)))
+// 			return (FAIL);
+// 		return (2);
+// 	}
+// 	return (SUCCESS);
+// }
 
 int			line_parser(t_parser *data, int i, int label_flag)
 {
-	int	ret;
-
 	data->syntax_flag = 0;
 	while (data->line[i])
 	{
 		if (data->line[i] == '#')
 			return (SUCCESS);
-		else
+		else if (data->line[i] == '.')
 		{
-			ret = line_parser_extension(data, i, label_flag);
-			if (ret == 2)
-				break ;
-			else if (ret == FAIL)
+			if (!(encode_header(data, i)))
 				return (FAIL);
+			break ;
+		}
+		else if (data->line[i] == ':' && label_flag == 0)
+		{
+			label_flag = i + 1;
+			if (!(save_label_address(data)))
+				return (FAIL);
+		}
+		else if (data->line[i] == ' ' || data->line[i] == '\t'
+			|| data->line[i] == '%' || data->line[i] == ':')
+		{
+			if (label_flag == 0)
+				i = 0;
+			else
+				i = label_flag;
+			i += ft_strspn(&data->line[i], " \t");
+			if (!(choose_encoding(data, i)))
+				return (FAIL);
+			break ;
 		}
 		i++;
 	}
