@@ -97,10 +97,13 @@ int read_memory(t_env *env)
 				check_delta = 0;
 			}
 		}
-		ft_print_memory(env);
-		print_infos(env);
-		key_events(env);
-		//	read(0, 0, 1);
+		if (env->visu == 1)
+		{
+			print_infos(env);
+			key_events(env);
+		}
+		else
+			ft_print_memory(env);
 		env->cycle_index++;
 		i++;
 	}

@@ -91,7 +91,7 @@ int				check_sign(t_env *env, int index, int n);
 // DEBUG
 void	ft_print_memory(t_env *env);
 void	first_visu(t_env *env);
-void	update_visu(t_env *env, unsigned j);
+void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
 void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len);
 void	key_events(t_env *env);

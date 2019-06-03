@@ -12,14 +12,51 @@
 
 #include "../../includes/vm.h"
 
+static void	write_champ_visu(t_env *env, unsigned j)
+{
+	unsigned k;
+	unsigned x;
+	unsigned y;
+
+	k = 0;
+	wattron(env->mem, COLOR_PAIR(4 + j));
+	x = k % 64 + (4096 * j / env->nb_champs % 64);
+	if (x >= 64)
+	{
+		x -= 64;
+		x *= 3;
+		y = k / 64 + (4096 / env->nb_champs / 64 * j) + 1;
+	}
+	else
+	{
+		x *= 3;
+		y = k / 64 + (4096 / env->nb_champs / 64 * j);
+	}
+	while (k < env->champ[j].header.prog_size)
+	{
+		mvwprintw(env->mem, y, x, "%.2x", env->memory[k]);
+		x += 3;
+		if (x >= 192)
+		{
+			x -= 192;
+			y++;
+		}
+		k++;
+	}
+	wattroff(env->mem, COLOR_PAIR(4 + j));
+	if (j == env->nb_champs - 1)
+	{
+		print_infos(env);
+		wrefresh(env->mem);
+		wrefresh(env->infos);
+	}
+}
+
 int		write_champ(t_env *env)
 {
 	unsigned i;
 	unsigned j;
-	unsigned k;
-	unsigned	x;
-	unsigned	y;
-	int	id;
+	int id;
 	unsigned char line[MAX_CHAMP_CODE_SIZE + 1];
 
 	i = 0;
@@ -32,7 +69,7 @@ int		write_champ(t_env *env)
 		read(env->fd, &line, MAX_CHAMP_CODE_SIZE);
 		ft_memcpy(env->champ[j].header.prog_name, &line[4], PROG_NAME_LENGTH);
 		ft_memcpy(env->champ[j].header.comment,
-					&line[0x8c], COMMENT_LENGTH - 10);
+				  &line[0x8c], COMMENT_LENGTH - 10);
 		env->champ[j].header.prog_size = read_bytes(line, 0x8a, 2);
 		if (env->champ[j].header.prog_size > CHAMP_MAX_SIZE)
 		{
@@ -40,48 +77,18 @@ int		write_champ(t_env *env)
 			return (FAIL);
 		}
 		ft_memcpy(&env->memory[i], &line[0x890],
-					env->champ[j].header.prog_size);
+				  env->champ[j].header.prog_size);
 		env->champ[j].player_nb = id;
 		env->champ[j].r[1] = id--;
 		env->champ[j].pc = i;
 		env->champ[j].cycles = check_cycles(env, j);
-		env->champ[j].last_live = 0; 
+		env->champ[j].last_live = 0;
 		if (close(env->fd) < 0)
 			return (FAIL);
 		if (env->visu == 1)
-		{
-			k = 0;
-			wattron(env->mem, COLOR_PAIR(4 + j));
-			x = k % 64 + (4096 * j / env->nb_champs % 64);
-			if (x >= 64)
-			{
-				x -= 64;
-				x *= 3;
-				y = k / 64 + (4096 / env->nb_champs / 64 * j) + 1;
-			}
-			else
-			{
-				x *= 3;
-				y = k / 64 + (4096 / env->nb_champs / 64 * j);
-			}
-			while (k < env->champ[j].header.prog_size)
-			{
-				mvwprintw(env->mem, y, x, "%.2x", env->memory[k]);
-				x += 3;
-				if (x >= 192)
-				{
-					x -= 192;
-					y++;
-				}
-				k++;
-			}
-			wattroff(env->mem, COLOR_PAIR(4 + j));
-		}
+			write_champ_visu(env, j);
 		i += 4096 / env->nb_champs;
 		j++;
 	}
-	print_infos(env);
-	wrefresh(env->mem);
-	wrefresh(env->infos);
 	return (SUCCESS);
 }

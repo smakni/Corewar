@@ -24,11 +24,7 @@ void op_st(t_env *env, unsigned j)
 	short	dest;
 	int		reg_content;
 	int		current_pos;
-	int k;
-	int			x;
-	int			y;
 
-	k = 0;
 	current_pos = env->champ[j].pc;
 //ft_printf("cur pos %i\n", current_pos);
 	cursor = 1;
@@ -55,30 +51,5 @@ void op_st(t_env *env, unsigned j)
 	}
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
-	{
-		mvwprintw(env->infos, 1, 6, "dest:%d", dest);
-		if (env->champ[j].player_nb == 0xffffffff)
-			j = 0;
-		else if (env->champ[j].player_nb == 0xfffffffe)
-			j = 1;
-		else if (env->champ[j].player_nb == 0xfffffffd)
-			j = 2;
-		else if (env->champ[j].player_nb == 0xfffffffc)
-			j = 3;
-		wattron(env->mem, COLOR_PAIR(4 + j));
-		x = dest % 64 * 3;
-		y = dest / 64;
-		while (k < 4)
-		{
-			mvwprintw(env->mem, y, x, "%.2x", env->memory[dest + k]);
-			x += 3;
-			if (x >= 192)
-			{
-				x -= 192;
-				y++;
-			}
-			k++;
-		}
-		wrefresh(env->mem);
-	}
+		update_visu(env, dest, j);
 }

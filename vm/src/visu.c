@@ -55,6 +55,39 @@ void redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
 	//read(0,0,1);
 }
 
+void	update_visu(t_env *env, short dest, unsigned j)
+{
+	int k;
+	int			x;
+	int			y;
+
+	k = 0;
+	mvwprintw(env->infos, 1, 6, "dest:%d", dest);
+	if (env->champ[j].player_nb == 0xffffffff)
+		j = 0;
+	else if (env->champ[j].player_nb == 0xfffffffe)
+		j = 1;
+	else if (env->champ[j].player_nb == 0xfffffffd)
+		j = 2;
+	else if (env->champ[j].player_nb == 0xfffffffc)
+		j = 3;
+	wattron(env->mem, COLOR_PAIR(4 + j));
+	x = dest % 64 * 3;
+	y = dest / 64;
+	while (k < 4)
+	{
+		mvwprintw(env->mem, y, x, "%.2x", env->memory[dest + k]);
+		x += 3;
+		if (x >= 192)
+		{
+			x -= 192;
+			y++;
+		}
+		k++;
+	}
+	wrefresh(env->mem);
+}
+
 void print_infos(t_env *env)
 {
 	int i;
@@ -102,9 +135,13 @@ void key_events(t_env *env)
 	if (env->cycle_index > 0)
 		timeout(0);
 	key = getch();
-	if (key == 'w' && env->speed > 10)
-		env->speed -= 10;
+	if (key == 'w' && env->speed > 1)
+		env->speed -= 1;
 	if (key == 'e' && env->speed < 1000)
+		env->speed += 1;
+	if (key == 'q' && env->speed > 10)
+		env->speed -= 10;
+	if (key == 'r' && env->speed < 991)
 		env->speed += 10;
 	if (env->cycle_index > 0 && key == ' ')
 	{
@@ -158,33 +195,4 @@ void first_visu(t_env *env)
 	wattroff(env->mem, COLOR_PAIR(1));
 	refresh();
 	wrefresh(env->mem);
-}
-
-void update_visu(t_env *env, unsigned j)
-{
-	int i;
-
-	i = 0;
-	/*	if (env->cycle_index == 1)
-		timeout(0);
-	if (env->cycle_index > 0 && getch() == ' ')
-	{
-		while (1)
-			if (getch() == ' ')
-				break;
-	}*/
-	wattron(env->mem, COLOR_PAIR(j + 4));
-	while (i < 4096)
-	{
-		wprintw(env->mem, "%.2x", env->memory[i]);
-		wprintw(env->mem, " ");
-		wattron(env->mem, COLOR_PAIR(1));
-		i++;
-		if (i % 64 == 0)
-			wprintw(env->mem, "\n");
-	}
-	wmove(env->mem, 0, 0);
-	wrefresh(env->mem);
-	wattroff(env->mem, COLOR_PAIR(1));
-	print_infos(env);
 }
