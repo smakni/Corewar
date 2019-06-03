@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 22:51:17 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/31 18:45:52 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/03 21:16:37 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		op_fork(t_env *env, unsigned j)
 		}
 	env->champ[env->nb_champs] = env->champ[j];
 	index = read_bytes(env->memory, env->champ[j].pc + 1, 2);
-	env->champ[env->nb_champs].pc += index;
+	env->champ[env->nb_champs].pc += index % IDX_MOD;
 	env->champ[env->nb_champs].nb_live = 0;
 	env->champ[env->nb_champs].cycles = check_cycles(env, env->nb_champs);
 	//ft_printf("PC = %d\n", env->champ[env->nb_champs].pc);

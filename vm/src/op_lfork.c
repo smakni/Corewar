@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:34 by sabri             #+#    #+#             */
-/*   Updated: 2019/05/31 17:07:50 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/03 21:17:05 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,8 @@ void		op_lfork(t_env *env, unsigned j)
 			return ;
 		}
 	env->champ[env->nb_champs] = env->champ[j];
-	if (env->memory[env->champ[j].pc + 1] >= 254)
-	{
-		index =  env->memory[env->champ[j].pc + 1] - env->memory[env->champ[j].pc + 2];
-		env->champ[env->nb_champs].pc -= (index % MEM_SIZE);
-	}
-	else
-	{
-		index = read_bytes(env->memory, env->champ[j].pc + 2, 2);
-		env->champ[env->nb_champs].pc += (index % MEM_SIZE);
-	}
+	index = read_bytes(env->memory, env->champ[j].pc + 1, 2);
+	env->champ[env->nb_champs].pc += index % MEM_SIZE;
 	env->champ[env->nb_champs].nb_live = 0;
 	env->champ[env->nb_champs].cycles = check_cycles(env, env->nb_champs);
 	//ft_printf("PC = %d\n", env->champ[env->nb_champs].pc);
