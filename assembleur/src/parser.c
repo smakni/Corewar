@@ -12,7 +12,7 @@
 
 #include "../includes/asm.h"
 
-static int	line_parser_extension(t_parser *data, int i, int label_flag)
+static int	line_parser_extension(t_parser *data, int i, int *label_flag)
 {
 	if (data->line[i] == '.')
 	{
@@ -20,19 +20,19 @@ static int	line_parser_extension(t_parser *data, int i, int label_flag)
 			return (FAIL);
 		return (2);
 	}
-	else if (data->line[i] == ':' && label_flag == 0)
+	else if (data->line[i] == ':' && *label_flag == 0)
 	{
-		label_flag = i + 1;
+		*label_flag = i + 1;
 		if (!(save_label_address(data)))
 			return (FAIL);
 	}
 	else if (data->line[i] == ' ' || data->line[i] == '\t'
 		|| data->line[i] == '%' || data->line[i] == ':')
 	{
-		if (label_flag == 0)
+		if (*label_flag == 0)
 			i = 0;
 		else
-			i = label_flag;
+			i = *label_flag;
 		i += ft_strspn(&data->line[i], " \t");
 		if (!(choose_encoding(data, i)))
 			return (FAIL);
@@ -52,7 +52,7 @@ int			line_parser(t_parser *data, int i, int label_flag)
 			return (SUCCESS);
 		else
 		{
-			ret = line_parser_extension(data, i, label_flag);
+			ret = line_parser_extension(data, i, &label_flag);
 			if (ret == 2)
 				break ;
 			else if (ret == FAIL)
