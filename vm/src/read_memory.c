@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/04 14:57:45 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/04 22:16:58 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int read_memory(t_env *env)
 		}
 		else
 			ft_print_memory(env);
-//		read(0, 0, 1);
+		read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

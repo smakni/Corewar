@@ -1,6 +1,9 @@
 .name "korZ"
 .comment "i'm Zork"
 
-	ld	%10,r2
-	#st r1,r2
-	sti	r1,r2,r1
+xxx:
+	ld %0,r2
+	zjmp %:yyy
+
+yyy:
+	zjmp %:xxx

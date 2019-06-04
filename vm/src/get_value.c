@@ -6,17 +6,17 @@
 /*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/03 22:45:39 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 00:05:40 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static int	get_addr(t_env *env, int value)
+static int	get_addr(t_env *env, int value, unsigned int j)
 {
 	int	ret;
 
-	ret = read_bytes(env->memory, (value - 1) % IDX_MOD, DIR_SIZE);
+	ret = read_bytes(env->memory, (env->champ[j].pc + value) % IDX_MOD, 4);
 	return (ret);
 }
 
@@ -40,7 +40,8 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 	{
 		(*cursor)++;
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
-		value = get_addr(env, value);
+		value = get_addr(env, value, j);
+		ft_printf("value ind = %i\n", value);
 		*cursor += IND_SIZE - 1;
 	}
 	return (value);
