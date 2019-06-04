@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/31 17:06:31 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/04 14:46:39 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void			op_lldi(t_env *env ,unsigned j);
 void			op_lld(t_env *env, unsigned j);
 void			op_lfork(t_env *env, unsigned j);
 void			op_aff(t_env *env, unsigned j);
-void			aff_memory(t_env *env, unsigned j, int len);
 int				del_process(t_env *env);
-int				check_sign(t_env *env, int index, int n);
 
 
 // DEBUG
@@ -95,5 +93,6 @@ void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
 void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len);
 void	key_events(t_env *env);
+void	aff_operations(t_env *env, unsigned j, int save);
 
 #endif

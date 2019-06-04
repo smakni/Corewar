@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/29 16:25:49 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/04 14:46:26 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	exec_op(t_env *env, unsigned j)
 	if (index >= 0x01 && index <= 0x10)
 	{
 		op_fun[index - 1](env, j);
+		aff_operations(env, j, save);
 		if (env->visu == 1)
 			redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
 	}

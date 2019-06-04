@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/03 21:14:26 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/04 14:47:27 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ static int reset_cycles(t_env *env)
 	if (env->cycle_to_die <= 0)
 		return (0);
 	return (1);
-}
-
-void aff_memory(t_env *env, unsigned j, int len)
-{
-	int i;
-
-	i = 0;
-	ft_printf("op>>[ ");
-	while (i < len)
-	{
-		ft_printf("%.2x ", env->memory[env->champ[j].pc + i]);
-		ft_printf("i = %d\n", i);
-		i++;
-	}
-	ft_printf("]\n");
 }
 
 int read_memory(t_env *env)
