@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/04 14:46:26 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/04 14:57:00 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	exec_op(t_env *env, unsigned j)
 	if (index >= 0x01 && index <= 0x10)
 	{
 		op_fun[index - 1](env, j);
+		if (env->visu == 0)
 		aff_operations(env, j, save);
 		if (env->visu == 1)
 			redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
@@ -46,5 +47,7 @@ void	exec_op(t_env *env, unsigned j)
 	else
 	{
 		env->champ[j].pc++;
+		if (env->visu == 1)
+			redraw_pc_2(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
 	}
 }
