@@ -21,7 +21,7 @@ void		op_ld(t_env *env ,unsigned j)
 	param_1 = 0;
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
 	{
-		to_store = read_bytes(env->memory, env->champ[j].pc + 2, 2);
+		to_store = read_bytes(env->memory, env->champ[j].pc + 2, 4);
 		//ft_printf("DIRECT>>param_1 = %d\n", param_1);
 		r_index = env->memory[env->champ[j].pc + 6];
 	}

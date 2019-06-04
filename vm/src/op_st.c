@@ -14,19 +14,11 @@
 
 static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
 {
-	short	v1;
-	short	v2;
 	short	ret;
 
-	v1 = env->memory[current_pos + *cursor];
-	ft_printf("v1 %i\ncur %i\n", v1, *cursor);
-	(*cursor)++;
-	v2 = env->memory[current_pos + *cursor];
-	ft_printf("v2 %i\ncur %i\n", v2, *cursor);
-	(*cursor)++;
-	ret = v2 - v1;
-	if (ret < 0)
-		ret--;
+	ret = env->memory[current_pos + *cursor] << 8;
+	ret += env->memory[current_pos + *cursor + 1];
+	(*cursor) += 2;
 	return (ret);
 }
 
@@ -44,13 +36,11 @@ void op_st(t_env *env, unsigned j)
 	if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
 	{
 		dest = read_two_bytes(env, current_pos, &cursor) % IDX_MOD;
-		ft_printf("dest = %i\n", dest);
 		dest += current_pos;
 		if (dest < 0)
 			dest += MEM_SIZE;
 		else if (dest >= MEM_SIZE)
 			dest %= MEM_SIZE;
-		ft_printf("dest = %i\n", dest);
 		env->memory[dest % MEM_SIZE] = reg_content >> 24;
 		env->memory[(dest + 1) % MEM_SIZE] = reg_content >> 16;
 		env->memory[(dest + 2) % MEM_SIZE] = reg_content >> 8;
