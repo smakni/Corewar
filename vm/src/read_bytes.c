@@ -22,7 +22,7 @@ int		read_bytes(unsigned char *line, int index, int n)
 		nb = line[index] << 8;
 		nb += line[index + 1];
 		if (line[index] >> 7 == 1)
-			nb = (char)nb;
+			nb |= (-1&~0xFFFF);
 	}
 	else if (n == 4)
 	{
@@ -31,7 +31,7 @@ int		read_bytes(unsigned char *line, int index, int n)
 		nb += line[index + 2] << 8;
 		nb += line[index + 3];
 		if (nb  >> 15 == 1)
-			nb = (char)nb;
+			nb |= (-1&~0xFFFF);
 	}
 	return (nb);
 }
