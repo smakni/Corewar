@@ -2,6 +2,6 @@
 .comment "i'm Zork"
 
 xxx:
-	ldi %0,%0,r1
-	sti	r1,-10,r99
+	lld 5,r99
+	st	r3,10
 	zjmp %:xxx

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/05 15:04:24 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/05 23:20:15 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
 	return (ret);
 }
 
-void op_st(t_env *env, unsigned j)
+void		op_st(t_env *env, unsigned int j)
 {
 	int		cursor;
 	short	dest;
@@ -36,6 +36,7 @@ void op_st(t_env *env, unsigned j)
 	cursor = 1;
 	nb_reg = env->memory[current_pos + 2];
 	reg_content = get_value(env, j, &cursor, 1);
+	ft_printf("reg cont %i\n", reg_content);
 	cursor++;
 	if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
 	{

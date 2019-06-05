@@ -17,12 +17,16 @@ int		read_bytes(unsigned char *line, int index, int n)
 	int nb;
 
 	nb = 0;
+	if (index < 0)
+		index += MEM_SIZE;
+	else if (index >= MEM_SIZE)
+		index %= MEM_SIZE;
 	if (n == 2)
 	{
-		nb = line[index] << 8;
-		nb += line[index + 1];
+		nb = line[index % MEM_SIZE] << 8;
+		nb += line[(index + 1) % MEM_SIZE];
 		if (line[index] >> 7 == 1)
-			nb |= (-1&~0xFFFF);
+			nb |= (-1 & ~0xFFFF);
 	}
 	else if (n == 4)
 	{
@@ -31,7 +35,7 @@ int		read_bytes(unsigned char *line, int index, int n)
 		nb += line[(index + 2) % MEM_SIZE] << 8;
 		nb += line[(index + 3) % MEM_SIZE];
 		if (nb  >> 15 == 1)
-			nb |= (-1&~0xFFFF);
+			nb |= (-1 & ~0xFFFF);
 	}
 	return (nb);
 }

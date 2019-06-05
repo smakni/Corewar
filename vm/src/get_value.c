@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/05 21:28:48 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/05 23:28:51 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	get_addr(t_env *env, int value, unsigned int j)
 {
 	int	ret;
 
-	ret = read_bytes(env->memory, (env->champ[j].pc + value) % IDX_MOD, 4);
+	ret = read_bytes(env->memory, (env->champ[j].pc + value) % IDX_MOD, REG_SIZE);
 	return (ret);
 }
 
