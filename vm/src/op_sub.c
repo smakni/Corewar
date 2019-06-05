@@ -32,7 +32,8 @@ void		op_sub(t_env *env, unsigned int j)
 		diff = 0;
 	cursor++;
 	nb_reg2 = env->memory[env->champ[j].pc + cursor];
-	ft_printf("nb_reg2 = %i\n", nb_reg2);
+	if (env->visu == 0)
+		ft_printf("nb_reg2 = %i\n", nb_reg2);
 	if (nb_reg2 >= 1 && nb_reg2 <= 16)
 	{
 		reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];

@@ -38,18 +38,13 @@ void redraw_pc_2(t_env *env, int pc, unsigned player_nb, int len)
 	int x;
 
 	x = pc % 64 * 3;
-	mvwprintw(env->infos, 40, 6, "Pc %d: ", pc);
-	mvwprintw(env->infos, 42, 6, "Player_nb : %u", player_nb);
-	mvwprintw(env->infos, 44, 6, "len %d: ", len);
-	mvwprintw(env->infos, 46, 6, "x %d: ", pc % 64 * 3);
-	mvwprintw(env->infos, 48, 6, "old pc %d: ", pc - len);
-	mvwprintw(env->infos, 50, 6, "new pc %d: ", pc);
+	(void) player_nb;
 	wattron(env->mem, COLOR_PAIR(12));
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattron(env->mem, COLOR_PAIR(12));
 	wrefresh(env->mem);
 	wrefresh(env->infos);
-//	read(0, 0, 1);
+	//	read(0, 0, 1);
 
 	wattron(env->mem, COLOR_PAIR(1));
 	pc -= len;
@@ -57,7 +52,7 @@ void redraw_pc_2(t_env *env, int pc, unsigned player_nb, int len)
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattroff(env->mem, COLOR_PAIR(1));
 	wrefresh(env->mem);
-//	read(0,0,1);
+	//	read(0,0,1);
 }
 
 void redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
@@ -65,18 +60,12 @@ void redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
 	int x;
 
 	x = pc % 64 * 3;
-	mvwprintw(env->infos, 40, 6, "Pc %d: ", pc);
-	mvwprintw(env->infos, 42, 6, "Player_nb : %u", player_nb);
-	mvwprintw(env->infos, 44, 6, "len %d: ", len);
-	mvwprintw(env->infos, 46, 6, "x %d: ", pc % 64 * 3);
-	mvwprintw(env->infos, 48, 6, "old pc %d: ", pc - len);
-	mvwprintw(env->infos, 50, 6, "new pc %d: ", pc);
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 8));
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 8));
 	wrefresh(env->mem);
 	wrefresh(env->infos);
-//	read(0, 0, 1);
+	//	read(0, 0, 1);
 
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 4));
 	pc -= len;
@@ -84,17 +73,16 @@ void redraw_pc(t_env *env, int pc, unsigned player_nb, int len)
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattroff(env->mem, COLOR_PAIR(UINT32_MAX - player_nb + 4));
 	wrefresh(env->mem);
-//	read(0,0,1);
+	//	read(0,0,1);
 }
 
-void	update_visu(t_env *env, short dest, unsigned j)
+void update_visu(t_env *env, short dest, unsigned j)
 {
 	int k;
-	int			x;
-	int			y;
+	int x;
+	int y;
 
 	k = 0;
-	mvwprintw(env->infos, 1, 6, "dest:%d", dest);
 	if (env->champ[j].player_nb == 0xffffffff)
 		j = 0;
 	else if (env->champ[j].player_nb == 0xfffffffe)
@@ -125,12 +113,16 @@ void print_infos(t_env *env)
 	int i;
 	unsigned j;
 
-	i = 3;
+	i = 1;
 	j = 0;
 	if (env->speed == 0)
 		env->speed = 50;
 	wattron(env->infos, COLOR_PAIR(3));
 	//	if (env->cycle_index == 0)
+	mvwprintw(env->infos, i += 2, 6, "Cycles/second limit : %-5d", env->speed);
+	mvwprintw(env->infos, i += 2, 6, "Cycle : %d", env->cycle_index);
+	mvwprintw(env->infos, i += 2, 6, "Nb Processes : %-4d", env->nb_champs);
+	i += 2;
 	while (j < env->save_nb_champs)
 	{
 		mvwprintw(env->infos, i, 6, "Player %d: ", j + 1);
@@ -143,10 +135,7 @@ void print_infos(t_env *env)
 		i += 2;
 		j++;
 	}
-	mvwprintw(env->infos, i += 2, 6, "Cycles/second limit : %- 5d", env->speed);
-	mvwprintw(env->infos, i += 2, 6, "Cycle : %d", env->cycle_index);
-	mvwprintw(env->infos, i += 2, 6, "Nb Processes : %d", env->nb_champs);
-	mvwprintw(env->infos, i += 2, 6, "CYCLE_TO_DIE : %d", env->cycle_to_die);
+	mvwprintw(env->infos, i += 2, 6, "CYCLE_TO_DIE : %-5d", env->cycle_to_die);
 	mvwprintw(env->infos, i += 2, 6, "CYCLE_DELTA : %d", CYCLE_DELTA);
 	mvwprintw(env->infos, i += 2, 6, "NBR_LIVE : %d", NBR_LIVE);
 	mvwprintw(env->infos, i += 2, 6, "MAX_CHECKS : %d", MAX_CHECKS);
@@ -164,6 +153,11 @@ void key_events(t_env *env)
 	if (env->cycle_index > 0)
 		timeout(0);
 	key = getch();
+	if (env->cycle_index > 0)
+	{
+		mvwprintw(env->infos, 0, 6, "** RUNNING **");
+		wrefresh(env->infos);
+	}
 	if (key == 'w' && env->speed > 1)
 		env->speed -= 1;
 	if (key == 'e' && env->speed < 1000)
@@ -172,21 +166,35 @@ void key_events(t_env *env)
 		env->speed -= 10;
 	if (key == 'r' && env->speed < 991)
 		env->speed += 10;
+	if (key == 'y')
+		env->speed = 10000000;
+	if (key == 't')
+		env->speed = 1;
 	if (env->cycle_index > 0 && key == ' ')
 	{
+		mvwprintw(env->infos, 0, 6, "** PAUSED ** ");
+		wrefresh(env->infos);
 		while (1)
 		{
 			key = getch();
 			if (key == ' ')
+			{
+				mvwprintw(env->infos, 0, 6, "** RUNNING **");
+				wrefresh(env->infos);
 				break;
-			if (key == 'w' && env->speed > 10)
-			{
-				env->speed -= 10;
-				print_infos(env);
 			}
-			if (key == 'e' && env->speed < 1000)
+			else
 			{
-				env->speed += 10;
+				if (key == 'w' && env->speed > 1)
+					env->speed -= 1;
+				if (key == 'e' && env->speed < 1000)
+					env->speed += 1;
+				if (key == 'q' && env->speed > 10)
+					env->speed -= 10;
+				if (key == 'r' && env->speed < 991)
+					env->speed += 10;
+				if (key == 'y')
+					env->speed = 10000000;
 				print_infos(env);
 			}
 		}

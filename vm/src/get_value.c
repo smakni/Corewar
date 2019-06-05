@@ -41,7 +41,8 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		(*cursor)++;
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		value = get_addr(env, value, j);
-		ft_printf("value ind = %i\n", value);
+		if (env->visu == 0)
+			ft_printf("value ind = %i\n", value);
 		*cursor += IND_SIZE - 1;
 	}
 	return (value);

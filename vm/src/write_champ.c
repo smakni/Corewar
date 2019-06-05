@@ -46,9 +46,9 @@ static void	write_champ_visu(t_env *env, unsigned j)
 	wattroff(env->mem, COLOR_PAIR(4 + j));
 	if (j == env->nb_champs - 1)
 	{
+		mvwprintw(env->infos, 0, 6, "** PAUSED ** ");
 		print_infos(env);
 		wrefresh(env->mem);
-		wrefresh(env->infos);
 	}
 }
 
