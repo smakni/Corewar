@@ -6,13 +6,13 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 22:41:28 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/05 23:49:10 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_ldi(t_env *env, unsigned j)
+void		op_ldi(t_env *env, unsigned int j)
 {
 	int	v1;
 	int	v2;
