@@ -6,13 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 22:02:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/05 22:06:37 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-
-// T_nb_reg | T_DIR | T_IND , T_nb_reg | T_DIR , T_nb_reg
 
 void		op_ldi(t_env *env, unsigned j)
 {
