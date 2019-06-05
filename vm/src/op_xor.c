@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/05 00:14:23 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:09:49 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		op_xor(t_env *env, unsigned int j)
 	int	nb_reg2;
 	int	nb_reg3;
 
+	env->champ[j].op.name = "xor";
+	env->champ[j].op.nb_params = 3;
 	cursor = 1;
 	nb_reg1 = 1;
 	nb_reg2 = 1;

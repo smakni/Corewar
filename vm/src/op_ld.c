@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/04 23:05:00 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:07:07 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void		op_ld(t_env *env ,unsigned j)
 	int	to_store;
 	int	param_1;
 
+	env->champ[j].op.name = "ld";
+	env->champ[j].op.nb_params = 2;
 	param_1 = 0;
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
 	{

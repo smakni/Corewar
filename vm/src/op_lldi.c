@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/31 17:15:49 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/05 15:08:40 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void		op_lldi(t_env *env, unsigned j)
 	int sum;
 	int	cursor;
 
+	env->champ[j].op.name = "lldi";
+	env->champ[j].op.nb_params = 2;
 	cursor = 1;
 	v1 = get_value_index(env, j, &cursor, 1);
 	v2 = get_value_index(env, j, &cursor, 2);

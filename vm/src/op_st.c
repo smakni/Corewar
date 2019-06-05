@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/04 22:34:48 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:04:24 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void op_st(t_env *env, unsigned j)
 	int		current_pos;
 	int		nb_reg;
 
+	env->champ[j].op.name = "st";
+	env->champ[j].op.nb_params = 2;
 	current_pos = env->champ[j].pc;
 	cursor = 1;
 	nb_reg = env->memory[current_pos + 2];

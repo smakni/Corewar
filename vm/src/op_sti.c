@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:40:47 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/03 23:03:19 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:09:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	op_sti(t_env *env, unsigned int j)
 	int		current_pos;
 	int		tmp;
 
+	env->champ[j].op.name = "sti";
+	env->champ[j].op.nb_params = 3;
 	current_pos = env->champ[j].pc;
 	cursor = 2;
 	reg_content = get_reg_content(env, j, &cursor);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/04 14:46:39 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/05 17:06:35 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # define SUCCESS	1
 # define ARR_SIZE	1024
 
+typedef	struct 		s_op
+{
+	unsigned char	saved[20];
+	int				param[3];
+	unsigned		nb_params;
+	char 			*name;
+}					t_op;
+
+
 typedef struct	s_champ
 {
 	header_t	header;
@@ -33,6 +42,7 @@ typedef struct	s_champ
 	int			cycles;
 	char		last_return;
 	char		carry;
+	t_op		op;
 }				t_champ;
 
 typedef struct	s_env
