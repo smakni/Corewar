@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/05 00:13:33 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 16:17:53 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		op_and(t_env *env, unsigned int j)
 	int	nb_reg2;
 	int	nb_reg3;
 
+	env->champ[j].op.name = "and";
+	env->champ[j].op.nb_params = 3;
 	cursor = 1;
 	nb_reg1 = 1;
 	nb_reg2 = 1;

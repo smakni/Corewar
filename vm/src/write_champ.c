@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/31 17:19:50 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/05 17:06:48 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		write_champ(t_env *env)
 		env->champ[j].pc = i;
 		env->champ[j].cycles = check_cycles(env, j);
 		env->champ[j].last_live = 0;
+		env->champ[j].carry = 1;
 		if (close(env->fd) < 0)
 			return (FAIL);
 		if (env->visu == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/05 00:05:40 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 19:24:34 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		(*cursor)++;
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		value = get_addr(env, value, j);
-		if (env->visu == 0)
-			ft_printf("value ind = %i\n", value);
+		//ft_printf("value ind = %i\n", value);
 		*cursor += IND_SIZE - 1;
 	}
 	return (value);

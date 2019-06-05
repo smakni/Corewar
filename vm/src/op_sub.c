@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sub.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/04 23:26:10 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:09:38 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		op_sub(t_env *env, unsigned int j)
 	int	nb_reg3;
 	int	diff;
 
+	env->champ[j].op.name = "sub";
+	env->champ[j].op.nb_params = 3;
 	cursor = 2;
 	nb_reg1 = env->memory[env->champ[j].pc + cursor];
 	if (nb_reg1 >= 1 && nb_reg1 <= 16)

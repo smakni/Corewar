@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_live.c                                          :+:      :+:    :+:   */
+/*   save_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 15:05:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 15:08:02 by smakni           ###   ########.fr       */
+/*   Created: 2019/06/05 17:04:01 by smakni            #+#    #+#             */
+/*   Updated: 2019/06/05 17:33:07 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		op_live(t_env *env, unsigned j)
+int			op_len(t_env *env, unsigned j)
 {
-	unsigned int id;
+	int 	op_len_tab[16];
 
-	env->champ[j].op.name = "live";
-	id = (unsigned)read_bytes(env->memory, env->champ[j].pc + 4, 4);
-	if (env->champ[j].player_nb == id)
-		env->champ[j].last_live = env->cycle_index;
-	env->champ[j].nb_live++;
-	env->champ[j].pc += 5;
+	if (env->memory[env->champ[j].pc] == 01)
+		return (5);
+	else if (env->memory[env->champ[j].pc] == 02)
+		return (1 + decode_byte_param(env->memory[env->champ[j].pc + 1], 0));
+}
+
+void		save_op(t_env *env, unsigned j)
+{
+	ft_memcpy(env->champ[j].op.saved, env->memory[env->champ[j].pc], op_len(env, j));
 }

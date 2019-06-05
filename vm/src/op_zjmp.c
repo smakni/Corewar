@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:20:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/04 12:45:55 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/05 18:42:02 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	op_zjmp(t_env *env, unsigned j)
 	if (env->champ[j].carry == 1)
 	{
 		index = read_bytes(env->memory, env->champ[j].pc + 1, 2);
-		env->champ[j].pc += index;
-		env->champ[j].pc %= IDX_MOD;
+		env->champ[j].pc += index % IDX_MOD;
 	}
 	else
 		env->champ[j].pc += 3;
