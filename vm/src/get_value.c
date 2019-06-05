@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/05 19:24:34 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/05 21:28:48 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		(*cursor)++;
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
 		value = get_addr(env, value, j);
-		//ft_printf("value ind = %i\n", value);
 		*cursor += IND_SIZE - 1;
 	}
 	return (value);
@@ -57,13 +56,7 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 		(*cursor)++;
 		value = env->champ[j].r[env->memory[env->champ[j].pc + *cursor]];
 	}
-	else if (type_param(env->memory[env->champ[j].pc + 1], param) == DIR_CODE)
-	{
-		(*cursor)++;
-		value = read_bytes(env->memory, env->champ[j].pc + *cursor, DIR_SIZE);
-		(*cursor) += DIR_SIZE - 1;
-	}
-	else if (type_param(env->memory[env->champ[j].pc + 1], param) == IND_CODE)
+	else
 	{
 		(*cursor)++;
 		value = read_bytes(env->memory, env->champ[j].pc + *cursor, IND_SIZE);
