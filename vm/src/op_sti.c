@@ -6,13 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:40:47 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/05 22:18:48 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/05 22:26:27 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-
-// T_REG , T_REG | T_DIR | T_IND , T_DIR | T_REG
 
 static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
 {
