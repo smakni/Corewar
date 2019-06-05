@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/05 23:57:35 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 00:03:31 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		op_lldi(t_env *env, unsigned int j)
 	int	nb_reg2;
 	int	nb_reg3;
 
-	env->champ[j].op.name = "ldi";
+	env->champ[j].op.name = "lldi";
 	env->champ[j].op.nb_params = 3;
 	cursor = 1;
 	nb_reg1 = 1;

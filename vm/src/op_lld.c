@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 23:43:49 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 00:03:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		op_lld(t_env *env, unsigned int j)
 	int	value;
 	int		current_pos;
 
-	env->champ[j].op.name = "ld";
+	env->champ[j].op.name = "lld";
 	env->champ[j].op.nb_params = 2;
 	current_pos = env->champ[j].pc;
 	cursor = 1;
