@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:38:30 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 19:17:46 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/06 18:33:20 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		check_cycles(t_env *env, unsigned j)
 	int op_cycles[17];
 	int index;
 
-	op_cycles[0] = 0;
+	op_cycles[0] = 1;
 	op_cycles[1] = 10;
 	op_cycles[2] = 5;
 	op_cycles[3] = 5;

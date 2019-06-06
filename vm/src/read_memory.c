@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/06 17:43:39 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/06 18:33:13 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int read_memory(t_env *env)
 	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
 		j = env->nb_champs - 1;
-		//ft_printf("It is now cycle %d\n", env->cycle_index + 1);
+		ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
-			if (env->champ[j].cycles == 0)
+			if (env->champ[j].cycles == 1)
 			{
 				exec_op(env, j);
 				if (env->champ[j].pc >= MEM_SIZE)
@@ -69,7 +69,7 @@ int read_memory(t_env *env)
 				ft_bzero(&(env->champ[j].op), sizeof(t_op));
 				//save_op(env);
 			}
-			else if (env->champ[j].cycles > 0)
+			else if (env->champ[j].cycles > 1)
 				env->champ[j].cycles--;
 			j--;
 		}
