@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/29 14:44:47 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/06 15:38:24 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void ft_print_memory(t_env *env)
 			if (env->champ[j].pc == i)
 			{
 				flag = 1;
-				if (env->champ[j].player_nb == 0xffffffff)
+				if (env->champ[j].id == 0xffffffff)
 					ft_printf("{BG_GREEN}");
-				else if (env->champ[j].player_nb == 0xfffffffe)
+				else if (env->champ[j].id == 0xfffffffe)
 					ft_printf("{BG_BLUE}");
-				else if (env->champ[j].player_nb == 0xfffffffd)
+				else if (env->champ[j].id == 0xfffffffd)
 					ft_printf("{BG_RED}");
-				else if (env->champ[j].player_nb == 0xfffffffc)
+				else if (env->champ[j].id == 0xfffffffc)
 					ft_printf("{BG_CYAN}");
 			}
 			j++;
@@ -77,20 +77,30 @@ void ft_print_memory(t_env *env)
 
 int check_last_live(t_env *env)
 {
-	unsigned i;
-	unsigned save;
+	int	i;
+	int	save;
+	int	last_live;
 
 	i = 0;
 	save = 0;
-	while (i < env->nb_champs)
+	last_live = -1;
+	while (i < MAX_PLAYERS)
 	{
-		if (env->champ[i].last_live > save)
+		//ft_printf("[%s]live = %d\n",
+		//		env->live[i].header.prog_name, env->live[i].last_live);
+		if (env->live[i].last_live > last_live)
+		{	
+			//ft_printf("SAVE");
+			//ft_printf("[%s]live = %d\n",
+			//	env->live[i].header.prog_name, env->live[i].last_live);
+			last_live = env->live[i].last_live;
 			save = i;
+		}
 		i++;
 	}
 	if (env->visu == 1)
 	{
-		mvwprintw(env->infos, 50, 6, ">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ[save].last_live);
+		mvwprintw(env->infos, 50, 6, ">>>>>winner_is_%s>>>>LIVE>>%d\n", env->live[save].header.prog_name, env->live[save].last_live);
 		wrefresh(env->infos);
 		while (1)
 			if (getch() == ' ')
@@ -104,7 +114,7 @@ int check_last_live(t_env *env)
 			}
 	}
 	else
-		ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->champ[save].header.prog_name, env->champ[save].last_live);
+		ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->live[save].header.prog_name, env->live[save].last_live);
 	return (save);
 }
 

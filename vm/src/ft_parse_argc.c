@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/05/23 20:07:11 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:04:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static int ft_check_duplicate(t_champ *tmp, unsigned int nb)
 	while (i < nb)
 	{
 		j = 0;
-		if (tmp[i].player_nb > nb)
+		if (tmp[i].id > nb)
 		{
-			ft_printf("error, player number too high\n", tmp[i].player_nb);
+			ft_printf("error, player number too high\n", tmp[i].id);
 			return (FAIL);
 		}
 		while (j < nb)
 		{
-			if (j != i && tmp[i].player_nb == tmp[j].player_nb && tmp[i].player_nb != 0)
+			if (j != i && tmp[i].id == tmp[j].id && tmp[i].id != 0)
 			{
 				ft_printf("error\n");
 				return (FAIL);
@@ -52,7 +52,7 @@ static int ft_sort_argc(t_env *env, t_champ *tmp)
 	{
 		j = -1;
 		while (++j < env->nb_champs)
-			if (tmp[j].player_nb == i)
+			if (tmp[j].id == i)
 			{
 				env->champ[i - 1] = tmp[j];
 				break;
@@ -61,9 +61,9 @@ static int ft_sort_argc(t_env *env, t_champ *tmp)
 		{
 			j = -1;
 			while (++j < env->nb_champs)
-				if (tmp[j].player_nb == 0)
+				if (tmp[j].id == 0)
 				{
-					tmp[j].player_nb = i;
+					tmp[j].id = i;
 					env->champ[i - 1] = tmp[j];
 					break;
 				}
@@ -84,7 +84,7 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 		if (ft_strequ(argv[i], "-n"))
 		{
 			if (i + 2 < argc && ft_isdigit(argv[i + 1][0]) != 0)
-				tmp[env->nb_champs].player_nb = ft_atoi(argv[++i]);
+				tmp[env->nb_champs].id = ft_atoi(argv[++i]);
 			else
 			{
 				ft_printf("error\n");

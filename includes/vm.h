@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 17:06:35 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/06 15:08:00 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,28 @@ typedef	struct 		s_op
 typedef struct	s_champ
 {
 	header_t	header;
-	unsigned	player_nb;
+	unsigned	id;
 	int			pc;
 	unsigned 	r[REG_NUMBER + 1];
-	unsigned	last_live;
 	int			nb_live;
 	int			cycles;
+	int			nb;
 	char		last_return;
 	char		carry;
 	t_op		op;
 }				t_champ;
 
+typedef	struct s_live
+{
+	header_t	header;
+	int			last_live;
+}				t_live;
+
 typedef struct	s_env
 {
 	unsigned char		memory[MEM_SIZE];
 	t_champ				*champ;
+	t_live				live[MAX_PLAYERS];
 	char				*err_msg;
 	int					err_code;
 	int					fd;
@@ -58,7 +65,7 @@ typedef struct	s_env
 	unsigned			save_nb_champs;
 	unsigned			nb_realloc;
 	int					cycle_to_die;
-	unsigned			cycle_index;
+	int					cycle_index;
 	int					visu;
 	WINDOW				*around_memory;
 	WINDOW				*mem;
@@ -101,8 +108,8 @@ void	ft_print_memory(t_env *env);
 void	first_visu(t_env *env);
 void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
-void	redraw_pc(t_env *env, int pc, unsigned player_nb, int len);
-void	redraw_pc_2(t_env *env, int pc, unsigned player_nb, int len);
+void	redraw_pc(t_env *env, int pc, unsigned id, int len);
+void	redraw_pc_2(t_env *env, int pc, unsigned id, int len);
 void	key_events(t_env *env);
 void	aff_operations(t_env *env, unsigned j, int save);
 

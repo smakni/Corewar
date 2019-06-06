@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:20:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 18:42:02 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/06 15:04:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	op_zjmp(t_env *env, unsigned j)
 	else
 		env->champ[j].pc += 3;
 	if (env->visu == 1)
-		redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
+		redraw_pc(env, env->champ[j].pc, env->champ[j].id, env->champ[j].pc - save);
 }

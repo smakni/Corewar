@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 21:36:57 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:05:42 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ int		write_champ(t_env *env)
 		}
 		ft_memcpy(&env->memory[i], &line[0x890],
 				  env->champ[j].header.prog_size);
-		env->champ[j].player_nb = id;
+		env->live[j].header = env->champ[j].header;
+		env->live[j].last_live = 0;
+		env->champ[j].id = id;
+		env->champ[j].nb = j;
 		env->champ[j].r[1] = id--;
 		env->champ[j].pc = i;
 		env->champ[j].cycles = check_cycles(env, j);
-		env->champ[j].last_live = 0;
 		env->champ[j].carry = 0;
 		if (close(env->fd) < 0)
 			return (FAIL);
