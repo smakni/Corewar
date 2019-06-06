@@ -92,7 +92,7 @@ int read_memory(t_env *env)
 		}
 		else
 			ft_print_memory(env);
-		read(0, 0, 1);
+		//read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

@@ -42,7 +42,7 @@ void	exec_op(t_env *env, unsigned j)
 		if (env->visu == 0)
 		aff_operations(env, j, save);
 		if (env->visu == 1)
-			redraw_pc(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
+			redraw_pc_2(env, env->champ[j].pc, env->champ[j].player_nb, env->champ[j].pc - save);
 	}
 	else
 	{

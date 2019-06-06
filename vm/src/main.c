@@ -30,6 +30,7 @@ void ft_print_memory(t_env *env)
 	int	i;
 	int flag = 0;
 
+return ;
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");
