@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/05 23:20:15 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:18:14 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ void		op_st(t_env *env, unsigned int j)
 	int		nb_reg;
 
 	env->champ[j].op.name = "st";
-	env->champ[j].op.nb_params = 2;
 	current_pos = env->champ[j].pc;
 	cursor = 1;
 	nb_reg = env->memory[current_pos + 2];
+	save_param(env, j, nb_reg, REG_CODE);
 	reg_content = get_value(env, j, &cursor, 1);
 	//ft_printf("reg cont %i\n", reg_content);
 	cursor++;
 	if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
 	{
 		dest = read_two_bytes(env, current_pos, &cursor) % IDX_MOD;
+		save_param(env, j, dest, IND_CODE);
 		if (nb_reg >= 1 && nb_reg <= 16)
 		{
 			dest += current_pos;
@@ -57,6 +58,7 @@ void		op_st(t_env *env, unsigned int j)
 	else
 	{
 		dest = env->memory[env->champ[j].pc + cursor];
+		save_param(env, j, dest, REG_CODE);
 		cursor++;
 		if (nb_reg >= 1 && nb_reg <= 16)
 			env->champ[j].r[dest] = reg_content;

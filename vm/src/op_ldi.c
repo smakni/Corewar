@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 23:49:10 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 16:47:28 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void		op_ldi(t_env *env, unsigned int j)
 	int	nb_reg3;
 
 	env->champ[j].op.name = "ldi";
-	env->champ[j].op.nb_params = 3;
 	cursor = 1;
 	nb_reg1 = 1;
 	nb_reg2 = 1;
