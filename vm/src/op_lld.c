@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 00:03:26 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:23:41 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,21 @@ void		op_lld(t_env *env, unsigned int j)
 	env->champ[j].op.nb_params = 2;
 	current_pos = env->champ[j].pc;
 	cursor = 1;
-	if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
-		value = get_value(env, j, &cursor, 1);
-	else
-		value = get_addr_no_limit(env, j, &cursor);
-	cursor++;
-	nb_reg = env->memory[current_pos + cursor];
-	cursor++;
-	if (value == 0 && nb_reg >= 1 && nb_reg <= 16)
-		env->champ[j].carry = 1;
-	else
-		env->champ[j].carry = 0;
-	if (nb_reg >= 1 && nb_reg <= 16)
-		env->champ[j].r[nb_reg] = value;
+	if (check_args(env, j, &cursor, 2))
+	{
+		if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
+			value = get_value(env, j, &cursor, 1);
+		else
+			value = get_addr_no_limit(env, j, &cursor);
+		cursor++;
+		nb_reg = env->memory[current_pos + cursor];
+		cursor++;
+		if (value == 0 && nb_reg >= 1 && nb_reg <= 16)
+			env->champ[j].carry = 1;
+		else
+			env->champ[j].carry = 0;
+		if (nb_reg >= 1 && nb_reg <= 16)
+			env->champ[j].r[nb_reg] = value;
+	}
 	env->champ[j].pc += cursor;
 }

@@ -1,7 +1,6 @@
 .name "korZ"
 .comment "i'm Zork"
 
-xxx:
-	lldi %0,%0,r3
-	st	r3,10
-	zjmp %:xxx
+	ld	%67174400, r2
+	st	r2,10
+	fork %7

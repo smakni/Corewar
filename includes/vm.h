@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/05 17:06:35 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/06 19:28:08 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int 			decode_byte_param(unsigned char param, int is_index);
 int				get_value(t_env *env, unsigned j, int *cursor, int param);
 int				get_value_index(t_env *env, unsigned j, int *cursor, int param);
 int				check_cycles(t_env *env, unsigned j);
+int				check_args(t_env *env, unsigned int j, int *cursor, int nb_param);
 void			exec_op(t_env *env, unsigned j);
 void			op_live(t_env *env, unsigned j);
 void			op_sti(t_env *env, unsigned j);

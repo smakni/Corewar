@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/05 20:54:57 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:16:20 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int read_memory(t_env *env)
 		//ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
-			if (env->champ[j].cycles == 0)
+			if (env->champ[j].cycles == 1)
 			{
 				exec_op(env, j);
 				if (env->champ[j].pc >= MEM_SIZE)
@@ -69,7 +69,7 @@ int read_memory(t_env *env)
 				ft_bzero(&(env->champ[j].op), sizeof(t_op));
 				//save_op(env);
 			}
-			else if (env->champ[j].cycles > 0)
+			else if (env->champ[j].cycles > 1)
 				env->champ[j].cycles--;
 			j--;
 		}
