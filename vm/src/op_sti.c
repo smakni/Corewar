@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/06 00:00:39 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:29:37 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ void	op_sti(t_env *env, unsigned int j)
 	int		nb_reg3;
 
 	env->champ[j].op.name = "sti";
-	env->champ[j].op.nb_params = 3;
 	current_pos = env->champ[j].pc;
 	cursor = 2;
 	reg_content = get_reg_content(env, j, &cursor, &nb_reg1);
+	save_param(env, j, nb_reg1, REG_CODE);
 	nb_reg2 = 1;
 	nb_reg3 = 1;
 	if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
 	{
 		tmp = read_two_bytes(env, current_pos, &cursor) % IDX_MOD;
+		save_param(env, j, tmp, IND_CODE);
 		if (current_pos + tmp < 0)
 			tmp += (current_pos + MEM_SIZE);
 		else if (current_pos + tmp >= MEM_SIZE)
@@ -63,13 +64,25 @@ void	op_sti(t_env *env, unsigned int j)
 		dest = read_bytes(env->memory, tmp, 4);
 	}
 	else if (type_param(env->memory[current_pos + 1], 2) == REG_CODE)
+	{
 		dest = get_reg_content(env, j, &cursor, &nb_reg2);
+		save_param(env, j, nb_reg2, REG_CODE);
+	}
 	else
+	{
 		dest = read_two_bytes(env, current_pos, &cursor) % IDX_MOD;
+		save_param(env, j, dest, DIR_CODE);
+	}
 	if (type_param(env->memory[current_pos + 1], 3) == REG_CODE)
+	{
 		dest += get_reg_content(env, j, &cursor, &nb_reg3);
+		save_param(env, j, nb_reg3, REG_CODE);
+	}
 	else
+	{	
 		dest += read_two_bytes(env, current_pos, &cursor) % IDX_MOD;
+		save_param(env, j, dest, DIR_CODE);
+	}
 	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 	{
 		dest += current_pos;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 15:08:00 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/06 17:16:13 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@
 
 typedef	struct 		s_op
 {
-	unsigned char	saved[20];
-	int				param[3];
-	unsigned		nb_params;
 	char 			*name;
+	char			*param;
 }					t_op;
-
 
 typedef struct	s_champ
 {
@@ -105,6 +102,7 @@ int				del_process(t_env *env);
 
 // DEBUG
 void	ft_print_memory(t_env *env);
+void	save_param(t_env *env, int j, int value, int code);
 void	first_visu(t_env *env);
 void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
