@@ -114,6 +114,7 @@ void update_visu(t_env *env, short dest, unsigned j)
 	wattron(env->mem, COLOR_PAIR(4 + j));
 	x = dest % 64 * 3;
 	y = dest / 64;
+	wattron(env->mem, A_BOLD);
 	while (k < 4)
 	{
 		mvwprintw(env->mem, y, x, "%.2x", env->memory[dest + k]);
@@ -125,6 +126,7 @@ void update_visu(t_env *env, short dest, unsigned j)
 		}
 		k++;
 	}
+	wattroff(env->mem, A_BOLD);
 	wrefresh(env->mem);
 }
 
