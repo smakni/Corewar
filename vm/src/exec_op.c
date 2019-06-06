@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 15:04:49 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/06 15:53:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exec_op(t_env *env, unsigned j)
 		if (env->visu == 0)
 		aff_operations(env, j, save);
 		if (env->visu == 1)
-			redraw_pc(env, env->champ[j].pc, env->champ[j].id, env->champ[j].pc - save);
+			redraw_pc_2(env, env->champ[j].pc, env->champ[j].id, env->champ[j].pc - save);
 	}
 	else
 	{

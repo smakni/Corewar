@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/06 15:04:49 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/06 15:53:27 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,42 @@ static void init_color_palet(void)
 void redraw_pc_2(t_env *env, int pc, unsigned id, int len)
 {
 	int x;
+	int	y;
+	int	color;
 
+	(void)id;
 	x = pc % 64 * 3;
-	(void) id;
-	wattron(env->mem, COLOR_PAIR(12));
-	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
-	wattron(env->mem, COLOR_PAIR(12));
+	y = pc / 64;
+	color = mvwinch(env->mem, y, x) & A_COLOR;
+	if (color == COLOR_PAIR(1))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 12, NULL);
+	else if (color == COLOR_PAIR(4))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 8, NULL);
+	else if (color == COLOR_PAIR(5))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 9, NULL);
+	else if (color == COLOR_PAIR(6))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 10, NULL);
+	else if (color == COLOR_PAIR(7))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 11, NULL);
 	wrefresh(env->mem);
-	wrefresh(env->infos);
-	//	read(0, 0, 1);
+//	wrefresh(env->infos);
 
-	wattron(env->mem, COLOR_PAIR(1));
 	pc -= len;
 	x = pc % 64 * 3;
-	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
-	wattroff(env->mem, COLOR_PAIR(1));
+	y = pc / 64;
+	color = mvwinch(env->mem, y, x) & A_COLOR;
+	if (color == COLOR_PAIR(12))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 1, NULL);
+	else if (color == COLOR_PAIR(8))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
+	else if (color == COLOR_PAIR(9))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
+	else if (color == COLOR_PAIR(10))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
+	else if (color == COLOR_PAIR(11))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
 	wrefresh(env->mem);
+	wrefresh(env->infos);
 	//	read(0,0,1);
 }
 
@@ -160,15 +180,15 @@ void key_events(t_env *env)
 	}
 	if (key == 'w' && env->speed > 1)
 		env->speed -= 1;
-	if (key == 'e' && env->speed < 1000)
+	else if (key == 'e' && env->speed < 1000)
 		env->speed += 1;
-	if (key == 'q' && env->speed > 10)
+	else if (key == 'q' && env->speed > 10)
 		env->speed -= 10;
-	if (key == 'r' && env->speed < 991)
+	else if (key == 'r' && env->speed < 991)
 		env->speed += 10;
-	if (key == 'y')
+	else if (key == 'y')
 		env->speed = 10000000;
-	if (key == 't')
+	else if (key == 't')
 		env->speed = 1;
 	if (env->cycle_index > 0 && key == ' ')
 	{
@@ -187,14 +207,16 @@ void key_events(t_env *env)
 			{
 				if (key == 'w' && env->speed > 1)
 					env->speed -= 1;
-				if (key == 'e' && env->speed < 1000)
+				else if (key == 'e' && env->speed < 1000)
 					env->speed += 1;
-				if (key == 'q' && env->speed > 10)
+				else if (key == 'q' && env->speed > 10)
 					env->speed -= 10;
-				if (key == 'r' && env->speed < 991)
+				else if (key == 'r' && env->speed < 991)
 					env->speed += 10;
-				if (key == 'y')
+				else if (key == 'y')
 					env->speed = 10000000;
+				else if (key == 't')
+					env->speed = 1;
 				print_infos(env);
 			}
 		}

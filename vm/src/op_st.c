@@ -36,7 +36,7 @@ void		op_st(t_env *env, unsigned int j)
 	cursor = 1;
 	nb_reg = env->memory[current_pos + 2];
 	reg_content = get_value(env, j, &cursor, 1);
-	ft_printf("reg cont %i\n", reg_content);
+	//ft_printf("reg cont %i\n", reg_content);
 	cursor++;
 	if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
 	{
