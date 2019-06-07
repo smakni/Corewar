@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/06 18:33:13 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 10:55:51 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,26 @@ int check_live(t_env *env)
 	return (0);
 }
 
-static int reset_cycles(t_env *env)
+int		move_pc(t_env *env, int j)
 {
+	if (env->champ[j].pc >= MEM_SIZE)
+		env->champ[j].pc -= MEM_SIZE;
+	else if (env->champ[j].pc < 0)
+		env->champ[j].pc += MEM_SIZE;
+	if (env->err_code != 0)
+		return (FAIL);
+	env->champ[j].cycles = check_cycles(env, j);
+	ft_bzero(&(env->champ[j].op), sizeof(t_op));
+	return (1);
+}
+
+static int reset_cycles(t_env *env, int check_delta)
+{
+	if (check_delta == MAX_CHECKS)
+	{
+		env->cycle_to_die -= CYCLE_DELTA;
+		check_delta = 0;
+	}
 	del_process(env);
 	if (env->cycle_to_die <= 0)
 		return (0);
@@ -59,15 +77,8 @@ int read_memory(t_env *env)
 			if (env->champ[j].cycles == 1)
 			{
 				exec_op(env, j);
-				if (env->champ[j].pc >= MEM_SIZE)
-					env->champ[j].pc -= MEM_SIZE;
-				else if (env->champ[j].pc < 0)
-					env->champ[j].pc += MEM_SIZE;
-				if (env->err_code != 0)
+				if (move_pc(env, j) == FAIL)
 					return (FAIL);
-				env->champ[j].cycles = check_cycles(env, j);
-				ft_bzero(&(env->champ[j].op), sizeof(t_op));
-				//save_op(env);
 			}
 			else if (env->champ[j].cycles > 1)
 				env->champ[j].cycles--;
@@ -75,15 +86,11 @@ int read_memory(t_env *env)
 		}
 		if (i == env->cycle_to_die)
 		{
-			if ((i = check_live(env)) == 0)
+			if (check_live(env) == 0)
 				check_delta++;
+			reset_cycles(env, check_delta);
 			i = 0;
-			reset_cycles(env);
-			if (check_delta == MAX_CHECKS)
-			{
-				env->cycle_to_die -= CYCLE_DELTA;
-				check_delta = 0;
-			}
+
 		}
 		if (env->visu == 1)
 		{
