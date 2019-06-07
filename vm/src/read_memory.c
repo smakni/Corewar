@@ -6,11 +6,26 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/07 10:55:51 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/07 19:24:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+static void	intro_game(t_env *env)
+{
+	unsigned i;
+
+	i = 0;
+	ft_printf("Introducing contestants...\n");
+	while (i < env->nb_champs)
+	{
+		ft_printf("* Player %d, wighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
+					env->live[i].header.prog_size, env->live[i].header.prog_name, 
+					env->live[i].header.comment);
+		i++;
+	}
+}
 
 int check_live(t_env *env)
 {
@@ -68,10 +83,11 @@ int read_memory(t_env *env)
 	check_delta = 0;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	i = 0;
+	intro_game(env);
 	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
 		j = env->nb_champs - 1;
-	//	ft_printf("It is now cycle %d\n", env->cycle_index + 1);
+		ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
 			if (env->champ[j].cycles == 1)

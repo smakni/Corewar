@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/07 15:17:09 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 19:15:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,20 @@ void 	aff_operations(t_env *env, unsigned j, int save)
 
 void	save_param(t_env *env, int j, int value, int code, int index)
 {
+	char *tmp;
+
+	tmp = ft_itoa(value);
 	if (code == REG_CODE)
 	{
 		env->champ[j].op.param[index] = "r";
-		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], ft_itoa(value));
+		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], tmp);
 	}
 	else if (code == IND_CODE)
-		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], ft_itoa(value));
+		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], tmp);
 	else if (code == DIR_CODE)
 	{
 		env->champ[j].op.param[index] = "%";
-		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], ft_itoa(value));
+		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], tmp);
 	}
 	env->champ[j].op.param[3] = NULL;
 }
