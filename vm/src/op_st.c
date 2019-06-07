@@ -6,12 +6,12 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/06 17:18:14 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 14:06:50 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-
+/*
 static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
 {
 	short	ret;
@@ -21,7 +21,7 @@ static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
 	(*cursor) += 2;
 	return (ret);
 }
-
+*/
 void		op_st(t_env *env, unsigned int j)
 {
 	int		cursor;
@@ -34,14 +34,15 @@ void		op_st(t_env *env, unsigned int j)
 	current_pos = env->champ[j].pc;
 	cursor = 1;
 	nb_reg = env->memory[current_pos + 2];
-	save_param(env, j, nb_reg, REG_CODE);
+	save_param(env, j, nb_reg, REG_CODE, 0);
 	reg_content = get_value(env, j, &cursor, 1);
 	//ft_printf("reg cont %i\n", reg_content);
 	cursor++;
 	if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
 	{
-		dest = read_two_bytes(env, current_pos, &cursor) % IDX_MOD;
-		save_param(env, j, dest, IND_CODE);
+		dest = read_bytes(env->memory, current_pos + cursor, 2) % IDX_MOD;
+		cursor += 2;
+		save_param(env, j, dest, IND_CODE, 1);
 		if (nb_reg >= 1 && nb_reg <= 16)
 		{
 			dest += current_pos;
@@ -58,7 +59,7 @@ void		op_st(t_env *env, unsigned int j)
 	else
 	{
 		dest = env->memory[env->champ[j].pc + cursor];
-		save_param(env, j, dest, REG_CODE);
+		save_param(env, j, dest, REG_CODE, 1);
 		cursor++;
 		if (nb_reg >= 1 && nb_reg <= 16)
 			env->champ[j].r[dest] = reg_content;

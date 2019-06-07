@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 17:16:13 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 13:51:38 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef	struct 		s_op
 {
 	char 			*name;
-	char			*param;
+	char			*param[4];
 }					t_op;
 
 typedef struct	s_champ
@@ -104,7 +104,7 @@ int				del_process(t_env *env);
 
 // DEBUG
 void	ft_print_memory(t_env *env);
-void	save_param(t_env *env, int j, int value, int code);
+void	save_param(t_env *env, int j, int value, int code, int index);
 void	first_visu(t_env *env);
 void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
