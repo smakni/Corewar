@@ -20,3 +20,5 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Lexical error near line %i."
 9 : name et/ou comment manquant
 	->	"Name and/or Comment missing."
+10:	mauvais formatage nom et/ou comment
+	->	"Bad name and/or comment format"

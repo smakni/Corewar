@@ -12,9 +12,14 @@
 
 #include "../includes/asm.h"
 
-static int	clean_quit(char **param, const int ret)
+static int	clean_quit(t_parser *data, char **param, const int ret)
 {
 	ft_strdel(param);
+	if (ret == FAIL)
+	{
+		data->err_code = 3;
+		data->err_msg = "Syntax error near line ";
+	}
 	return (ret);
 }
 
@@ -26,7 +31,7 @@ int			ft_encode_indirect(char *param, t_parser *data)
 	data->bytecode[data->index] = nb >> 8;
 	data->bytecode[data->index + 1] = nb;
 	data->index += 2;
-	return (clean_quit(&param, SUCCESS));
+	return (clean_quit(data, &param, SUCCESS));
 }
 
 static void	increment_values(const char *param, t_parser *data,
@@ -58,7 +63,7 @@ int			ft_encode_direct(char *param, t_parser *data, int is_index)
 
 	i = 1;
 	if (ft_strlen(param) <= 1)
-		return (clean_quit(&param, FAIL));
+		return (clean_quit(data, &param, FAIL));
 	if (param[0] == ':' || param[i] == ':')
 		ft_memorize_blank_label(param, data, is_index);
 	else
@@ -66,10 +71,10 @@ int			ft_encode_direct(char *param, t_parser *data, int is_index)
 		if (param[i] == '-')
 			i++;
 		if (ft_str_is_numeric(&param[i]) == false)
-			return (clean_quit(&param, FAIL));
+			return (clean_quit(data, &param, FAIL));
 		increment_values(param, data, is_index);
 	}
-	return (clean_quit(&param, SUCCESS));
+	return (clean_quit(data, &param, SUCCESS));
 }
 
 int			ft_encode_register(char *param, t_parser *data)
@@ -79,11 +84,11 @@ int			ft_encode_register(char *param, t_parser *data)
 
 	len = ft_strlen(param);
 	if (len <= 1 || len > 3)
-		return (clean_quit(&param, FAIL));
+		return (clean_quit(data, &param, FAIL));
 	if (ft_str_is_numeric(&param[1]) == false)
-		return (clean_quit(&param, FAIL));
+		return (clean_quit(data, &param, FAIL));
 	reg_nb = ft_atoi(&param[1]);
 	data->bytecode[data->index] = reg_nb;
 	data->index++;
-	return (clean_quit(&param, SUCCESS));
+	return (clean_quit(data, &param, SUCCESS));
 }
