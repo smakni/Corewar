@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 17:57:39 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 14:43:29 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void		op_ld(t_env *env, unsigned int j)
 	current_pos = env->champ[j].pc;
 	cursor = 1;
 	value = get_value(env, j, &cursor, 1);
+	save_param(env, j, value, IND_CODE, 0);
 	cursor++;
 	nb_reg = env->memory[current_pos + cursor];
-	save_param(env, j, nb_reg, REG_CODE);
+	save_param(env, j, nb_reg, REG_CODE, 1);
 	cursor++;
 	if (value == 0 && nb_reg >= 1 && nb_reg <= 16)
 		env->champ[j].carry = 1;

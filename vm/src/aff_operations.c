@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 19:16:39 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 14:32:36 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ void 	aff_operations(t_env *env, unsigned j, int save)
 								save + read_bytes(env->memory, save + 1, 2));
 	else
 	{
-		ft_printf("%s%s\n", env->champ[j].op.name, env->champ[j].op.param);
+		ft_printf("%s", env->champ[j].op.name);
+		while (env->champ[j].op.param[i])
+			ft_printf(" %s", env->champ[j].op.param[i++]);
 		if (env->memory[save] == 01
-				&& ft_strcmp(env->champ[j].op.param, " -1") == 0)
-			ft_printf("Player %d (%s) is said to be alive\n",
+				&& ft_strcmp(env->champ[j].op.param[0], " -1") == 0)
+			ft_printf("\nPlayer %d (%s) is said to be alive\n",
 							env->champ[j].nb + 1,
 								env->champ[j].header.prog_name);
-		ft_printf("ADV %d (%#.4x -> %#.4x) ",
+		ft_printf("\nADV %d (%#.4x -> %#.4x) ",
 						env->champ[j].pc - save, save, env->champ[j].pc);
+		i = 0;
 		while (save + i < env->champ[j].pc)
 		{
 			ft_printf("%.2x ", env->memory[save + i]);
@@ -48,22 +51,19 @@ void 	aff_operations(t_env *env, unsigned j, int save)
 	}
 }
 
-void	save_param(t_env *env, int j, int value, int code)
+void	save_param(t_env *env, int j, int value, int code, int index)
 {
 	if (code == REG_CODE)
 	{
-		env->champ[j].op.param = ft_strjoin(env->champ[j].op.param, " r");
-		env->champ[j].op.param = ft_strjoin(env->champ[j].op.param, ft_itoa(value));
+		env->champ[j].op.param[index] = "r";
+		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], ft_itoa(value));
 	}
 	else if (code == IND_CODE)
-	{
-		env->champ[j].op.param = ft_strjoin(env->champ[j].op.param, " ");
-		env->champ[j].op.param = ft_strjoin(env->champ[j].op.param, ft_itoa(value));
-	}
+		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], ft_itoa(value));
 	else if (code == DIR_CODE)
 	{
-		env->champ[j].op.param = ft_strjoin(env->champ[j].op.param, " %");
-		env->champ[j].op.param = ft_strjoin(env->champ[j].op.param, ft_itoa(value));
+		env->champ[j].op.param[index] = "%";
+		env->champ[j].op.param[index] = ft_strjoin(env->champ[j].op.param[index], ft_itoa(value));
 	}
-	
+	env->champ[j].op.param[3] = NULL;
 }
