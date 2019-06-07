@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/07 14:32:36 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 15:17:09 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ void 	aff_operations(t_env *env, unsigned j, int save)
 		while (env->champ[j].op.param[i])
 			ft_printf(" %s", env->champ[j].op.param[i++]);
 		if (env->memory[save] == 01
-				&& ft_strcmp(env->champ[j].op.param[0], " -1") == 0)
-			ft_printf("\nPlayer %d (%s) is said to be alive\n",
-							env->champ[j].nb + 1,
-								env->champ[j].header.prog_name);
+				&& (ft_strcmp(env->champ[j].op.param[0], "-1") == 0
+					|| ft_strcmp(env->champ[j].op.param[0], "-2") == 0
+					|| ft_strcmp(env->champ[j].op.param[0], "-3") == 0
+					|| ft_strcmp(env->champ[j].op.param[0], "-4") == 0))
+			ft_printf("\nPlayer %d (%s) is said to be alive",
+						UINT_MAX - ft_atoi(env->champ[j].op.param[0]),
+						env->live[UINT_MAX - ft_atoi(env->champ[j].op.param[0])].header.prog_name);
 		ft_printf("\nADV %d (%#.4x -> %#.4x) ",
 						env->champ[j].pc - save, save, env->champ[j].pc);
 		i = 0;

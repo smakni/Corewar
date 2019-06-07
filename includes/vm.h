@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/07 13:51:38 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 15:07:43 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "../ressources/op.h"
 # include <curses.h>
+# include <limits.h>
 
 # define MAX_CHAMP_CODE_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
 # define FAIL		0
