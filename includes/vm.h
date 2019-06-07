@@ -41,6 +41,9 @@ typedef struct	s_champ
 	char		last_return;
 	char		carry;
 	t_op		op;
+	int			color;
+	int			dest;
+	int			bold;
 }				t_champ;
 
 typedef	struct s_live
@@ -65,8 +68,6 @@ typedef struct	s_env
 	int					cycle_to_die;
 	int					cycle_index;
 	int					visu;
-	int					color;
-	int					dest;
 	WINDOW				*around_memory;
 	WINDOW				*mem;
 	WINDOW				*around_infos;
@@ -113,6 +114,6 @@ void	redraw_pc(t_env *env, int pc, unsigned id, int len);
 void	redraw_pc_2(t_env *env, int pc, int len);
 void	key_events(t_env *env);
 void	aff_operations(t_env *env, unsigned j, int save);
-void	remove_bold(t_env *env);
+void	remove_bold(t_env *env, unsigned j);
 
 #endif

@@ -36,8 +36,8 @@ static void init_color_palet(void)
 void redraw_pc_2(t_env *env, int pc, int len)
 {
 	int x;
-	int	y;
-	int	color;
+	int y;
+	int color;
 
 	x = pc % 64 * 3;
 	y = pc / 64;
@@ -67,14 +67,15 @@ void redraw_pc_2(t_env *env, int pc, int len)
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
 	else if (color == COLOR_PAIR(11))
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
-	wrefresh(env->mem);
-	wrefresh(env->infos);
+	//	wrefresh(env->mem);
+	//	wrefresh(env->infos);
 }
 
 void redraw_pc(t_env *env, int pc, unsigned id, int len)
 {
 	int x;
 
+	return (redraw_pc_2(env, pc, len));
 	x = pc % 64 * 3;
 	wattron(env->mem, COLOR_PAIR(UINT32_MAX - id + 8));
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
@@ -85,8 +86,8 @@ void redraw_pc(t_env *env, int pc, unsigned id, int len)
 	x = pc % 64 * 3;
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattroff(env->mem, COLOR_PAIR(UINT32_MAX - id + 4));
-	wrefresh(env->mem);
-	wrefresh(env->infos);
+	//wrefresh(env->mem);
+	//wrefresh(env->infos);
 }
 
 void update_visu(t_env *env, short dest, unsigned j)
@@ -95,7 +96,7 @@ void update_visu(t_env *env, short dest, unsigned j)
 	int x;
 	int y;
 
-	env->dest = dest;
+	env->champ[j].dest = dest;
 	k = 0;
 	if (env->champ[j].id == 0xffffffff)
 		j = 0;
@@ -106,9 +107,10 @@ void update_visu(t_env *env, short dest, unsigned j)
 	else if (env->champ[j].id == 0xfffffffc)
 		j = 3;
 	wattron(env->mem, COLOR_PAIR(4 + j));
-	env->color = 4 + j;
+	env->champ[j].color = 4 + j;
 	x = dest % 64 * 3;
 	y = dest / 64;
+	env->champ[j].bold = 1;
 	wattron(env->mem, A_BOLD);
 	while (k < 4)
 	{
@@ -122,31 +124,43 @@ void update_visu(t_env *env, short dest, unsigned j)
 		k++;
 	}
 	wattroff(env->mem, A_BOLD);
-	wrefresh(env->mem);
+	//	wrefresh(env->mem);
 }
 
-void remove_bold(t_env *env)
+void remove_bold(t_env *env, unsigned j)
 {
 	int k;
 	int x;
 	int y;
+//	int j;
 
 	k = 0;
-	wattron(env->mem, COLOR_PAIR(env->color));
-	x = env->dest % 64 * 3;
-	y = env->dest / 64;
-	while (k < 4)
-	{
-		mvwprintw(env->mem, y, x, "%.2x", env->memory[env->dest + k]);
-		x += 3;
-		if (x >= 192)
+//	j = env->nb_champs - 1;
+//	while (j > 0)
+//	{
+		if (env->champ[j].bold == 1)
 		{
-			x -= 192;
-			y++;
+			x = env->champ[j].dest % 64 * 3;
+			y = env->champ[j].dest / 64;
+			k = 0;
+			while (k < 4)
+			{
+				mvwchgat(env->mem, y, x, 2, A_NORMAL, env->champ[j].color, NULL);
+				x += 3;
+				if (x >= 192)
+				{
+					x -= 192;
+					y++;
+				}
+				k++;
+			}
+			env->champ[j].bold = 0;
 		}
-		k++;
-	}
+	//	j--;
+	//}
+	//wrefresh(env->mem);
 }
+
 void print_infos(t_env *env)
 {
 	int i;

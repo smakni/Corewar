@@ -36,6 +36,7 @@ void	exec_op(t_env *env, unsigned j)
 	op_fun[14] = op_lfork;
 	op_fun[15] = op_aff;
 	index = env->memory[env->champ[j].pc];
+	remove_bold(env, j);
 	if (index >= 0x01 && index <= 0x10)
 	{
 		op_fun[index - 1](env, j);
@@ -50,6 +51,4 @@ void	exec_op(t_env *env, unsigned j)
 		if (env->visu == 1)
 			redraw_pc_2(env, env->champ[j].pc, env->champ[j].pc - save);
 	}
-	if (index == 3 || index == 11)
-		remove_bold(env);
 }

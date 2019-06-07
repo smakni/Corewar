@@ -95,6 +95,7 @@ int read_memory(t_env *env)
 		if (env->visu == 1)
 		{
 			print_infos(env);
+			wrefresh(env->mem);
 			key_events(env);
 		}
 		//else
@@ -102,6 +103,7 @@ int read_memory(t_env *env)
 		//read(0, 0, 1);
 		env->cycle_index++;
 		i++;
+		//remove_bold(env);
 	}
 	return (SUCCESS);
 }
