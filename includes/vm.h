@@ -59,11 +59,13 @@ typedef struct	s_env
 	int					dump;
 	int					speed;
 	unsigned			nb_champs;
-	unsigned			save_nb_champs;
+	unsigned			nb_player;
 	unsigned			nb_realloc;
 	int					cycle_to_die;
 	int					cycle_index;
 	int					visu;
+	int					color;
+	int					dest;
 	WINDOW				*around_memory;
 	WINDOW				*mem;
 	WINDOW				*around_infos;
@@ -107,8 +109,9 @@ void	first_visu(t_env *env);
 void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
 void	redraw_pc(t_env *env, int pc, unsigned id, int len);
-void	redraw_pc_2(t_env *env, int pc, unsigned id, int len);
+void	redraw_pc_2(t_env *env, int pc, int len);
 void	key_events(t_env *env);
 void	aff_operations(t_env *env, unsigned j, int save);
+void	remove_bold(t_env *env);
 
 #endif

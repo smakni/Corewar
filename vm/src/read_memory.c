@@ -53,7 +53,7 @@ int read_memory(t_env *env)
 	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
 		j = env->nb_champs - 1;
-		ft_printf("It is now cycle %d\n", env->cycle_index + 1);
+	//	ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
 			if (env->champ[j].cycles == 1)
@@ -90,7 +90,7 @@ int read_memory(t_env *env)
 			print_infos(env);
 			key_events(env);
 		}
-		else
+		//else
 			//ft_print_memory(env);
 		//read(0, 0, 1);
 		env->cycle_index++;
