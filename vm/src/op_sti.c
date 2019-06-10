@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/07 14:33:46 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/08 15:38:11 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	op_sti(t_env *env, unsigned int j)
 			tmp += (current_pos + MEM_SIZE);
 		else if (current_pos + tmp >= MEM_SIZE)
 			tmp = (current_pos + tmp) % MEM_SIZE;
-		dest = read_bytes(env->memory, tmp, 4);
-		save_param(env, j, tmp, IND_CODE, 1);
+		dest = read_bytes(env->memory, env->champ[j].pc + tmp, 4);
+		save_param(env, j, dest, IND_CODE, 1);
 	}
 	else if (type_param(env->memory[current_pos + 1], 2) == REG_CODE)
 		dest = get_reg_content(env, j, &cursor, &nb_reg2, param);

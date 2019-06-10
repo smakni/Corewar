@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/07 14:35:38 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/07 21:49:39 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void		op_xor(t_env *env, unsigned int j)
 			cursor++;
 	}
 	else
+	{
 		diff = get_value(env, j, &cursor, 1);
+		save_param(env, j, diff, DIR_CODE, 0);
+	}
 	if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
 	{
 		nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
@@ -48,7 +51,10 @@ void		op_xor(t_env *env, unsigned int j)
 			cursor++;
 	}
 	else
+	{
 		value = get_value(env, j, &cursor, 2);
+		save_param(env, j, value, DIR_CODE, 1);
+	}
 	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16)
 		diff ^= value;
 	cursor++;
