@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/06 00:00:11 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:43:23 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		op_fork(t_env *env, unsigned j)
 {
 	int	index;
 
+	env->champ[j].op.name = "fork";
 	if (env->nb_champs >= ARR_SIZE * env->nb_realloc)
 		if (ft_realloc_tab(env) == -1)
 		{

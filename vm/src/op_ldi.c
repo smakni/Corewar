@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 16:47:28 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/10 17:34:54 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		op_ldi(t_env *env, unsigned int j)
 	if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
 	{
 		nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
+		save_param(env, j, nb_reg1, REG_CODE, 0);
 		v1 = 0;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16)
 			v1 = get_value_index(env, j, &cursor, 1);
@@ -36,10 +37,14 @@ void		op_ldi(t_env *env, unsigned int j)
 			cursor++;
 	}
 	else
+	{
 		v1 = get_value_index(env, j, &cursor, 1);
+		save_param(env, j, v1, IND_CODE, 0);
+	}
 	if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
 	{
 		nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
+		save_param(env, j, nb_reg1, REG_SIZE, 1);
 		v2 = 0;
 		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 			v2 = get_value_index(env, j, &cursor, 2);
@@ -47,9 +52,13 @@ void		op_ldi(t_env *env, unsigned int j)
 			cursor++;
 	}
 	else
+	{
 		v2 = get_value_index(env, j, &cursor, 2);
+		save_param(env, j, v2, IND_CODE, 1);
+	}
 	cursor++;
 	nb_reg3 = env->memory[env->champ[j].pc + cursor];
+	save_param(env, j, nb_reg3, REG_CODE, 2);
 	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 	{
 		if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)

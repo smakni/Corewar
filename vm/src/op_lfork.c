@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:34 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/05 19:13:11 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/10 14:43:46 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		op_lfork(t_env *env, unsigned j)
 {
 	int	index;
 
-	//aff_memory(env, j, 3);
+	env->champ[j].op.name = "lfork";
 	if (env->nb_champs >= ARR_SIZE * env->nb_realloc)
 		if (ft_realloc_tab(env) == -1)
 		{

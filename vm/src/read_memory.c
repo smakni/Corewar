@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/08 15:47:33 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/10 19:32:41 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	intro_game(t_env *env)
 	ft_printf("Introducing contestants...\n");
 	while (i < env->nb_champs)
 	{
-		ft_printf("* Player %d, wighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
 					env->live[i].header.prog_size, env->live[i].header.prog_name, 
 					env->live[i].header.comment);
 		i++;
@@ -43,6 +43,7 @@ int check_live(t_env *env)
 	if (total_lives >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		return (1);
 	}
 	return (0);
@@ -74,12 +75,13 @@ static int	process_execution(t_env *env, unsigned j)
 	return (1);
 }
 
-static int reset_cycles(t_env *env, int check_delta)
+static int reset_cycles(t_env *env, int *check_delta)
 {
-	if (check_delta == MAX_CHECKS)
+	if (*check_delta == MAX_CHECKS)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		check_delta = 0;
+		ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
+		*check_delta = 0;
 	}
 	del_process(env);
 	return (0);
@@ -109,7 +111,7 @@ int read_memory(t_env *env)
 		{
 			if (check_live(env) == 0)
 				check_delta++;
-			i = reset_cycles(env, check_delta);
+			i = reset_cycles(env, &check_delta);
 		}
 		if (env->visu == 1)
 		{
