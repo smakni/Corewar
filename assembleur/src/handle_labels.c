@@ -6,19 +6,20 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:48:27 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 16:24:38 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/11 22:01:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-int		check_label_chars(char *str)
+int		check_label_chars(char *str, t_parser *data)
 {
 	while (*str && *str != ':')
 	{
 		if (ft_strchr(LABEL_CHARS, *str) == NULL)
 		{
-			ft_printf("Label char error\n");
+			data->err_code = 8;
+			data->err_msg = "Lexical error near line ";
 			return (FAIL);
 		}
 		str++;
@@ -33,7 +34,7 @@ int		save_label_address(t_parser *data)
 
 	data->syntax_flag = 1;
 	i = ft_strspn(data->line, " \t");
-	if (!check_label_chars(&data->line[i]))
+	if (!(&data->line[i]))
 		return (FAIL);
 	if (!(elem = bytes_init(data)))
 		return (FAIL);

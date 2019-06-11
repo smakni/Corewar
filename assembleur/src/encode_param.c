@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:12:43 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 16:14:15 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/11 22:18:40 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			ft_encode_param(const char *rough_param, const int type_param,
 		if (ft_str_is_numeric(&param[i]))
 			return (ft_encode_indirect(param, data));
 		if (param[0] == ':')
-			return (ft_memorize_blank_label(param, data, is_index));
+			return (ft_memorize_blank_label(param, data, is_index, 1));
 	}
 	ft_strdel(&param);
 	data->err_code = 4;
