@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 15:04:09 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 17:30:57 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void		op_ldi(t_env *env, unsigned int j)
 	int	nb_reg2;
 	int	nb_reg3;
 
-	env->champ[j].op.name = "ldi";
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
+		env->champ[j].op.name = "ldi";
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)

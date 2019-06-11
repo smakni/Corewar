@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 15:00:51 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 17:46:57 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void		op_add(t_env *env, unsigned int j)
 	int	nb_reg3;
 	int	sum;
 
-	env->champ[j].op.name = "add";
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
+		env->champ[j].op.name = "add";
 		cursor++;
 		sum = 0;
 		nb_reg1 = env->memory[env->champ[j].pc + cursor];

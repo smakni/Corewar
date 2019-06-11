@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 15:05:07 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 17:31:09 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void		op_lld(t_env *env, unsigned int j)
 	int	value;
 	int		current_pos;
 
-	env->champ[j].op.name = "lld";
 	current_pos = env->champ[j].pc;
 	cursor = 1;
 	if (check_args(env, j, &cursor, 2))
 	{
+		env->champ[j].op.name = "lld";
 		if (type_param(env->memory[env->champ[j].pc + 1], 1) == DIR_CODE)
 		{
 			value = get_value(env, j, &cursor, 1);

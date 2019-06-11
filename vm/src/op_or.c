@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_or.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 15:37:38 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 17:31:21 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void		op_or(t_env *env, unsigned int j)
 	int	nb_reg2;
 	int	nb_reg3;
 
-	env->champ[j].op.name = "or";
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
+		env->champ[j].op.name = "or";
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)

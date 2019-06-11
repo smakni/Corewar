@@ -96,7 +96,7 @@ int read_memory(t_env *env)
 			ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
-			if (process_execution(env, j) == FAIL)
+			if (env->champ[j].nb_live >= 0 && process_execution(env, j) == FAIL)
 				return (FAIL);
 			j--;
 		}
