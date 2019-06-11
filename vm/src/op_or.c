@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_or.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 15:37:38 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:23:09 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ void		op_or(t_env *env, unsigned int j)
 			env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
 		cursor++;
 	}
+	else
+		cursor = 11;
 	env->champ[j].pc += cursor;
 }

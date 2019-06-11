@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 15:02:44 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:27:40 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ void		op_ld(t_env *env, unsigned int j)
 		if (nb_reg >= 1 && nb_reg <= 16)
 			env->champ[j].r[nb_reg] = value;
 	}
+	else
+		cursor = 5;
 	env->champ[j].pc += cursor;
 }

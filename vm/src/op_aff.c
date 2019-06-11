@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:24:52 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 14:18:19 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:24:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ void	op_aff(t_env *env, unsigned j)
 		ft_putchar(reg % 256);
 		cursor++;
 	}
+	else
+		cursor = 3;
 	env->champ[j].pc += cursor;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 15:04:09 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:23:36 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ void		op_ldi(t_env *env, unsigned int j)
 			env->champ[j].r[nb_reg3] = sum;
 		}
 	}
+	else
+		cursor = 7;
 	env->champ[j].pc += cursor;
 }

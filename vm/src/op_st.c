@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 15:26:19 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:22:23 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void		op_st(t_env *env, unsigned int j)
 				env->champ[j].r[dest] = reg_content;
 		}
 	}
+	else
+		cursor = 5;
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);

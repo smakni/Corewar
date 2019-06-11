@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 15:00:51 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:22:45 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ void		op_add(t_env *env, unsigned int j)
 			env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = sum;
 		cursor++;
 	}
+	else
+		cursor = 5;
 	env->champ[j].pc += cursor;
 }

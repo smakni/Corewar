@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 14:53:15 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:23:53 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	op_sti(t_env *env, unsigned int j)
 			env->memory[(dest + 3) % MEM_SIZE] = reg_content;
 		}
 	}
+	else
+		cursor = 7;
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);
