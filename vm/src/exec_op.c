@@ -17,8 +17,16 @@ void	exec_op(t_env *env, unsigned j)
 	void	(*op_fun[16])(t_env*, unsigned);
 	int		index;
 	int		save;
+	int		x;
+	int		y;
 
 	save = env->champ[j].pc;
+	if (env->visu == 1 && env->champ[j].live != -1)
+	{
+		x = env->champ[j].live % 64 * 3;
+		y = env->champ[j].live / 64;
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, env->champ[j].color2, NULL);
+	}
 	op_fun[0] = op_live;
 	op_fun[1] = op_ld;
 	op_fun[2] = op_st;
@@ -42,13 +50,11 @@ void	exec_op(t_env *env, unsigned j)
 		op_fun[index - 1](env, j);
 		if (env->visu == 0)
 			aff_operations(env, j, save);
-		if (env->visu == 1)
-			redraw_pc(env, env->champ[j].pc, env->champ[j].id, env->champ[j].pc - save);
 	}
 	else
 	{
 		env->champ[j].pc++;
-		if (env->visu == 1)
-			redraw_pc_2(env, env->champ[j].pc, env->champ[j].pc - save);
 	}
+	if (env->visu == 1)
+		redraw_pc_2(env, env->champ[j].pc, env->champ[j].pc - save);
 }
