@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 17:29:56 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 20:04:50 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void		op_st(t_env *env, unsigned int j)
 				env->champ[j].r[dest] = reg_content;
 		}
 	}
+	else
+		cursor = 5;
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);

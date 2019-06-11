@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 17:31:09 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 20:04:42 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ void		op_lld(t_env *env, unsigned int j)
 		if (nb_reg >= 1 && nb_reg <= 16)
 			env->champ[j].r[nb_reg] = value;
 	}
+	else
+		cursor = 8;
 	env->champ[j].pc += cursor;
 }

@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 18:58:28 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 20:04:29 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ void		op_and(t_env *env, unsigned int j)
 			env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
 		cursor++;
 	}
+	else
+		cursor = 11;
 	env->champ[j].pc += cursor;
 }

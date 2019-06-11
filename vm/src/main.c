@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/11 14:54:48 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:02:05 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void ft_print_memory(t_env *env)
 	int	i;
 	int flag = 0;
 
-	return ;
+	// return ;
 	ft_printf("{CLEAR}");
 	i = 0;
 	ft_putendl("");

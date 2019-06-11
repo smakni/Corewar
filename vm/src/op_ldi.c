@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 17:30:57 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 20:04:38 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ void		op_ldi(t_env *env, unsigned int j)
 			env->champ[j].r[nb_reg3] = sum;
 		}
 	}
+	else
+		cursor = 7;
 	env->champ[j].pc += cursor;
 }

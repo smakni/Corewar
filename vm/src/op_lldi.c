@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 17:31:15 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 20:04:44 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ void		op_lldi(t_env *env, unsigned int j)
 		else
 			env->champ[j].carry = 0;
 	}
+	else
+		cursor = 7;
 	env->champ[j].pc += cursor;
 }
