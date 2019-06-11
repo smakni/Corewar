@@ -25,6 +25,15 @@ int		del_process(t_env *env)
 		return (-1);
 	while (j < env->nb_champs)
 	{
+		if (env->champ[j].nb_live == 0)
+		{
+			remove_bold(env, j);
+		}
+		j++;
+	}
+	j = 0;
+	while (j < env->nb_champs)
+	{
 		if (env->champ[j].nb_live > 0)
 		{
 			tmp[i] = env->champ[j];

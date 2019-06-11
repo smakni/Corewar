@@ -95,19 +95,21 @@ void update_visu(t_env *env, short dest, unsigned j)
 	int k;
 	int x;
 	int y;
+	int	i;
 
 	env->champ[j].dest = dest;
 	k = 0;
+	i = 0;
 	if (env->champ[j].id == 0xffffffff)
-		j = 0;
+		i = 0;
 	else if (env->champ[j].id == 0xfffffffe)
-		j = 1;
+		i = 1;
 	else if (env->champ[j].id == 0xfffffffd)
-		j = 2;
+		i = 2;
 	else if (env->champ[j].id == 0xfffffffc)
-		j = 3;
-	wattron(env->mem, COLOR_PAIR(4 + j));
-	env->champ[j].color = 4 + j;
+		i = 3;
+	wattron(env->mem, COLOR_PAIR(4 + i));
+	env->champ[j].color = 4 + i;
 	x = dest % 64 * 3;
 	y = dest / 64;
 	env->champ[j].bold = 1;
@@ -132,33 +134,27 @@ void remove_bold(t_env *env, unsigned j)
 	int k;
 	int x;
 	int y;
-//	int j;
 
 	k = 0;
-//	j = env->nb_champs - 1;
-//	while (j > 0)
-//	{
-		if (env->champ[j].bold == 1)
+	if (env->champ[j].bold == 1)
+	{
+		x = env->champ[j].dest % 64 * 3;
+		y = env->champ[j].dest / 64;
+		k = 0;
+		while (k < 4)
 		{
-			x = env->champ[j].dest % 64 * 3;
-			y = env->champ[j].dest / 64;
-			k = 0;
-			while (k < 4)
+			mvwchgat(env->mem, y, x, 2, A_NORMAL, env->champ[j].color, NULL);
+			x += 3;
+			if (x >= 192)
 			{
-				mvwchgat(env->mem, y, x, 2, A_NORMAL, env->champ[j].color, NULL);
-				x += 3;
-				if (x >= 192)
-				{
-					x -= 192;
-					y++;
-				}
-				k++;
+				x -= 192;
+				y++;
 			}
-			env->champ[j].bold = 0;
+			k++;
 		}
-	//	j--;
-	//}
-	//wrefresh(env->mem);
+		env->champ[j].bold = 0;
+		env->champ[j].dest = 0;
+	}
 }
 
 void print_infos(t_env *env)

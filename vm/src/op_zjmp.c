@@ -25,6 +25,6 @@ void	op_zjmp(t_env *env, unsigned j)
 	}
 	else
 		env->champ[j].pc += 3;
-	if (env->visu == 1)
-		redraw_pc(env, env->champ[j].pc, env->champ[j].id, env->champ[j].pc - save);
+//	if (env->visu == 1)
+		//redraw_pc(env, env->champ[j].pc, env->champ[j].id, env->champ[j].pc - save);
 }

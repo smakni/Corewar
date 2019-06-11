@@ -51,6 +51,7 @@ void		op_fork(t_env *env, unsigned j)
 	env->champ[env->nb_champs].pc += index % IDX_MOD;
 	env->champ[env->nb_champs].nb_live = 0;
 	env->champ[env->nb_champs].cycles = check_cycles(env, env->nb_champs);
+	env->champ[env->nb_champs].bold = 0;
 	//ft_printf("PC = %d\n", env->champ[env->nb_champs].pc);
 	env->nb_champs++;
 	//env->champ[j].cycles = check_cycles(env, j);
