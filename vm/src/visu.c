@@ -31,6 +31,7 @@ static void init_color_palet(void)
 	init_pair(10, COLOR_BLACK, COLOR_RED);
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
 	init_pair(12, COLOR_BLACK, COLOR_CYAN);
+	init_pair(13, COLOR_WHITE, COLOR_GREEN);
 }
 
 void redraw_pc_2(t_env *env, int pc, int len)
@@ -67,8 +68,6 @@ void redraw_pc_2(t_env *env, int pc, int len)
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
 	else if (color == COLOR_PAIR(11))
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
-	//	wrefresh(env->mem);
-	//	wrefresh(env->infos);
 }
 
 void redraw_pc(t_env *env, int pc, unsigned id, int len)
@@ -86,8 +85,6 @@ void redraw_pc(t_env *env, int pc, unsigned id, int len)
 	x = pc % 64 * 3;
 	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
 	wattroff(env->mem, COLOR_PAIR(UINT32_MAX - id + 4));
-	//wrefresh(env->mem);
-	//wrefresh(env->infos);
 }
 
 void update_visu(t_env *env, short dest, unsigned j)
@@ -126,7 +123,6 @@ void update_visu(t_env *env, short dest, unsigned j)
 		k++;
 	}
 	wattroff(env->mem, A_BOLD);
-	//	wrefresh(env->mem);
 }
 
 void remove_bold(t_env *env, unsigned j)
@@ -167,7 +163,6 @@ void print_infos(t_env *env)
 	if (env->speed == 0)
 		env->speed = 50;
 	wattron(env->infos, COLOR_PAIR(3));
-	//	if (env->cycle_index == 0)
 	mvwprintw(env->infos, i += 2, 6, "Cycles/second limit : %-10d", env->speed);
 	mvwprintw(env->infos, i += 2, 6, "Cycle : %d", env->cycle_index);
 	mvwprintw(env->infos, i += 2, 6, "Nb Processes : %-10d", env->nb_champs);
@@ -179,8 +174,9 @@ void print_infos(t_env *env)
 		wprintw(env->infos, "%s", env->live[j].header.prog_name);
 		i += 1;
 		wattroff(env->infos, COLOR_PAIR(4 + j));
-		mvwprintw(env->infos, i, 6, "Last live : %d", env->live[j].last_live);
-		//			mvwprintw(env->infos, i, 6, "Total lives : %d", env->champ[j].nb_live);
+		mvwprintw(env->infos, i++, 6, "Last live : %d", env->live[j].last_live);
+		/*a modif, addition nb_live de ts les process d'un champion*/
+		mvwprintw(env->infos, i, 6, "NB lives for current cycle : %d", env->champ[j].nb_live);
 		i += 2;
 		j++;
 	}
