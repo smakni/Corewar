@@ -28,9 +28,11 @@ int		encode_comment(t_parser *data, int i)
 
 int		encode_multi_comment(t_parser *data)
 {
+	int	ret;
+
 	data->bytecode[data->index] = 0x0a;
 	ft_strdel(&data->line);
-	while (get_next_line(data->fd, &data->line, &data->eol) > 0
+	while ((ret = get_next_line(data->fd, &data->line, &data->eol)) > 0
 			&& ft_strchr(data->line, '\"') == NULL)
 	{
 		if (!(encode_comment(data, 0)))
@@ -39,8 +41,12 @@ int		encode_multi_comment(t_parser *data)
 		data->bytecode[data->index] = 0x0a;
 		data->nb_line++;
 	}
-	if (!(encode_comment(data, 0)))
+	if (!(encode_comment(data, 0)) || ret == 0)
+	{
+		data->err_code = 10;
+		data->err_msg = "Bad name and/or comment format";
 		return (FAIL);
+	}
 	data->nb_line++;
 	return (SUCCESS);
 }

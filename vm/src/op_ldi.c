@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/10 17:34:54 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 14:14:32 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,48 @@ void		op_ldi(t_env *env, unsigned int j)
 
 	env->champ[j].op.name = "ldi";
 	cursor = 1;
-	nb_reg1 = 1;
-	nb_reg2 = 1;
-	if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
+	if (check_args(env, j, &cursor, 3))
 	{
-		nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
-		save_param(env, j, nb_reg1, REG_CODE, 0);
-		v1 = 0;
-		if (nb_reg1 >= 1 && nb_reg1 <= 16)
+		nb_reg1 = 1;
+		nb_reg2 = 1;
+		if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
+		{
+			nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
+			v1 = 0;
+			if (nb_reg1 >= 1 && nb_reg1 <= 16)
+				v1 = get_value_index(env, j, &cursor, 1);
+			else
+				cursor++;
+		}
+		else
 			v1 = get_value_index(env, j, &cursor, 1);
+		if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
+		{
+			nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
+			v2 = 0;
+			if (nb_reg2 >= 1 && nb_reg2 <= 16)
+				v2 = get_value_index(env, j, &cursor, 2);
+			else
+				cursor++;
+		}
 		else
-			cursor++;
-	}
-	else
-	{
-		v1 = get_value_index(env, j, &cursor, 1);
-		save_param(env, j, v1, IND_CODE, 0);
-	}
-	if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
-	{
-		nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
-		save_param(env, j, nb_reg1, REG_SIZE, 1);
-		v2 = 0;
-		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 			v2 = get_value_index(env, j, &cursor, 2);
-		else
-			cursor++;
+		cursor++;
+		nb_reg3 = env->memory[env->champ[j].pc + cursor];
+		cursor++;
+		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+		{
+			if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
+				sum = read_bytes(env->memory, env->champ[j].pc + (v1 % IDX_MOD), REG_SIZE);
+			else
+				sum = v1;
+			sum += v2;
+			sum = (env->champ[j].pc + (sum % (IDX_MOD))) % MEM_SIZE;
+			if (sum < 0)
+				sum += MEM_SIZE;
+			sum = read_bytes(env->memory, sum, REG_SIZE);
+			env->champ[j].r[nb_reg3] = sum;
+		}
 	}
-	else
-	{
-		v2 = get_value_index(env, j, &cursor, 2);
-		save_param(env, j, v2, IND_CODE, 1);
-	}
-	cursor++;
-	nb_reg3 = env->memory[env->champ[j].pc + cursor];
-	save_param(env, j, nb_reg3, REG_CODE, 2);
-	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
-	{
-		if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
-			sum = read_bytes(env->memory, env->champ[j].pc + (v1 % IDX_MOD), REG_SIZE);
-		else
-			sum = v1;
-		sum += v2;
-		sum = (env->champ[j].pc + (sum % (IDX_MOD))) % MEM_SIZE;
-		if (sum < 0)
-			sum += MEM_SIZE;
-		sum = read_bytes(env->memory, sum, REG_SIZE);
-		env->champ[j].r[nb_reg3] = sum;
-	}
-	env->champ[j].pc += cursor + 1;
+	env->champ[j].pc += cursor;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/07 14:04:13 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 14:18:37 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,35 @@ void		op_add(t_env *env, unsigned int j)
 	int	sum;
 
 	env->champ[j].op.name = "add";
-	cursor = 2;
-	sum = 0;
-	nb_reg1 = env->memory[env->champ[j].pc + cursor];
-	save_param(env, j, nb_reg1, REG_CODE, 0);
-	if (nb_reg1 >= 1 && nb_reg1 <= 16)
+	cursor = 1;
+	if (check_args(env, j, &cursor, 3))
 	{
-		reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
-		sum += reg_content;
+		cursor++;
+		sum = 0;
+		nb_reg1 = env->memory[env->champ[j].pc + cursor];
+		if (nb_reg1 >= 1 && nb_reg1 <= 16)
+		{
+			reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
+			sum += reg_content;
+		}
+		cursor++;
+		nb_reg2 = env->memory[env->champ[j].pc + cursor];
+		if (nb_reg2 >= 1 && nb_reg2 <= 16)
+		{
+			reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
+			sum += reg_content;
+		}
+		cursor++;
+		nb_reg3 = env->memory[env->champ[j].pc + cursor];
+		if (sum == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
+				&& nb_reg2 >= 1 && nb_reg2 <= 16
+				&& nb_reg3 >= 1 && nb_reg3 <= 16)
+			env->champ[j].carry = 1;
+		else
+			env->champ[j].carry = 0;
+		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+			env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = sum;
+		cursor++;
 	}
-	cursor++;
-	nb_reg2 = env->memory[env->champ[j].pc + cursor];
-	save_param(env, j, nb_reg2, REG_CODE, 1);
-	if (nb_reg2 >= 1 && nb_reg2 <= 16)
-	{
-		reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
-		sum += reg_content;
-	}
-	cursor++;
-	nb_reg3 = env->memory[env->champ[j].pc + cursor];
-	save_param(env, j, nb_reg3, REG_CODE, 2);
-	if (sum == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
-			&& nb_reg2 >= 1 && nb_reg2 <= 16
-			&& nb_reg3 >= 1 && nb_reg3 <= 16)
-		env->champ[j].carry = 1;
-	else
-		env->champ[j].carry = 0;
-	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
-		env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = sum;
-	env->champ[j].pc += 1 + cursor;
+	env->champ[j].pc += cursor;
 }

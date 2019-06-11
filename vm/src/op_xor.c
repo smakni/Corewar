@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/07 21:49:39 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 14:12:42 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,50 +23,45 @@ void		op_xor(t_env *env, unsigned int j)
 
 	env->champ[j].op.name = "xor";
 	cursor = 1;
-	nb_reg1 = 1;
-	nb_reg2 = 1;
-	if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
+	if (check_args(env, j, &cursor, 3))
 	{
-		nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
-		save_param(env, j, nb_reg1, REG_CODE, 0);
-		diff = 0;
-		if (nb_reg1 >= 1 && nb_reg1 <= 16)
+		nb_reg1 = 1;
+		nb_reg2 = 1;
+		if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
+		{
+			nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
+			diff = 0;
+			if (nb_reg1 >= 1 && nb_reg1 <= 16)
+				diff = get_value(env, j, &cursor, 1);
+			else
+				cursor++;
+		}
+		else
 			diff = get_value(env, j, &cursor, 1);
+		if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
+		{
+			nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
+			value = 0;
+			if (nb_reg2 >= 1 && nb_reg2 <= 16)
+				value = get_value(env, j, &cursor, 2);
+			else
+				cursor++;
+		}
 		else
-			cursor++;
-	}
-	else
-	{
-		diff = get_value(env, j, &cursor, 1);
-		save_param(env, j, diff, DIR_CODE, 0);
-	}
-	if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
-	{
-		nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
-		save_param(env, j, nb_reg2, REG_CODE, 1);
-		value = 0;
-		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 			value = get_value(env, j, &cursor, 2);
+		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16)
+			diff ^= value;
+		cursor++;
+		nb_reg3 = env->memory[env->champ[j].pc + cursor];
+		if (diff == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
+				&& nb_reg2 >= 1 && nb_reg2 <= 16
+				&& nb_reg3 >= 1 && nb_reg3 <= 16)
+			env->champ[j].carry = 1;
 		else
-			cursor++;
+			env->champ[j].carry = 0;
+		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+			env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
+		cursor++;
 	}
-	else
-	{
-		value = get_value(env, j, &cursor, 2);
-		save_param(env, j, value, DIR_CODE, 1);
-	}
-	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16)
-		diff ^= value;
-	cursor++;
-	nb_reg3 = env->memory[env->champ[j].pc + cursor];
-	save_param(env, j, nb_reg3, REG_CODE, 2);
-	if (diff == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
-			&& nb_reg2 >= 1 && nb_reg2 <= 16
-			&& nb_reg3 >= 1 && nb_reg3 <= 16)
-		env->champ[j].carry = 1;
-	else
-		env->champ[j].carry = 0;
-	if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
-		env->champ[j].r[env->memory[env->champ[j].pc + cursor]] = diff;
-	env->champ[j].pc += 1 + cursor;
+	env->champ[j].pc += cursor;
 }
