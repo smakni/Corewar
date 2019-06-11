@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 20:04:52 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 21:47:05 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	op_sti(t_env *env, unsigned int j)
 		}
 	}
 	else
-		cursor = 7;
+		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 1, 3);
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);

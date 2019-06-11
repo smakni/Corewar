@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 20:04:42 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 21:46:17 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void		op_lld(t_env *env, unsigned int j)
 			env->champ[j].r[nb_reg] = value;
 	}
 	else
-		cursor = 8;
+		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 0, 2);
 	env->champ[j].pc += cursor;
 }

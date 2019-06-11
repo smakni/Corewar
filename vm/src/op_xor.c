@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 20:04:58 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 21:47:35 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void		op_xor(t_env *env, unsigned int j)
 		cursor++;
 	}
 	else
-		cursor = 11;
+		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 0, 3);
 	env->champ[j].pc += cursor;
 }

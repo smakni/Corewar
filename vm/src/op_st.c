@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 20:04:50 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 21:46:48 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		op_st(t_env *env, unsigned int j)
 		save_param(env, j, nb_reg, REG_CODE, 0);
 		reg_content = get_value(env, j, &cursor, 1);
 		cursor++;
-		if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
+		if (type_param(env->memory[(current_pos + 1) % MEM_SIZE], 2) == IND_CODE)
 		{
 			dest = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
@@ -67,7 +67,7 @@ void		op_st(t_env *env, unsigned int j)
 		}
 	}
 	else
-		cursor = 5;
+		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 0, 2);
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);

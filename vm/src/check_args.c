@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 19:07:10 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 19:46:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/11 21:40:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 
 	mask = 0b00000011;
 	encode_byte = env->memory[env->champ[j].pc + *cursor];
-	// ft_printf("byte %#.8b\n", encode_byte);
+	ft_printf("byte %#.8b\n", encode_byte);
 	tmp = (4 - nb_param) * 2;
 	if ((0b11111111 & (encode_byte << tmp)) != 0)
 	{

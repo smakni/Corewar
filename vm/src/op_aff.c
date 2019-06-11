@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:24:52 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 20:04:28 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 21:43:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	op_aff(t_env *env, unsigned j)
 		cursor++;
 	}
 	else
-		cursor = 3;
+		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 0, 1);
 	env->champ[j].pc += cursor;
 }

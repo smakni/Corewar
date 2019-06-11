@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 14:18:43 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 21:41:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				read_memory(t_env *env);
 int				read_bytes(unsigned char *line, int index, int n);
 int				safe_open(const char *pathname, t_env *data, const int flags);
 int				type_param(unsigned char byte, int param);
-int 			decode_byte_param(unsigned char param, int is_index);
+int 			decode_byte_param(unsigned char param, int is_index, int len)
 int				get_value(t_env *env, unsigned j, int *cursor, int param);
 int				get_value_index(t_env *env, unsigned j, int *cursor, int param);
 int				check_cycles(t_env *env, unsigned j);

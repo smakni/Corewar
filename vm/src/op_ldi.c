@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 20:04:38 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/11 21:46:03 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ void		op_ldi(t_env *env, unsigned int j)
 		}
 	}
 	else
-		cursor = 7;
+		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 1, 3);
 	env->champ[j].pc += cursor;
 }
