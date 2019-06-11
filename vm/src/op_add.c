@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 14:18:37 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 15:00:51 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		op_add(t_env *env, unsigned int j)
 		cursor++;
 		sum = 0;
 		nb_reg1 = env->memory[env->champ[j].pc + cursor];
+		save_param(env, j, nb_reg1, REG_CODE, 0);
 		if (nb_reg1 >= 1 && nb_reg1 <= 16)
 		{
 			reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
@@ -35,6 +36,7 @@ void		op_add(t_env *env, unsigned int j)
 		}
 		cursor++;
 		nb_reg2 = env->memory[env->champ[j].pc + cursor];
+		save_param(env, j, nb_reg2, REG_CODE, 1);
 		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 		{
 			reg_content = env->champ[j].r[env->memory[env->champ[j].pc + cursor]];
@@ -42,6 +44,7 @@ void		op_add(t_env *env, unsigned int j)
 		}
 		cursor++;
 		nb_reg3 = env->memory[env->champ[j].pc + cursor];
+		save_param(env, j, nb_reg3, REG_CODE, 2);
 		if (sum == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
 				&& nb_reg2 >= 1 && nb_reg2 <= 16
 				&& nb_reg3 >= 1 && nb_reg3 <= 16)

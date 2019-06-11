@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/10 18:47:04 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 15:29:02 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void 	aff_operations(t_env *env, unsigned j, int save)
 		else if (env->memory[save] == 0x0b)
 		{
 			tmp = ft_atoi(env->champ[j].op.param[1]) + ft_atoi(env->champ[j].op.param[2]);
-			ft_printf("\n       | -> store to %s + %s = %d (with pc and mod %d)",
+			ft_printf("\n\t   | -> store to %s + %s = %d (with pc and mod %d)",
 						env->champ[j].op.param[1], env->champ[j].op.param[2],
 						tmp, save + (tmp % IDX_MOD));
 		}

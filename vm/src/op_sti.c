@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 14:26:01 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 14:53:15 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	op_sti(t_env *env, unsigned int j)
 	{
 		cursor++;
 		reg_content = get_reg_content(env, j, &cursor, &nb_reg1, 0);
+		save_param(env, j, nb_reg1, REG_CODE, 0);
 		nb_reg2 = 1;
 		nb_reg3 = 1;
 		if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
@@ -66,6 +67,7 @@ void	op_sti(t_env *env, unsigned int j)
 			else if (current_pos + tmp >= MEM_SIZE)
 				tmp = (current_pos + tmp) % MEM_SIZE;
 			dest = read_bytes(env->memory, tmp, 4);
+			save_param(env, j, dest, IND_CODE, 1);
 		}
 		else if (type_param(env->memory[current_pos + 1], 2) == REG_CODE)
 			dest = get_reg_content(env, j, &cursor, &nb_reg2, 1);
@@ -73,13 +75,16 @@ void	op_sti(t_env *env, unsigned int j)
 		{
 			dest = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
+			save_param(env, j, dest, IND_CODE, 1);
 		}
 		if (type_param(env->memory[current_pos + 1], 3) == REG_CODE)
 			dest += get_reg_content(env, j, &cursor, &nb_reg3, 2);
 		else
 		{
-			dest += read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
+			tmp = read_bytes(env->memory, current_pos + cursor, 2) % IDX_MOD;
 			cursor += 2;
+			dest += tmp;
+			save_param(env, j, tmp, IND_CODE, 2);
 		}
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{

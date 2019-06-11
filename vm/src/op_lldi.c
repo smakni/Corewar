@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 14:20:23 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/11 15:06:53 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		op_lldi(t_env *env, unsigned int j)
 		if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
 		{
 			nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
+			save_param(env, j, nb_reg1, REG_CODE, 0);
 			v1 = 0;
 			if (nb_reg1 >= 1 && nb_reg1 <= 16)
 				v1 = get_value_index(env, j, &cursor, 1);
@@ -39,10 +40,14 @@ void		op_lldi(t_env *env, unsigned int j)
 				cursor++;
 		}
 		else
+		{
 			v1 = get_value_index(env, j, &cursor, 1);
+			save_param(env, j, v1, IND_CODE, 0);
+		}
 		if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
 		{
 			nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
+			save_param(env, j, nb_reg1, REG_SIZE, 1);
 			v2 = 0;
 			if (nb_reg2 >= 1 && nb_reg2 <= 16)
 				v2 = get_value_index(env, j, &cursor, 2);
@@ -53,6 +58,7 @@ void		op_lldi(t_env *env, unsigned int j)
 			v2 = get_value_index(env, j, &cursor, 2);
 		cursor++;
 		nb_reg3 = env->memory[env->champ[j].pc + cursor];
+		save_param(env, j, nb_reg3, REG_CODE, 2);
 		cursor++;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
