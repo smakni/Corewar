@@ -270,7 +270,6 @@ void first_visu(t_env *env)
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	env->mem = subwin(stdscr, 64, 193, 2, 3);
 	env->infos = subwin(stdscr, 68, 58, 2, 193);
-	//	update_visu(env);
 	wattron(env->mem, COLOR_PAIR(1));
 	while (i < 4096)
 	{

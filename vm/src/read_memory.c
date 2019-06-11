@@ -6,7 +6,6 @@ static void	intro_game(t_env *env)
 	unsigned i;
 
 	i = 0;
-	env->cycle_to_die = CYCLE_TO_DIE;
 	ft_printf("Introducing contestants...\n");
 	while (i < env->nb_champs)
 	{
@@ -32,7 +31,8 @@ int check_live(t_env *env)
 	if (total_lives >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
+		if (env ->visu == 0)
+			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		return (1);
 	}
 	return (0);
@@ -69,7 +69,8 @@ static int reset_cycles(t_env *env, int *check_delta)
 	if (*check_delta == MAX_CHECKS)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
+		if (env->visu == 0)
+			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		*check_delta = 0;
 	}
 	del_process(env);
@@ -85,11 +86,14 @@ int read_memory(t_env *env)
 	j = 0;
 	i = 0;
 	check_delta = 0;
-	intro_game(env);
+	env->cycle_to_die = CYCLE_TO_DIE;
+	if (env->visu == 0)
+		intro_game(env);
 	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
 		j = env->nb_champs - 1;
-		ft_printf("It is now cycle %d\n", env->cycle_index + 1);
+		if (env->visu == 0)
+			ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
 			if (process_execution(env, j) == FAIL)
