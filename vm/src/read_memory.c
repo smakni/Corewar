@@ -1,16 +1,21 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   read_memory.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 00:29:55 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/07 10:55:51 by sabri            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+static void	intro_game(t_env *env)
+{
+	unsigned i;
+
+	i = 0;
+	env->cycle_to_die = CYCLE_TO_DIE;
+	ft_printf("Introducing contestants...\n");
+	while (i < env->nb_champs)
+	{
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
+					env->live[i].header.prog_size, env->live[i].header.prog_name, 
+					env->live[i].header.comment);
+		i++;
+	}
+}
 
 int check_live(t_env *env)
 {
@@ -27,12 +32,13 @@ int check_live(t_env *env)
 	if (total_lives >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		return (1);
 	}
 	return (0);
 }
 
-int		move_pc(t_env *env, int j)
+static int	move_pc(t_env *env, int j)
 {
 	if (env->champ[j].pc >= MEM_SIZE)
 		env->champ[j].pc -= MEM_SIZE;
@@ -45,17 +51,29 @@ int		move_pc(t_env *env, int j)
 	return (1);
 }
 
-static int reset_cycles(t_env *env, int check_delta)
+static int	process_execution(t_env *env, unsigned j)
 {
-	if (check_delta == MAX_CHECKS)
+	if (env->champ[j].cycles == 1)
+	{
+		exec_op(env, j);
+		if (move_pc(env, j) == FAIL)
+			return (FAIL);
+	}
+	else if (env->champ[j].cycles > 1)
+		env->champ[j].cycles--;
+	return (1);
+}
+
+static int reset_cycles(t_env *env, int *check_delta)
+{
+	if (*check_delta == MAX_CHECKS)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		check_delta = 0;
+		ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
+		*check_delta = 0;
 	}
 	del_process(env);
-	if (env->cycle_to_die <= 0)
-		return (0);
-	return (1);
+	return (0);
 }
 
 int read_memory(t_env *env)
@@ -65,32 +83,24 @@ int read_memory(t_env *env)
 	int check_delta;
 
 	j = 0;
-	check_delta = 0;
-	env->cycle_to_die = CYCLE_TO_DIE;
 	i = 0;
+	check_delta = 0;
+	intro_game(env);
 	while (env->cycle_to_die > 0 && env->nb_champs > 0)
 	{
 		j = env->nb_champs - 1;
-	//	ft_printf("It is now cycle %d\n", env->cycle_index + 1);
+		ft_printf("It is now cycle %d\n", env->cycle_index + 1);
 		while (j >= 0)
 		{
-			if (env->champ[j].cycles == 1)
-			{
-				exec_op(env, j);
-				if (move_pc(env, j) == FAIL)
-					return (FAIL);
-			}
-			else if (env->champ[j].cycles > 1)
-				env->champ[j].cycles--;
+			if (process_execution(env, j) == FAIL)
+				return (FAIL);
 			j--;
 		}
 		if (i == env->cycle_to_die)
 		{
 			if (check_live(env) == 0)
 				check_delta++;
-			reset_cycles(env, check_delta);
-			i = 0;
-
+			i = reset_cycles(env, &check_delta);
 		}
 		if (env->visu == 1)
 		{
@@ -98,8 +108,8 @@ int read_memory(t_env *env)
 			wrefresh(env->mem);
 			key_events(env);
 		}
-		//else
-			//ft_print_memory(env);
+		else
+			ft_print_memory(env);
 		//read(0, 0, 1);
 		env->cycle_index++;
 		i++;

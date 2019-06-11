@@ -24,7 +24,13 @@ static int	encode_header_name(t_parser *data, int i)
 			&& data->line[i + 5] != '"')
 		return (FAIL);
 	i += 5;
-	i += ft_strspn(&data->line[i], " \t") + 1;
+	i += ft_strlen_c(&data->line[i], '"') + 1;
+	if (data->line[i] == '\0')
+	{
+		data->err_code = 10;
+		data->err_msg = "Bad name and/or comment format";
+		return (FAIL);
+	}
 	if (!(encode_name(data, i)))
 		return (FAIL);
 	if (ft_strchr(&data->line[i], '\"') == NULL)
@@ -44,6 +50,12 @@ static int	encode_header_comment(t_parser *data, int i)
 		return (FAIL);
 	i += 8;
 	i += ft_strlen_c(&data->line[i], '"') + 1;
+	if (data->line[i] == '\0')
+	{
+		data->err_code = 10;
+		data->err_msg = "Bad name and/or comment format";
+		return (FAIL);
+	}
 	data->index = 0x8b;
 	if (!(encode_comment(data, i)))
 		return (FAIL);
