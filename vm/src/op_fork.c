@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 17:54:36 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/12 17:35:46 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		op_fork(t_env *env, unsigned int j)
 			return ;
 		}
 	env->champ[env->nb_champs] = env->champ[j];
+	env->champ[env->nb_champs].cycle_to_life = env->cycle_index;
 	index = read_bytes(env->memory, env->champ[j].pc + 1, IND_SIZE) % IDX_MOD;
 	if (index < 0)
 		index += MEM_SIZE;

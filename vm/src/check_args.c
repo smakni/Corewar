@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 19:07:10 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 21:40:26 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:58:10 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 	mask = 0b00000011;
 	encode_byte = env->memory[env->champ[j].pc + *cursor];
 	//ft_printf("byte %#.8b\n", encode_byte);
-	tmp = (nb_param) * 2;
-	//ft_printf("byte %#.8b\n", encode_byte << tmp);
-	//ft_printf("byte %#.8b\n", encode_byte << tmp);
+	tmp = nb_param * 2;
 	if ((0b11111111 & (encode_byte << tmp)) != 0)
 	{
-		//ft_printf("FAIL on non-encoded bits\n");
+		// ft_printf("FAIL on non-encoded bits\n");
+		env->champ[j].check_args = 0;
 		return (0);
 	}
 	while (nb_param > 0)
@@ -40,9 +39,11 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 		{
 			(*cursor)++;
 			// ft_printf("FAIL on %i\n", nb_param);
+			env->champ[j].check_args = 0;
 			return (0);
 		}
 		nb_param--;
 	}
+	env->champ[j].check_args = 1;
 	return (1);
 }

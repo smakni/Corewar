@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 17:34:07 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/12 19:32:08 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,17 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 			ft_printf("\nPlayer %d (%s) is said to be alive",
 						UINT_MAX - ft_atoi(env->champ[j].op.param[0]) + 1,
 						env->live[UINT_MAX - ft_atoi(env->champ[j].op.param[0])].header.prog_name);
-		else if (env->memory[save] == 0x0b)
+		else if (env->memory[save] == 0x0b && env->champ[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->champ[j].op.param[1]) + ft_atoi(env->champ[j].op.param[2]);
-			ft_printf("\n\t   | -> store to %s + %s = %d (with pc and mod %d)",
+			ft_printf("\n       | -> store to %s + %s = %d (with pc and mod %d)",
 						env->champ[j].op.param[1], env->champ[j].op.param[2],
 						tmp, save + (tmp % IDX_MOD));
 		}
 		else if (env->memory[save] == 0x0a)
 		{
 			tmp = ft_atoi(env->champ[j].op.param[1]) + ft_atoi(env->champ[j].op.param[2]);
-			ft_printf("\n\t   | -> laod from %s + %s = %d (with pc and mod %d)",
+			ft_printf("\n       | -> laod from %s + %s = %d (with pc and mod %d)",
 						env->champ[j].op.param[1], env->champ[j].op.param[2],
 						tmp, save + (tmp % IDX_MOD));
 		}
