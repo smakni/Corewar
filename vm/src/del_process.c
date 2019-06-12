@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/11 19:38:08 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/12 19:18:35 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,38 +42,42 @@ static void del_process_visu(t_env *env)
 		j++;
 	}
 }
-int del_process(t_env *env)
-{
-	//t_champ		*tmp;
-	//unsigned	i;
-	unsigned	j;
 
-	//i = 0;
+static void	aff_del_process(t_env *env, unsigned j)
+{
+	while ((int)j >= 0)
+	{
+		if (env->champ[j].nb_live == -1)
+		{
+			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", j + 1,
+						env->cycle_index - env->champ[j].cycle_to_life + 799, env->cycle_to_die);
+			env->champ[j].nb_live = -2;
+		}
+		j--;
+	}
+}
+
+int del_process(t_env *env)
+{	
+	unsigned	j;
+	int			living_proc;
+
 	j = 0;
-	//if (!(tmp = (t_champ *)malloc(sizeof(t_champ) * (ARR_SIZE * env->nb_realloc))))
-	//	return (-1);
+	living_proc = 0;
 	if (env->visu == 1)
 		del_process_visu(env);
 	while (j < env->nb_champs)
 	{
 		if (env->champ[j].nb_live > 0)
+		{
 			env->champ[j].nb_live = 0;
-		else
+			living_proc++;
+		}
+		else if (env->champ[j].nb_live != -2)
 			env->champ[j].nb_live = -1;
 		j++;
 	}
 	if (env->visu == 0)
-	{
-		j = env->nb_champs - 1;
-		while ((int)j >= 0)
-		{
-			if (env->champ[j].nb_live == -1)
-			{
-				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", j + 1, env->cycle_index, env->cycle_to_die);
-				env->champ[j].nb_live = -2;
-			}
-			j--;
-		}
-	}
-	return (0);
+		aff_del_process(env, j);
+	return (living_proc);
 }

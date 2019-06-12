@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/11 22:03:41 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:36:17 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct	s_champ
 	int			dest;
 	int			bold;
 	int			live;
+	int			check_args;
+	int			cycle_to_life;
 }				t_champ;
 
 typedef	struct s_live
@@ -59,7 +61,7 @@ typedef struct	s_env
 	unsigned char		memory[MEM_SIZE];
 	t_champ				*champ;
 	t_live				live[MAX_PLAYERS];
-	char				*err_msg;
+	int					live_period;
 	int					err_code;
 	int					fd;
 	int					dump;
@@ -70,6 +72,7 @@ typedef struct	s_env
 	int					cycle_to_die;
 	int					cycle_index;
 	int					visu;
+	char				*err_msg;
 	WINDOW				*around_memory;
 	WINDOW				*mem;
 	WINDOW				*around_infos;

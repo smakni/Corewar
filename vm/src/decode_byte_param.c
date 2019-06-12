@@ -26,6 +26,6 @@ int 	decode_byte_param(unsigned char param, int is_index, int len)
 			op_len += 2;
 		i++;
 	}
-	ft_printf("ADV --> %i\n", op_len);
+	//ft_printf("ADV --> %i\n", op_len);
 	return (op_len);
 }
