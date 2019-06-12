@@ -20,11 +20,13 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 
 	mask = 0b00000011;
 	encode_byte = env->memory[env->champ[j].pc + *cursor];
-	ft_printf("byte %#.8b\n", encode_byte);
-	tmp = (4 - nb_param) * 2;
+	//ft_printf("byte %#.8b\n", encode_byte);
+	tmp = (nb_param) * 2;
+	//ft_printf("byte %#.8b\n", encode_byte << tmp);
+	//ft_printf("byte %#.8b\n", encode_byte << tmp);
 	if ((0b11111111 & (encode_byte << tmp)) != 0)
 	{
-		// ft_printf("FAIL on non-encoded bits\n");
+		//ft_printf("FAIL on non-encoded bits\n");
 		return (0);
 	}
 	while (nb_param > 0)

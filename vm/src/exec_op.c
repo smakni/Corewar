@@ -25,7 +25,7 @@ void	exec_op(t_env *env, unsigned j)
 	{
 		x = env->champ[j].live % 64 * 3;
 		y = env->champ[j].live / 64;
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, env->champ[j].color2, NULL);
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, env->champ[j].color, NULL);
 	}
 	op_fun[0] = op_live;
 	op_fun[1] = op_ld;
@@ -44,7 +44,8 @@ void	exec_op(t_env *env, unsigned j)
 	op_fun[14] = op_lfork;
 	op_fun[15] = op_aff;
 	index = env->memory[env->champ[j].pc];
-	remove_bold(env, j);
+	if (env->visu == 1)
+		remove_bold(env, j);
 	if (index >= 0x01 && index <= 0x10)
 	{
 		op_fun[index - 1](env, j);

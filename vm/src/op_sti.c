@@ -98,10 +98,10 @@ void	op_sti(t_env *env, unsigned int j)
 			env->memory[(dest + 2) % MEM_SIZE] = reg_content >> 8;
 			env->memory[(dest + 3) % MEM_SIZE] = reg_content;
 		}
+		if (env->visu == 1)
+			update_visu(env, dest, j);
 	}
 	else
 		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 1, 3);
 	env->champ[j].pc += cursor;
-	if (env->visu == 1)
-		update_visu(env, dest, j);
 }

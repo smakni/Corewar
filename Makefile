@@ -92,7 +92,7 @@ OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))
 
 CC		=	clang
 
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -g3
 
 FFLAGS	=	-g3
 

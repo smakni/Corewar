@@ -112,9 +112,9 @@ int read_memory(t_env *env)
 			wrefresh(env->mem);
 			key_events(env);
 		}
-		else
-			ft_print_memory(env);
-		read(0, 0, 1);
+		//else
+			//ft_print_memory(env);
+		//read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 		//remove_bold(env);
