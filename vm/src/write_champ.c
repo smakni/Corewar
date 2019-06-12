@@ -20,7 +20,8 @@ static void	write_champ_visu(t_env *env, unsigned j)
 	unsigned	start;
 
 	k = 0;
-	wattron(env->mem, COLOR_PAIR(4 + j));
+	env->champ[j].color = 4 + j;
+	wattron(env->mem, COLOR_PAIR(env->champ[j].color));
 	x = k % 64 + (4096 * j / env->nb_champs % 64);
 	if (x >= 64)
 	{
@@ -34,6 +35,18 @@ static void	write_champ_visu(t_env *env, unsigned j)
 		y = k / 64 + (4096 / env->nb_champs / 64 * j);
 	}
 	start = 4096 * j  / env->nb_champs;
+
+	wattron(env->mem, COLOR_PAIR(env->champ[j].color + 4));
+	mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]);
+	k++;
+	x += 3;
+	if (x >= 192)
+	{
+		x -= 192;
+		y++;
+	}
+	wattroff(env->mem, COLOR_PAIR(env->champ[j].color + 4));
+	wattron(env->mem, COLOR_PAIR(env->champ[j].color));
 	while (k < env->champ[j].header.prog_size)
 	{
 		mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]);
@@ -48,7 +61,6 @@ static void	write_champ_visu(t_env *env, unsigned j)
 	wattroff(env->mem, COLOR_PAIR(4 + j));
 	if (j == env->nb_champs - 1)
 	{
-		mvwchgat(env->mem, 0, 0, 2, A_NORMAL, 8, NULL);
 		mvwprintw(env->infos, 0, 6, "** PAUSED ** ");
 		print_infos(env);
 		wrefresh(env->mem);
@@ -65,6 +77,8 @@ int		write_champ(t_env *env)
 	i = 0;
 	j = 0;
 	id = 0xffffffff;
+	if (env->visu == 1)
+		first_visu(env);
 	while (j < env->nb_champs)
 	{
 		if (!(safe_open(env->champ[j].header.prog_name, env, O_RDONLY)))
@@ -89,6 +103,7 @@ int		write_champ(t_env *env)
 		env->champ[j].pc = i;
 		env->champ[j].cycles = check_cycles(env, j);
 		env->champ[j].carry = 0;
+		env->champ[j].live = -1;
 		if (close(env->fd) < 0)
 			return (FAIL);
 		if (env->visu == 1)

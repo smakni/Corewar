@@ -24,22 +24,22 @@ static void	op_live_visu(t_env *env, unsigned j, unsigned id)
 	if (id == (unsigned)-1)
 	{
 		color = 13;
-		env->champ[j].color2 = 4;
+//		env->champ[j].color2 = 4;
 	}
 	else if (id == (unsigned)-2)
 		{
 			color = 14;
-		env->champ[j].color2 = 5;
+		//env->champ[j].color2 = 5;
 	}
 	else if (id == (unsigned)-3)
 		{
 			color = 15;
-		env->champ[j].color2 = 6;
+		//env->champ[j].color2 = 6;
 	}
 	else if (id == (unsigned)-4)
 	{
 		color = 16;
-		env->champ[j].color2 = 7;
+		//env->champ[j].color2 = 7;
 	}
 	mvwchgat(env->mem, y, x, 2, A_NORMAL, color, NULL);
 	env->champ[j].live = env->champ[j].pc;

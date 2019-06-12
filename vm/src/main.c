@@ -101,7 +101,9 @@ int check_last_live(t_env *env)
 	}
 	if (env->visu == 1)
 	{
+		wattron(env->infos, COLOR_PAIR(4 + save));
 		mvwprintw(env->infos, 50, 6, ">>>>>winner_is_%s>>>>LIVE>>%d\n", env->live[save].header.prog_name, env->live[save].last_live);
+		wattroff(env->infos, COLOR_PAIR(4 + save));
 		wrefresh(env->infos);
 		while (1)
 			if (getch() == ' ')
@@ -134,8 +136,6 @@ int main(int argc, char **argv)
 	}
 	else
 		return (ft_display_commands());
-	if (env.visu == 1)
-		first_visu(&env);
 	if (write_champ(&env) == FAIL)
 		return (clean_quit(&env, -1));
 	if (read_memory(&env) == FAIL)

@@ -95,21 +95,10 @@ void update_visu(t_env *env, short dest, unsigned j)
 	int k;
 	int x;
 	int y;
-	int	i;
 
 	env->champ[j].dest = dest;
 	k = 0;
-	i = 0;
-	if (env->champ[j].id == 0xffffffff)
-		i = 0;
-	else if (env->champ[j].id == 0xfffffffe)
-		i = 1;
-	else if (env->champ[j].id == 0xfffffffd)
-		i = 2;
-	else if (env->champ[j].id == 0xfffffffc)
-		i = 3;
-	wattron(env->mem, COLOR_PAIR(4 + i));
-	env->champ[j].color = 4 + i;
+	wattron(env->mem, COLOR_PAIR(env->champ[j].color));
 	x = dest % 64 * 3;
 	y = dest / 64;
 	env->champ[j].bold = 1;
@@ -206,11 +195,11 @@ void key_events(t_env *env)
 		mvwprintw(env->infos, 0, 6, "** RUNNING **");
 		wrefresh(env->infos);
 	}
-	if (key == 'w' && env->speed > 1)
+	if (key == 'w' && env->speed > 1 && env->speed <= 1000)
 		env->speed -= 1;
 	else if (key == 'e' && env->speed < 1000)
 		env->speed += 1;
-	else if (key == 'q' && env->speed > 10)
+	else if (key == 'q' && env->speed > 10 && env->speed <= 1000)
 		env->speed -= 10;
 	else if (key == 'r' && env->speed < 991)
 		env->speed += 10;
@@ -281,5 +270,5 @@ void first_visu(t_env *env)
 	}
 	wattroff(env->mem, COLOR_PAIR(1));
 	refresh();
-	wrefresh(env->mem);
+	prefresh(env->mem, 0, 0, 0, 0, 0, 0);
 }

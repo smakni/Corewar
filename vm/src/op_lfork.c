@@ -57,6 +57,8 @@ void		op_lfork(t_env *env, unsigned int j)
 		env->champ[env->nb_champs].pc %= MEM_SIZE;
 	env->champ[env->nb_champs].nb_live = env->champ[j].nb_live;
 	env->champ[env->nb_champs].cycles = check_cycles(env, env->nb_champs);
+	env->champ[env->nb_champs].bold = 0;
+	env->champ[env->nb_champs].live = -1;
 	env->nb_champs++;
 	env->champ[j].pc += 3;
 }
