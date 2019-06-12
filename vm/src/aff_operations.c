@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/12 19:32:08 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/12 21:39:14 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 		}
 		else if (env->memory[save] == 0x0a)
 		{
-			tmp = ft_atoi(env->champ[j].op.param[1]) + ft_atoi(env->champ[j].op.param[2]);
-			ft_printf("\n       | -> laod from %s + %s = %d (with pc and mod %d)",
-						env->champ[j].op.param[1], env->champ[j].op.param[2],
+			tmp = ft_atoi(env->champ[j].op.param[0]) + ft_atoi(env->champ[j].op.param[1]);
+			ft_printf("\n       | -> load from %s + %s = %d (with pc and mod %d)",
+						env->champ[j].op.param[0], env->champ[j].op.param[1],
 						tmp, save + (tmp % IDX_MOD));
 		}
 		if (env->champ[j].op.name != NULL)
