@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:13:38 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 22:17:17 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:26:14 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			ft_encode_direct(char *param, t_parser *data, int is_index)
 	if (ft_strlen(param) <= 1)
 		return (clean_quit(data, &param, FAIL));
 	if (param[0] == ':' || param[i] == ':')
-		ft_memorize_blank_label(param, data, is_index, 0);
+		ft_memorize_blank_label(param, data, is_index);
 	else
 	{
 		if (param[i] == '-')

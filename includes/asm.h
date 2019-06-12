@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 22:19:39 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:23:32 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_parser
 
 int				ft_strccmp(const char *s1, const char *s2);
 int				ft_memorize_blank_label(const char *param, t_parser *data,
-					const int is_index, const int free_asked);
+					const int is_index);
 int				ft_write_cor(t_parser *data, const char *path_name);
 void			write_prog_size(t_parser *data);
 int				safe_open(const char *pathname, t_parser *data,

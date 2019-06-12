@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:00:06 by jergauth          #+#    #+#             */
-/*   Updated: 2018/11/21 15:41:26 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/12 20:20:47 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,10 @@ int				get_next_line(const int fd, char **line, int *eol)
 	if (fill_line(tmp, line, eol) == -1)
 		return (-1);
 	if (!ft_strlen(tmp->str) && !ft_strlen(*line) && !ret)
+	{
+		ft_strdel(&tmp->str);
+		ft_memdel((void*)&file);
 		return (0);
+	}
 	return (1);
 }
