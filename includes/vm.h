@@ -123,6 +123,7 @@ void	redraw_pc(t_env *env, int pc, unsigned id, int len);
 void	redraw_pc_2(t_env *env, int pc, int len);
 void	key_events(t_env *env);
 void	aff_operations(t_env *env, unsigned j, int save);
+void	aff_operations_visu(t_env *env, unsigned j, int save);
 void	remove_bold(t_env *env, unsigned j);
 
 #endif

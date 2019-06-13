@@ -51,6 +51,9 @@ void	exec_op(t_env *env, unsigned j)
 		op_fun[index - 1](env, j);
 		if (env->visu == 0)
 			aff_operations(env, j, save);
+		else
+			aff_operations_visu(env, j, save);
+
 	}
 	else
 	{
