@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/12 17:36:17 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 15:54:45 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 # include <curses.h>
 # include <limits.h>
 
-# define MAX_CHAMP_CODE_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
-# define FAIL		0
-# define SUCCESS	1
-# define ARR_SIZE	1024
+# define MAX_OP_LEN				11
+# define MAX_CHAMP_CODE_SIZE	(CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
+# define FAIL					0
+# define SUCCESS				1
+# define ARR_SIZE				1024
 
 typedef	struct 		s_op
 {
+	unsigned char	saved[MAX_OP_LEN];
 	char 			*name;
-	char			*param[4];
+	char			*param[MAX_ARGS_NUMBER];
 }					t_op;
 
 typedef struct	s_champ
@@ -108,6 +110,7 @@ void			op_lld(t_env *env, unsigned j);
 void			op_lfork(t_env *env, unsigned j);
 void			op_aff(t_env *env, unsigned j);
 int				del_process(t_env *env);
+void			save_op(t_env *env, unsigned j);
 
 
 // DEBUG

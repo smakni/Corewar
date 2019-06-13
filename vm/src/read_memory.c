@@ -41,8 +41,8 @@ static int	move_pc(t_env *env, int j)
 		env->champ[j].pc += MEM_SIZE;
 	if (env->err_code != 0)
 		return (FAIL);
-	env->champ[j].cycles = check_cycles(env, j);
 	ft_bzero(&(env->champ[j].op), sizeof(t_op));
+	env->champ[j].cycles = check_cycles(env, j);
 	return (1);
 }
 
@@ -94,6 +94,12 @@ int read_memory(t_env *env)
 		intro_game(env);
 	while (env->cycle_to_die > 0)
 	{
+		if (env->cycle_index == 3229)
+			ft_printf("DEBUG\n");
+		if (env->cycle_index == 3900)
+			ft_printf("DEBUG\n");
+		if (env->cycle_index == 4570)
+			ft_printf("DEBUG\n");
 		if (i == env->cycle_to_die)
 		{
 			if (check_live(env, &check_delta) == 0)

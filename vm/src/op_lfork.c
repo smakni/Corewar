@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 18:52:07 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/12 17:36:08 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 16:34:57 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void		op_lfork(t_env *env, unsigned int j)
 		}
 	env->champ[env->nb_champs] = env->champ[j];
 	env->champ[env->nb_champs].cycle_to_life = env->cycle_index;
-	index = read_bytes(env->memory, env->champ[j].pc + 1, IND_SIZE);
+	index = read_bytes(env->champ[j].op.saved, 1, IND_SIZE);
+	ft_bzero(&(env->champ[env->nb_champs].op), sizeof(t_op));
 	if (index < 0)
 		index += MEM_SIZE;
 	env->champ[env->nb_champs].pc += index;

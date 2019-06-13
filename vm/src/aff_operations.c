@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/12 21:39:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:13:23 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 						env->champ[j].op.param[1], env->champ[j].op.param[2],
 						tmp, save + (tmp % IDX_MOD));
 		}
-		else if (env->memory[save] == 0x0a)
+		else if (env->memory[save] == 0x0a && env->champ[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->champ[j].op.param[0]) + ft_atoi(env->champ[j].op.param[1]);
 			ft_printf("\n       | -> load from %s + %s = %d (with pc and mod %d)",
