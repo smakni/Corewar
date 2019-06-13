@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aff_operations.c                                   :+:      :+:    :+:   */
+/*   aff_operations_visu.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 19:11:16 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:52:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void 			aff_operations_visu(t_env *env, unsigned j, int save)
 	i = 0;
 	nb_params = 0;
 	line = 0;
-	
+	return ;
 	wmove(env->infos, 50, 1);
 	wclrtoeol(env->infos);
 	wmove(env->infos, 51, 1);
