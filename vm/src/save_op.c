@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 17:04:01 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 16:08:39 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 19:18:37 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,16 @@ void		save_op(t_env *env, unsigned j)
 {
 	int op;
 	int len;
+	int i;
 
+	i = 0;
 	op = (int)env->memory[env->champ[j].pc];
 	len = op_len(env, j, op);
 	//ft_printf("%s\n", &env->memory[env->champ[j].pc]);
-	ft_memcpy(env->champ[j].op.saved, &env->memory[env->champ[j].pc], op_len(env, j, op));
+	while (i < len)
+	{
+		env->champ[j].op.saved[i] = env->memory[(env->champ[j].pc + i) % MEM_SIZE];
+		i++;
+	}
+	//ft_memcpy(env->champ[j].op.saved, &env->memory[env->champ[j].pc], op_len(env, j, op));
 }

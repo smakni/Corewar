@@ -3,32 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 21:47:05 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:21:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-/*
-static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
-{
-	short	ret;
 
-	ret = env->memory[current_pos + *cursor] << 8;
-	ret += env->memory[current_pos + *cursor + 1];
-	(*cursor) += 2;
-	return (ret);
-}
-*/
 static int	get_reg_content(t_env *env, unsigned int j, int *cursor, int *nb_reg, int param)
 {
 	int	content;
 
-	*nb_reg = env->memory[env->champ[j].pc + *cursor];
+	*nb_reg = env->champ[j].op.saved[*cursor];
 	if (*nb_reg >= 1 && *nb_reg <= 16)
-		content = env->champ[j].r[env->memory[env->champ[j].pc + *cursor]];
+		content = env->champ[j].r[*nb_reg];
 	else
 		content = 0;
 	if (*cursor > 2)
@@ -58,7 +48,7 @@ void	op_sti(t_env *env, unsigned int j)
 		save_param(env, j, nb_reg1, REG_CODE, 0);
 		nb_reg2 = 1;
 		nb_reg3 = 1;
-		if (type_param(env->memory[current_pos + 1], 2) == IND_CODE)
+		if (type_param(env->champ[j].op.saved[1], 2) == IND_CODE)
 		{
 			tmp = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
@@ -69,19 +59,19 @@ void	op_sti(t_env *env, unsigned int j)
 			dest = read_bytes(env->memory, tmp, 4);
 			save_param(env, j, dest, IND_CODE, 1);
 		}
-		else if (type_param(env->memory[current_pos + 1], 2) == REG_CODE)
+		else if (type_param(env->champ[j].op.saved[1], 2) == REG_CODE)
 			dest = get_reg_content(env, j, &cursor, &nb_reg2, 1);
 		else
 		{
-			dest = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
+			dest = read_bytes(env->champ[j].op.saved, cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
 			save_param(env, j, dest, IND_CODE, 1);
 		}
-		if (type_param(env->memory[current_pos + 1], 3) == REG_CODE)
+		if (type_param(env->champ[j].op.saved[1], 3) == REG_CODE)
 			dest += get_reg_content(env, j, &cursor, &nb_reg3, 2);
 		else
 		{
-			tmp = read_bytes(env->memory, current_pos + cursor, 2) % IDX_MOD;
+			tmp = read_bytes(env->champ[j].op.saved, cursor, 2) % IDX_MOD;
 			cursor += 2;
 			dest += tmp;
 			save_param(env, j, tmp, IND_CODE, 2);
@@ -102,6 +92,6 @@ void	op_sti(t_env *env, unsigned int j)
 			update_visu(env, dest, j);
 	}
 	else
-		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 1, 3);
+		cursor += decode_byte_param(env->champ[j].op.saved[1], 1, 3);
 	env->champ[j].pc += cursor;
 }

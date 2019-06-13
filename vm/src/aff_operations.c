@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 16:13:23 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 19:21:57 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	void	print_pc(t_env *env, unsigned j, int save)
 		ft_printf("ADV %d (%#.4x -> %#.4x) ",
 			env->champ[j].pc - save, save, env->champ[j].pc);
 	while (save + i < env->champ[j].pc)
-		ft_printf("%.2x ", env->memory[save + i++]);
+		ft_printf("%.2x ", env->memory[(save + i++) % MEM_SIZE]);
 	ft_putendl("");
 }
 
@@ -51,11 +51,12 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 		ft_printf("zjmp %d FAILED\n", read_bytes(env->memory, save + 1, 2));
 		print_pc(env, j, save);
 	}
-	else if (env->memory[save] == 0x0c)
+	else if (env->champ[j].op.saved[0] == 0x0c)
 	{
-		ft_printf("fork %d (%d)\n", read_bytes(env->memory, save + 1, 2),
-								save + read_bytes(env->memory, save + 1, 2));
-		print_pc(env, j, save);
+		ft_printf("FORK\n");
+		//ft_printf("fork %d (%d)\n", read_bytes(env->champ[j].op.saved, 1, 2),
+							//	save + read_bytes(env->champ[j].op.saved, 1, 2));
+		//print_pc(env, j, save);
 	}
 	else if (env->memory[save] == 0x0f)
 	{
@@ -63,7 +64,7 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 								save + read_bytes(env->memory, save + 1, 2));
 		print_pc(env, j, save);
 	}
-	else
+	else if (env->champ[j].op.saved[0] != 0x0c)
 	{
 		if (env->champ[j].op.name != NULL)
 			ft_printf("%s", env->champ[j].op.name);

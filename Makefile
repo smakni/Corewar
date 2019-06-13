@@ -95,7 +95,7 @@ CC		=	clang
 
 CFLAGS	=	-Wall -Werror -Wextra -g3
 
-FFLAGS	=	-g3
+FFLAGS	=	-g3 -fsanitize=address
 
 RM		=	rm -f
 

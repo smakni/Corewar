@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/11 21:46:26 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:09:36 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void		op_lldi(t_env *env, unsigned int j)
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		sum = 0;
-		if (type_param(env->memory[env->champ[j].pc + 1], 1) == REG_CODE)
+		if (type_param(env->champ[j].op.saved[1], 1) == REG_CODE)
 		{
-			nb_reg1 = env->memory[env->champ[j].pc + cursor + 1];
+			nb_reg1 = env->champ[j].op.saved[cursor + 1];
 			save_param(env, j, nb_reg1, REG_CODE, 0);
 			v1 = 0;
 			if (nb_reg1 >= 1 && nb_reg1 <= 16)
@@ -44,9 +44,9 @@ void		op_lldi(t_env *env, unsigned int j)
 			v1 = get_value_index(env, j, &cursor, 1);
 			save_param(env, j, v1, IND_CODE, 0);
 		}
-		if (type_param(env->memory[env->champ[j].pc + 1], 2) == REG_CODE)
+		if (type_param(env->champ[j].op.saved[1], 2) == REG_CODE)
 		{
-			nb_reg2 = env->memory[env->champ[j].pc + cursor + 1];
+			nb_reg2 = env->champ[j].op.saved[cursor + 1];
 			save_param(env, j, nb_reg1, REG_SIZE, 1);
 			v2 = 0;
 			if (nb_reg2 >= 1 && nb_reg2 <= 16)
@@ -57,12 +57,12 @@ void		op_lldi(t_env *env, unsigned int j)
 		else
 			v2 = get_value_index(env, j, &cursor, 2);
 		cursor++;
-		nb_reg3 = env->memory[env->champ[j].pc + cursor];
+		nb_reg3 = env->champ[j].op.saved[cursor];
 		save_param(env, j, nb_reg3, REG_CODE, 2);
 		cursor++;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
-			if (type_param(env->memory[env->champ[j].pc + 1], 1) == IND_CODE)
+			if (type_param(env->champ[j].op.saved[1], 1) == IND_CODE)
 				sum = read_bytes(env->memory, env->champ[j].pc + v1, REG_SIZE);
 			else
 				sum = v1;
@@ -79,6 +79,6 @@ void		op_lldi(t_env *env, unsigned int j)
 			env->champ[j].carry = 0;
 	}
 	else
-		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 1, 3);
+		cursor += decode_byte_param(env->champ[j].op.saved[1], 1, 3);
 	env->champ[j].pc += cursor;
 }

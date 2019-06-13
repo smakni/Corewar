@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 19:07:10 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/12 19:58:10 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 17:41:02 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 	int	encode_byte;
 
 	mask = 0b00000011;
-	encode_byte = env->memory[env->champ[j].pc + *cursor];
+	encode_byte = env->champ[j].op.saved[*cursor];
 	//ft_printf("byte %#.8b\n", encode_byte);
 	tmp = nb_param * 2;
 	if ((0b11111111 & (encode_byte << tmp)) != 0)

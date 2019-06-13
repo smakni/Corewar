@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/11 21:46:48 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:51:03 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-/*
-static int	read_two_bytes(t_env *env, int current_pos, int *cursor)
-{
-	short	ret;
 
-	ret = env->memory[current_pos + *cursor] << 8;
-	ret += env->memory[current_pos + *cursor + 1];
-	(*cursor) += 2;
-	return (ret);
-}
-*/
 void		op_st(t_env *env, unsigned int j)
 {
 	int		cursor;
@@ -35,11 +25,11 @@ void		op_st(t_env *env, unsigned int j)
 	if (check_args(env, j, &cursor, 2))
 	{
 		env->champ[j].op.name = "st";
-		nb_reg = env->memory[current_pos + 2];
+		nb_reg = env->champ[j].op.saved[2];
 		save_param(env, j, nb_reg, REG_CODE, 0);
 		reg_content = get_value(env, j, &cursor, 1);
 		cursor++;
-		if (type_param(env->memory[(current_pos + 1) % MEM_SIZE], 2) == IND_CODE)
+		if (type_param(env->champ[j].op.saved[1], 2) == IND_CODE)
 		{
 			dest = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
@@ -59,7 +49,7 @@ void		op_st(t_env *env, unsigned int j)
 		}
 		else
 		{
-			dest = env->memory[env->champ[j].pc + cursor];
+			dest = env->champ[j].op.saved[cursor];
 			save_param(env, j, dest, IND_CODE, 1);
 			cursor++;
 			if (nb_reg >= 1 && nb_reg <= 16)
@@ -67,7 +57,7 @@ void		op_st(t_env *env, unsigned int j)
 		}
 	}
 	else
-		cursor += decode_byte_param(env->memory[env->champ[j].pc + 1], 0, 2);
+		cursor += decode_byte_param(env->champ[j].op.saved[1], 0, 2);
 	env->champ[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);

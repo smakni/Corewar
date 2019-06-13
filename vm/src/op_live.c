@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 15:05:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/12 18:17:46 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 17:44:21 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		op_live(t_env *env, unsigned j)
 
 	env->champ[j].op.name = "live";
 	env->champ[j].live = -1;
-	id = (unsigned)read_bytes(env->memory, env->champ[j].pc + 1, 4);
+	id = (unsigned)read_bytes(env->champ[j].op.saved, 1, 4);
 	save_param(env, j, id, IND_CODE, 0);
 	if (id == (unsigned)-1)
 		env->live[0].last_live = env->cycle_index;

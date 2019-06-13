@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 17:08:59 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/13 17:42:14 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_op(t_env *env, unsigned j)
 	op_fun[13] = op_lldi;
 	op_fun[14] = op_lfork;
 	op_fun[15] = op_aff;
-	index = env->memory[env->champ[j].pc]; //change index
+	index = env->champ[j].op.saved[0];
 	if (env->visu == 1)
 		remove_bold(env, j);
 	if (index >= 0x01 && index <= 0x10)
