@@ -29,13 +29,11 @@ static int	line_parser_extension(t_parser *data, int i, int *label_flag)
 	else if (data->line[i] == ' ' || data->line[i] == '\t'
 		|| data->line[i] == '%' || data->line[i] == ':')
 	{
-		if (*label_flag == 0)
-			i = 0;
-		else
-			i = *label_flag;
+		i = (*label_flag == 0) ? 0 : *label_flag;
 		i += ft_strspn(&data->line[i], " \t");
-		if (!(choose_encoding(data, i)))
-			return (FAIL);
+		if (data->line[i])
+			if (!(choose_encoding(data, i)))
+				return (FAIL);
 		return (2);
 	}
 	return (SUCCESS);
@@ -48,7 +46,7 @@ int			line_parser(t_parser *data, int i, int label_flag)
 	data->syntax_flag = 0;
 	while (data->line[i])
 	{
-		if (data->line[i] == '#')
+		if (data->line[i] == '#' || data->line[i] == ';')
 			return (SUCCESS);
 		else
 		{
