@@ -270,5 +270,5 @@ void first_visu(t_env *env)
 	}
 	wattroff(env->mem, COLOR_PAIR(1));
 	refresh();
-	prefresh(env->mem, 0, 0, 0, 0, 0, 0);
+	wrefresh(env->mem);
 }

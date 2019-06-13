@@ -88,18 +88,23 @@ int read_memory(t_env *env)
 
 	i = 0;
 	check_delta = 0;
+	if (env->visu == 1)
+	{
+		print_infos(env);
+		key_events(env);
+	}
 	env->cycle_index = 1;
 	env->cycle_to_die = CYCLE_TO_DIE;
 	if (env->visu == 0)
 		intro_game(env);
 	while (env->cycle_to_die > 0)
 	{
-		if (env->cycle_index == 3229)
+		/*if (env->cycle_index == 3229)
 			ft_printf("DEBUG\n");
 		if (env->cycle_index == 3900)
 			ft_printf("DEBUG\n");
 		if (env->cycle_index == 4570)
-			ft_printf("DEBUG\n");
+			ft_printf("DEBUG\n");*/
 		if (i == env->cycle_to_die)
 		{
 			if (check_live(env, &check_delta) == 0)

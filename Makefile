@@ -84,6 +84,7 @@ SOURCES_P2	=	main.c\
 				del_process.c\
 				visu.c\
 				aff_operations.c\
+				aff_operations_visu.c\
 				check_args.c\
 				save_op.c
 
