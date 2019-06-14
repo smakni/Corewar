@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 19:21:57 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/14 14:43:01 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,23 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 	nb_params = 0;
 	if (env->champ[j].op.name != NULL)
 		ft_printf("P %4d | ", j + 1);
-	if (env->memory[save] == 0x09 && env->champ[j].carry == 1)
-		ft_printf("zjmp %d OK\n", read_bytes(env->memory, save + 1, 2));
-	else if (env->memory[save] == 0x09 && env->champ[j].carry == 0)
+	if (env->champ[j].op.saved[0] == 0x09 && env->champ[j].carry == 1)
+		ft_printf("zjmp %d OK\n", read_bytes(env->champ[j].op.saved, 1, 2));
+	else if (env->champ[j].op.saved[0] == 0x09 && env->champ[j].carry == 0)
 	{
-		ft_printf("zjmp %d FAILED\n", read_bytes(env->memory, save + 1, 2));
+		ft_printf("zjmp %d FAILED\n", read_bytes(env->champ[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
 	else if (env->champ[j].op.saved[0] == 0x0c)
 	{
-		ft_printf("FORK\n");
-		//ft_printf("fork %d (%d)\n", read_bytes(env->champ[j].op.saved, 1, 2),
-							//	save + read_bytes(env->champ[j].op.saved, 1, 2));
-		//print_pc(env, j, save);
+		ft_printf("fork %d (%d)\n", read_bytes(env->champ[j].op.saved, 1, 2),
+								save + read_bytes(env->champ[j].op.saved, 1, 2));
+		print_pc(env, j, save);
 	}
-	else if (env->memory[save] == 0x0f)
+	else if (env->champ[j].op.saved[0] == 0x0f)
 	{
-		ft_printf("lfork %d (%d)\n", read_bytes(env->memory, save + 1, 2),
-								save + read_bytes(env->memory, save + 1, 2));
+		ft_printf("lfork %d (%d)\n", read_bytes(env->champ[j].op.saved, 1, 2),
+								save + read_bytes(env->champ[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
 	else if (env->champ[j].op.saved[0] != 0x0c)
@@ -70,22 +69,21 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 			ft_printf("%s", env->champ[j].op.name);
 		while (env->champ[j].op.param[i])
 			ft_printf(" %s", env->champ[j].op.param[i++]);
-		if (env->memory[save] == 0x01
+		if (env->champ[j].op.saved[0] == 0x01
 				&& (ft_strcmp(env->champ[j].op.param[0], "-1") == 0
 					|| ft_strcmp(env->champ[j].op.param[0], "-2") == 0
 					|| ft_strcmp(env->champ[j].op.param[0], "-3") == 0
 					|| ft_strcmp(env->champ[j].op.param[0], "-4") == 0))
 			ft_printf("\nPlayer %d (%s) is said to be alive",
-						UINT_MAX - ft_atoi(env->champ[j].op.param[0]) + 1,
-						env->live[UINT_MAX - ft_atoi(env->champ[j].op.param[0])].header.prog_name);
-		else if (env->memory[save] == 0x0b && env->champ[j].check_args == 1)
+						env->champ[j].nb + 1, env->live[env->champ[j].nb].header.prog_name);
+		else if (env->champ[j].op.saved[0] == 0x0b && env->champ[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->champ[j].op.param[1]) + ft_atoi(env->champ[j].op.param[2]);
 			ft_printf("\n       | -> store to %s + %s = %d (with pc and mod %d)",
 						env->champ[j].op.param[1], env->champ[j].op.param[2],
 						tmp, save + (tmp % IDX_MOD));
 		}
-		else if (env->memory[save] == 0x0a && env->champ[j].check_args == 1)
+		else if (env->champ[j].op.saved[0] == 0x0a && env->champ[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->champ[j].op.param[0]) + ft_atoi(env->champ[j].op.param[1]);
 			ft_printf("\n       | -> load from %s + %s = %d (with pc and mod %d)",
