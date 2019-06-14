@@ -252,14 +252,14 @@ static void	fill_commands(t_env *env)
 	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
 	mvwprintw(env->commands, 1, 2, "COMMANDS :");
 	mvwprintw(env->commands, 3, 2, "Press any key to launch");
-	mvwprintw(env->commands, 4, 2, "Speed :");
-	mvwprintw(env->commands, 5, 4, "-10 cycles/second : q");
-	mvwprintw(env->commands, 6, 4, "-1 cycle/second : w");
-	mvwprintw(env->commands, 7, 4, "+1 cycle/second : e");
-	mvwprintw(env->commands, 8, 4, "+10 cycle/second : r");
-	mvwprintw(env->commands, 8, 4, "cycle/second = 1 : t");
-	mvwprintw(env->commands, 8, 4, "nolimit : y");
-	mvwprintw(env->commands, 10, 2, "Pause/Run : SPACE");
+	mvwprintw(env->commands, 5, 2, "Speed :");
+	mvwprintw(env->commands, 6, 4, "-10 cycles/second : q");
+	mvwprintw(env->commands, 7, 4, "-1 cycle/second : w");
+	mvwprintw(env->commands, 8, 4, "+1 cycle/second : e");
+	mvwprintw(env->commands, 9, 4, "+10 cycle/second : r");
+	mvwprintw(env->commands, 10, 4, "cycle/second = 1 : t");
+	mvwprintw(env->commands, 11, 4, "nolimit : y");
+	mvwprintw(env->commands, 13, 2, "Pause/Run : SPACE");
 	wrefresh(env->commands);
 }
 
@@ -279,7 +279,7 @@ void first_visu(t_env *env)
 	wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	env->around_infos = subwin(stdscr, 68, 58, 0, 196);
 	wborder(env->around_infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	env->commands = subwin(stdscr, 13, 58, 55, 196);
+	env->commands = subwin(stdscr, 16, 58, 52, 196);
 	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	fill_commands(env);
