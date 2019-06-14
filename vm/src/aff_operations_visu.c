@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aff_operations.c                                   :+:      :+:    :+:   */
+/*   aff_operations_visu.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/14 14:43:01 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/14 17:52:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ static void print_pc(t_env *env, unsigned j, int save)
 void aff_operations_visu(t_env *env, unsigned j, int save)
 {
 	int i;
-	unsigned nb_params;
 	int tmp;
 
 	i = 0;
-	nb_params = 0;
 	if (env->champ[j].color == 4)
 	{
 		wmove(env->infos, 32, 0);

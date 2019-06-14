@@ -94,7 +94,7 @@ SOURCES_P2	=	main.c\
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
 OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))
 
-CC		=	clang
+CC		=	gcc
 
 CFLAGS	=	-Wall -Werror -Wextra -g3
 

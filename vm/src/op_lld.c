@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 18:08:30 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/14 17:52:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void		op_lld(t_env *env, unsigned int j)
 	int		cursor;
 	int		nb_reg;
 	int	value;
-	int		current_pos;
 
-	current_pos = env->champ[j].pc;
 	cursor = 1;
 	if (check_args(env, j, &cursor, 2))
 	{
