@@ -137,7 +137,7 @@ static int	count_live(t_env *env, unsigned j, int *nb_process)
 	i = 0;
 	while (i < env->nb_champs)
 	{
-		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live > 0)
+		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live >= 0)
 			nb_live += env->champ[i].nb_live;
 		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live > -1)
 			(*nb_process)++;
