@@ -44,7 +44,6 @@ typedef struct	s_champ
 	char		carry;
 	t_op		op;
 	int			color;
-//	int			color2;
 	int			dest;
 	int			bold;
 	int			live;

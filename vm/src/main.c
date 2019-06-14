@@ -101,7 +101,8 @@ int check_last_live(t_env *env)
 	}
 	if (env->visu == 1)
 	{
-        mvwprintw(env->infos, 48, 2, "WINNER :");
+        mvwprintw(env->infos, 0, 0, "**Game Over**");
+        mvwprintw(env->infos, 48, 0, "WINNER :");
 		wattron(env->infos, COLOR_PAIR(4 + save));
 		mvwprintw(env->infos, 48, 11, "%s", env->live[save].header.prog_name);
 		wattroff(env->infos, COLOR_PAIR(4 + save));

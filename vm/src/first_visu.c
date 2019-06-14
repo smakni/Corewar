@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   first_visu.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/14 15:10:36 by vrenaudi          #+#    #+#             */
+/*   Updated: 2019/06/14 15:10:39 by vrenaudi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/vm.h"
 #include <curses.h>
 
@@ -62,7 +74,7 @@ void first_visu(t_env *env)
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	fill_commands(env);
 	env->mem = subwin(stdscr, 64, 193, 2, 3);
-	env->infos = subwin(stdscr, 53, 58, 2, 197);
+	env->infos = subwin(stdscr, 53, 52, 2, 199);
 	wattron(env->mem, COLOR_PAIR(1));
 	while (i < 4096)
 	{

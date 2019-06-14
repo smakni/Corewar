@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/06 15:53:27 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/14 15:11:03 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void key_events(t_env *env)
 	key = getch();
 	if (env->cycle_index > 0)
 	{
-		mvwprintw(env->infos, 0, 2, "** RUNNING **");
+		mvwprintw(env->infos, 0, 0, "** RUNNING **");
 		wrefresh(env->infos);
 	}
 	if (key == 'w' && env->speed > 1 && env->speed <= 1000)
@@ -96,14 +96,14 @@ void key_events(t_env *env)
 		env->speed = 1;
 	if (env->cycle_index > 0 && key == ' ')
 	{
-		mvwprintw(env->infos, 0, 2, "** PAUSED ** ");
+		mvwprintw(env->infos, 0, 0, "** PAUSED ** ");
 		wrefresh(env->infos);
 		while (1)
 		{
 			key = getch();
 			if (key == ' ')
 			{
-				mvwprintw(env->infos, 0, 2, "** RUNNING **");
+				mvwprintw(env->infos, 0, 0, "** RUNNING **");
 				wrefresh(env->infos);
 				break;
 			}
