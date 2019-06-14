@@ -60,5 +60,5 @@ void	exec_op(t_env *env, unsigned j)
 		env->champ[j].pc++;
 	}
 	if (env->visu == 1)
-		redraw_pc_2(env, env->champ[j].pc, env->champ[j].pc - save);
+		redraw_pc(env, env->champ[j].pc, env->champ[j].pc - save);
 }

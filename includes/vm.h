@@ -79,6 +79,7 @@ typedef struct	s_env
 	WINDOW				*mem;
 	WINDOW				*around_infos;
 	WINDOW				*infos;
+	WINDOW				*commands;
 }				t_env;
 
 int				ft_parse_argc(int argc, char **argv, t_env *env);
@@ -119,8 +120,7 @@ void	save_param(t_env *env, int j, int value, int code, int index);
 void	first_visu(t_env *env);
 void	update_visu(t_env *env, short dest, unsigned j);
 void	print_infos(t_env *env);
-void	redraw_pc(t_env *env, int pc, unsigned id, int len);
-void	redraw_pc_2(t_env *env, int pc, int len);
+void	redraw_pc(t_env *env, int pc, int len);
 void	key_events(t_env *env);
 void	aff_operations(t_env *env, unsigned j, int save);
 void	aff_operations_visu(t_env *env, unsigned j, int save);

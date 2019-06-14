@@ -37,7 +37,7 @@ static void init_color_palet(void)
 	init_pair(16, COLOR_WHITE, COLOR_YELLOW);
 }
 
-void redraw_pc_2(t_env *env, int pc, int len)
+void redraw_pc(t_env *env, int pc, int len)
 {
 	int x;
 	int y;
@@ -71,23 +71,6 @@ void redraw_pc_2(t_env *env, int pc, int len)
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
 	else if (color == COLOR_PAIR(11))
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
-}
-
-void redraw_pc(t_env *env, int pc, unsigned id, int len)
-{
-	int x;
-
-	return (redraw_pc_2(env, pc, len));
-	x = pc % 64 * 3;
-	wattron(env->mem, COLOR_PAIR(UINT32_MAX - id + 8));
-	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
-	wattron(env->mem, COLOR_PAIR(UINT32_MAX - id + 8));
-
-	wattron(env->mem, COLOR_PAIR(UINT32_MAX - id + 4));
-	pc -= len;
-	x = pc % 64 * 3;
-	mvwprintw(env->mem, pc / 64, x, "%.2x", env->memory[pc]);
-	wattroff(env->mem, COLOR_PAIR(UINT32_MAX - id + 4));
 }
 
 void update_visu(t_env *env, short dest, unsigned j)
@@ -145,40 +128,64 @@ void remove_bold(t_env *env, unsigned j)
 	}
 }
 
+static int	count_live(t_env *env, unsigned j, int *nb_process)
+{
+	int			nb_live;
+	unsigned	i;
+
+	nb_live = 0;
+	i = 0;
+	while (i < env->nb_champs)
+	{
+		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live > 0)
+			nb_live += env->champ[i].nb_live;
+		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live > -1)
+			(*nb_process)++;
+		i++;
+	}
+	return (nb_live);
+}
+
 void print_infos(t_env *env)
 {
 	int i;
+	int	nb_live;
+	int	nb_process;
 	unsigned j;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	if (env->speed == 0)
 		env->speed = 50;
 	wattron(env->infos, COLOR_PAIR(3));
-	mvwprintw(env->infos, i += 2, 6, "Cycles/second limit : %-10d", env->speed);
-	mvwprintw(env->infos, i += 2, 6, "Cycle : %d", env->cycle_index);
-	mvwprintw(env->infos, i += 2, 6, "Nb Processes : %-10d", env->nb_champs);
+	mvwprintw(env->infos, i += 2, 2, "Cycles/second limit : %-10d", env->speed);
+	mvwprintw(env->infos, i += 2, 2, "Cycle : %d", env->cycle_index);
+	mvwprintw(env->infos, i += 2, 2, "Nb Processes : %-10d", env->nb_champs);
 	i += 2;
 	while (j < env->nb_player)
 	{
-		mvwprintw(env->infos, i, 6, "Player %d: ", j + 1);
+		nb_process = 0;
+		mvwprintw(env->infos, i, 2, "Player %d: ", j + 1);
 		wattron(env->infos, COLOR_PAIR(4 + j));
 		wprintw(env->infos, "%s", env->live[j].header.prog_name);
-		i += 1;
+		i++;
 		wattroff(env->infos, COLOR_PAIR(4 + j));
-		mvwprintw(env->infos, i++, 6, "Last live : %d", env->live[j].last_live);
-		/*a modif, addition nb_live de ts les process d'un champion*/
-		mvwprintw(env->infos, i, 6, "NB lives for current cycle : %d", env->champ[j].nb_live);
+		mvwprintw(env->infos, i++, 4, "Last live : %d", env->live[j].last_live);
+		nb_live = count_live(env, j, &nb_process);
+		mvwprintw(env->infos, i, 4, "Total lives during current cycle : %-10d", nb_live);
+		i++;
+		mvwprintw(env->infos, i, 4, "NB processes : %-10d", nb_process);
 		i += 2;
 		j++;
 	}
-	mvwprintw(env->infos, i += 2, 6, "CYCLE_TO_DIE : %-5d", env->cycle_to_die);
-	mvwprintw(env->infos, i += 2, 6, "CYCLE_DELTA : %d", CYCLE_DELTA);
-	mvwprintw(env->infos, i += 2, 6, "NBR_LIVE : %d", NBR_LIVE);
-	mvwprintw(env->infos, i += 2, 6, "MAX_CHECKS : %d", MAX_CHECKS);
+	mvwprintw(env->infos, i += 2, 2, "CYCLE_TO_DIE : %-5d", env->cycle_to_die);
+	mvwprintw(env->infos, i += 2, 2, "CYCLE_DELTA : %d", CYCLE_DELTA);
+	mvwprintw(env->infos, i += 2, 2, "NBR_LIVE : %d", NBR_LIVE);
+	mvwprintw(env->infos, i += 2, 2, "MAX_CHECKS : %d", MAX_CHECKS);
 	wattroff(env->infos, COLOR_PAIR(3));
 	wrefresh(env->infos);
-	usleep(1000000 / env->speed);
+	if (env->speed != -1)
+		usleep(1000000 / env->speed);
 }
 
 void key_events(t_env *env)
@@ -192,7 +199,7 @@ void key_events(t_env *env)
 	key = getch();
 	if (env->cycle_index > 0)
 	{
-		mvwprintw(env->infos, 0, 6, "** RUNNING **");
+		mvwprintw(env->infos, 0, 2, "** RUNNING **");
 		wrefresh(env->infos);
 	}
 	if (key == 'w' && env->speed > 1 && env->speed <= 1000)
@@ -204,19 +211,19 @@ void key_events(t_env *env)
 	else if (key == 'r' && env->speed < 991)
 		env->speed += 10;
 	else if (key == 'y')
-		env->speed = 10000000;
+		env->speed = -1;
 	else if (key == 't')
 		env->speed = 1;
 	if (env->cycle_index > 0 && key == ' ')
 	{
-		mvwprintw(env->infos, 0, 6, "** PAUSED ** ");
+		mvwprintw(env->infos, 0, 2, "** PAUSED ** ");
 		wrefresh(env->infos);
 		while (1)
 		{
 			key = getch();
 			if (key == ' ')
 			{
-				mvwprintw(env->infos, 0, 6, "** RUNNING **");
+				mvwprintw(env->infos, 0, 2, "** RUNNING **");
 				wrefresh(env->infos);
 				break;
 			}
@@ -231,13 +238,29 @@ void key_events(t_env *env)
 				else if (key == 'r' && env->speed < 991)
 					env->speed += 10;
 				else if (key == 'y')
-					env->speed = 10000000;
+					env->speed = -1;
 				else if (key == 't')
 					env->speed = 1;
 				print_infos(env);
 			}
 		}
 	}
+}
+
+static void	fill_commands(t_env *env)
+{
+	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
+	mvwprintw(env->commands, 1, 2, "COMMANDS :");
+	mvwprintw(env->commands, 3, 2, "Press any key to launch");
+	mvwprintw(env->commands, 4, 2, "Speed :");
+	mvwprintw(env->commands, 5, 4, "-10 cycles/second : q");
+	mvwprintw(env->commands, 6, 4, "-1 cycle/second : w");
+	mvwprintw(env->commands, 7, 4, "+1 cycle/second : e");
+	mvwprintw(env->commands, 8, 4, "+10 cycle/second : r");
+	mvwprintw(env->commands, 8, 4, "cycle/second = 1 : t");
+	mvwprintw(env->commands, 8, 4, "nolimit : y");
+	mvwprintw(env->commands, 10, 2, "Pause/Run : SPACE");
+	wrefresh(env->commands);
 }
 
 void first_visu(t_env *env)
@@ -256,9 +279,12 @@ void first_visu(t_env *env)
 	wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	env->around_infos = subwin(stdscr, 68, 58, 0, 196);
 	wborder(env->around_infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	env->commands = subwin(stdscr, 13, 58, 55, 196);
+	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
+	fill_commands(env);
 	env->mem = subwin(stdscr, 64, 193, 2, 3);
-	env->infos = subwin(stdscr, 68, 58, 2, 193);
+	env->infos = subwin(stdscr, 53, 58, 2, 197);
 	wattron(env->mem, COLOR_PAIR(1));
 	while (i < 4096)
 	{
