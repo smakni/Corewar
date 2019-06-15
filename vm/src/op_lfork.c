@@ -50,11 +50,11 @@ void		op_lfork(t_env *env, unsigned int j)
 	env->proc[env->nb_proc].cycle_to_life = env->cycle_index;
 	index = read_bytes(env->proc[j].op.saved, 1, IND_SIZE);
 	ft_bzero(&(env->proc[env->nb_proc].op), sizeof(t_op));
-	if (index < 0)
-		index += MEM_SIZE;
 	env->proc[env->nb_proc].pc += index;
-	if (env->proc[env->nb_proc].pc >= MEM_SIZE)
-		env->proc[env->nb_proc].pc %= MEM_SIZE;
+	if (env->proc[env->nb_proc].pc < 0)
+		env->proc[env->nb_proc].pc += MEM_SIZE;
+	else if (env->proc[j].pc >= MEM_SIZE)
+		env->proc[j].pc %= MEM_SIZE;
 	env->proc[env->nb_proc].nb_live = env->proc[j].nb_live;
 	env->proc[env->nb_proc].cycles = check_cycles(env, env->nb_proc);
 	env->proc[env->nb_proc].bold = 0;

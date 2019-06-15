@@ -21,6 +21,10 @@ void	op_zjmp(t_env *env, unsigned j)
 	{
 		index = read_bytes(env->proc[j].op.saved, 1, 2);
 		env->proc[j].pc += index % IDX_MOD;
+		if (env->proc[j].pc < 0)
+			env->proc[j].pc += MEM_SIZE;
+		else if (env->proc[j].pc >= MEM_SIZE)
+			env->proc[j].pc %= MEM_SIZE;
 	}
 	else
 		env->proc[j].pc += 3;
