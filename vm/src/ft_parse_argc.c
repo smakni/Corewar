@@ -46,21 +46,21 @@ static int ft_sort_argc(t_env *env, t_player *tmp)
 	unsigned int j;
 
 	i = 0;
-	if (ft_check_duplicate(tmp, env->nb_proc) == FAIL)
+	if (ft_check_duplicate(tmp, env->nb_process) == FAIL)
 		return (FAIL);
-	while (++i < env->nb_proc + 1)
+	while (++i < env->nb_process + 1)
 	{
 		j = -1;
-		while (++j < env->nb_proc)
+		while (++j < env->nb_process)
 			if (tmp[j].id == i)
 			{
 				env->player[i - 1] = tmp[j];
 				break;
 			}
-		if (j == env->nb_proc)
+		if (j == env->nb_process)
 		{
 			j = -1;
-			while (++j < env->nb_proc)
+			while (++j < env->nb_process)
 				if (tmp[j].id == 0)
 				{
 					tmp[j].id = i;
@@ -84,7 +84,7 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 		if (ft_strequ(argv[i], "-n"))
 		{
 			if (i + 2 < argc && ft_isdigit(argv[i + 1][0]) != 0)
-				tmp[env->nb_proc].id = ft_atoi(argv[++i]);
+				tmp[env->nb_process].id = ft_atoi(argv[++i]);
 			else
 			{
 				ft_printf("error\n");
@@ -95,9 +95,9 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 			env->visu = 1;
 		else if (ft_strstr(argv[i], ".cor"))
 		{
-			ft_memcpy(tmp[env->nb_proc].header.prog_name,
+			ft_memcpy(tmp[env->nb_process].header.prog_name,
 					  argv[i], PROG_NAME_LENGTH + 1);
-			env->nb_proc++;
+			env->nb_process++;
 		}
 		i++;
 	}
@@ -112,12 +112,12 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 	argv++;
 	while (*argv)
 	{
-		ft_memcpy(env->player[env->nb_proc].header.prog_name,
+		ft_memcpy(env->player[env->nb_process].header.prog_name,
 					*argv, PROG_NAME_LENGTH + 1);
-		env->nb_proc++;
+		env->nb_process++;
 		argv++;
 	}
-	if (env->nb_proc <= 0 ||env->nb_proc > 4)
+	if (env->nb_process <= 0 ||env->nb_process > 4)
 		return (FAIL);
 	return (SUCCESS);
 }*/

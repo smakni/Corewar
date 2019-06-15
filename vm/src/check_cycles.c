@@ -34,7 +34,7 @@ int		check_cycles(t_env *env, unsigned j)
 	op_cycles[14] = 50;
 	op_cycles[15] = 1000;
 	op_cycles[16] = 2;
-	index = env->memory[env->proc[j].pc];
+	index = env->memory[env->process[j].pc];
 	if (index > 16 || index < 0)
 		return (1);
 	save_op(env, j);

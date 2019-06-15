@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_memory.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
+/*   Updated: 2019/06/15 03:20:59 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
@@ -7,7 +18,7 @@ static void	intro_game(t_env *env)
 
 	i = 0;
 	ft_printf("Introducing contestants...\n");
-	while (i < env->nb_proc)
+	while (i < env->nb_process)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
 					env->player[i].header.prog_size, env->player[i].header.prog_name,
@@ -18,9 +29,9 @@ static void	intro_game(t_env *env)
 
 static int check_live(t_env *env, int *check_delta)
 {
-	int living_proc;
+	int living_process;
 
-	living_proc = del_process(env);
+	living_process = del_processess(env);
 	if (env->live_period >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
@@ -30,39 +41,39 @@ static int check_live(t_env *env, int *check_delta)
 	else
 		(*check_delta)++;
 	env->live_period = 0;
-	return (living_proc);
+	return (living_process);
 }
 
 static int	move_pc(t_env *env, int j)
 {
-	if (env->proc[j].pc >= MEM_SIZE)
-		env->proc[j].pc -= MEM_SIZE;
-	else if (env->proc[j].pc < 0)
-		env->proc[j].pc += MEM_SIZE;
+	if (env->process[j].pc >= MEM_SIZE)
+		env->process[j].pc -= MEM_SIZE;
+	else if (env->process[j].pc < 0)
+		env->process[j].pc += MEM_SIZE;
 	if (env->err_code != 0)
 		return (FAIL);
-	ft_bzero(&(env->proc[j].op), sizeof(t_op));
-	env->proc[j].cycles = check_cycles(env, j);
+	ft_bzero(&(env->process[j].op), sizeof(t_op));
+	env->process[j].cycles = check_cycles(env, j);
 	return (1);
 }
 
-static int	process_execution(t_env *env)
+static int	processess_execution(t_env *env)
 {
 	int j;
 
-	j = env->nb_proc - 1;
+	j = env->nb_process - 1;
 	while (j >= 0)
 	{
-		if (env->proc[j].nb_live >= 0)
+		if (env->process[j].nb_live >= 0)
 		{
-			if (env->proc[j].cycles == 1)
+			if (env->process[j].cycles == 1)
 			{
 				exec_op(env, j);
 				if (move_pc(env, j) == FAIL)
 					return (FAIL);
 			}
-			else if (env->proc[j].cycles > 1)
-				env->proc[j].cycles--;
+			else if (env->process[j].cycles > 1)
+				env->process[j].cycles--;
 		}
 		j--;
 	}
@@ -107,7 +118,7 @@ int read_memory(t_env *env)
 		}
 		if (env->visu == 0)
 			ft_printf("It is now cycle %d\n", env->cycle_index);
-		if (process_execution(env) == FAIL)
+		if (processess_execution(env) == FAIL)
 			return (FAIL);
 		if (env->visu == 1)
 		{
@@ -115,8 +126,8 @@ int read_memory(t_env *env)
 			wrefresh(env->mem);
 			key_events(env);
 		}
-		// else
-		// 	ft_print_memory(env);
+		//else
+		 //	ft_print_memory(env);
 		// read(0, 0, 1);
 		env->cycle_index++;
 		i++;

@@ -19,13 +19,13 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 	int	encode_byte;
 
 	mask = 0b00000011;
-	encode_byte = env->proc[j].op.saved[*cursor];
+	encode_byte = env->process[j].op.saved[*cursor];
 	//ft_printf("byte %#.8b\n", encode_byte);
 	tmp = nb_param * 2;
 	if ((0b11111111 & (encode_byte << tmp)) != 0)
 	{
 		// ft_printf("FAIL on non-encoded bits\n");
-		env->proc[j].check_args = 0;
+		env->process[j].check_args = 0;
 		return (0);
 	}
 	while (nb_param > 0)
@@ -39,11 +39,11 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 		{
 			(*cursor)++;
 			// ft_printf("FAIL on %i\n", nb_param);
-			env->proc[j].check_args = 0;
+			env->process[j].check_args = 0;
 			return (0);
 		}
 		nb_param--;
 	}
-	env->proc[j].check_args = 1;
+	env->process[j].check_args = 1;
 	return (1);
 }

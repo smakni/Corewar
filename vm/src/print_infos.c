@@ -20,12 +20,12 @@ static int	count_live(t_env *env, unsigned j)
 
 	nb_live = 0;
 	i = 0;
-	while (i < env->nb_proc)
+	while (i < env->nb_process)
 	{
-		if (env->proc[i].id == UINT32_MAX - j && env->proc[i].nb_live >= 0)
-			nb_live += env->proc[i].nb_live;
-//		if (env->proc[i].id == UINT32_MAX - j && env->proc[i].nb_live > -1)
-		//	(*nb_process)++;
+		if (env->process[i].id == UINT32_MAX - j && env->process[i].nb_live >= 0)
+			nb_live += env->process[i].nb_live;
+//		if (env->process[i].id == UINT32_MAX - j && env->process[i].nb_live > -1)
+		//	(*nb_processess)++;
 		i++;
 	}
 	return (nb_live);
@@ -35,7 +35,7 @@ void print_infos(t_env *env)
 {
 	int i;
 	int	nb_live;
-//	int	nb_process;
+//	int	nb_processess;
 	unsigned j;
 
 	i = 0;
@@ -45,11 +45,11 @@ void print_infos(t_env *env)
 	wattron(env->infos, COLOR_PAIR(3));
 	mvwprintw(env->infos, i += 2, 0, "Cycles/second limit : %-10d", env->speed);
 	mvwprintw(env->infos, i += 2, 0, "Cycle : %d", env->cycle_index);
-	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_proc);
+	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_process);
 	i += 2;
 	while (j < env->nb_player)
 	{
-	//	nb_process = 0;
+	//	nb_processess = 0;
 		mvwprintw(env->infos, i, 0, "Player %d: ", j + 1);
 		wattron(env->infos, COLOR_PAIR(4 + j));
 		wprintw(env->infos, "%s", env->player[j].header.prog_name);

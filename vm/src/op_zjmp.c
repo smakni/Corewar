@@ -16,16 +16,16 @@ void	op_zjmp(t_env *env, unsigned j)
 {
 	int index;
 
-	env->proc[j].op.name = "jmp";
-	if (env->proc[j].carry == 1)
+	env->process[j].op.name = "jmp";
+	if (env->process[j].carry == 1)
 	{
-		index = read_bytes(env->proc[j].op.saved, 1, 2);
-		env->proc[j].pc += index % IDX_MOD;
-		if (env->proc[j].pc < 0)
-			env->proc[j].pc += MEM_SIZE;
-		else if (env->proc[j].pc >= MEM_SIZE)
-			env->proc[j].pc %= MEM_SIZE;
+		index = read_bytes(env->process[j].op.saved, 1, 2);
+		env->process[j].pc += index % IDX_MOD;
+		if (env->process[j].pc < 0)
+			env->process[j].pc += MEM_SIZE;
+		else if (env->process[j].pc >= MEM_SIZE)
+			env->process[j].pc %= MEM_SIZE;
 	}
 	else
-		env->proc[j].pc += 3;
+		env->process[j].pc += 3;
 }

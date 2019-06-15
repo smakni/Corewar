@@ -62,7 +62,7 @@ void first_visu(t_env *env)
 	noecho();
 	cbreak();
 	curs_set(0);
-	env->nb_player = env->nb_proc;
+	env->nb_player = env->nb_process;
 	init_color_palet();
 	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	env->around_memory = subwin(stdscr, 68, 197, 0, 0);

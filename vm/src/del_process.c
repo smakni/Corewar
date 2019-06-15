@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   del_process.c                                      :+:      :+:    :+:   */
+/*   del_processess.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../includes/vm.h"
 
-static void del_process_visu(t_env *env)
+static void del_processess_visu(t_env *env)
 {
 	unsigned	j;
 	unsigned	x;
@@ -20,12 +20,12 @@ static void del_process_visu(t_env *env)
 	int			color;
 
 	j = 0;
-	while (j < env->nb_proc)
+	while (j < env->nb_process)
 	{
-		if (env->proc[j].nb_live == 0)
+		if (env->process[j].nb_live == 0)
 		{
-			x = env->proc[j].pc % 64 * 3;
-			y = env->proc[j].pc / 64;
+			x = env->process[j].pc % 64 * 3;
+			y = env->process[j].pc / 64;
 			remove_bold(env, j);
 			color = mvwinch(env->mem, y, x) & A_COLOR;
 			if (color == COLOR_PAIR(12))
@@ -43,41 +43,41 @@ static void del_process_visu(t_env *env)
 	}
 }
 
-static void	aff_del_process(t_env *env, unsigned j)
+static void	aff_del_processess(t_env *env, unsigned j)
 {
 	while ((int)j >= 0)
 	{
-		if (env->proc[j].nb_live == -1)
+		if (env->process[j].nb_live == -1)
 		{
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", j + 1,
-						env->cycle_index - env->proc[j].cycle_to_life + 799, env->cycle_to_die);
-			env->proc[j].nb_live = -2;
+						env->cycle_index - env->process[j].cycle_to_life + 799, env->cycle_to_die);
+			env->process[j].nb_live = -2;
 		}
 		j--;
 	}
 }
 
-int del_process(t_env *env)
+int del_processess(t_env *env)
 {
 	unsigned	j;
-	int			living_proc;
+	int			living_process;
 
 	j = 0;
-	living_proc = 0;
+	living_process = 0;
 	if (env->visu == 1)
-		del_process_visu(env);
-	while (j < env->nb_proc)
+		del_processess_visu(env);
+	while (j < env->nb_process)
 	{
-		if (env->proc[j].nb_live > 0)
+		if (env->process[j].nb_live > 0)
 		{
-			env->proc[j].nb_live = 0;
-			living_proc++;
+			env->process[j].nb_live = 0;
+			living_process++;
 		}
-		else if (env->proc[j].nb_live != -2)
-			env->proc[j].nb_live = -1;
+		else if (env->process[j].nb_live != -2)
+			env->process[j].nb_live = -1;
 		j++;
 	}
 	if (env->visu == 0)
-		aff_del_process(env, j);
-	return (living_proc);
+		aff_del_processess(env, j);
+	return (living_process);
 }

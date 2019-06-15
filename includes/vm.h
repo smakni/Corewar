@@ -38,7 +38,7 @@ typedef	struct		s_player
 	int				last_live;
 }					t_player;
 
-typedef struct		s_proc
+typedef struct		s_process
 {
 	unsigned		id;
 	unsigned 		r[REG_NUMBER + 1];
@@ -55,14 +55,14 @@ typedef struct		s_proc
 	int				check_args;
 	int				cycle_to_life;
 	char			carry;
-}					t_proc;
+}					t_process;
 
 typedef struct		s_env
 {
 	unsigned char	memory[MEM_SIZE];
 	t_player		player[MAX_PLAYERS];
-	t_proc			*proc;
-	unsigned		nb_proc;
+	t_process			*process;
+	unsigned		nb_process;
 	unsigned		nb_player;
 	unsigned		nb_realloc;
 	int				live_period;
@@ -109,7 +109,7 @@ void				op_lldi(t_env *env ,unsigned j);
 void				op_lld(t_env *env, unsigned j);
 void				op_lfork(t_env *env, unsigned j);
 void				op_aff(t_env *env, unsigned j);
-int					del_process(t_env *env);
+int					del_processess(t_env *env);
 void				save_op(t_env *env, unsigned j);
 
 

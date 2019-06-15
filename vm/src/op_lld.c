@@ -18,8 +18,8 @@ static int	get_addr_no_limit(t_env *env, unsigned int j, int *cursor)
 	int	ret;
 
 	(*cursor)++;
-	value = read_bytes(env->memory, env->proc[j].pc + *cursor, IND_SIZE);
-	ret = read_bytes(env->memory, env->proc[j].pc + value, REG_SIZE);
+	value = read_bytes(env->memory, env->process[j].pc + *cursor, IND_SIZE);
+	ret = read_bytes(env->memory, env->process[j].pc + value, REG_SIZE);
 	save_param(env, j, ret, IND_CODE, 0);
 	*cursor += IND_SIZE - 1;
 	return (ret);
@@ -34,8 +34,8 @@ void		op_lld(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 2))
 	{
-		env->proc[j].op.name = "lld";
-		if (type_param(env->proc[j].op.saved[1], 1) == DIR_CODE)
+		env->process[j].op.name = "lld";
+		if (type_param(env->process[j].op.saved[1], 1) == DIR_CODE)
 		{
 			value = get_value(env, j, &cursor, 1);
 			save_param(env, j, value, DIR_CODE, 0);
@@ -43,17 +43,17 @@ void		op_lld(t_env *env, unsigned int j)
 		else
 			value = get_addr_no_limit(env, j, &cursor);
 		cursor++;
-		nb_reg = env->proc[j].op.saved[cursor];
+		nb_reg = env->process[j].op.saved[cursor];
 		save_param(env, j, nb_reg, REG_CODE, 1);
 		cursor++;
 		if (value == 0 && nb_reg >= 1 && nb_reg <= 16)
-			env->proc[j].carry = 1;
+			env->process[j].carry = 1;
 		else
-			env->proc[j].carry = 0;
+			env->process[j].carry = 0;
 		if (nb_reg >= 1 && nb_reg <= 16)
-			env->proc[j].r[nb_reg] = value;
+			env->process[j].r[nb_reg] = value;
 	}
 	else
-		cursor += decode_byte_param(env->proc[j].op.saved[1], 0, 2);
-	env->proc[j].pc += cursor;
+		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 2);
+	env->process[j].pc += cursor;
 }
