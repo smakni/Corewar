@@ -20,11 +20,11 @@ static int	count_live(t_env *env, unsigned j)
 
 	nb_live = 0;
 	i = 0;
-	while (i < env->nb_champs)
+	while (i < env->nb_proc)
 	{
-		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live >= 0)
-			nb_live += env->champ[i].nb_live;
-//		if (env->champ[i].id == UINT32_MAX - j && env->champ[i].nb_live > -1)
+		if (env->proc[i].id == UINT32_MAX - j && env->proc[i].nb_live >= 0)
+			nb_live += env->proc[i].nb_live;
+//		if (env->proc[i].id == UINT32_MAX - j && env->proc[i].nb_live > -1)
 		//	(*nb_process)++;
 		i++;
 	}
@@ -45,17 +45,17 @@ void print_infos(t_env *env)
 	wattron(env->infos, COLOR_PAIR(3));
 	mvwprintw(env->infos, i += 2, 0, "Cycles/second limit : %-10d", env->speed);
 	mvwprintw(env->infos, i += 2, 0, "Cycle : %d", env->cycle_index);
-	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_champs);
+	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_proc);
 	i += 2;
 	while (j < env->nb_player)
 	{
 	//	nb_process = 0;
 		mvwprintw(env->infos, i, 0, "Player %d: ", j + 1);
 		wattron(env->infos, COLOR_PAIR(4 + j));
-		wprintw(env->infos, "%s", env->live[j].header.prog_name);
+		wprintw(env->infos, "%s", env->player[j].header.prog_name);
 		i++;
 		wattroff(env->infos, COLOR_PAIR(4 + j));
-		mvwprintw(env->infos, i++, 2, "Last live : %d", env->live[j].last_live);
+		mvwprintw(env->infos, i++, 2, "Last live : %d", env->player[j].last_live);
 		nb_live = count_live(env, j);
 		mvwprintw(env->infos, i, 2, "Total lives during current cycle : %-10d", nb_live);
 		i += 2;

@@ -7,11 +7,11 @@ static void	intro_game(t_env *env)
 
 	i = 0;
 	ft_printf("Introducing contestants...\n");
-	while (i < env->nb_champs)
+	while (i < env->nb_proc)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
-					env->live[i].header.prog_size, env->live[i].header.prog_name, 
-					env->live[i].header.comment);
+					env->player[i].header.prog_size, env->player[i].header.prog_name,
+					env->player[i].header.comment);
 		i++;
 	}
 }
@@ -35,14 +35,14 @@ static int check_live(t_env *env, int *check_delta)
 
 static int	move_pc(t_env *env, int j)
 {
-	if (env->champ[j].pc >= MEM_SIZE)
-		env->champ[j].pc -= MEM_SIZE;
-	else if (env->champ[j].pc < 0)
-		env->champ[j].pc += MEM_SIZE;
+	if (env->proc[j].pc >= MEM_SIZE)
+		env->proc[j].pc -= MEM_SIZE;
+	else if (env->proc[j].pc < 0)
+		env->proc[j].pc += MEM_SIZE;
 	if (env->err_code != 0)
 		return (FAIL);
-	ft_bzero(&(env->champ[j].op), sizeof(t_op));
-	env->champ[j].cycles = check_cycles(env, j);
+	ft_bzero(&(env->proc[j].op), sizeof(t_op));
+	env->proc[j].cycles = check_cycles(env, j);
 	return (1);
 }
 
@@ -50,19 +50,19 @@ static int	process_execution(t_env *env)
 {
 	int j;
 
-	j = env->nb_champs - 1;
+	j = env->nb_proc - 1;
 	while (j >= 0)
 	{
-		if (env->champ[j].nb_live >= 0)
+		if (env->proc[j].nb_live >= 0)
 		{
-			if (env->champ[j].cycles == 1)
+			if (env->proc[j].cycles == 1)
 			{
 				exec_op(env, j);
 				if (move_pc(env, j) == FAIL)
 					return (FAIL);
 			}
-			else if (env->champ[j].cycles > 1)
-				env->champ[j].cycles--;
+			else if (env->proc[j].cycles > 1)
+				env->proc[j].cycles--;
 		}
 		j--;
 	}

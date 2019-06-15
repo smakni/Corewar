@@ -25,13 +25,13 @@ void		op_lldi(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		env->champ[j].op.name = "lldi";
+		env->proc[j].op.name = "lldi";
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		sum = 0;
-		if (type_param(env->champ[j].op.saved[1], 1) == REG_CODE)
+		if (type_param(env->proc[j].op.saved[1], 1) == REG_CODE)
 		{
-			nb_reg1 = env->champ[j].op.saved[cursor + 1];
+			nb_reg1 = env->proc[j].op.saved[cursor + 1];
 			save_param(env, j, nb_reg1, REG_CODE, 0);
 			v1 = 0;
 			if (nb_reg1 >= 1 && nb_reg1 <= 16)
@@ -44,9 +44,9 @@ void		op_lldi(t_env *env, unsigned int j)
 			v1 = get_value_index(env, j, &cursor, 1);
 			save_param(env, j, v1, IND_CODE, 0);
 		}
-		if (type_param(env->champ[j].op.saved[1], 2) == REG_CODE)
+		if (type_param(env->proc[j].op.saved[1], 2) == REG_CODE)
 		{
-			nb_reg2 = env->champ[j].op.saved[cursor + 1];
+			nb_reg2 = env->proc[j].op.saved[cursor + 1];
 			save_param(env, j, nb_reg1, REG_SIZE, 1);
 			v2 = 0;
 			if (nb_reg2 >= 1 && nb_reg2 <= 16)
@@ -57,28 +57,28 @@ void		op_lldi(t_env *env, unsigned int j)
 		else
 			v2 = get_value_index(env, j, &cursor, 2);
 		cursor++;
-		nb_reg3 = env->champ[j].op.saved[cursor];
+		nb_reg3 = env->proc[j].op.saved[cursor];
 		save_param(env, j, nb_reg3, REG_CODE, 2);
 		cursor++;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
-			if (type_param(env->champ[j].op.saved[1], 1) == IND_CODE)
-				sum = read_bytes(env->memory, env->champ[j].pc + v1, REG_SIZE);
+			if (type_param(env->proc[j].op.saved[1], 1) == IND_CODE)
+				sum = read_bytes(env->memory, env->proc[j].pc + v1, REG_SIZE);
 			else
 				sum = v1;
 			sum += v2;
-			sum = (env->champ[j].pc + sum) % MEM_SIZE;
+			sum = (env->proc[j].pc + sum) % MEM_SIZE;
 			if (sum < 0)
 				sum += MEM_SIZE;
 			sum = read_bytes(env->memory, sum, REG_SIZE);
-			env->champ[j].r[nb_reg3] = sum;
+			env->proc[j].r[nb_reg3] = sum;
 		}
 		if (sum == 0 && nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
-			env->champ[j].carry = 1;
+			env->proc[j].carry = 1;
 		else
-			env->champ[j].carry = 0;
+			env->proc[j].carry = 0;
 	}
 	else
-		cursor += decode_byte_param(env->champ[j].op.saved[1], 1, 3);
-	env->champ[j].pc += cursor;
+		cursor += decode_byte_param(env->proc[j].op.saved[1], 1, 3);
+	env->proc[j].pc += cursor;
 }

@@ -16,12 +16,12 @@ void	op_zjmp(t_env *env, unsigned j)
 {
 	int index;
 
-	env->champ[j].op.name = "jmp";
-	if (env->champ[j].carry == 1)
+	env->proc[j].op.name = "jmp";
+	if (env->proc[j].carry == 1)
 	{
-		index = read_bytes(env->champ[j].op.saved, 1, 2);
-		env->champ[j].pc += index % IDX_MOD;
+		index = read_bytes(env->proc[j].op.saved, 1, 2);
+		env->proc[j].pc += index % IDX_MOD;
 	}
 	else
-		env->champ[j].pc += 3;
+		env->proc[j].pc += 3;
 }

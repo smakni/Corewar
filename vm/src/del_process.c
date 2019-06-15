@@ -20,12 +20,12 @@ static void del_process_visu(t_env *env)
 	int			color;
 
 	j = 0;
-	while (j < env->nb_champs)
+	while (j < env->nb_proc)
 	{
-		if (env->champ[j].nb_live == 0)
+		if (env->proc[j].nb_live == 0)
 		{
-			x = env->champ[j].pc % 64 * 3;
-			y = env->champ[j].pc / 64;
+			x = env->proc[j].pc % 64 * 3;
+			y = env->proc[j].pc / 64;
 			remove_bold(env, j);
 			color = mvwinch(env->mem, y, x) & A_COLOR;
 			if (color == COLOR_PAIR(12))
@@ -47,18 +47,18 @@ static void	aff_del_process(t_env *env, unsigned j)
 {
 	while ((int)j >= 0)
 	{
-		if (env->champ[j].nb_live == -1)
+		if (env->proc[j].nb_live == -1)
 		{
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", j + 1,
-						env->cycle_index - env->champ[j].cycle_to_life + 799, env->cycle_to_die);
-			env->champ[j].nb_live = -2;
+						env->cycle_index - env->proc[j].cycle_to_life + 799, env->cycle_to_die);
+			env->proc[j].nb_live = -2;
 		}
 		j--;
 	}
 }
 
 int del_process(t_env *env)
-{	
+{
 	unsigned	j;
 	int			living_proc;
 
@@ -66,15 +66,15 @@ int del_process(t_env *env)
 	living_proc = 0;
 	if (env->visu == 1)
 		del_process_visu(env);
-	while (j < env->nb_champs)
+	while (j < env->nb_proc)
 	{
-		if (env->champ[j].nb_live > 0)
+		if (env->proc[j].nb_live > 0)
 		{
-			env->champ[j].nb_live = 0;
+			env->proc[j].nb_live = 0;
 			living_proc++;
 		}
-		else if (env->champ[j].nb_live != -2)
-			env->champ[j].nb_live = -1;
+		else if (env->proc[j].nb_live != -2)
+			env->proc[j].nb_live = -1;
 		j++;
 	}
 	if (env->visu == 0)

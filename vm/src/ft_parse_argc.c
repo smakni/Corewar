@@ -12,7 +12,7 @@
 
 #include "../../includes/vm.h"
 
-static int ft_check_duplicate(t_champ *tmp, unsigned int nb)
+static int ft_check_duplicate(t_player *tmp, unsigned int nb)
 {
 	unsigned int i;
 	unsigned int j;
@@ -40,31 +40,31 @@ static int ft_check_duplicate(t_champ *tmp, unsigned int nb)
 	return (SUCCESS);
 }
 
-static int ft_sort_argc(t_env *env, t_champ *tmp)
+static int ft_sort_argc(t_env *env, t_player *tmp)
 {
 	unsigned int i;
 	unsigned int j;
 
 	i = 0;
-	if (ft_check_duplicate(tmp, env->nb_champs) == FAIL)
+	if (ft_check_duplicate(tmp, env->nb_proc) == FAIL)
 		return (FAIL);
-	while (++i < env->nb_champs + 1)
+	while (++i < env->nb_proc + 1)
 	{
 		j = -1;
-		while (++j < env->nb_champs)
+		while (++j < env->nb_proc)
 			if (tmp[j].id == i)
 			{
-				env->champ[i - 1] = tmp[j];
+				env->player[i - 1] = tmp[j];
 				break;
 			}
-		if (j == env->nb_champs)
+		if (j == env->nb_proc)
 		{
 			j = -1;
-			while (++j < env->nb_champs)
+			while (++j < env->nb_proc)
 				if (tmp[j].id == 0)
 				{
 					tmp[j].id = i;
-					env->champ[i - 1] = tmp[j];
+					env->player[i - 1] = tmp[j];
 					break;
 				}
 		}
@@ -75,16 +75,16 @@ static int ft_sort_argc(t_env *env, t_champ *tmp)
 int		ft_parse_argc(int argc, char **argv, t_env *env)
 {
 	int i;
-	t_champ tmp[4];
+	t_player tmp[4];
 
-	ft_bzero(tmp, 4 * sizeof(t_champ));
+	ft_bzero(tmp, 4 * sizeof(t_player));
 	i = 0;
 	while (i < argc)
 	{
 		if (ft_strequ(argv[i], "-n"))
 		{
 			if (i + 2 < argc && ft_isdigit(argv[i + 1][0]) != 0)
-				tmp[env->nb_champs].id = ft_atoi(argv[++i]);
+				tmp[env->nb_proc].id = ft_atoi(argv[++i]);
 			else
 			{
 				ft_printf("error\n");
@@ -95,9 +95,9 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 			env->visu = 1;
 		else if (ft_strstr(argv[i], ".cor"))
 		{
-			ft_memcpy(tmp[env->nb_champs].header.prog_name,
+			ft_memcpy(tmp[env->nb_proc].header.prog_name,
 					  argv[i], PROG_NAME_LENGTH + 1);
-			env->nb_champs++;
+			env->nb_proc++;
 		}
 		i++;
 	}
@@ -112,12 +112,12 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 	argv++;
 	while (*argv)
 	{
-		ft_memcpy(env->champ[env->nb_champs].header.prog_name,
+		ft_memcpy(env->player[env->nb_proc].header.prog_name,
 					*argv, PROG_NAME_LENGTH + 1);
-		env->nb_champs++;
+		env->nb_proc++;
 		argv++;
 	}
-	if (env->nb_champs <= 0 ||env->nb_champs > 4)
+	if (env->nb_proc <= 0 ||env->nb_proc > 4)
 		return (FAIL);
 	return (SUCCESS);
 }*/

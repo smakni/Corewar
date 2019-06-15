@@ -20,16 +20,16 @@ void		op_st(t_env *env, unsigned int j)
 	int		current_pos;
 	int		nb_reg;
 
-	current_pos = env->champ[j].pc;
+	current_pos = env->proc[j].pc;
 	cursor = 1;
 	if (check_args(env, j, &cursor, 2))
 	{
-		env->champ[j].op.name = "st";
-		nb_reg = env->champ[j].op.saved[2];
+		env->proc[j].op.name = "st";
+		nb_reg = env->proc[j].op.saved[2];
 		save_param(env, j, nb_reg, REG_CODE, 0);
 		reg_content = get_value(env, j, &cursor, 1);
 		cursor++;
-		if (type_param(env->champ[j].op.saved[1], 2) == IND_CODE)
+		if (type_param(env->proc[j].op.saved[1], 2) == IND_CODE)
 		{
 			dest = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
@@ -49,16 +49,16 @@ void		op_st(t_env *env, unsigned int j)
 		}
 		else
 		{
-			dest = env->champ[j].op.saved[cursor];
+			dest = env->proc[j].op.saved[cursor];
 			save_param(env, j, dest, IND_CODE, 1);
 			cursor++;
 			if (nb_reg >= 1 && nb_reg <= 16)
-				env->champ[j].r[dest] = reg_content;
+				env->proc[j].r[dest] = reg_content;
 		}
 	}
 	else
-		cursor += decode_byte_param(env->champ[j].op.saved[1], 0, 2);
-	env->champ[j].pc += cursor;
+		cursor += decode_byte_param(env->proc[j].op.saved[1], 0, 2);
+	env->proc[j].pc += cursor;
 	if (env->visu == 1)
 		update_visu(env, dest, j);
 }

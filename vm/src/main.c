@@ -14,7 +14,7 @@
 
 static int clean_quit(t_env *env, const int ret)
 {
-	ft_memdel((void *)&env->champ);
+	ft_memdel((void *)&env->proc);
 	return (ret);
 }
 
@@ -35,33 +35,33 @@ void ft_print_memory(t_env *env)
 	i = 0;
 	ft_putendl("");
 	i = 0;/*
-	while ((unsigned)i < env->nb_champs)
+	while ((unsigned)i < env->nb_proc)
 	{
 		ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
-		env->champ[i].header.prog_name, env->champ[i].r[1], env->champ[i].nb_live, env->champ[i].last_live);
-		ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->champ[i].pc);
-		ft_printf("OP{%.2x}", env->memory[env->champ[i].pc]);
-		ft_printf("[%2d]\n", env->champ[i].cycles);
+		env->proc[i].header.prog_name, env->proc[i].r[1], env->proc[i].nb_live, env->proc[i].last_live);
+		ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->proc[i].pc);
+		ft_printf("OP{%.2x}", env->memory[env->proc[i].pc]);
+		ft_printf("[%2d]\n", env->proc[i].cycles);
 		i++;
 	}*/
 	i = 0;
-	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_champs);
+	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_proc);
 	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 	while (i < 4096)
 	{
 		unsigned j = 0;
-		while (j < env->nb_champs)
+		while (j < env->nb_proc)
 		{
-			if (env->champ[j].pc == i)
+			if (env->proc[j].pc == i)
 			{
 				flag = 1;
-				if (env->champ[j].id == 0xffffffff)
+				if (env->proc[j].id == 0xffffffff)
 					ft_printf("{BG_GREEN}");
-				else if (env->champ[j].id == 0xfffffffe)
+				else if (env->proc[j].id == 0xfffffffe)
 					ft_printf("{BG_BLUE}");
-				else if (env->champ[j].id == 0xfffffffd)
+				else if (env->proc[j].id == 0xfffffffd)
 					ft_printf("{BG_RED}");
-				else if (env->champ[j].id == 0xfffffffc)
+				else if (env->proc[j].id == 0xfffffffc)
 					ft_printf("{BG_CYAN}");
 			}
 			j++;
@@ -88,13 +88,13 @@ int check_last_live(t_env *env)
 	while (i < MAX_PLAYERS)
 	{
 		//ft_printf("[%s]live = %d\n",
-		//		env->live[i].header.prog_name, env->live[i].last_live);
-		if (env->live[i].last_live > last_live)
-		{	
+		//		env->player[i].header.prog_name, env->player[i].last_live);
+		if (env->player[i].last_live > last_live)
+		{
 			//ft_printf("SAVE");
 			//ft_printf("[%s]live = %d\n",
-			//	env->live[i].header.prog_name, env->live[i].last_live);
-			last_live = env->live[i].last_live;
+			//	env->player[i].header.prog_name, env->player[i].last_live);
+			last_live = env->player[i].last_live;
 			save = i;
 		}
 		i++;
@@ -104,7 +104,7 @@ int check_last_live(t_env *env)
         mvwprintw(env->infos, 0, 0, "**Game Over**");
         mvwprintw(env->infos, 48, 0, "WINNER :");
 		wattron(env->infos, COLOR_PAIR(4 + save));
-		mvwprintw(env->infos, 48, 11, "%s", env->live[save].header.prog_name);
+		mvwprintw(env->infos, 48, 11, "%s", env->player[save].header.prog_name);
 		wattroff(env->infos, COLOR_PAIR(4 + save));
 		wrefresh(env->infos);
 		while (1)
@@ -119,7 +119,7 @@ int check_last_live(t_env *env)
 			}
 	}
 	else
-		ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->live[save].header.prog_name, env->live[save].last_live);
+		ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->player[save].header.prog_name, env->player[save].last_live);
 	return (save);
 }
 
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 	{
 		ft_bzero(&env, sizeof(t_env));
 		env.nb_realloc = 1;
-		if (!(env.champ = (t_champ *)malloc(sizeof(t_champ) * ARR_SIZE)))
+		if (!(env.proc = malloc(sizeof(t_proc) * ARR_SIZE)))
 			return (-1);
 		if (ft_parse_argc(argc, argv, &env) == FAIL)
 			return (clean_quit(&env, -1));

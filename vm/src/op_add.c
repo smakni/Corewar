@@ -24,38 +24,38 @@ void		op_add(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		env->champ[j].op.name = "add";
+		env->proc[j].op.name = "add";
 		cursor++;
 		sum = 0;
-		nb_reg1 = env->champ[j].op.saved[cursor];
+		nb_reg1 = env->proc[j].op.saved[cursor];
 		save_param(env, j, nb_reg1, REG_CODE, 0);
 		if (nb_reg1 >= 1 && nb_reg1 <= 16)
 		{
-			reg_content = env->champ[j].r[nb_reg1];
+			reg_content = env->proc[j].r[nb_reg1];
 			sum += reg_content;
 		}
 		cursor++;
-		nb_reg2 = env->champ[j].op.saved[cursor];
+		nb_reg2 = env->proc[j].op.saved[cursor];
 		save_param(env, j, nb_reg2, REG_CODE, 1);
 		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 		{
-			reg_content = env->champ[j].r[nb_reg2];
+			reg_content = env->proc[j].r[nb_reg2];
 			sum += reg_content;
 		}
 		cursor++;
-		nb_reg3 = env->champ[j].op.saved[cursor];
+		nb_reg3 = env->proc[j].op.saved[cursor];
 		save_param(env, j, nb_reg3, REG_CODE, 2);
 		if (sum == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
 				&& nb_reg2 >= 1 && nb_reg2 <= 16
 				&& nb_reg3 >= 1 && nb_reg3 <= 16)
-			env->champ[j].carry = 1;
+			env->proc[j].carry = 1;
 		else
-			env->champ[j].carry = 0;
+			env->proc[j].carry = 0;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
-			env->champ[j].r[nb_reg3] = sum;
+			env->proc[j].r[nb_reg3] = sum;
 		cursor++;
 	}
 	else
-		cursor += decode_byte_param(env->champ[j].op.saved[1], 0, 3);
-	env->champ[j].pc += cursor;
+		cursor += decode_byte_param(env->proc[j].op.saved[1], 0, 3);
+	env->proc[j].pc += cursor;
 }
