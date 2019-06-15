@@ -50,7 +50,7 @@ static void	aff_del_processess(t_env *env, unsigned j)
 		if (env->process[j].nb_live == -1)
 		{
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", j + 1,
-						env->cycle_index - env->process[j].cycle_to_life + 799, env->cycle_to_die);
+						env->cycle_index - env->process[j].last_live - 1, env->cycle_to_die);
 			env->process[j].nb_live = -2;
 		}
 		j--;

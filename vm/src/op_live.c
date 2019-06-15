@@ -66,4 +66,5 @@ void		op_live(t_env *env, unsigned j)
 	env->live_period++;
 	env->process[j].nb_live++;
 	env->process[j].pc += 5;
+	env->process[j].last_live = env->cycle_index;
 }
