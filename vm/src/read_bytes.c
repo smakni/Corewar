@@ -34,7 +34,7 @@ int		read_bytes(unsigned char *line, int index, int n)
 		nb += line[(index + 1) % MEM_SIZE] << 16;
 		nb += line[(index + 2) % MEM_SIZE] << 8;
 		nb += line[(index + 3) % MEM_SIZE];
-		if (nb  >> 15 == 1)
+		if (nb >> 15 == 1)
 			nb |= (-1 & ~0xFFFF);
 	}
 	return (nb);

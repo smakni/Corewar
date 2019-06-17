@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/13 19:21:23 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/17 18:58:14 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_reg_content(t_env *env, unsigned int j, int *cursor, int *nb_reg,
 void	op_sti(t_env *env, unsigned int j)
 {
 	int		cursor;
-	short	dest;
+	int		dest;
 	int		reg_content;
 	int		current_pos;
 	int		tmp;
@@ -56,7 +56,7 @@ void	op_sti(t_env *env, unsigned int j)
 				tmp += (current_pos + MEM_SIZE);
 			else if (current_pos + tmp >= MEM_SIZE)
 				tmp = (current_pos + tmp) % MEM_SIZE;
-			dest = read_bytes(env->memory, tmp, 4);
+			dest = read_bytes(env->memory, current_pos + tmp, 4) % IDX_MOD;
 			save_param(env, j, dest, IND_CODE, 1);
 		}
 		else if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
