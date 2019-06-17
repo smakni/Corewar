@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/17 18:02:06 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:50:07 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,9 @@ int read_memory(t_env *env)
 			}
 			key_events(env);
 		}
-		else
-			ft_print_memory(env);
-		read(0, 0, 1);
+		//else
+		//	ft_print_memory(env);
+		// read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

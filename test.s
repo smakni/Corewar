@@ -1,4 +1,4 @@
 .name "test"
 .comment "test_st_sti"
 
-    sti	r1, 2, %10
+    sti	r1, r9, %-5403

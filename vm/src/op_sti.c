@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/17 18:24:32 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:48:35 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	op_sti(t_env *env, unsigned int j)
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
 			dest += current_pos;
-			ft_printf("destinatiion is %i\n", dest);
 			if (dest < 0)
 				dest += MEM_SIZE;
 			else if (dest >= MEM_SIZE)
