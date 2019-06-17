@@ -12,7 +12,7 @@
 
 #include "../../includes/vm.h"
 
-static void	intro_game(t_env *env)
+static void intro_game(t_env *env)
 {
 	unsigned i;
 
@@ -21,8 +21,8 @@ static void	intro_game(t_env *env)
 	while (i < env->nb_process)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
-					env->player[i].header.prog_size, env->player[i].header.prog_name,
-					env->player[i].header.comment);
+				  env->player[i].header.prog_size, env->player[i].header.prog_name,
+				  env->player[i].header.comment);
 		i++;
 	}
 }
@@ -35,7 +35,7 @@ static int check_live(t_env *env, int *check_delta)
 	if (env->live_period >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		if (env ->visu == 0)
+		if (env->visu == 0)
 			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 	}
 	else
@@ -44,7 +44,7 @@ static int check_live(t_env *env, int *check_delta)
 	return (living_process);
 }
 
-static int	move_pc(t_env *env, int j)
+static int move_pc(t_env *env, int j)
 {
 	if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc -= MEM_SIZE;
@@ -57,7 +57,7 @@ static int	move_pc(t_env *env, int j)
 	return (1);
 }
 
-static int	processess_execution(t_env *env)
+static int processess_execution(t_env *env)
 {
 	int j;
 
@@ -113,7 +113,7 @@ int read_memory(t_env *env)
 		if (i == env->cycle_to_die)
 		{
 			if (check_live(env, &check_delta) == 0)
-				break ;
+				break;
 			i = reset_cycles(env, &check_delta);
 		}
 		if (env->visu == 0)
@@ -124,14 +124,26 @@ int read_memory(t_env *env)
 		{
 			print_infos(env);
 			wrefresh(env->mem);
+			if (env->mvintime == 1)
+			{
+				if (env->cycle_index > 1000)
+				{
+					overlay(env->mem, env->trace[env->cycle_index % 1000]);
+					overlay(env->infos, env->traceinfos[env->cycle_index % 1000]);
+				}
+				else
+				{
+					env->trace[env->cycle_index % 1000] = dupwin(env->mem);
+					env->traceinfos[env->cycle_index % 1000] = dupwin(env->infos);
+				}
+			}
 			key_events(env);
 		}
 		//else
-		 //	ft_print_memory(env);
+		//	ft_print_memory(env);
 		// read(0, 0, 1);
 		env->cycle_index++;
 		i++;
-		//remove_bold(env);
 	}
 	return (SUCCESS);
 }

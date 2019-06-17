@@ -73,12 +73,16 @@ typedef struct		s_env
 	int				cycle_to_die;
 	int				cycle_index;
 	int				visu;
+	int				mvintime;
 	char			*err_msg;
 	WINDOW			*around_memory;
 	WINDOW			*mem;
 	WINDOW			*around_infos;
 	WINDOW			*infos;
+	WINDOW			*state;
 	WINDOW			*commands;
+	WINDOW			*trace[1000];
+	WINDOW			*traceinfos[1000];
 }					t_env;
 
 int					ft_parse_argc(int argc, char **argv, t_env *env);
@@ -124,5 +128,7 @@ void				key_events(t_env *env);
 void				aff_operations(t_env *env, unsigned j, int save);
 void				aff_operations_visu(t_env *env, unsigned j, int save);
 void				remove_bold(t_env *env, unsigned j);
+void				fill_commands_mv_back(t_env *env);
+void				fill_commands(t_env *env);
 
 #endif

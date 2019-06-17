@@ -109,6 +109,12 @@ int check_last_live(t_env *env)
 		while (1)
 			if (getch() == ' ')
 			{
+				i = 0;
+				while (i < 1000)
+				{
+					delwin(env->trace[i++]);
+					delwin(env->traceinfos[i++]);
+				}
 				delwin(env->mem);
 				delwin(env->infos);
 				delwin(env->around_infos);

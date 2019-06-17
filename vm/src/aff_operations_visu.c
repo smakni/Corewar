@@ -118,9 +118,13 @@ void aff_operations_visu(t_env *env, unsigned j, int save)
 			wprintw(env->infos, "%s", env->process[j].op.name);
 		while (env->process[j].op.param[i])
 			wprintw(env->infos, " %s", env->process[j].op.param[i++]);
-		if (env->process[j].op.saved[0] == 0x01 && (ft_strcmp(env->process[j].op.param[0], "-1") == 0 || ft_strcmp(env->process[j].op.param[0], "-2") == 0 || ft_strcmp(env->process[j].op.param[0], "-3") == 0 || ft_strcmp(env->process[j].op.param[0], "-4") == 0))
-			wprintw(env->infos, "\nPlayer %d (%s) is said to be alive",
-					env->process[j].nb + 1, env->player[env->process[j].nb].header.prog_name);
+		if (env->process[j].op.saved[0] == 0x01
+				&& (ft_strcmp(env->process[j].op.param[0], "-1") == 0
+					|| ft_strcmp(env->process[j].op.param[0], "-2") == 0
+					|| ft_strcmp(env->process[j].op.param[0], "-3") == 0
+					|| ft_strcmp(env->process[j].op.param[0], "-4") == 0))
+			wprintw(env->infos, "\nPlayer %c (%s) is said to be alive",
+						env->process[j].op.param[0][1], env->player[env->process[j].nb].header.prog_name);
 		else if (env->process[j].op.saved[0] == 0x0b && env->process[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->process[j].op.param[1]) + ft_atoi(env->process[j].op.param[2]);

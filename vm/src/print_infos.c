@@ -43,7 +43,7 @@ void print_infos(t_env *env)
 	if (env->speed == 0)
 		env->speed = 50;
 	wattron(env->infos, COLOR_PAIR(3));
-	mvwprintw(env->infos, i += 2, 0, "Cycles/second limit : %-10d", env->speed);
+	mvwprintw(env->infos, i, 0, "Cycles/second limit : %-10d", env->speed);
 	mvwprintw(env->infos, i += 2, 0, "Cycle : %d", env->cycle_index);
 	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_process);
 	i += 2;

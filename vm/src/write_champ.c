@@ -61,10 +61,13 @@ static void	write_champ_visu(t_env *env, unsigned j)
 	wattroff(env->mem, COLOR_PAIR(4 + j));
 	if (j == env->nb_process - 1)
 	{
-		mvwprintw(env->infos, 0, 0, "** PAUSED ** ");
+		mvwprintw(env->state, 0, 0, "** PAUSED ** ");
 		print_infos(env);
 		wrefresh(env->mem);
+		wrefresh(env->state);
 	}
+	env->trace[env->cycle_index] = dupwin(env->mem);
+	env->traceinfos[env->cycle_index] = dupwin(env->infos);
 }
 
 int		write_champ(t_env *env)

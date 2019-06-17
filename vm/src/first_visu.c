@@ -37,11 +37,30 @@ static void init_color_palet(void)
 	init_pair(16, COLOR_WHITE, COLOR_YELLOW);
 }
 
-static void	fill_commands(t_env *env)
+void	fill_commands_mv_back(t_env *env)
 {
+	werase(env->commands);
 	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
 	mvwprintw(env->commands, 1, 2, "COMMANDS :");
-	mvwprintw(env->commands, 3, 2, "Press any key to launch");
+	mvwprintw(env->commands, 3, 2, "Press 'p' to quit exploration mode");
+	mvwprintw(env->commands, 5, 2, "Cycle -= 10 : 'h'");
+	mvwprintw(env->commands, 6, 2, "Cycle -= 1 : 'j'");
+	mvwprintw(env->commands, 7, 2, "Cycle += 1 : 'k'");
+	mvwprintw(env->commands, 8, 2, "Cycle += 10 : 'l'");
+	mvwprintw(env->commands, 10, 2, "Cannot move in future cycles");
+	mvwprintw(env->commands, 12, 2, "Cannot move back more than 1000 cycles");
+	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
+	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
+	wrefresh(env->commands);
+}
+
+void	fill_commands(t_env *env)
+{
+	werase(env->commands);
+	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
+	mvwprintw(env->commands, 1, 2, "COMMANDS :");
+	mvwprintw(env->commands, 3, 2, "Press any key to launch / SPACE to quit");
 	mvwprintw(env->commands, 5, 2, "Speed :");
 	mvwprintw(env->commands, 6, 4, "-10 cycles/second : q");
 	mvwprintw(env->commands, 7, 4, "-1 cycle/second : w");
@@ -49,7 +68,11 @@ static void	fill_commands(t_env *env)
 	mvwprintw(env->commands, 9, 4, "+10 cycle/second : r");
 	mvwprintw(env->commands, 10, 4, "cycle/second = 1 : t");
 	mvwprintw(env->commands, 11, 4, "nolimit : y");
-	mvwprintw(env->commands, 13, 2, "Pause/Run : SPACE");
+	mvwprintw(env->commands, 12, 2, "Pause/Run : SPACE");
+	mvwprintw(env->commands, 14, 2, "Exploration mode : 'p'");
+	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
+	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	wrefresh(env->commands);
 }
 
@@ -70,11 +93,11 @@ void first_visu(t_env *env)
 	env->around_infos = subwin(stdscr, 68, 58, 0, 196);
 	wborder(env->around_infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	env->commands = subwin(stdscr, 16, 58, 52, 196);
-	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	fill_commands(env);
 	env->mem = subwin(stdscr, 64, 193, 2, 3);
-	env->infos = subwin(stdscr, 53, 52, 2, 199);
+    env->state = subwin(stdscr, 2, 52, 2, 199);
+	env->infos = subwin(stdscr, 51, 52, 4, 199);
 	wattron(env->mem, COLOR_PAIR(1));
 	while (i < 4096)
 	{

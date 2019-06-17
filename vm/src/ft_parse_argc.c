@@ -93,6 +93,8 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 		}
 		else if (ft_strequ(argv[i], "-visu"))
 			env->visu = 1;
+		else if (ft_strequ(argv[i], "-mvintime"))
+			env->mvintime = 1;
 		else if (ft_strstr(argv[i], ".cor"))
 		{
 			ft_memcpy(tmp[env->nb_process].header.prog_name,
@@ -104,20 +106,3 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 	ft_sort_argc(env, tmp);
 	return (SUCCESS);
 }
-/*
-
-int		ft_parse_argc(int argc, char **argv, t_env *env)
-{
-	(void)argc;
-	argv++;
-	while (*argv)
-	{
-		ft_memcpy(env->player[env->nb_process].header.prog_name,
-					*argv, PROG_NAME_LENGTH + 1);
-		env->nb_process++;
-		argv++;
-	}
-	if (env->nb_process <= 0 ||env->nb_process > 4)
-		return (FAIL);
-	return (SUCCESS);
-}*/
