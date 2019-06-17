@@ -28,12 +28,21 @@ void update_visu(t_env *env, short dest, unsigned j)
 	wattron(env->mem, A_BOLD);
 	while (k < 4)
 	{
-		mvwprintw(env->mem, y, x, "%.2x", env->memory[dest + k]);
-		x += 3;
-		if (x >= 192)
+		mvwprintw(env->mem, y, x, "%.2x", env->memory[dest++]);
+		if (dest >= 4096)
 		{
-			x -= 192;
-			y++;
+			dest -= 4096;
+			x = dest % 64 * 3;
+			y = dest / 64;
+		}
+		else
+		{
+			x += 3;
+			if (x >= 192)
+			{
+				x -= 192;
+				y++;
+			}
 		}
 		k++;
 	}
@@ -45,21 +54,32 @@ void remove_bold(t_env *env, unsigned j)
 	int k;
 	int x;
 	int y;
+	int dest;
 
 	k = 0;
 	if (env->process[j].bold == 1)
 	{
+		dest = env->process[j].dest;
 		x = env->process[j].dest % 64 * 3;
 		y = env->process[j].dest / 64;
 		k = 0;
 		while (k < 4)
 		{
 			mvwchgat(env->mem, y, x, 2, A_NORMAL, env->process[j].color, NULL);
-			x += 3;
-			if (x >= 192)
+			if (++dest >= 4096)
 			{
-				x -= 192;
-				y++;
+				dest -= 4096;
+				x = dest % 64 * 3;
+				y = dest / 64;
+			}
+			else
+			{
+				x += 3;
+				if (x >= 192)
+				{
+					x -= 192;
+					y++;
+				}
 			}
 			k++;
 		}
@@ -85,7 +105,7 @@ static void mv_back(t_env *env)
 		if (key == 'p')
 		{
 			fill_commands(env);
-			overwrite(env->trace[env->cycle_index % 1000], env->mem);
+			overlay(env->trace[env->cycle_index % 1000], env->mem);
 			overwrite(env->traceinfos[env->cycle_index % 1000], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
@@ -97,7 +117,7 @@ static void mv_back(t_env *env)
 			cycle -= 10;
 			if (where < 0)
 				where += 1000;
-			overwrite(env->trace[where], env->mem);
+			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
@@ -108,7 +128,7 @@ static void mv_back(t_env *env)
 			cycle -= 1;
 			if (where < 0)
 				where += 1000;
-			overwrite(env->trace[where], env->mem);
+			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
@@ -119,7 +139,7 @@ static void mv_back(t_env *env)
 			cycle += 1;
 			if (where >= 1000)
 				where -= 1000;
-			overwrite(env->trace[where], env->mem);
+			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
@@ -130,7 +150,7 @@ static void mv_back(t_env *env)
 			cycle += 10;
 			if (where >= 1000)
 				where -= 1000;
-			overwrite(env->trace[where], env->mem);
+			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
