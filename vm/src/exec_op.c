@@ -6,13 +6,37 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/13 17:42:14 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/17 19:00:35 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void redraw_pc(t_env *env, int pc, int len)
+static void		redraw_pc_2(t_env *env, int pc, int len)
+{
+	int x;
+	int y;
+	int color;
+
+	pc -= len;
+	if (pc < 0)
+		pc += 4096;
+	x = pc % 64 * 3;
+	y = pc / 64;
+	color = mvwinch(env->mem, y, x) & A_COLOR;
+	if (color == COLOR_PAIR(12))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 1, NULL);
+	else if (color == COLOR_PAIR(8))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
+	else if (color == COLOR_PAIR(9))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
+	else if (color == COLOR_PAIR(10))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
+	else if (color == COLOR_PAIR(11))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
+}
+
+static void		redraw_pc(t_env *env, int pc, int len)
 {
 	int x;
 	int y;
@@ -33,26 +57,10 @@ static void redraw_pc(t_env *env, int pc, int len)
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 10, NULL);
 	else if (color == COLOR_PAIR(7))
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 11, NULL);
-
-	pc -= len;
-	if (pc < 0)
-		pc += 4096;
-	x = pc % 64 * 3;
-	y = pc / 64;
-	color = mvwinch(env->mem, y, x) & A_COLOR;
-	if (color == COLOR_PAIR(12))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 1, NULL);
-	else if (color == COLOR_PAIR(8))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
-	else if (color == COLOR_PAIR(9))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
-	else if (color == COLOR_PAIR(10))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
-	else if (color == COLOR_PAIR(11))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
+	redraw_pc_2(env, pc, len);
 }
 
-void	exec_op(t_env *env, unsigned j)
+void			exec_op(t_env *env, unsigned j)
 {
 	void	(*op_fun[16])(t_env*, unsigned);
 	int		index;
@@ -93,7 +101,6 @@ void	exec_op(t_env *env, unsigned j)
 			aff_operations(env, j, save);
 		else
 			aff_operations_visu(env, j, save);
-
 	}
 	else
 	{

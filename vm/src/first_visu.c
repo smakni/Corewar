@@ -6,14 +6,14 @@
 /*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 15:10:36 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/14 15:10:39 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:56:03 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 #include <curses.h>
 
-static void init_color_palet(void)
+static void		init_color_palet(void)
 {
 	start_color();
 	init_color(COLOR_CYAN, 460, 460, 460);
@@ -37,50 +37,25 @@ static void init_color_palet(void)
 	init_pair(16, COLOR_WHITE, COLOR_YELLOW);
 }
 
-void	fill_commands_mv_back(t_env *env)
+static void		fill_first(t_env *env)
 {
-	werase(env->commands);
-	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
-	mvwprintw(env->commands, 1, 2, "COMMANDS :");
-	mvwprintw(env->commands, 3, 2, "Press 'p' to quit exploration mode");
-	mvwprintw(env->commands, 5, 2, "Cycle -= 10 : 'h'");
-	mvwprintw(env->commands, 6, 2, "Cycle -= 1 : 'j'");
-	mvwprintw(env->commands, 7, 2, "Cycle += 1 : 'k'");
-	mvwprintw(env->commands, 8, 2, "Cycle += 10 : 'l'");
-	mvwprintw(env->commands, 10, 2, "Cannot move in future cycles");
-	mvwprintw(env->commands, 12, 2, "Cannot move back more than 1000 cycles");
-	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
-	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
-	wrefresh(env->commands);
-}
-
-void	fill_commands(t_env *env)
-{
-	werase(env->commands);
-	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
-	mvwprintw(env->commands, 1, 2, "COMMANDS :");
-	mvwprintw(env->commands, 3, 2, "Press any key to launch / SPACE to quit");
-	mvwprintw(env->commands, 5, 2, "Speed :");
-	mvwprintw(env->commands, 6, 4, "-10 cycles/second : q");
-	mvwprintw(env->commands, 7, 4, "-1 cycle/second : w");
-	mvwprintw(env->commands, 8, 4, "+1 cycle/second : e");
-	mvwprintw(env->commands, 9, 4, "+10 cycle/second : r");
-	mvwprintw(env->commands, 10, 4, "cycle/second = 1 : t");
-	mvwprintw(env->commands, 11, 4, "nolimit : y");
-	mvwprintw(env->commands, 12, 2, "Pause/Run : SPACE");
-	mvwprintw(env->commands, 14, 2, "Exploration mode : 'p'");
-	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
-	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
-	wrefresh(env->commands);
-}
-
-void first_visu(t_env *env)
-{
-	int i;
+	int		i;
 
 	i = 0;
+	wattron(env->mem, COLOR_PAIR(1));
+	while (i < 4096)
+	{
+		wprintw(env->mem, "%.2x", env->memory[i]);
+		wprintw(env->mem, " ");
+		i++;
+		if (i % 64 == 0)
+			wprintw(env->mem, "\n");
+	}
+	wattroff(env->mem, COLOR_PAIR(1));
+}
+
+void			first_visu(t_env *env)
+{
 	initscr();
 	noecho();
 	cbreak();
@@ -96,18 +71,9 @@ void first_visu(t_env *env)
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	fill_commands(env);
 	env->mem = subwin(stdscr, 64, 193, 2, 3);
-    env->state = subwin(stdscr, 2, 52, 2, 199);
+	env->state = subwin(stdscr, 2, 52, 2, 199);
 	env->infos = subwin(stdscr, 51, 52, 4, 199);
-	wattron(env->mem, COLOR_PAIR(1));
-	while (i < 4096)
-	{
-		wprintw(env->mem, "%.2x", env->memory[i]);
-		wprintw(env->mem, " ");
-		i++;
-		if (i % 64 == 0)
-			wprintw(env->mem, "\n");
-	}
-	wattroff(env->mem, COLOR_PAIR(1));
+	fill_first(env);
 	refresh();
 	wrefresh(env->mem);
 }

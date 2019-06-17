@@ -6,13 +6,13 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/06 15:05:42 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/17 19:15:00 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void	write_champ_visu(t_env *env, unsigned j)
+static void		write_champ_visu(t_env *env, unsigned j)
 {
 	unsigned	k;
 	unsigned	x;
@@ -34,8 +34,7 @@ static void	write_champ_visu(t_env *env, unsigned j)
 		x *= 3;
 		y = k / 64 + (4096 / env->nb_process / 64 * j);
 	}
-	start = 4096 * j  / env->nb_process;
-
+	start = 4096 * j / env->nb_process;
 	wattron(env->mem, COLOR_PAIR(env->process[j].color + 4));
 	mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]);
 	k++;
@@ -70,12 +69,12 @@ static void	write_champ_visu(t_env *env, unsigned j)
 	env->traceinfos[env->cycle_index] = dupwin(env->infos);
 }
 
-int		write_champ(t_env *env)
+int				write_champ(t_env *env)
 {
-	unsigned i;
-	unsigned j;
-	int id;
-	unsigned char line[MAX_CHAMP_CODE_SIZE + 1];
+	unsigned		i;
+	unsigned		j;
+	int				id;
+	unsigned char	line[MAX_CHAMP_CODE_SIZE + 1];
 
 	i = 0;
 	j = 0;
