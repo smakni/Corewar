@@ -18,6 +18,8 @@ static void redraw_pc(t_env *env, int pc, int len)
 	int y;
 	int color;
 
+	if (pc >= 4096)
+		pc -= 4096;
 	x = pc % 64 * 3;
 	y = pc / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;
@@ -33,6 +35,8 @@ static void redraw_pc(t_env *env, int pc, int len)
 		mvwchgat(env->mem, y, x, 2, A_NORMAL, 11, NULL);
 
 	pc -= len;
+	if (pc < 0)
+		pc += 4096;
 	x = pc % 64 * 3;
 	y = pc / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;

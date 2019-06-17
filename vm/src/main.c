@@ -100,12 +100,13 @@ int check_last_live(t_env *env)
 	}
 	if (env->visu == 1)
 	{
-        mvwprintw(env->infos, 0, 0, "**Game Over**");
-        mvwprintw(env->infos, 48, 0, "WINNER :");
+        mvwprintw(env->state, 0, 0, "**Game Over**");
+        mvwprintw(env->infos, 47, 0, "WINNER :");
 		wattron(env->infos, COLOR_PAIR(4 + save));
-		mvwprintw(env->infos, 48, 11, "%s", env->player[save].header.prog_name);
+		mvwprintw(env->infos, 47, 11, "%s", env->player[save].header.prog_name);
 		wattroff(env->infos, COLOR_PAIR(4 + save));
 		wrefresh(env->infos);
+		wrefresh(env->state);
 		while (1)
 			if (getch() == ' ')
 			{
