@@ -73,7 +73,7 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 					|| ft_strcmp(env->process[j].op.param[0], "-3") == 0
 					|| ft_strcmp(env->process[j].op.param[0], "-4") == 0))
 			ft_printf("\nPlayer %c (%s) is said to be alive",
-						env->process[j].op.param[0][1], env->player[env->process[j].nb].header.prog_name);
+						env->process[j].op.param[0][1], env->player[ft_atoi(&env->process[j].op.param[0][1]) - 1].header.prog_name);
 		else if (env->process[j].op.saved[0] == 0x0b && env->process[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->process[j].op.param[1]) + ft_atoi(env->process[j].op.param[2]);
