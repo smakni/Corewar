@@ -129,7 +129,7 @@ int read_memory(t_env *env)
 				if (env->cycle_index > 1000)
 				{
 					overlay(env->mem, env->trace[env->cycle_index % 1000]);
-					overlay(env->infos, env->traceinfos[env->cycle_index % 1000]);
+					overwrite(env->infos, env->traceinfos[env->cycle_index % 1000]);
 				}
 				else
 				{
