@@ -126,15 +126,15 @@ int read_memory(t_env *env)
 			wrefresh(env->mem);
 			if (env->mvintime == 1)
 			{
-				if (env->cycle_index > 1000)
+				if (env->cycle_index > GO_BACK)
 				{
-					overlay(env->mem, env->trace[env->cycle_index % 1000]);
-					overwrite(env->infos, env->traceinfos[env->cycle_index % 1000]);
+					overlay(env->mem, env->trace[env->cycle_index % GO_BACK]);
+					overwrite(env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
 				}
 				else
 				{
-					env->trace[env->cycle_index % 1000] = dupwin(env->mem);
-					env->traceinfos[env->cycle_index % 1000] = dupwin(env->infos);
+					env->trace[env->cycle_index % GO_BACK] = dupwin(env->mem);
+					env->traceinfos[env->cycle_index % GO_BACK] = dupwin(env->infos);
 				}
 			}
 			key_events(env);

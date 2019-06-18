@@ -24,7 +24,8 @@ void			fill_commands_mv_back(t_env *env)
 	mvwprintw(env->commands, 7, 2, "Cycle += 1 : 'k'");
 	mvwprintw(env->commands, 8, 2, "Cycle += 10 : 'l'");
 	mvwprintw(env->commands, 10, 2, "Cannot move in future cycles");
-	mvwprintw(env->commands, 12, 2, "Cannot move back more than 1000 cycles");
+	mvwprintw(env->commands, 12, 2, "Cannot move back more than %d cycles",
+	GO_BACK);
 	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);

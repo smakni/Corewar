@@ -23,6 +23,7 @@
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
+# define GO_BACK				10000
 
 typedef	struct 		s_op
 {
@@ -81,8 +82,8 @@ typedef struct		s_env
 	WINDOW			*infos;
 	WINDOW			*state;
 	WINDOW			*commands;
-	WINDOW			*trace[1000];
-	WINDOW			*traceinfos[1000];
+	WINDOW			*trace[GO_BACK];
+	WINDOW			*traceinfos[GO_BACK];
 }					t_env;
 
 int					ft_parse_argc(int argc, char **argv, t_env *env);
@@ -121,7 +122,7 @@ void				save_op(t_env *env, unsigned j);
 void				ft_print_memory(t_env *env);
 void				save_param(t_env *env, int j, int value, int code, int index);
 void				first_visu(t_env *env);
-void				update_visu(t_env *env, short dest, unsigned j);
+void				update_visu(t_env *env, int dest, unsigned j);
 void				print_infos(t_env *env);
 //void				redraw_pc(t_env *env, int pc, int len);
 void				key_events(t_env *env);

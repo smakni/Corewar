@@ -13,7 +13,7 @@
 #include "../../includes/vm.h"
 #include <curses.h>
 
-void update_visu(t_env *env, short dest, unsigned j)
+void update_visu(t_env *env, int dest, unsigned j)
 {
 	int k;
 	int x;
@@ -97,7 +97,7 @@ static void mv_back(t_env *env)
 	mvwprintw(env->state, 0, 0, "EXPLORATION MODE");
 	wrefresh(env->state);
 	fill_commands_mv_back(env);
-	where = env->cycle_index % 1000;
+	where = env->cycle_index % GO_BACK;
 	cycle = env->cycle_index;
 	while (1)
 	{
@@ -105,29 +105,29 @@ static void mv_back(t_env *env)
 		if (key == 'p')
 		{
 			fill_commands(env);
-			overlay(env->trace[env->cycle_index % 1000], env->mem);
-			overwrite(env->traceinfos[env->cycle_index % 1000], env->infos);
+			overlay(env->trace[env->cycle_index % GO_BACK], env->mem);
+			overwrite(env->traceinfos[env->cycle_index % GO_BACK], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
 			break;
 		}
-		else if (key == 'h' && cycle > env->cycle_index - 990 && cycle > 9)
+		else if (key == 'h' && cycle > env->cycle_index - GO_BACK - 10 && cycle > 9)
 		{
 			where -= 10;
 			cycle -= 10;
 			if (where < 0)
-				where += 1000;
+				where += GO_BACK;
 			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
 			wrefresh(env->infos);
 		}
-		else if (key == 'j' && cycle > env->cycle_index - 1000 && cycle > 0)
+		else if (key == 'j' && cycle > env->cycle_index - GO_BACK && cycle > 0)
 		{
 			where -= 1;
 			cycle -= 1;
 			if (where < 0)
-				where += 1000;
+				where += GO_BACK;
 			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
@@ -137,8 +137,8 @@ static void mv_back(t_env *env)
 		{
 			where += 1;
 			cycle += 1;
-			if (where >= 1000)
-				where -= 1000;
+			if (where >= GO_BACK)
+				where -= GO_BACK;
 			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
@@ -148,8 +148,8 @@ static void mv_back(t_env *env)
 		{
 			where += 10;
 			cycle += 10;
-			if (where >= 1000)
-				where -= 1000;
+			if (where >= GO_BACK)
+				where -= GO_BACK;
 			overlay(env->trace[where], env->mem);
 			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
@@ -172,11 +172,11 @@ void key_events(t_env *env)
 		mvwprintw(env->state, 0, 0, "** RUNNING **");
 		wrefresh(env->state);
 	}
-	if (key == 'w' && env->speed > 1 && env->speed <= 1000)
+	if (key == 'w' && env->speed > 1)
 		env->speed -= 1;
 	else if (key == 'e' && env->speed < 1000)
 		env->speed += 1;
-	else if (key == 'q' && env->speed > 10 && env->speed <= 1000)
+	else if (key == 'q' && env->speed > 10)
 		env->speed -= 10;
 	else if (key == 'r' && env->speed < 991)
 		env->speed += 10;
@@ -222,7 +222,7 @@ void key_events(t_env *env)
 				{
 					mv_back(env);
 					werase(env->state);
-					mvwprintw(env->state, 0, 0, "** PAUSED ** ");
+					mvwprintw(env->state, 0, 0, "** PAUSED **");
 					wrefresh(env->state);
 				}
 				print_infos(env);
