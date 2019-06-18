@@ -35,7 +35,7 @@ static int check_live(t_env *env, int *check_delta)
 	if (env->live_period >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		if (env->visu == 0)
+		if (env->option == 0)
 			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 	}
 	else
@@ -85,7 +85,7 @@ static int reset_cycles(t_env *env, int *check_delta)
 	if (*check_delta == MAX_CHECKS)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		if (env->visu == 0)
+		if (env->option == 0)
 			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		*check_delta = 0;
 	}
@@ -99,14 +99,16 @@ int read_memory(t_env *env)
 
 	i = 0;
 	check_delta = 0;
-	if (env->visu == 1)
+	if (env->option == 1)
 	{
 		print_infos(env);
 		key_events(env);
 	}
+	else if (env->option == 2)
+		key_events(env);
 	env->cycle_index = 1;
 	env->cycle_to_die = CYCLE_TO_DIE;
-	if (env->visu == 0)
+	if (env->option == 0)
 		intro_game(env);
 	while (env->cycle_to_die > 0)
 	{
@@ -116,11 +118,11 @@ int read_memory(t_env *env)
 				break;
 			i = reset_cycles(env, &check_delta);
 		}
-		if (env->visu == 0)
+		if (env->option == 0)
 			ft_printf("It is now cycle %d\n", env->cycle_index);
 		if (processess_execution(env) == FAIL)
 			return (FAIL);
-		if (env->visu == 1)
+		if (env->option == 1 || env->option == 2)
 		{
 			print_infos(env);
 			wrefresh(env->mem);
@@ -129,12 +131,14 @@ int read_memory(t_env *env)
 				if (env->cycle_index > GO_BACK)
 				{
 					overlay(env->mem, env->trace[env->cycle_index % GO_BACK]);
-					overwrite(env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
+					if (env->option == 1)
+						overwrite(env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
 				}
 				else
 				{
 					env->trace[env->cycle_index % GO_BACK] = dupwin(env->mem);
-					env->traceinfos[env->cycle_index % GO_BACK] = dupwin(env->infos);
+					if (env->option == 1)
+						env->traceinfos[env->cycle_index % GO_BACK] = dupwin(env->infos);
 				}
 			}
 			key_events(env);

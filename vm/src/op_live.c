@@ -61,7 +61,7 @@ void		op_live(t_env *env, unsigned j)
 		env->player[2].last_live = env->cycle_index;
 	else if (id == (unsigned)-4)
 		env->player[3].last_live = env->cycle_index;
-	if (env->visu == 1 && (id == (unsigned)-1 || id == (unsigned)-2 || id == (unsigned)-3 || id == (unsigned)-4))
+	if ((env->option == 1 || env->option == 2) && (id == (unsigned)-1 || id == (unsigned)-2 || id == (unsigned)-3 || id == (unsigned)-4))
 		op_live_visu(env, j, id);
 	env->live_period++;
 	env->process[j].nb_live++;

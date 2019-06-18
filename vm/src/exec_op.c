@@ -69,7 +69,7 @@ void			exec_op(t_env *env, unsigned j)
 	int		y;
 
 	save = env->process[j].pc;
-	if (env->visu == 1 && env->process[j].live != -1)
+	if ((env->option == 1 || env->option == 2) && env->process[j].live != -1)
 	{
 		x = env->process[j].live % 64 * 3;
 		y = env->process[j].live / 64;
@@ -92,20 +92,20 @@ void			exec_op(t_env *env, unsigned j)
 	op_fun[14] = op_lfork;
 	op_fun[15] = op_aff;
 	index = env->process[j].op.saved[0];
-	if (env->visu == 1)
+	if (env->option == 1 || env->option == 2)
 		remove_bold(env, j);
 	if (index >= 0x01 && index <= 0x10)
 	{
 		op_fun[index - 1](env, j);
-		if (env->visu == 0)
+		if (env->option == 0)
 			aff_operations(env, j, save);
-		else
+		else if (env->option == 1)
 			aff_operations_visu(env, j, save);
 	}
 	else
 	{
 		env->process[j].pc++;
 	}
-	if (env->visu == 1)
+	if (env->option == 1 || env->option == 2)
 		redraw_pc(env, env->process[j].pc, env->process[j].pc - save);
 }

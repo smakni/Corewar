@@ -54,6 +54,18 @@ static void		fill_first(t_env *env)
 	wattroff(env->mem, COLOR_PAIR(1));
 }
 
+static void			first_visu_small(t_env *env)
+{
+	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
+	env->around_memory = subwin(stdscr, 68, 197, 0, 0);
+	wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
+	env->mem = subwin(stdscr, 64, 193, 2, 3);
+	fill_first(env);
+	refresh();
+	wrefresh(env->mem);
+}
+
 void			first_visu(t_env *env)
 {
 	initscr();
@@ -62,6 +74,8 @@ void			first_visu(t_env *env)
 	curs_set(0);
 	env->nb_player = env->nb_process;
 	init_color_palet();
+	if (env->option == 2)
+		return (first_visu_small(env));
 	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	env->around_memory = subwin(stdscr, 68, 197, 0, 0);
 	wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');

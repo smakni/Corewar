@@ -65,7 +65,7 @@ int del_processess(t_env *env)
 
 	j = 0;
 	living_process = 0;
-	if (env->visu == 1)
+	if (env->option == 1 || env->option == 2)
 		del_processess_visu(env);
 	while (j < env->nb_process)
 	{
@@ -78,7 +78,7 @@ int del_processess(t_env *env)
 			env->process[j].nb_live = -1;
 		j++;
 	}
-	if (env->visu == 0)
+	if (env->option == 0)
 		aff_del_processess(env, j);
 	return (living_process);
 }

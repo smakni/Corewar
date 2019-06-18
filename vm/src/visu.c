@@ -94,9 +94,12 @@ static void mv_back(t_env *env)
 	int where;
 	int cycle;
 
-	mvwprintw(env->state, 0, 0, "EXPLORATION MODE");
-	wrefresh(env->state);
-	fill_commands_mv_back(env);
+	if (env->option == 1)
+	{
+		mvwprintw(env->state, 0, 0, "EXPLORATION MODE");
+		wrefresh(env->state);
+		fill_commands_mv_back(env);
+	}
 	where = env->cycle_index % GO_BACK;
 	cycle = env->cycle_index;
 	while (1)
@@ -104,11 +107,14 @@ static void mv_back(t_env *env)
 		key = getch();
 		if (key == 'p')
 		{
-			fill_commands(env);
 			overlay(env->trace[env->cycle_index % GO_BACK], env->mem);
-			overwrite(env->traceinfos[env->cycle_index % GO_BACK], env->infos);
 			wrefresh(env->mem);
-			wrefresh(env->infos);
+			if (env->option == 1)
+			{
+				fill_commands(env);
+				overwrite(env->traceinfos[env->cycle_index % GO_BACK], env->infos);
+				wrefresh(env->infos);
+			}
 			break;
 		}
 		else if (key == 'h' && cycle > env->cycle_index - GO_BACK - 10 && cycle > 9)
@@ -118,9 +124,12 @@ static void mv_back(t_env *env)
 			if (where < 0)
 				where += GO_BACK;
 			overlay(env->trace[where], env->mem);
-			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
-			wrefresh(env->infos);
+			if (env->option == 1)
+			{
+				overwrite(env->traceinfos[where], env->infos);
+				wrefresh(env->infos);
+			}
 		}
 		else if (key == 'j' && cycle > env->cycle_index - GO_BACK && cycle > 0)
 		{
@@ -129,9 +138,12 @@ static void mv_back(t_env *env)
 			if (where < 0)
 				where += GO_BACK;
 			overlay(env->trace[where], env->mem);
-			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
-			wrefresh(env->infos);
+			if (env->option == 1)
+			{
+				overwrite(env->traceinfos[where], env->infos);
+				wrefresh(env->infos);
+			}
 		}
 		else if (key == 'k' && cycle < env->cycle_index)
 		{
@@ -140,9 +152,12 @@ static void mv_back(t_env *env)
 			if (where >= GO_BACK)
 				where -= GO_BACK;
 			overlay(env->trace[where], env->mem);
-			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
-			wrefresh(env->infos);
+			if (env->option == 1)
+			{
+				overwrite(env->traceinfos[where], env->infos);
+				wrefresh(env->infos);
+			}
 		}
 		else if (key == 'l' && cycle < env->cycle_index - 9)
 		{
@@ -151,9 +166,12 @@ static void mv_back(t_env *env)
 			if (where >= GO_BACK)
 				where -= GO_BACK;
 			overlay(env->trace[where], env->mem);
-			overwrite(env->traceinfos[where], env->infos);
 			wrefresh(env->mem);
-			wrefresh(env->infos);
+			if (env->option == 1)
+			{
+				overwrite(env->traceinfos[where], env->infos);
+				wrefresh(env->infos);
+			}
 		}
 	}
 }
@@ -167,7 +185,7 @@ void key_events(t_env *env)
 	if (env->cycle_index > 0)
 		timeout(0);
 	key = getch();
-	if (env->cycle_index > 0)
+	if (env->cycle_index > 0 && env->option == 1)
 	{
 		mvwprintw(env->state, 0, 0, "** RUNNING **");
 		wrefresh(env->state);
@@ -187,21 +205,30 @@ void key_events(t_env *env)
 	else if (env->mvintime == 1 && key == 'p')
 	{
 		mv_back(env);
-		werase(env->state);
-		mvwprintw(env->state, 0, 0, "** RUNNING **");
-		wrefresh(env->state);
+		if (env->option == 1)
+		{
+			werase(env->state);
+			mvwprintw(env->state, 0, 0, "** RUNNING **");
+			wrefresh(env->state);
+		}
 	}
 	if (env->cycle_index > 0 && key == ' ')
 	{
-		mvwprintw(env->state, 0, 0, "** PAUSED ** ");
-		wrefresh(env->state);
+		if (env->option == 1)
+		{
+			mvwprintw(env->state, 0, 0, "** PAUSED ** ");
+			wrefresh(env->state);
+		}
 		while (1)
 		{
 			key = getch();
 			if (key == ' ')
 			{
-				mvwprintw(env->state, 0, 0, "** RUNNING **");
-				wrefresh(env->state);
+				if (env->option == 1)
+				{
+					mvwprintw(env->state, 0, 0, "** RUNNING **");
+					wrefresh(env->state);
+				}
 				break;
 			}
 			else
@@ -221,11 +248,15 @@ void key_events(t_env *env)
 				else if (env->mvintime == 1 && key == 'p')
 				{
 					mv_back(env);
-					werase(env->state);
-					mvwprintw(env->state, 0, 0, "** PAUSED **");
-					wrefresh(env->state);
+					if (env->option == 1)
+					{
+						werase(env->state);
+						mvwprintw(env->state, 0, 0, "** PAUSED **");
+						wrefresh(env->state);
+					}
 				}
-				print_infos(env);
+				if (env->option == 1)
+					print_infos(env);
 			}
 		}
 	}

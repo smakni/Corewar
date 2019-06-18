@@ -73,7 +73,7 @@ typedef struct		s_env
 	int				speed;
 	int				cycle_to_die;
 	int				cycle_index;
-	int				visu;
+	int				option;
 	int				mvintime;
 	char			*err_msg;
 	WINDOW			*around_memory;

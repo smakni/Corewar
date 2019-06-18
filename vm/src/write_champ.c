@@ -60,13 +60,16 @@ static void		write_champ_visu(t_env *env, unsigned j)
 	wattroff(env->mem, COLOR_PAIR(4 + j));
 	if (j == env->nb_process - 1)
 	{
-		mvwprintw(env->state, 0, 0, "** PAUSED ** ");
-		print_infos(env);
+		if (env->option == 1)
+		{
+			mvwprintw(env->state, 0, 0, "** PAUSED ** ");
+			print_infos(env);
+			wrefresh(env->state);
+			env->traceinfos[env->cycle_index] = dupwin(env->infos);
+		}
 		wrefresh(env->mem);
-		wrefresh(env->state);
+		env->trace[env->cycle_index] = dupwin(env->mem);
 	}
-	env->trace[env->cycle_index] = dupwin(env->mem);
-	env->traceinfos[env->cycle_index] = dupwin(env->infos);
 }
 
 int				write_champ(t_env *env)
@@ -79,7 +82,7 @@ int				write_champ(t_env *env)
 	i = 0;
 	j = 0;
 	id = 0xffffffff;
-	if (env->visu == 1)
+	if (env->option == 1 || env->option == 2)
 		first_visu(env);
 	while (j < env->nb_process)
 	{
@@ -110,10 +113,11 @@ int				write_champ(t_env *env)
 		env->process[j].live = -1;
 		if (close(env->fd) < 0)
 			return (FAIL);
-		if (env->visu == 1)
+		if (env->option == 1 || env->option == 2)
 			write_champ_visu(env, j);
 		i += 4096 / env->nb_process;
 		j++;
 	}
+	read(0,0,1);
 	return (SUCCESS);
 }

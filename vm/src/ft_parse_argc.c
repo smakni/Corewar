@@ -92,7 +92,9 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 			}
 		}
 		else if (ft_strequ(argv[i], "-visu"))
-			env->visu = 1;
+			env->option = 1;
+		else if (ft_strequ(argv[i], "-svisu"))
+			env->option = 2;
 		else if (ft_strequ(argv[i], "-mvintime"))
 			env->mvintime = 1;
 		else if (ft_strstr(argv[i], ".cor"))

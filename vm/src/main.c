@@ -98,15 +98,18 @@ int check_last_live(t_env *env)
 		}
 		i++;
 	}
-	if (env->visu == 1)
+	if (env->option == 1 || env->option == 2)
 	{
-        mvwprintw(env->state, 0, 0, "**Game Over**");
-        mvwprintw(env->infos, 47, 0, "WINNER :");
-		wattron(env->infos, COLOR_PAIR(4 + save));
-		mvwprintw(env->infos, 47, 11, "%s", env->player[save].header.prog_name);
-		wattroff(env->infos, COLOR_PAIR(4 + save));
-		wrefresh(env->infos);
-		wrefresh(env->state);
+		if (env->option == 1)
+		{
+			mvwprintw(env->state, 0, 0, "**Game Over**");
+			mvwprintw(env->infos, 47, 0, "WINNER :");
+			wattron(env->infos, COLOR_PAIR(4 + save));
+			mvwprintw(env->infos, 47, 11, "%s", env->player[save].header.prog_name);
+			wattroff(env->infos, COLOR_PAIR(4 + save));
+			wrefresh(env->infos);
+			wrefresh(env->state);
+		}
 		while (1)
 			if (getch() == ' ')
 			{
@@ -114,12 +117,18 @@ int check_last_live(t_env *env)
 				while (i < 1000)
 				{
 					delwin(env->trace[i++]);
-					delwin(env->traceinfos[i++]);
+					if (env->option == 1)
+						delwin(env->traceinfos[i++]);
 				}
 				delwin(env->mem);
-				delwin(env->infos);
-				delwin(env->around_infos);
 				delwin(env->around_memory);
+				if (env->option == 1)
+				{
+					delwin(env->state);
+					delwin(env->commands);
+					delwin(env->infos);
+					delwin(env->around_infos);
+				}
 				endwin();
             	break ;
 			}

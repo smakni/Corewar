@@ -88,7 +88,7 @@ void	op_sti(t_env *env, unsigned int j)
 			env->memory[(dest + 2) % MEM_SIZE] = reg_content >> 8;
 			env->memory[(dest + 3) % MEM_SIZE] = reg_content;
 		}
-		if (env->visu == 1)
+		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);
 	}
 	else

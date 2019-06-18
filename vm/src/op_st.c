@@ -59,6 +59,6 @@ void		op_st(t_env *env, unsigned int j)
 	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 2);
 	env->process[j].pc += cursor;
-	if (env->visu == 1)
+	if (env->option == 1 || env->option == 2)
 		update_visu(env, dest, j);
 }
