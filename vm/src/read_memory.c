@@ -151,7 +151,7 @@ int read_memory(t_env *env)
 			}
 			key_events(env);
 		}
-		else if (env->dump != 0 && env->cycle_index == env->dump)
+		else if (env->option == 3 && env->cycle_index == env->dump)
 		{
 			ft_print_memory(env);
 			exit(0);

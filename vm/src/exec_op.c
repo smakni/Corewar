@@ -60,21 +60,34 @@ static void		redraw_pc(t_env *env, int pc, int len)
 	redraw_pc_2(env, pc, len);
 }
 
+static void		remove_live_color(t_env *env, unsigned j)
+{
+	int		x;
+	int		y;
+	int		color;
+
+	x = env->process[j].live % 64 * 3;
+	y = env->process[j].live / 64;
+	color = mvwinch(env->mem, y, x) & A_COLOR;
+	if (color == COLOR_PAIR(13))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
+	else if (color == COLOR_PAIR(14))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
+	else if (color == COLOR_PAIR(15))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
+	else if (color == COLOR_PAIR(16))
+		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
+}
+
 void			exec_op(t_env *env, unsigned j)
 {
 	void	(*op_fun[16])(t_env*, unsigned);
 	int		index;
 	int		save;
-	int		x;
-	int		y;
 
 	save = env->process[j].pc;
 	if ((env->option == 1 || env->option == 2) && env->process[j].live != -1)
-	{
-		x = env->process[j].live % 64 * 3;
-		y = env->process[j].live / 64;
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, env->process[j].color, NULL);
-	}
+		remove_live_color(env, j);
 	op_fun[0] = op_live;
 	op_fun[1] = op_ld;
 	op_fun[2] = op_st;
