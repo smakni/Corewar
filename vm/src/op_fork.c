@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/13 18:00:01 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/19 02:55:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		op_fork(t_env *env, unsigned int j)
 	else if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc %= MEM_SIZE;
 	env->process[env->nb_process].nb_live = env->process[j].nb_live;
-	env->process[env->nb_process].cycles = check_cycles(env, env->nb_process);
+	env->process[env->nb_process].cycles = 0;
 	env->process[env->nb_process].bold = 0;
 	env->process[env->nb_process].live = -1;
 	//ft_printf("PC = %d\n", env->process[env->nb_process].pc);

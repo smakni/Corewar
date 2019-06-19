@@ -84,9 +84,33 @@ void	op_sti(t_env *env, unsigned int j)
 			else if (dest >= MEM_SIZE)
 				dest %= MEM_SIZE;
 			env->memory[dest % MEM_SIZE] = reg_content >> 24;
+			if ((dest % MEM_SIZE) == 0xfc)
+			{
+				ft_printf("DEBUG\n");
+				ft_printf("rci = %d\n", reg_content);
+				ft_printf("rcu = %u\n", reg_content);
+			}
 			env->memory[(dest + 1) % MEM_SIZE] = reg_content >> 16;
+			if (((dest + 1) % MEM_SIZE) == 0xfc)
+			{
+				ft_printf("DEBUG\n");
+				ft_printf("rci = %d\n", reg_content);
+				ft_printf("rcu = %u\n", reg_content);
+			}
 			env->memory[(dest + 2) % MEM_SIZE] = reg_content >> 8;
+			if (((dest + 2) % MEM_SIZE) == 0xfc)
+			{
+				ft_printf("DEBUG\n");
+				ft_printf("rci = %d\n", reg_content);
+				ft_printf("rcu = %u\n", reg_content);
+			}
 			env->memory[(dest + 3) % MEM_SIZE] = reg_content;
+			if (((dest + 3) % MEM_SIZE) == 0xfc)
+			{
+				ft_printf("DEBUG\n");
+				ft_printf("rci = %d\n", reg_content);
+				ft_printf("rcu = %u\n", reg_content);
+			}
 		}
 		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);

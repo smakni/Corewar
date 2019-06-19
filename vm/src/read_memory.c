@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/17 18:50:07 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:21:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int move_pc(t_env *env, int j)
 	if (env->err_code != 0)
 		return (FAIL);
 	ft_bzero(&(env->process[j].op), sizeof(t_op));
-	env->process[j].cycles = check_cycles(env, j);
+	env->process[j].cycles = check_cycles(env, j);;
 	return (1);
 }
 
@@ -69,12 +69,20 @@ static int processess_execution(t_env *env)
 			if (env->process[j].cycles == 1)
 			{
 				exec_op(env, j);
-				if (move_pc(env, j) == FAIL)
-					return (FAIL);
+				env->process[j].cycles = 0;
+		//		if (move_pc(env, j) == FAIL)
+		//			return (FAIL);
 			}
 			else if (env->process[j].cycles > 1)
 				env->process[j].cycles--;
 		}
+		j--;
+	}
+	j = env->nb_process - 1;
+	while (j >= 0)
+	{
+		if (env->process[j].cycles == 0)
+			move_pc(env, j);
 		j--;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 18:52:07 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/13 18:07:37 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/18 22:05:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		op_lfork(t_env *env, unsigned int j)
 	else if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc %= MEM_SIZE;
 	env->process[env->nb_process].nb_live = env->process[j].nb_live;
-	env->process[env->nb_process].cycles = check_cycles(env, env->nb_process);
+	env->process[env->nb_process].cycles = 0;
 	env->process[env->nb_process].bold = 0;
 	env->process[env->nb_process].live = -1;
 	env->nb_process++;

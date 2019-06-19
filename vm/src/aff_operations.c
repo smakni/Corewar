@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/14 17:52:17 by marvin           ###   ########.fr       */
+/*   Updated: 2019/06/19 15:15:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static	void	print_pc(t_env *env, unsigned j, int save)
 			env->process[j].pc - save, save, env->process[j].pc);
 	while (save + i < env->process[j].pc)
 		ft_printf("%.2x ", env->memory[(save + i++) % MEM_SIZE]);
+	ft_putendl("");
+	ft_putstr("save => ");
+	i = 0;
+	while (i < env->process[j].op.len)
+		ft_printf("%.2x ", env->process[j].op.saved[i++]);
 	ft_putendl("");
 }
 
