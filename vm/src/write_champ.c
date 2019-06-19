@@ -118,6 +118,5 @@ int				write_champ(t_env *env)
 		i += 4096 / env->nb_process;
 		j++;
 	}
-	read(0,0,1);
 	return (SUCCESS);
 }

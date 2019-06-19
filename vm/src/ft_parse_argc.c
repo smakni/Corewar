@@ -97,6 +97,16 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 			env->option = 2;
 		else if (ft_strequ(argv[i], "-mvintime"))
 			env->mvintime = 1;
+		else if (ft_strequ(argv[i], "-dump"))
+		{
+			if (i + 1 < argc && ft_isdigit(argv[i + 1][0]) != 0)
+				env->dump = ft_atoi(argv[++i]);
+			else
+			{
+				ft_printf("error\n");
+				return (FAIL);
+			}
+		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
 			ft_memcpy(tmp[env->nb_process].header.prog_name,
