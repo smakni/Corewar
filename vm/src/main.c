@@ -30,9 +30,8 @@ void ft_print_memory(t_env *env)
 	int	i;
 	int flag = 0;
 
-	ft_printf("{CLEAR}");
-	i = 0;
-	ft_putendl("");
+//	ft_printf("{CLEAR}");
+//	ft_putendl("");
 	i = 0;/*
 	while ((unsigned)i < env->nb_process)
 	{
@@ -44,8 +43,9 @@ void ft_print_memory(t_env *env)
 		i++;
 	}*/
 	i = 0;
-	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
-	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
+//	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
+//	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
+	ft_printf("0x0000 : ");
 	while (i < 4096)
 	{
 		unsigned j = 0;
@@ -71,7 +71,12 @@ void ft_print_memory(t_env *env)
 		ft_printf(" ");
 		i++;
 		if (i % 64 == 0)
-			ft_putendl("");
+		{
+			if (i != 4096)
+				ft_printf("\n%#.4x : ", i);
+			else
+				ft_putendl("");
+		}
 	}
 }
 
@@ -110,8 +115,9 @@ int check_last_live(t_env *env)
 			wrefresh(env->infos);
 			wrefresh(env->state);
 		}
+		timeout(-1);
 		while (1)
-			if (getch() == ' ')
+			if (getch())
 			{
 				i = 0;
 				while (i < 1000)

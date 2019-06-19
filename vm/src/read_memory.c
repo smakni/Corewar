@@ -116,7 +116,7 @@ int read_memory(t_env *env)
 		key_events(env);
 	env->cycle_index = 1;
 	env->cycle_to_die = CYCLE_TO_DIE;
-	if (env->option == 0)
+	if (env->option == 0 || env->option == 3)
 		intro_game(env);
 	while (env->cycle_to_die > 0)
 	{
@@ -151,9 +151,12 @@ int read_memory(t_env *env)
 			}
 			key_events(env);
 		}
-		//else
-		//	ft_print_memory(env);
-		// read(0, 0, 1);
+		else if (env->dump != 0 && env->cycle_index == env->dump)
+		{
+			ft_print_memory(env);
+			exit(0);
+		}
+		 //read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}

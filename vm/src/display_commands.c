@@ -37,7 +37,7 @@ void			fill_commands(t_env *env)
 	werase(env->commands);
 	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
 	mvwprintw(env->commands, 1, 2, "COMMANDS :");
-	mvwprintw(env->commands, 3, 2, "Press any key to launch / SPACE to quit");
+	mvwprintw(env->commands, 3, 2, "Press any key to launch/quit");
 	mvwprintw(env->commands, 5, 2, "Speed :");
 	mvwprintw(env->commands, 6, 4, "-10 cycles/second : q");
 	mvwprintw(env->commands, 7, 4, "-1 cycle/second : w");
