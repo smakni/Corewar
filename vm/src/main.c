@@ -30,9 +30,8 @@ void ft_print_memory(t_env *env)
 	int	i;
 	int flag = 0;
 
-	ft_printf("{CLEAR}");
-	i = 0;
-	ft_putendl("");
+//	ft_printf("{CLEAR}");
+//	ft_putendl("");
 	i = 0;/*
 	while ((unsigned)i < env->nb_process)
 	{
@@ -44,8 +43,8 @@ void ft_print_memory(t_env *env)
 		i++;
 	}*/
 	i = 0;
-	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
-	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
+//	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
+//	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 	ft_printf("0x0000 : ");
 	while (i < 4096)
 	{

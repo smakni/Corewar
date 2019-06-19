@@ -108,7 +108,7 @@ int read_memory(t_env *env)
 		key_events(env);
 	env->cycle_index = 1;
 	env->cycle_to_die = CYCLE_TO_DIE;
-	if (env->option == 0)
+	if (env->option == 0 || env->option == 3)
 		intro_game(env);
 	while (env->cycle_to_die > 0)
 	{

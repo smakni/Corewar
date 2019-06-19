@@ -106,6 +106,7 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 				ft_printf("error\n");
 				return (FAIL);
 			}
+			env->option = 3;
 		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
