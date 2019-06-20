@@ -34,7 +34,7 @@ static void print_pc(t_env *env, unsigned j, int save)
 	ft_putendl("");
 	wattroff(env->infos, COLOR_PAIR(env->process[j].color));
 	wrefresh(env->infos);
-}
+	}
 
 void aff_operations_visu(t_env *env, unsigned j, int save)
 {
@@ -100,13 +100,13 @@ void aff_operations_visu(t_env *env, unsigned j, int save)
 		wprintw(env->infos, "zjmp %d FAILED\n", read_bytes(env->process[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
-	else if (env->process[j].op.saved[0] == 0x0c)
+	else if (env->process[j].op.code == 0x0c)
 	{
 		wprintw(env->infos, "fork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
 				save + read_bytes(env->process[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
-	else if (env->process[j].op.saved[0] == 0x0f)
+	else if (env->process[j].op.code == 0x0f)
 	{
 		wprintw(env->infos, "lfork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
 				save + read_bytes(env->process[j].op.saved, 1, 2));

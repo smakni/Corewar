@@ -114,8 +114,8 @@ void			exec_op(t_env *env, unsigned j)
 		op_fun[index - 1](env, j);
 		if (env->option == 0)
 			aff_operations(env, j, save);
-		else if (env->option == 1)
-			aff_operations_visu(env, j, save);
+	//	else if (env->option == 1)
+	//		aff_operations_visu(env, j, save);
 	}
 	else
 	{
