@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 19:07:10 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/13 17:41:02 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/20 17:19:19 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 	int	mask;
 	int	encode_byte;
 
+	if (env->process[j].op.code != env->process[j].op.saved[0])
+		return (0);
 	mask = 0b00000011;
 	encode_byte = env->process[j].op.saved[*cursor];
 	//ft_printf("byte %#.8b\n", encode_byte);

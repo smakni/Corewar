@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/13 17:41:02 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/20 17:55:01 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		op_or(t_env *env, unsigned int j)
 			env->process[j].r[env->process[j].op.saved[cursor]] = diff;
 		cursor++;
 	}
-	else
+else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 3);
 	env->process[j].pc += cursor;
 }
