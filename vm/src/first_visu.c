@@ -54,6 +54,27 @@ static void		fill_first(t_env *env)
 	wattroff(env->mem, COLOR_PAIR(1));
 }
 
+static void			check_size(void)
+{
+	int	key;
+
+	if (LINES < 68 || COLS < 255)
+	{
+		while (1)
+		{
+			mvprintw(LINES / 2, COLS / 2, "Terminal size too small");
+			key = getch();
+			if (key == KEY_RESIZE)
+			{
+				clear();
+				refresh();
+			}
+			if (LINES >= 68 && COLS >= 255)
+				break;
+		}
+	}
+}
+
 static void			first_visu_small(t_env *env)
 {
 	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
@@ -72,6 +93,7 @@ void			first_visu(t_env *env)
 	noecho();
 	cbreak();
 	curs_set(0);
+	check_size();
 	env->nb_player = env->nb_process;
 	init_color_palet();
 	if (env->option == 2)

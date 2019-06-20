@@ -120,11 +120,12 @@ int check_last_live(t_env *env)
 			if (getch())
 			{
 				i = 0;
-				while (i < 1000)
+				while (i < GO_BACK && i < env->cycle_index)
 				{
-					delwin(env->trace[i++]);
+					delwin(env->trace[i]);
 					if (env->option == 1)
-						delwin(env->traceinfos[i++]);
+						delwin(env->traceinfos[i]);
+					i++;
 				}
 				delwin(env->mem);
 				delwin(env->around_memory);

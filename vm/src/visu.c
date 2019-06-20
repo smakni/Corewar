@@ -176,6 +176,46 @@ static void mv_back(t_env *env)
 	}
 }
 
+static void handle_resize(t_env *env)
+{
+	int	x;
+	int	y;
+	int	i;
+	
+	getmaxyx(stdscr, y, x);
+	if (y < 68 || x < 255)
+	{
+		timeout(-1);
+		i = 0;
+		while (i < GO_BACK && i < env->cycle_index)
+		{
+			delwin(env->trace[i]);
+			if (env->option == 1)
+				delwin(env->traceinfos[i]);
+			i++;
+		}
+		delwin(env->mem);
+		delwin(env->around_memory);
+		if (env->option == 1)
+		{
+			delwin(env->state);
+			delwin(env->commands);
+			delwin(env->infos);
+			delwin(env->around_infos);
+		}
+		clear();
+		mvprintw(y / 2, x / 2, "Terminal size too small");
+		mvprintw(y / 2 + 1, x / 2, "Quitting");
+		timeout(-1);
+		while (1)
+			if (getch())
+			{
+				endwin();
+            	exit(-1);
+			}
+	}
+}
+
 void key_events(t_env *env)
 {
 	int key;
@@ -202,6 +242,8 @@ void key_events(t_env *env)
 		env->speed = -1;
 	else if (key == 't')
 		env->speed = 1;
+	else if (key == KEY_RESIZE)
+		handle_resize(env);
 	else if (env->mvintime == 1 && key == 'p')
 	{
 		mv_back(env);
@@ -245,6 +287,8 @@ void key_events(t_env *env)
 					env->speed = -1;
 				else if (key == 't')
 					env->speed = 1;
+				else if (key == KEY_RESIZE)
+					handle_resize(env);
 				else if (env->mvintime == 1 && key == 'p')
 				{
 					mv_back(env);
