@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/13 18:09:36 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/20 17:55:01 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		op_lldi(t_env *env, unsigned int j)
 		else
 			env->process[j].carry = 0;
 	}
-	else
+else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 1, 3);
 	env->process[j].pc += cursor;
 }

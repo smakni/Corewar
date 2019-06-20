@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/19 15:15:13 by marvin           ###   ########.fr       */
+/*   Updated: 2019/06/20 17:40:51 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static	void	print_pc(t_env *env, unsigned j, int save)
 	while (save + i < env->process[j].pc)
 		ft_printf("%.2x ", env->memory[(save + i++) % MEM_SIZE]);
 	ft_putendl("");
-	ft_putstr("save => ");
-	i = 0;
-	while (i < env->process[j].op.len)
-		ft_printf("%.2x ", env->process[j].op.saved[i++]);
-	ft_putendl("");
+	// ft_putstr("save => ");
+	// i = 0;
+	// while (i < env->process[j].op.len)
+	// 	ft_printf("%.2x ", env->process[j].op.saved[i++]);
+	// ft_putendl("");
 }
 
 void 			aff_operations(t_env *env, unsigned j, int save)
@@ -54,19 +54,19 @@ void 			aff_operations(t_env *env, unsigned j, int save)
 		ft_printf("zjmp %d FAILED\n", read_bytes(env->process[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
-	else if (env->process[j].op.saved[0] == 0x0c)
+	else if (env->process[j].op.code == 0x0c)
 	{
 		ft_printf("fork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
 								save + read_bytes(env->process[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
-	else if (env->process[j].op.saved[0] == 0x0f)
+	else if (env->process[j].op.code == 0x0f)
 	{
 		ft_printf("lfork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
 								save + read_bytes(env->process[j].op.saved, 1, 2));
 		print_pc(env, j, save);
 	}
-	else if (env->process[j].op.saved[0] != 0x0c)
+	else
 	{
 		if (env->process[j].op.name != NULL)
 			ft_printf("%s", env->process[j].op.name);

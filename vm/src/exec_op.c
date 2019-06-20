@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/17 19:00:35 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/20 17:12:51 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,13 @@ void			exec_op(t_env *env, unsigned j)
 	op_fun[13] = op_lldi;
 	op_fun[14] = op_lfork;
 	op_fun[15] = op_aff;
-	index = env->process[j].op.saved[0];
+	index = env->process[j].op.code;
 	if (env->option == 1 || env->option == 2)
 		remove_bold(env, j);
 	if (index >= 0x01 && index <= 0x10)
 	{
+
+		save_op(env, j);
 		op_fun[index - 1](env, j);
 		if (env->option == 0)
 			aff_operations(env, j, save);

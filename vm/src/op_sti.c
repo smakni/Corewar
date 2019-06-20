@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/17 18:58:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/20 17:55:01 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,38 +84,14 @@ void	op_sti(t_env *env, unsigned int j)
 			else if (dest >= MEM_SIZE)
 				dest %= MEM_SIZE;
 			env->memory[dest % MEM_SIZE] = reg_content >> 24;
-			if ((dest % MEM_SIZE) == 0xfc)
-			{
-				ft_printf("DEBUG\n");
-				ft_printf("rci = %d\n", reg_content);
-				ft_printf("rcu = %u\n", reg_content);
-			}
 			env->memory[(dest + 1) % MEM_SIZE] = reg_content >> 16;
-			if (((dest + 1) % MEM_SIZE) == 0xfc)
-			{
-				ft_printf("DEBUG\n");
-				ft_printf("rci = %d\n", reg_content);
-				ft_printf("rcu = %u\n", reg_content);
-			}
 			env->memory[(dest + 2) % MEM_SIZE] = reg_content >> 8;
-			if (((dest + 2) % MEM_SIZE) == 0xfc)
-			{
-				ft_printf("DEBUG\n");
-				ft_printf("rci = %d\n", reg_content);
-				ft_printf("rcu = %u\n", reg_content);
-			}
 			env->memory[(dest + 3) % MEM_SIZE] = reg_content;
-			if (((dest + 3) % MEM_SIZE) == 0xfc)
-			{
-				ft_printf("DEBUG\n");
-				ft_printf("rci = %d\n", reg_content);
-				ft_printf("rcu = %u\n", reg_content);
-			}
 		}
 		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);
 	}
-	else
+else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 1, 3);
 	env->process[j].pc += cursor;
 }

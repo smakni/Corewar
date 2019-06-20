@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/19 17:21:44 by marvin           ###   ########.fr       */
+/*   Updated: 2019/06/20 18:07:49 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static int processess_execution(t_env *env)
 			{
 				exec_op(env, j);
 				env->process[j].cycles = 0;
-		//		if (move_pc(env, j) == FAIL)
-		//			return (FAIL);
 			}
 			else if (env->process[j].cycles > 1)
 				env->process[j].cycles--;
@@ -156,9 +154,9 @@ int read_memory(t_env *env)
 			ft_print_memory(env);
 			exit(0);
 		}
-		 //read(0, 0, 1);
 		env->cycle_index++;
 		i++;
 	}
+	del_processess(env);
 	return (SUCCESS);
 }

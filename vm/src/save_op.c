@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 17:04:01 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/19 15:15:31 by marvin           ###   ########.fr       */
+/*   Updated: 2019/06/20 17:13:18 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ int			op_len(t_env *env, unsigned j, int op)
 
 void		save_op(t_env *env, unsigned j)
 {
-	int op;
 	int len;
 	int i;
 
 	i = 0;
-	op = (int)env->memory[env->process[j].pc];
-	len = op_len(env, j, op);
+	len = op_len(env, j, env->process[j].op.code);
 	env->process[j].op.len = len;
 	//ft_printf("%s\n", &env->memory[env->process[j].pc]);
 	while (i < len)
