@@ -77,7 +77,7 @@ typedef struct		s_env
 	int				cycle_to_die;
 	int				cycle_index;
 	int				option;
-	int				mvintime;
+	int				goback;
 	char			*err_msg;
 	WINDOW			*around_memory;
 	WINDOW			*mem;

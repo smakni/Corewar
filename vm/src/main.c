@@ -108,9 +108,9 @@ int check_last_live(t_env *env)
 		if (env->option == 1)
 		{
 			mvwprintw(env->state, 0, 0, "**Game Over**");
-			mvwprintw(env->infos, 47, 0, "WINNER :");
+			mvwprintw(env->infos, 46, 0, "WINNER :");
 			wattron(env->infos, COLOR_PAIR(4 + save));
-			mvwprintw(env->infos, 47, 11, "%s", env->player[save].header.prog_name);
+			mvwprintw(env->infos, 46, 9, "%s", env->player[save].header.prog_name);
 			wattroff(env->infos, COLOR_PAIR(4 + save));
 			wrefresh(env->infos);
 			wrefresh(env->state);
@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 	{
 		ft_bzero(&env, sizeof(t_env));
 		env.nb_realloc = 1;
-		if (!(env.process = malloc(sizeof(t_process) * ARR_SIZE)))
+		if (!(env.process = ft_memalloc(sizeof(t_process) * ARR_SIZE)))
 			return (-1);
 		if (ft_parse_argc(argc, argv, &env) == FAIL)
 			return (clean_quit(&env, -1));

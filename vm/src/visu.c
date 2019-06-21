@@ -244,7 +244,7 @@ void key_events(t_env *env)
 		env->speed = 1;
 	else if (key == KEY_RESIZE)
 		handle_resize(env);
-	else if (env->mvintime == 1 && key == 'p')
+	else if (env->goback == 1 && key == 'p')
 	{
 		mv_back(env);
 		if (env->option == 1)
@@ -289,7 +289,7 @@ void key_events(t_env *env)
 					env->speed = 1;
 				else if (key == KEY_RESIZE)
 					handle_resize(env);
-				else if (env->mvintime == 1 && key == 'p')
+				else if (env->goback == 1 && key == 'p')
 				{
 					mv_back(env);
 					if (env->option == 1)

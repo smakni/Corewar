@@ -132,7 +132,7 @@ int read_memory(t_env *env)
 		{
 			print_infos(env);
 			wrefresh(env->mem);
-			if (env->mvintime == 1)
+			if (env->goback == 1)
 			{
 				if (env->cycle_index > GO_BACK)
 				{

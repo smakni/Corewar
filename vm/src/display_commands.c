@@ -46,7 +46,8 @@ void			fill_commands(t_env *env)
 	mvwprintw(env->commands, 10, 4, "cycle/second = 1 : t");
 	mvwprintw(env->commands, 11, 4, "nolimit : y");
 	mvwprintw(env->commands, 12, 2, "Pause/Run : SPACE");
-	mvwprintw(env->commands, 14, 2, "Exploration mode : 'p'");
+	if (env->goback == 1)
+		mvwprintw(env->commands, 14, 2, "Exploration mode : 'p'");
 	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);

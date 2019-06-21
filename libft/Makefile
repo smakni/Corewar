@@ -190,7 +190,7 @@ OBJS	=	$(addprefix $(DIR_O)/,$(SRCS:.c=.o))
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -g3
 
 LIB		=	libft.h
 
