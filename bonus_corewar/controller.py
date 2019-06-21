@@ -40,10 +40,8 @@ class Controller:
 			try:
 				if not self.checklist["received"]:
 					self.receive_champ()
-					waiting = False
 				if not self.checklist["sent"]:
 					self.get_confirmation()
-					waiting = False
 			except KeyboardInterrupt:
 				print("\n[*] Disconnection requested.")
 				self.close_connections()
