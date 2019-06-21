@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/20 17:55:01 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/21 16:49:12 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,12 @@ void		op_and(t_env *env, unsigned int j)
 			env->process[j].r[env->process[j].op.saved[cursor]] = diff;
 		cursor++;
 	}
-else
-		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 3);
+	else
+	{
+		if (env->process[j].op.code != env->process[j].op.saved[0])
+			cursor++;
+		else
+			cursor += decode_byte_param(env->process[j].op.saved[1], 0, 3);
+	}
 	env->process[j].pc += cursor;
 }

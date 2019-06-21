@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/21 14:12:35 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/21 16:52:06 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void			exec_op(t_env *env, unsigned j)
 		remove_bold(env, j);
 	if (index >= 0x01 && index <= 0x10)
 	{
-
 		save_op(env, j);
 		op_fun[index - 1](env, j);
 		if (env->option == 0)
@@ -119,6 +118,7 @@ void			exec_op(t_env *env, unsigned j)
 	}
 	else
 	{
+
 		env->process[j].pc++;
 	}
 	if (env->option == 1 || env->option == 2)
