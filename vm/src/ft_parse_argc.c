@@ -95,8 +95,8 @@ int		ft_parse_argc(int argc, char **argv, t_env *env)
 			env->option = 1;
 		else if (ft_strequ(argv[i], "-svisu"))
 			env->option = 2;
-		else if (ft_strequ(argv[i], "-mvintime"))
-			env->mvintime = 1;
+		else if (ft_strequ(argv[i], "-goback"))
+			env->goback = 1;
 		else if (ft_strequ(argv[i], "-dump"))
 		{
 			if (i + 1 < argc && ft_isdigit(argv[i + 1][0]) != 0)

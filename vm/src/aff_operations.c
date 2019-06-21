@@ -105,6 +105,7 @@ void	save_param(t_env *env, int j, int value, int code, int index)
 {
 	char *tmp;
 
+	tmp = NULL;
 	tmp = ft_itoa(value);
 	if (code == REG_CODE)
 	{

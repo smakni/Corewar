@@ -16,11 +16,10 @@ static int	get_reg_content(t_env *env, unsigned int j, int *cursor, int *nb_reg,
 {
 	int	content;
 
+	content = 0;
 	*nb_reg = env->process[j].op.saved[*cursor];
 	if (*nb_reg >= 1 && *nb_reg <= 16)
 		content = env->process[j].r[*nb_reg];
-	else
-		content = 0;
 	if (*cursor > 2)
 		save_param(env, j, content, IND_CODE, param);
 	(*cursor)++;
@@ -40,8 +39,10 @@ void	op_sti(t_env *env, unsigned int j)
 
 	current_pos = env->process[j].pc;
 	cursor = 1;
+	dest = 0;
 	if (check_args(env, j, &cursor, 3))
 	{
+		nb_reg1 = 0;
 		env->process[j].op.name = "sti";
 		cursor++;
 		reg_content = get_reg_content(env, j, &cursor, &nb_reg1, 0);

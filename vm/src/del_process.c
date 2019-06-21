@@ -43,9 +43,12 @@ static void del_processess_visu(t_env *env)
 	}
 }
 
-static void	aff_del_processess(t_env *env, unsigned j)
+static void	aff_del_processess(t_env *env)
 {
-	while ((int)j >= 0)
+	int j;
+
+	j = env->nb_process - 1;
+	while (j >= 0)
 	{
 		if (env->process[j].nb_live == -1)
 		{
@@ -60,14 +63,14 @@ static void	aff_del_processess(t_env *env, unsigned j)
 
 int del_processess(t_env *env)
 {
-	unsigned	j;
-	int			living_process;
+	int	j;
+	int	living_process;
 
-	j = 0;
+	j = env->nb_process - 1;
 	living_process = 0;
 	if (env->option == 1 || env->option == 2)
 		del_processess_visu(env);
-	while (j < env->nb_process)
+	while (j >= 0)
 	{
 		if (env->process[j].nb_live > 0)
 		{
@@ -76,9 +79,9 @@ int del_processess(t_env *env)
 		}
 		else if (env->process[j].nb_live != -2)
 			env->process[j].nb_live = -1;
-		j++;
+		j--;
 	}
 	if (env->option == 0)
-		aff_del_processess(env, j);
+		aff_del_processess(env);
 	return (living_process);
 }

@@ -102,6 +102,7 @@ int				write_champ(t_env *env)
 		ft_memcpy(&env->memory[i], &line[0x890],
 					env->player[j].header.prog_size);
 		//env->player[j].header = env->process[j].header;
+		ft_bzero(&(env->process[j].op), sizeof(t_op));
 		env->player[j].last_live = 0;
 		env->process[j].last_live = 0;
 		env->process[j].id = id;
@@ -111,6 +112,7 @@ int				write_champ(t_env *env)
 		env->process[j].cycles = check_cycles(env, j);
 		env->process[j].carry = 0;
 		env->process[j].live = -1;
+		env->process[j].nb_live = 0;
 		if (close(env->fd) < 0)
 			return (FAIL);
 		if (env->option == 1 || env->option == 2)
