@@ -19,7 +19,7 @@ static int	ft_realloc_tab(t_env *env)
 
 	env->nb_realloc++;
 	i = 0;
-	if (!(tmp = malloc(sizeof(t_player) * (ARR_SIZE * env->nb_realloc))))
+	if (!(tmp = ft_memalloc(sizeof(t_player) * (ARR_SIZE * env->nb_realloc))))
 	{
 		ft_memdel((void *)&env->process);
 		return (-1);

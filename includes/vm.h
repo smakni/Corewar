@@ -65,7 +65,7 @@ typedef struct		s_env
 {
 	unsigned char	memory[MEM_SIZE];
 	t_player		player[MAX_PLAYERS];
-	t_process			*process;
+	t_process		*process;
 	unsigned		nb_process;
 	unsigned		nb_player;
 	unsigned		nb_realloc;

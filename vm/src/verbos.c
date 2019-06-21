@@ -84,10 +84,7 @@ void 			print_verbos(t_env *env, unsigned j, int save)
 	else if (env->process[j].op.code == 0x0a && env->process[j].check_args == 1)
 		print_ldi(env, j, save);
 	ft_putendl("");
-	i = 0;
-	while (env->process[j].op.param[i])
-		free(env->process[j].op.param[i++]);
-	}
+}
 
 void 			verbos(t_env *env, unsigned j, int save)
 {
@@ -113,6 +110,8 @@ void 			verbos(t_env *env, unsigned j, int save)
 	else if (env->process[j].op.name != NULL)
 		print_verbos(env, j, save);
 	print_pc(env, j, save);
+	while (env->process[j].op.param[i])
+		free(env->process[j].op.param[i++]);
 }
 
 void	save_param(t_env *env, int j, int value, int code, int index)
@@ -122,16 +121,11 @@ void	save_param(t_env *env, int j, int value, int code, int index)
 	tmp = NULL;
 	tmp = ft_itoa(value);
 	if (code == REG_CODE)
-	{
-		env->process[j].op.param[index] = "r";
-		env->process[j].op.param[index] = ft_strjoin(env->process[j].op.param[index], tmp);
-	}
+		env->process[j].op.param[index] = ft_strjoin("r", tmp);
 	else if (code == IND_CODE)
 		env->process[j].op.param[index] = ft_strjoin(env->process[j].op.param[index], tmp);
 	else if (code == DIR_CODE)
-	{
-		env->process[j].op.param[index] = "%";
-		env->process[j].op.param[index] = ft_strjoin(env->process[j].op.param[index], tmp);
-	}
+		env->process[j].op.param[index] = ft_strjoin("%", tmp);
+	ft_strdel(&tmp);
 	env->process[j].op.param[3] = NULL;
 }

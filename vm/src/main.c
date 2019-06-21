@@ -165,6 +165,6 @@ int main(int argc, char **argv)
 	if (read_memory(&env) == FAIL)
 		return (clean_quit(&env, -1));
 	check_last_live(&env);
-	//ft_print_memory(&env);
+	free(env.process);
 	return (0);
 }

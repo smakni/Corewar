@@ -22,6 +22,7 @@ void		op_st(t_env *env, unsigned int j)
 
 	current_pos = env->process[j].pc;
 	cursor = 1;
+	dest = 0;
 	if (check_args(env, j, &cursor, 2))
 	{
 		env->process[j].op.name = "st";
@@ -55,10 +56,10 @@ void		op_st(t_env *env, unsigned int j)
 			if (nb_reg >= 1 && nb_reg <= 16)
 				env->process[j].r[dest] = reg_content;
 		}
+		if (env->option == 1 || env->option == 2)
+			update_visu(env, dest, j);
 	}
-else
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 2);
 	env->process[j].pc += cursor;
-	if (env->option == 1 || env->option == 2)
-		update_visu(env, dest, j);
 }
