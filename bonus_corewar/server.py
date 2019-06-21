@@ -26,7 +26,7 @@ class Server(Controller):
 				"addr": addr
 			}
 			print("[+] Got connection from %s" % str(addr))
-			self.client["obj"].send(b"You are now connected to %s.\nPlease enter the path to your .cor champion:" % bytes(self.host, self.ENCODING_METHOD))
+			self.client["obj"].send(b"You are now connected to " + bytes(self.host, self.ENCODING_METHOD) + b".\nPlease enter the path to your .cor champion:")
 			print("Please enter the path to your .cor champion:\n\t>>", end="")
 			self.get_filepath()
 		except KeyboardInterrupt:
@@ -83,7 +83,7 @@ def	main():
 		sys.exit(-1)
 	print("[+] You are running the same version, the game can begin")
 	print(">>GAME START<<\nYou play first !\n")
-	subprocess.call(["./../corewar/corewar", serv.filepath, "opponent2.cor"])
+	subprocess.call(["./%s" % PATH_TO_COREWAR, serv.filepath, "opponent2.cor"])
 	time.sleep(0.1)
 	serv.close_connections()
 

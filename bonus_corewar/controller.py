@@ -46,7 +46,7 @@ class Controller:
 				self.close_connections()
 
 	def	send_bin(self, pathname):
-		command = os.popen("md5sum %s" % pathname)
+		command = os.popen("md5 %s" % pathname)
 		result = command.read()
 		checksum = result.split(' ')[0]
 		return bytes(checksum, 'utf-8')
