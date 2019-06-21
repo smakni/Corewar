@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/20 18:08:42 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/21 14:12:07 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 typedef	struct 		s_op
 {
 	unsigned		code;
+	unsigned		encode;
 	unsigned char	saved[MAX_OP_LEN];
 	int				len;
 	char			*param[MAX_ARGS_NUMBER];
@@ -128,8 +129,8 @@ void				update_visu(t_env *env, int dest, unsigned j);
 void				print_infos(t_env *env);
 //void				redraw_pc(t_env *env, int pc, int len);
 void				key_events(t_env *env);
-void				aff_operations(t_env *env, unsigned j, int save);
-void				aff_operations_visu(t_env *env, unsigned j, int save);
+void				verbos(t_env *env, unsigned j, int save);
+void				verbos_visu(t_env *env, unsigned j, int save);
 void				remove_bold(t_env *env, unsigned j);
 void				fill_commands_mv_back(t_env *env);
 void				fill_commands(t_env *env);

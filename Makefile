@@ -86,8 +86,8 @@ SOURCES_P2	=	main.c\
 				first_visu.c\
 				display_commands.c\
 				print_infos.c\
-				aff_operations.c\
-				aff_operations_visu.c\
+				verbos.c\
+				verbos_visu.c\
 				check_args.c\
 				save_op.c
 

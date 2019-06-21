@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aff_operations_visu.c                              :+:      :+:    :+:   */
+/*   _visu.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -36,7 +36,7 @@ static void print_pc(t_env *env, unsigned j, int save)
 	wrefresh(env->infos);
 	}
 
-void aff_operations_visu(t_env *env, unsigned j, int save)
+void _visu(t_env *env, unsigned j, int save)
 {
 	int i;
 	int tmp;

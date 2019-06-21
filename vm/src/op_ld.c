@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/20 17:55:01 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/21 14:42:43 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		op_ld(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 2))
 	{
-		env->process[j].op.name = "ld";
 		value = get_value(env, j, &cursor, 1);
 		save_param(env, j, value, IND_CODE, 0);
 		cursor++;
@@ -33,9 +32,12 @@ void		op_ld(t_env *env, unsigned int j)
 		else
 			env->process[j].carry = 0;
 		if (nb_reg >= 1 && nb_reg <= 16)
+		{	
+			env->process[j].op.name = "ld";
 			env->process[j].r[nb_reg] = value;
+		}
 	}
-else
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 2);
 	env->process[j].pc += cursor;
 }

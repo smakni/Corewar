@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/20 17:12:51 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/21 14:12:35 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ void			exec_op(t_env *env, unsigned j)
 		save_op(env, j);
 		op_fun[index - 1](env, j);
 		if (env->option == 0)
-			aff_operations(env, j, save);
+			verbos(env, j, save);
 	//	else if (env->option == 1)
-	//		aff_operations_visu(env, j, save);
+	//		verbos_visu(env, j, save);
 	}
 	else
 	{

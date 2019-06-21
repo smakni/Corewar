@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 16:38:30 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/20 18:08:33 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/20 19:39:28 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int		check_cycles(t_env *env, unsigned j)
 	if (index > 16 || index < 0)
 		return (1);
 	env->process[j].op.code = index;
+	env->process[j].op.encode = env->memory[env->process[j].pc + 1];
 	return (op_cycles[index]);
 }

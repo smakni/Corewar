@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/11 19:02:05 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:01:45 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int check_last_live(t_env *env)
 			}
 	}
 	else
-		ft_printf(">>>>>winner_is_%s>>>>LIVE>>%d\n", env->player[save].header.prog_name, env->player[save].last_live);
+		ft_printf("Contestant %d, \"%s\", has won !\n", save + 1, env->player[save].header.prog_name);
 	return (save);
 }
 
