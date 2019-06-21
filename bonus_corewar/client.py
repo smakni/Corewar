@@ -32,14 +32,14 @@ class Client(Controller):
 		self.get_file()
 
 	def	receive_champ(self):
-		client_champ = open("opponent.cor", "wb")
+		client_champ = open("server_champ.cor", "wb")
 		buffer = self.s.recv(self.BUFF_SIZE)
 		while len(buffer) >= self.BUFF_SIZE:
 			client_champ.write(buffer)
 			buffer = self.s.recv(self.BUFF_SIZE)
 		client_champ.write(buffer)
 		client_champ.close()
-		print("[+] Your opponent's champion has been written in opponent.cor.")
+		print("[+] Your opponent's champion has been written in server_champ.cor.")
 		self.checklist["received"] = True
 		time.sleep(1)
 		self.s.send(b"RECEIVED")
@@ -81,7 +81,12 @@ def	main(argc, argv):
 		sys.exit(-1)
 	print("[+] You are running the same version, the game can begin")
 	print(">>GAME START<<\nYour opponent plays first !\n")
-	subprocess.call(["./%s" % PATH_TO_COREWAR, "opponent.cor", cl.filepath])
+	try:
+		subprocess.call(["./%s" % PATH_TO_COREWAR, "server_champ.cor", cl.filepath, "-visu"])
+		os.system("read -p 'Press Enter to continue...'")
+	except KeyboardInterrupt:
+		print("\n[*] Interruption requested.")
+		cl.close_connections()	
 	cl.close_connections()
 
 if __name__ == "__main__":
