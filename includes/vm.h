@@ -135,5 +135,6 @@ void				remove_bold(t_env *env, unsigned j);
 void				fill_commands_mv_back(t_env *env);
 void				fill_commands(t_env *env);
 void 				mv_back(t_env *env);
+int					print_error(char *error);
 
 #endif
