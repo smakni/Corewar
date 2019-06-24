@@ -6,45 +6,45 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/20 19:01:45 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/24 19:38:41 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static int clean_quit(t_env *env, const int ret)
+static int	clean_quit(t_env *env, const int ret)
 {
 	ft_memdel((void *)&env->process);
 	return (ret);
 }
 
-static int ft_display_commands(void)
+static int	ft_display_commands(void)
 {
 	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
 	ft_printf("	-Maximum number of champions : 4\n");
 	return (-1);
 }
 
-void ft_print_memory(t_env *env)
+void		ft_print_memory(t_env *env)
 {
 	int	i;
 	int flag = 0;
 
-//	ft_printf("{CLEAR}");
-//	ft_putendl("");
+	//	ft_printf("{CLEAR}");
+	//	ft_putendl("");
 	i = 0;/*
-	while ((unsigned)i < env->nb_process)
-	{
-		ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
-		env->process[i].header.prog_name, env->process[i].r[1], env->process[i].nb_live, env->process[i].last_live);
-		ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->process[i].pc);
-		ft_printf("OP{%.2x}", env->memory[env->process[i].pc]);
-		ft_printf("[%2d]\n", env->process[i].cycles);
-		i++;
-	}*/
+			 while ((unsigned)i < env->nb_process)
+			 {
+			 ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
+			 env->process[i].header.prog_name, env->process[i].r[1], env->process[i].nb_live, env->process[i].last_live);
+			 ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->process[i].pc);
+			 ft_printf("OP{%.2x}", env->memory[env->process[i].pc]);
+			 ft_printf("[%2d]\n", env->process[i].cycles);
+			 i++;
+			 }*/
 	i = 0;
-//	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
-//	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
+	//	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
+	//	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
 	ft_printf("0x0000 : ");
 	while (i < 4096)
 	{
@@ -80,7 +80,7 @@ void ft_print_memory(t_env *env)
 	}
 }
 
-int check_last_live(t_env *env)
+int			check_last_live(t_env *env)
 {
 	int	i;
 	int	save;
@@ -137,7 +137,7 @@ int check_last_live(t_env *env)
 					delwin(env->around_infos);
 				}
 				endwin();
-            	break ;
+				break ;
 			}
 	}
 	else
@@ -145,7 +145,7 @@ int check_last_live(t_env *env)
 	return (save);
 }
 
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_env env;
 

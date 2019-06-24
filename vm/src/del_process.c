@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   del_processess.c                                      :+:      :+:    :+:   */
+/*   del_processess.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/12 19:18:35 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/24 19:34:08 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void del_processess_visu(t_env *env)
+static void	del_processess_visu(t_env *env)
 {
 	unsigned	j;
 	unsigned	x;
 	unsigned	y;
 	int			color;
 
-	j = 0;
-	while (j < env->nb_process)
-	{
+	j = -1;
+	while (++j < env->nb_process)
 		if (env->process[j].nb_live == 0)
 		{
 			x = env->process[j].pc % 64 * 3;
@@ -39,8 +38,6 @@ static void del_processess_visu(t_env *env)
 			else if (color == COLOR_PAIR(11))
 				mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
 		}
-		j++;
-	}
 }
 
 static void	aff_del_processess(t_env *env)
@@ -61,7 +58,7 @@ static void	aff_del_processess(t_env *env)
 	}
 }
 
-int del_processess(t_env *env)
+int			del_processess(t_env *env)
 {
 	int	j;
 	int	living_process;

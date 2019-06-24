@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/21 16:52:06 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:36:50 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,11 @@ void			exec_op(t_env *env, unsigned j)
 		op_fun[index - 1](env, j);
 		if (env->option == 0)
 			verbos(env, j, save);
-	//	else if (env->option == 1)
-	//		verbos_visu(env, j, save);
+		//else if (env->option == 1)
+		//verbos_visu(env, j, save);
 	}
 	else
-	{
-
 		env->process[j].pc++;
-	}
 	if (env->option == 1 || env->option == 2)
 		redraw_pc(env, env->process[j].pc, env->process[j].pc - save);
 }

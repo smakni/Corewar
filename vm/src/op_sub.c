@@ -38,8 +38,6 @@ void		op_sub(t_env *env, unsigned int j)
 		cursor++;
 		nb_reg2 = env->process[j].op.saved[cursor];
 		save_param(env, j, nb_reg2, REG_CODE, 1);
-		//if (env->visu == 0)
-		//	ft_printf("nb_reg2 = %i\n", nb_reg2);
 		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 		{
 			reg_content = env->process[j].r[env->process[j].op.saved[cursor]];
