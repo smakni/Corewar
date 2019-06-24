@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 19:07:10 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/21 16:46:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/23 13:30:18 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 	int	mask;
 	int	encode_byte;
 
-	if (env->process[j].op.code != env->process[j].op.saved[0])
+	if (env->process[j].op.code != env->process[j].op.saved[0]
+		|| env->process[j].op.encode != env->process[j].op.saved[1])
 		return (0);
 	mask = 0b00000011;
 	encode_byte = env->process[j].op.saved[*cursor];

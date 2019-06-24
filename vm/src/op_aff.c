@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:24:52 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/20 17:55:01 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/24 17:05:29 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	op_aff(t_env *env, unsigned j)
 		ft_putchar(reg % 256);
 		cursor++;
 	}
-else
+	else if (cursor == 1)
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 1);
 	env->process[j].pc += cursor;
 }
