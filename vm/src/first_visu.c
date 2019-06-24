@@ -54,7 +54,7 @@ static void		fill_first(t_env *env)
 	wattroff(env->mem, COLOR_PAIR(1));
 }
 
-static void			check_size(void)
+static void		check_size(void)
 {
 	int	key;
 
@@ -70,12 +70,12 @@ static void			check_size(void)
 				refresh();
 			}
 			if (LINES >= 68 && COLS >= 255)
-				break;
+				break ;
 		}
 	}
 }
 
-static void			first_visu_small(t_env *env)
+static void		first_visu_small(t_env *env)
 {
 	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	env->around_memory = subwin(stdscr, 68, 197, 0, 0);

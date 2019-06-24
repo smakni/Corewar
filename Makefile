@@ -83,9 +83,12 @@ SOURCES_P2	=	main.c\
 				check_cycles.c\
 				del_process.c\
 				visu.c\
+				mvback.c\
 				first_visu.c\
+				key_events.c\
 				display_commands.c\
 				print_infos.c\
+				print_error.c\
 				verbos.c\
 				verbos_visu.c\
 				check_args.c\
