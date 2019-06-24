@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/21 17:41:40 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/24 17:01:55 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		op_ldi(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		env->process[j].op.name = "ldi";
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
@@ -64,6 +63,7 @@ void		op_ldi(t_env *env, unsigned int j)
 		cursor++;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
+			env->process[j].op.name = "ldi";
 			if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
 				sum = read_bytes(env->memory, env->process[j].pc + (v1 % IDX_MOD), REG_SIZE);
 			else

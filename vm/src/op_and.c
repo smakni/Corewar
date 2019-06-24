@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/21 16:49:12 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:01:45 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void		op_and(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		env->process[j].op.name = "and";
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
@@ -63,7 +62,10 @@ void		op_and(t_env *env, unsigned int j)
 		else
 			env->process[j].carry = 0;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+		{
+			env->process[j].op.name = "and";
 			env->process[j].r[env->process[j].op.saved[cursor]] = diff;
+		}
 		cursor++;
 	}
 	else

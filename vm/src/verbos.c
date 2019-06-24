@@ -32,6 +32,7 @@ static	void	print_pc(t_env *env, unsigned j, int save)
 	while (save + i < env->process[j].pc)
 		ft_printf("%.2x ", env->memory[(save + i++) % MEM_SIZE]);
 	ft_putendl("");
+	//ft_printf("saved_op = %.2x | saved_enc = %.2x\n", env->process[j].op.code, env->process[j].op.encode);
 }
 
 void	print_live(t_env *env, unsigned j)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/21 17:41:40 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/24 17:02:10 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		op_lldi(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		env->process[j].op.name = "lldi";
 		nb_reg1 = 1;
 		nb_reg2 = 1;
 		sum = 0;
@@ -62,6 +61,7 @@ void		op_lldi(t_env *env, unsigned int j)
 		cursor++;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
+			env->process[j].op.name = "lldi";
 			if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
 				sum = read_bytes(env->memory, env->process[j].pc + v1, REG_SIZE);
 			else

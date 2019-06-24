@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/21 17:41:40 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/24 17:01:27 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void		op_add(t_env *env, unsigned int j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		env->process[j].op.name = "add";
 		cursor++;
 		sum = 0;
 		nb_reg1 = env->process[j].op.saved[cursor];
@@ -52,7 +51,10 @@ void		op_add(t_env *env, unsigned int j)
 		else
 			env->process[j].carry = 0;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+		{
+			env->process[j].op.name = "add";
 			env->process[j].r[nb_reg3] = sum;
+		}
 		cursor++;
 	}
 else if (cursor == 1)

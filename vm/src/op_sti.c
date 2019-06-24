@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/21 17:41:40 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/24 17:00:52 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	op_sti(t_env *env, unsigned int j)
 	if (check_args(env, j, &cursor, 3))
 	{
 		nb_reg1 = 0;
-		env->process[j].op.name = "sti";
 		cursor++;
 		reg_content = get_reg_content(env, j, &cursor, &nb_reg1, 0);
 		save_param(env, j, nb_reg1, REG_CODE, 0);
@@ -79,6 +78,7 @@ void	op_sti(t_env *env, unsigned int j)
 		}
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
+			env->process[j].op.name = "sti";
 			dest += current_pos;
 			if (dest < 0)
 				dest += MEM_SIZE;

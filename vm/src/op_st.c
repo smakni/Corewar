@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/21 17:41:40 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/24 17:08:03 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		op_st(t_env *env, unsigned int j)
 	dest = 0;
 	if (check_args(env, j, &cursor, 2))
 	{
-		env->process[j].op.name = "st";
 		nb_reg = env->process[j].op.saved[2];
 		save_param(env, j, nb_reg, REG_CODE, 0);
 		reg_content = get_value(env, j, &cursor, 1);
@@ -37,6 +36,7 @@ void		op_st(t_env *env, unsigned int j)
 			save_param(env, j, dest, IND_CODE, 1);
 			if (nb_reg >= 1 && nb_reg <= 16)
 			{
+				env->process[j].op.name = "st";
 				dest += current_pos;
 				if (dest < 0)
 					dest += MEM_SIZE;
@@ -54,7 +54,10 @@ void		op_st(t_env *env, unsigned int j)
 			save_param(env, j, dest, IND_CODE, 1);
 			cursor++;
 			if (nb_reg >= 1 && nb_reg <= 16)
+			{
+				env->process[j].op.name = "st";
 				env->process[j].r[dest] = reg_content;
+			}
 		}
 		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);
