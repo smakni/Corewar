@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sub.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:30:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,12 @@ void		op_sub(t_env *env, unsigned int j)
 		cursor++;
 		nb_reg3 = env->process[j].op.saved[cursor];
 			save_param(env, j, nb_reg3, REG_CODE, 2);
-
-		if (diff == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
-				&& nb_reg2 >= 1 && nb_reg2 <= 16
-				&& nb_reg3 >= 1 && nb_reg3 <= 16)
-			env->process[j].carry = 1;
-		else
-			env->process[j].carry = 0;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
+			if (diff == 0)
+				env->process[j].carry = 1;
+			else
+				env->process[j].carry = 0;
 			env->process[j].op.name = "sub";
 			env->process[j].r[env->process[j].op.saved[cursor]] = diff;
 		}

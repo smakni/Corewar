@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mvback.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:55:04 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 11:56:47 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:13:08 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void		travel(t_env *env, int *where, int *cycle, int mv)
 {
 	*where += mv;
 	*cycle += mv;
-	if (where < 0)
-		where += GO_BACK;
+	if (*where < 0)
+		*where += GO_BACK;
 	overlay(env->trace[*where], env->mem);
 	wrefresh(env->mem);
 	if (env->option == 1)

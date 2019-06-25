@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/24 17:01:45 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/25 20:29:13 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,12 @@ void		op_and(t_env *env, unsigned int j)
 		cursor++;
 		nb_reg3 = env->process[j].op.saved[cursor];
 		save_param(env, j, nb_reg3, REG_CODE, 2);
-		if (diff == 0 && nb_reg1 >= 1 && nb_reg1 <= 16
-				&& nb_reg2 >= 1 && nb_reg2 <= 16
-				&& nb_reg3 >= 1 && nb_reg3 <= 16)
-			env->process[j].carry = 1;
-		else
-			env->process[j].carry = 0;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
+			if (diff == 0)
+				env->process[j].carry = 1;
+			else
+				env->process[j].carry = 0;
 			env->process[j].op.name = "and";
 			env->process[j].r[env->process[j].op.saved[cursor]] = diff;
 		}
