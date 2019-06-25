@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/21 17:41:40 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		op_ld(t_env *env, unsigned int j)
 			env->process[j].r[nb_reg] = value;
 		}
 	}
-	else if (cursor == 1)
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 2);
 	env->process[j].pc += cursor;
 }

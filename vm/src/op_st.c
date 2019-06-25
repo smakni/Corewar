@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/24 17:08:03 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		op_st(t_env *env, unsigned int j)
 		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);
 	}
-	else if (cursor == 1)
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 2);
 	env->process[j].pc += cursor;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sub.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/24 17:02:47 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		op_sub(t_env *env, unsigned int j)
 		}
 		cursor++;
 	}
-else if (cursor == 1)
+else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 3);
 	env->process[j].pc += cursor;
 }

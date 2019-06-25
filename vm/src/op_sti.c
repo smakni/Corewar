@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/24 17:00:52 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	op_sti(t_env *env, unsigned int j)
 		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);
 	}
-else if (cursor == 1)
+else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 1, 3);
 	env->process[j].pc += cursor;
 }

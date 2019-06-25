@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 19:07:10 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/23 13:30:18 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/25 15:58:46 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		check_args(t_env *env, unsigned int j, int *cursor, int nb_param)
 			// ft_printf("tmp isole %#.8b\n%i | %i = %i\n", tmp, tmp, 0, (tmp | 0x0));
 		if ((tmp | 0b00000000) == 0)
 		{
-			(*cursor)++;
+			// (*cursor)++;
 			// ft_printf("FAIL on %i\n", nb_param);
 			env->process[j].check_args = 0;
 			return (0);

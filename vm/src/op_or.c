@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_or.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/24 17:02:28 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		op_or(t_env *env, unsigned int j)
 		}
 		cursor++;
 	}
-else if (cursor == 1)
+else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 3);
 	env->process[j].pc += cursor;
 }
