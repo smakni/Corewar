@@ -104,11 +104,21 @@ void			first_visu(t_env *env)
 	env->around_infos = subwin(stdscr, 68, 58, 0, 196);
 	wborder(env->around_infos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	env->commands = subwin(stdscr, 16, 58, 52, 196);
+	if (env->verb == 1)
+	{
+		env->around_verbos = subwin(stdscr, 68, 58, 0, 253);
+		wborder(env->around_verbos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	}
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	fill_commands(env);
 	env->mem = subwin(stdscr, 64, 193, 2, 3);
 	env->state = subwin(stdscr, 2, 52, 2, 199);
 	env->infos = subwin(stdscr, 51, 52, 4, 199);
+	if (env->verb == 1)
+	{
+		env->verbos = subwin(stdscr, 64, 54, 2, 255);
+		scrollok(env->verbos, TRUE);
+	}
 	fill_first(env);
 	refresh();
 	wrefresh(env->mem);

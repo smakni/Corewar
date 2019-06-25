@@ -139,12 +139,16 @@ int read_memory(t_env *env)
 					overlay(env->mem, env->trace[env->cycle_index % GO_BACK]);
 					if (env->option == 1)
 						overwrite(env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
+					if (env->option == 1 && env->verb == 1)
+						overwrite(env->verbos, env->traceverbos[env->cycle_index % GO_BACK]);
 				}
 				else
 				{
 					env->trace[env->cycle_index % GO_BACK] = dupwin(env->mem);
 					if (env->option == 1)
 						env->traceinfos[env->cycle_index % GO_BACK] = dupwin(env->infos);
+					if (env->option == 1 && env->verb == 1)
+						env->traceverbos[env->cycle_index % GO_BACK] = dupwin(env->verbos);
 				}
 			}
 			key_events(env);

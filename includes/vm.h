@@ -78,15 +78,19 @@ typedef struct		s_env
 	int				cycle_index;
 	int				option;
 	int				goback;
+	int				verb;
 	char			*err_msg;
 	WINDOW			*around_memory;
 	WINDOW			*mem;
 	WINDOW			*around_infos;
 	WINDOW			*infos;
+	WINDOW			*around_verbos;
+	WINDOW			*verbos;
 	WINDOW			*state;
 	WINDOW			*commands;
 	WINDOW			*trace[GO_BACK];
 	WINDOW			*traceinfos[GO_BACK];
+	WINDOW			*traceverbos[GO_BACK];
 }					t_env;
 
 int					ft_parse_argc(int argc, char **argv, t_env *env);

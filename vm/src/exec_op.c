@@ -113,8 +113,8 @@ void			exec_op(t_env *env, unsigned j)
 		op_fun[index - 1](env, j);
 		if (env->option == 0)
 			verbos(env, j, save);
-		//else if (env->option == 1)
-		//verbos_visu(env, j, save);
+		else if (env->option == 1 && env->verb == 1)
+			verbos_visu(env, j, save);
 	}
 	else
 		env->process[j].pc++;

@@ -125,6 +125,8 @@ int			check_last_live(t_env *env)
 					delwin(env->trace[i]);
 					if (env->option == 1)
 						delwin(env->traceinfos[i]);
+					if (env->option == 1 && env->verb == 1)
+						delwin(env->traceverbos[i]);
 					i++;
 				}
 				delwin(env->mem);
@@ -135,6 +137,9 @@ int			check_last_live(t_env *env)
 					delwin(env->commands);
 					delwin(env->infos);
 					delwin(env->around_infos);
+					if (env->verb == 1)
+					delwin(env->verbos);
+					delwin(env->around_verbos);
 				}
 				endwin();
 				break ;
