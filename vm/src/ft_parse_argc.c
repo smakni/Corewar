@@ -78,6 +78,8 @@ static int	ft_options(int argc, char **argv, t_env *env, int i)
 		env->option = 1;
 	else if (ft_strequ(argv[i], "-svisu"))
 		env->option = 2;
+	else if (ft_strequ(argv[i], "-verb"))
+		env->verb = 1;
 	else if (ft_strequ(argv[i], "-goback"))
 		env->goback = 1;
 	else if (ft_strequ(argv[i], "-dump"))

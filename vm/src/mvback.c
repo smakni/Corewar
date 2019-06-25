@@ -23,6 +23,12 @@ static void		exit_explo_mode(t_env *env)
 		overwrite(env->traceinfos[env->cycle_index % GO_BACK],
 			env->infos);
 		wrefresh(env->infos);
+		if (env->verb == 1)
+		{
+			overwrite(env->traceverbos[env->cycle_index % GO_BACK],
+				env->verbos);
+			wrefresh(env->verbos);
+		}
 	}
 }
 
@@ -38,6 +44,11 @@ static void		travel(t_env *env, int *where, int *cycle, int mv)
 	{
 		overwrite(env->traceinfos[*where], env->infos);
 		wrefresh(env->infos);
+		if (env->verb == 1)
+		{
+			overwrite(env->traceverbos[*where], env->verbos);
+			wrefresh(env->verbos);
+		}
 	}
 }
 
