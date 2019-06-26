@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:51:26 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 15:51:33 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:11:33 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_bytes	*search_data(t_bytes *list, const char *data_ref)
 	return (NULL);
 }
 
-void			ft_fill_addr(t_parser *data)
+int				ft_fill_addr(t_parser *data)
 {
 	t_bytes	*tmp;
 	int		replace;
@@ -49,4 +49,11 @@ void			ft_fill_addr(t_parser *data)
 		}
 		ft_del_byte_elem(&data->labels, data->labels);
 	}
+	if (data->labels == NULL && data->blanks != NULL)
+	{
+		data->err_code = 13;
+		data->err_msg = "No such label while attempting to dereference token";
+		return (FAIL);
+	}
+	return (SUCCESS);
 }

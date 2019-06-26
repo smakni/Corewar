@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:05:45 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/12 19:27:55 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:59:02 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int			main(int ac, char **av)
 		if (!(reader(data)))
 			return (clean_quit(&data, 1));
 		close(data->fd);
-		ft_fill_addr(data);
+		if (!ft_fill_addr(data))
+			return (clean_quit(&data, 1));
 		write_prog_size(data);
 		if (!(ft_write_cor(data, av[1])))
 			return (clean_quit(&data, 1));

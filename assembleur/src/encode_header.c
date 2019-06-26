@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 16:41:43 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/29 16:50:32 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:35:40 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	encode_header_name(t_parser *data, int i)
 {
+	int	nb_chars;
+
 	data->header_name_flag++;
 	data->index = 0;
 	data->bytecode[data->index++] = 0;
@@ -31,10 +33,11 @@ static int	encode_header_name(t_parser *data, int i)
 		data->err_msg = "Bad name and/or comment format";
 		return (FAIL);
 	}
-	if (!(encode_name(data, i)))
+	nb_chars = 0;
+	if (!(encode_name(data, i, &nb_chars)))
 		return (FAIL);
 	if (ft_strchr(&data->line[i], '\"') == NULL)
-		if (!(encode_multi_name(data)))
+		if (!(encode_multi_name(data, &nb_chars)))
 			return (FAIL);
 	while (data->index < 0x8b)
 		data->bytecode[data->index++] = 0;
@@ -44,6 +47,8 @@ static int	encode_header_name(t_parser *data, int i)
 
 static int	encode_header_comment(t_parser *data, int i)
 {
+	int	nb_chars;
+
 	data->header_comment_flag++;
 	if (data->line[i + 8] != '\t' && data->line[i + 8] != ' '
 			&& data->line[i + 8] != '"')
@@ -56,11 +61,12 @@ static int	encode_header_comment(t_parser *data, int i)
 		data->err_msg = "Bad name and/or comment format";
 		return (FAIL);
 	}
+	nb_chars = 0;
 	data->index = 0x8b;
-	if (!(encode_comment(data, i)))
+	if (!(encode_comment(data, i, &nb_chars)))
 		return (FAIL);
 	if (ft_strchr(&data->line[i], '\"') == NULL)
-		if (!(encode_multi_comment(data)))
+		if (!(encode_multi_comment(data, &nb_chars)))
 			return (FAIL);
 	while (data->index < 0x890)
 		data->bytecode[data->index++] = 0;
