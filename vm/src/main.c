@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/26 16:52:58 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 17:02:12 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		ft_print_memory(t_env *env)
 	int	i;
 
 	i = 0;
+	ft_printf("0x0000 : ");
 	while (i < 4096)
 	{
 		ft_printf("%.2x ", env->memory[i]);
