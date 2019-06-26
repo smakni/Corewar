@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/26 16:19:14 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 19:30:32 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int				write_champ(t_env *env)
 {
 	unsigned		i;
 	unsigned		j;
+	unsigned		ret;
 	int				id;
 	unsigned char	line[MAX_SIZE + 1];
 
@@ -87,13 +88,29 @@ int				write_champ(t_env *env)
 	{
 		if (!(safe_open(env->player[j].header.prog_name, env, O_RDONLY)))
 			return (FAIL);
-		read(env->fd, &line, MAX_SIZE);
+		ret = read(env->fd, &line, MAX_SIZE);
+		if (line[0] != 0x00 || line[1] != 0xea || line[2] != 0x83 || line[3] != 0xf3)
+		{
+			ft_dprintf(2, "Error: File %s has an invalid header\n", env->player[j].header.prog_name);
+			return (FAIL);
+		}
 		env->player[j].header.prog_size = read_bytes(line, 0x8a, 2);
-		if (env->player[j].header.prog_size > CHAMP_MAX_SIZE)
+		if (ret - 0x890 != env->player[j].header.prog_size)
+		{
+			ft_dprintf(2, "Error: File %s has a code size that differ from what its header says\n", env->player[j].header.prog_name);
+			return (FAIL);
+		}
+		else if (env->player[j].header.prog_size > CHAMP_MAX_SIZE)
 		{
 			ft_dprintf(2, "Error: File %s has too large a code (%d bytes > %d bytes)\n",
 						env->player[j].header.prog_name, env->player[j].header.prog_size,
 						CHAMP_MAX_SIZE);
+			return (FAIL);
+		}
+		else if (env->player[j].header.prog_size == 0)
+		{
+			ft_dprintf(2, "Error: File %s is too small to be a champion\n",
+						env->player[j].header.prog_name);
 			return (FAIL);
 		}
 		ft_memcpy(env->player[j].header.prog_name,

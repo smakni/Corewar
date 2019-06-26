@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 14:35:01 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/26 19:02:35 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ static int	ft_options(int argc, char **argv, t_env *env, int i)
 			return (print_error("error\n"));
 		env->option = 3;
 	}
+	else if (ft_strequ(argv[i], "-aff"))
+		env->aff = 1;
 	return (SUCCESS);
 }
 

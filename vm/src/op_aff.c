@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:24:52 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/25 15:59:23 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:58:02 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	op_aff(t_env *env, unsigned j)
 	cursor = 1;
 	if (check_args(env, j, &cursor, 1))
 	{
-		env->process[j].op.name = "aff";
 		reg = get_value(env, j, &cursor, 1);
-		ft_putchar(reg % 256);
+		if (env->aff == 1)
+			ft_printf("Aff: %c\n", reg % 256);
 		cursor++;
 	}
 	else

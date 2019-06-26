@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/24 19:36:50 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/26 19:00:55 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void			exec_op(t_env *env, unsigned j)
 	{
 		save_op(env, j);
 		op_fun[index - 1](env, j);
-		if (env->option == 0)
+		if (env->verb == 1)
 			verbos(env, j, save);
 		else if (env->option == 1 && env->verb == 1)
 			verbos_visu(env, j, save);

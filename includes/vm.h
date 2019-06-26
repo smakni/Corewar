@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/26 16:57:25 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 18:57:41 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct		s_env
 	int				option;
 	int				goback;
 	int				verb;
+	int				aff;
 	char			*err_msg;
 	WINDOW			*around_memory;
 	WINDOW			*mem;
