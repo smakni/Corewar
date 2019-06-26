@@ -22,3 +22,9 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Name and/or Comment missing."
 10:	mauvais formatage nom et/ou comment
 	->	"Bad name and/or comment format"
+11:	commentaire trop long
+	->	"Champion comment too long (Max length 2048)"
+12:	name trop long
+	->	"Champion name too long (Max length 128)"
+13:	label inexistant
+	"No such label truc while attempting to dereference token"

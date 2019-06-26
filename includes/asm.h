@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 16:09:50 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 17:58:45 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int				ft_format_line(t_parser *data, int i);
 
 int				save_label_address(t_parser *data);
 int				check_label_chars(char *str, t_parser *data);
-void			ft_fill_addr(t_parser *data);
+int				ft_fill_addr(t_parser *data);
 int				ft_parse_args(t_parser *data, char **params);
 int				ft_encode_register(char *param, t_parser *data);
 int				ft_encode_direct(char *param, t_parser *data, int is_index);
@@ -104,10 +104,10 @@ int				ft_encode_st(t_parser *data);
 int				ft_encode_add(t_parser *data);
 int				ft_encode_aff(t_parser *data);
 int				encode_header(t_parser *data, int i);
-int				encode_comment(t_parser *data, int i);
-int				encode_multi_comment(t_parser *data);
-int				encode_name(t_parser *data, int i);
-int				encode_multi_name(t_parser *data);
+int				encode_comment(t_parser *data, int i, int *nb_chars);
+int				encode_multi_comment(t_parser *data, int *nb_chars);
+int				encode_name(t_parser *data, int i, int *nb_chars);
+int				encode_multi_name(t_parser *data, int *nb_chars);
 int				ft_strlen_c(const char *str, char c);
 
 #endif
