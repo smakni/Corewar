@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 19:38:41 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:52:58 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,11 @@ static int	ft_display_commands(void)
 void		ft_print_memory(t_env *env)
 {
 	int	i;
-	int flag = 0;
 
-	//	ft_printf("{CLEAR}");
-	//	ft_putendl("");
-	i = 0;/*
-			 while ((unsigned)i < env->nb_process)
-			 {
-			 ft_printf("id : %s [%x] | live_call = {%d} | last_lives = {%d}\n",
-			 env->process[i].header.prog_name, env->process[i].r[1], env->process[i].nb_live, env->process[i].last_live);
-			 ft_printf("PROCESS[%d]<<PC[%d]\n", i, env->process[i].pc);
-			 ft_printf("OP{%.2x}", env->memory[env->process[i].pc]);
-			 ft_printf("[%2d]\n", env->process[i].cycles);
-			 i++;
-			 }*/
 	i = 0;
-	//	ft_printf("NB_PROCESS>>[%3d]\n", env->nb_process);
-	//	ft_printf("CTD>>>>>>>>>>>>>>[%d]<<<<<<<<<<<<<<[%d]\n", env->cycle_index, env->cycle_to_die);
-	ft_printf("0x0000 : ");
 	while (i < 4096)
 	{
-		unsigned j = 0;
-		while (j < env->nb_process)
-		{
-			if (env->process[j].pc == i)
-			{
-				flag = 1;
-				if (env->process[j].id == 0xffffffff)
-					ft_printf("{BG_GREEN}");
-				else if (env->process[j].id == 0xfffffffe)
-					ft_printf("{BG_BLUE}");
-				else if (env->process[j].id == 0xfffffffd)
-					ft_printf("{BG_RED}");
-				else if (env->process[j].id == 0xfffffffc)
-					ft_printf("{BG_CYAN}");
-			}
-			j++;
-		}
-		ft_printf("%.2x", env->memory[i]);
-		if (flag == 1)
-			ft_printf("{reset}");
-		ft_printf(" ");
+		ft_printf("%.2x ", env->memory[i]);
 		i++;
 		if (i % 64 == 0)
 		{

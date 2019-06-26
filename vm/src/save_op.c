@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 17:04:01 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/21 16:52:11 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:57:17 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ void		save_op(t_env *env, unsigned j)
 
 	i = 0;
 	len = op_len(env, j, env->process[j].op.code);
-	env->process[j].op.len = len;
-	//ft_printf("%s\n", &env->memory[env->process[j].pc]);
 	while (i < len)
 	{
 		env->process[j].op.saved[i] = env->memory[(env->process[j].pc + i) % MEM_SIZE];
 		i++;
 	}
-	//ft_memcpy(env->process[j].op.saved, &env->memory[env->process[j].pc], op_len(env, j, op));
 }

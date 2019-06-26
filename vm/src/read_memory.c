@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/25 20:34:29 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 16:12:15 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,24 @@ static int check_live(t_env *env, int *check_delta)
 		env->cycle_to_die -= CYCLE_DELTA;
 		if (env->option == 0)
 			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
+		*check_delta = 0;
 	}
 	else
 		(*check_delta)++;
 	env->live_period = 0;
 	return (living_process);
+}
+
+static int reset_cycles(t_env *env, int *check_delta)
+{
+	if (*check_delta == MAX_CHECKS)
+	{
+		env->cycle_to_die -= CYCLE_DELTA;
+		if (env->option == 0)
+			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
+		*check_delta = 0;
+	}
+	return (0);
 }
 
 static int move_pc(t_env *env, int j)
@@ -56,6 +69,7 @@ static int move_pc(t_env *env, int j)
 	env->process[j].cycles = check_cycles(env, j);;
 	return (1);
 }
+
 
 static int processess_execution(t_env *env)
 {
@@ -86,17 +100,6 @@ static int processess_execution(t_env *env)
 	return (1);
 }
 
-static int reset_cycles(t_env *env, int *check_delta)
-{
-	if (*check_delta == MAX_CHECKS)
-	{
-		env->cycle_to_die -= CYCLE_DELTA;
-		if (env->option == 0)
-			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
-		*check_delta = 0;
-	}
-	return (0);
-}
 
 int read_memory(t_env *env)
 {

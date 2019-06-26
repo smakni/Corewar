@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/17 19:15:00 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:19:14 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				write_champ(t_env *env)
 	unsigned		i;
 	unsigned		j;
 	int				id;
-	unsigned char	line[MAX_CHAMP_CODE_SIZE + 1];
+	unsigned char	line[MAX_SIZE + 1];
 
 	i = 0;
 	j = 0;
@@ -87,20 +87,21 @@ int				write_champ(t_env *env)
 	{
 		if (!(safe_open(env->player[j].header.prog_name, env, O_RDONLY)))
 			return (FAIL);
-		read(env->fd, &line, MAX_CHAMP_CODE_SIZE);
+		read(env->fd, &line, MAX_SIZE);
+		env->player[j].header.prog_size = read_bytes(line, 0x8a, 2);
+		if (env->player[j].header.prog_size > CHAMP_MAX_SIZE)
+		{
+			ft_dprintf(2, "Error: File %s has too large a code (%d bytes > %d bytes)\n",
+						env->player[j].header.prog_name, env->player[j].header.prog_size,
+						CHAMP_MAX_SIZE);
+			return (FAIL);
+		}
 		ft_memcpy(env->player[j].header.prog_name,
 					&line[4], PROG_NAME_LENGTH);
 		ft_memcpy(env->player[j].header.comment,
 					&line[0x8c], COMMENT_LENGTH - 10);
-		env->player[j].header.prog_size = read_bytes(line, 0x8a, 2);
-		if (env->player[j].header.prog_size > CHAMP_MAX_SIZE)
-		{
-			ft_printf("SIZE_ERROR\n");
-			return (FAIL);
-		}
 		ft_memcpy(&env->memory[i], &line[0x890],
 					env->player[j].header.prog_size);
-		//env->player[j].header = env->process[j].header;
 		ft_bzero(&(env->process[j].op), sizeof(t_op));
 		env->player[j].last_live = 0;
 		env->process[j].last_live = 0;

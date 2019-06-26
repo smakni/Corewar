@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/26 13:09:29 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 16:57:25 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define VM_H
 
 # include "../libft/libft.h"
-# include "../ressources/op.h"
+# include "op.h"
 # include <curses.h>
 # include <limits.h>
 
 # define MAX_OP_LEN				11
-# define MAX_CHAMP_CODE_SIZE	(CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 13)
+# define MAX_SIZE	(CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
@@ -30,7 +30,6 @@ typedef	struct 		s_op
 	unsigned		code;
 	unsigned		encode;
 	unsigned char	saved[MAX_OP_LEN];
-	int				len;
 	char			*param[MAX_ARGS_NUMBER];
 	char 			*name;
 }					t_op;

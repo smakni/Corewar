@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/12 19:23:32 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:09:50 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define ASM_H
 
 # include "../libft/libft.h"
-# include "../ressources/op.h"
+# include "op.h"
 
 # define SIZE_BUFFER	4096
 # define IDENTICAL	0
