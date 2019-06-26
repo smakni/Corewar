@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:51:26 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 17:52:24 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:11:33 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ int				ft_fill_addr(t_parser *data)
 {
 	t_bytes	*tmp;
 	int		replace;
-	int		found_ref;
 
 	while (data->labels)
 	{
-		found_ref = 0;
 		while ((tmp = search_data(data->blanks, data->labels->label)))
 		{
-			found_ref = 1;
 			replace = data->labels->index - tmp->index_instruction;
 			if (tmp->size == 4)
 			{
@@ -50,13 +47,13 @@ int				ft_fill_addr(t_parser *data)
 			}
 			ft_del_byte_elem(&data->blanks, tmp);
 		}
-		if (found_ref == 0)
-		{
-			data->err_code = 13;
-			data->err_msg = "No such label truc while attempting to dereference token";
-			return (FAIL);
-		}
 		ft_del_byte_elem(&data->labels, data->labels);
+	}
+	if (data->labels == NULL && data->blanks != NULL)
+	{
+		data->err_code = 13;
+		data->err_msg = "No such label while attempting to dereference token";
+		return (FAIL);
 	}
 	return (SUCCESS);
 }
