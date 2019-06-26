@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/21 14:12:07 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/26 13:09:29 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <limits.h>
 
 # define MAX_OP_LEN				11
-# define MAX_CHAMP_CODE_SIZE	(CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH)
+# define MAX_CHAMP_CODE_SIZE	(CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 13)
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
