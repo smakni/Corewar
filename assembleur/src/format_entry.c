@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:32:33 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 16:42:44 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:35:42 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*insert_space(t_parser *data, char *tmp)
 		return (NULL);
 	if (tmp[j] == '\0' || tmp[j] == ' ' || tmp[j] == '\t')
 		return (tmp2);
-	if (!(tmp2 = ft_memjoin((void *)tmp, j, (void *)" ", 1)))
+	if (!(tmp2 = ft_memjoin((void *)tmp, j, (void *)" \0", 2)))
 		return (NULL);
 	tmp3 = tmp2;
 	if (!(tmp2 = ft_strjoin(tmp2, &tmp[j])))
