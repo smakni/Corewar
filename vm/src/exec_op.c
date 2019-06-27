@@ -111,7 +111,7 @@ void			exec_op(t_env *env, unsigned j)
 	{
 		save_op(env, j);
 		op_fun[index - 1](env, j);
-		if (env->verb == 1)
+		if (env->option == 0 && env->verb == 1)
 			verbos(env, j, save);
 		else if (env->option == 1 && env->verb == 1)
 			verbos_visu(env, j, save);

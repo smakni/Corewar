@@ -35,7 +35,7 @@ static int check_live(t_env *env, int *check_delta)
 	if (env->live_period >= NBR_LIVE)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		if (env->verb == 1)
+		if (env->option == 0 && env->verb == 1)
 			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		*check_delta = 0;
 	}
@@ -50,7 +50,7 @@ static int reset_cycles(t_env *env, int *check_delta)
 	if (*check_delta == MAX_CHECKS)
 	{
 		env->cycle_to_die -= CYCLE_DELTA;
-		if (env->verb == 1)
+		if (env->option == 0 && env->verb == 1)
 			ft_printf("Cycle to die is now %d\n", env->cycle_to_die);
 		*check_delta = 0;
 	}
@@ -127,7 +127,7 @@ int read_memory(t_env *env)
 				break;
 			i = reset_cycles(env, &check_delta);
 		}
-		if (env->verb == 1)
+		if (env->option == 0 && env->verb == 1)
 			ft_printf("It is now cycle %d\n", env->cycle_index);
 		if (processess_execution(env) == FAIL)
 			return (FAIL);

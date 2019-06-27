@@ -42,54 +42,6 @@ void verbos_visu(t_env *env, unsigned j, int save)
 	int tmp;
 
 	i = 0;
-/*	if (env->process[j].color == 4)
-	{
-		wmove(env->verbos, 32, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 33, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 34, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 35, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 32, 0);
-	}
-	else if (env->process[j].color == 5)
-	{
-		wmove(env->verbos, 36, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 37, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 38, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 39, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 36, 0);
-	}
-	else if (env->process[j].color == 6)
-	{
-		wmove(env->verbos, 40, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 41, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 42, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 43, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 40, 0);
-	}
-	else if (env->process[j].color == 7)
-	{
-		wmove(env->verbos, 44, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 45, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 46, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 47, 0);
-		wclrtoeol(env->verbos);
-		wmove(env->verbos, 44, 0);
-	}*/
 	wattron(env->verbos, COLOR_PAIR(0));
 	if (env->process[j].op.name != NULL)
 		wprintw(env->verbos, "Process %4d | ", j + 1);
