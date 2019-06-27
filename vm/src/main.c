@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 11:27:53 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:31:00 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,26 @@ static void	init_op_tab(t_env *env)
 	env->op_cycles[16] = 2;
 }
 
+static void	init_op_fun(t_env *env)
+{
+	env->op_fun[0] = op_live;
+	env->op_fun[1] = op_ld;
+	env->op_fun[2] = op_st;
+	env->op_fun[3] = op_add;
+	env->op_fun[4] = op_sub;
+	env->op_fun[5] = op_and;
+	env->op_fun[6] = op_or;
+	env->op_fun[7] = op_xor;
+	env->op_fun[8] = op_zjmp;
+	env->op_fun[9] = op_ldi;
+	env->op_fun[10] = op_sti;
+	env->op_fun[11] = op_fork;
+	env->op_fun[12] = op_lld;
+	env->op_fun[13] = op_lldi;
+	env->op_fun[14] = op_lfork;
+	env->op_fun[15] = op_aff;
+}
+
 int			main(int argc, char **argv)
 {
 	t_env	env;
@@ -144,6 +164,7 @@ int			main(int argc, char **argv)
 	{
 		ft_bzero(&env, sizeof(t_env));
 		init_op_tab(&env);
+		init_op_fun(&env);
 		env.nb_realloc = 1;
 		if (!(env.process = ft_memalloc(sizeof(t_process) * ARR_SIZE)))
 			return (-1);

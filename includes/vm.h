@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 11:19:26 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:41:01 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct		s_env
 {
 	unsigned char	memory[MEM_SIZE];
 	int				op_cycles[17];
+	void			(*op_fun[16])(struct s_env *, unsigned int);
 	t_player		player[MAX_PLAYERS];
 	t_process		*process;
 	unsigned		nb_process;
