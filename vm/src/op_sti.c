@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:48:10 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	get_reg_content(t_env *env, unsigned int j, int *cursor, int *nb_reg,
 	if (*nb_reg >= 1 && *nb_reg <= 16)
 		content = env->process[j].r[*nb_reg];
 	if (*cursor > 2)
-		save_param(env, j, content, IND_CODE, param);
+		if (env->verb == 1)
+			save_param(env, j, content, IND_CODE, param);
 	(*cursor)++;
 	return (content);
 }
@@ -45,7 +46,8 @@ void	op_sti(t_env *env, unsigned int j)
 		nb_reg1 = 0;
 		cursor++;
 		reg_content = get_reg_content(env, j, &cursor, &nb_reg1, 0);
-		save_param(env, j, nb_reg1, REG_CODE, 0);
+		if (env->verb == 1)
+			save_param(env, j, nb_reg1, REG_CODE, 0);
 		nb_reg2 = 1;
 		nb_reg3 = 1;
 		if (type_param(env->process[j].op.saved[1], 2) == IND_CODE)
@@ -57,7 +59,8 @@ void	op_sti(t_env *env, unsigned int j)
 			else if (current_pos + tmp >= MEM_SIZE)
 				tmp = (current_pos + tmp) % MEM_SIZE;
 			dest = read_bytes(env->memory, current_pos + tmp, 4) % IDX_MOD;
-			save_param(env, j, dest, IND_CODE, 1);
+			if (env->verb == 1)
+				save_param(env, j, dest, IND_CODE, 1);
 		}
 		else if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 			dest = get_reg_content(env, j, &cursor, &nb_reg2, 1);
@@ -65,7 +68,8 @@ void	op_sti(t_env *env, unsigned int j)
 		{
 			dest = read_bytes(env->process[j].op.saved, cursor, IND_SIZE) % IDX_MOD;
 			cursor += 2;
-			save_param(env, j, dest, IND_CODE, 1);
+			if (env->verb == 1)
+				save_param(env, j, dest, IND_CODE, 1);
 		}
 		if (type_param(env->process[j].op.saved[1], 3) == REG_CODE)
 			dest += get_reg_content(env, j, &cursor, &nb_reg3, 2);
@@ -74,7 +78,8 @@ void	op_sti(t_env *env, unsigned int j)
 			tmp = read_bytes(env->process[j].op.saved, cursor, 2) % IDX_MOD;
 			cursor += 2;
 			dest += tmp;
-			save_param(env, j, tmp, IND_CODE, 2);
+			if (env->verb == 1)
+				save_param(env, j, tmp, IND_CODE, 2);
 		}
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{

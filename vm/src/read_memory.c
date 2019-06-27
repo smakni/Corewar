@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/26 19:34:46 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 10:38:17 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int read_memory(t_env *env)
 		else if (env->option == 3 && env->cycle_index == env->dump)
 		{
 			ft_print_memory(env);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 		env->cycle_index++;
 		i++;

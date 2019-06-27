@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sub.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/25 20:30:23 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 10:48:24 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void		op_sub(t_env *env, unsigned int j)
 	{
 		cursor++;
 		nb_reg1 = env->process[j].op.saved[cursor];
-		save_param(env, j, nb_reg1, REG_CODE, 0);
+		if (env->verb == 1)
+			save_param(env, j, nb_reg1, REG_CODE, 0);
 		if (nb_reg1 >= 1 && nb_reg1 <= 16)
 		{
 			reg_content = env->process[j].r[env->process[j].op.saved[cursor]];
@@ -36,7 +37,8 @@ void		op_sub(t_env *env, unsigned int j)
 			diff = 0;
 		cursor++;
 		nb_reg2 = env->process[j].op.saved[cursor];
-		save_param(env, j, nb_reg2, REG_CODE, 1);
+		if (env->verb == 1)
+			save_param(env, j, nb_reg2, REG_CODE, 1);
 		if (nb_reg2 >= 1 && nb_reg2 <= 16)
 		{
 			reg_content = env->process[j].r[env->process[j].op.saved[cursor]];
@@ -44,6 +46,7 @@ void		op_sub(t_env *env, unsigned int j)
 		}
 		cursor++;
 		nb_reg3 = env->process[j].op.saved[cursor];
+		if (env->verb == 1)
 			save_param(env, j, nb_reg3, REG_CODE, 2);
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{

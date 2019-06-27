@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/25 15:59:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:46:32 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void		op_ldi(t_env *env, unsigned int j)
 		if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
 		{
 			nb_reg1 = env->process[j].op.saved[cursor + 1];
-			save_param(env, j, nb_reg1, REG_CODE, 0);
+			if (env->verb == 1)
+				save_param(env, j, nb_reg1, REG_CODE, 0);
 			v1 = 0;
 			if (nb_reg1 >= 1 && nb_reg1 <= 16)
 				v1 = get_value_index(env, j, &cursor, 1);
@@ -40,7 +41,8 @@ void		op_ldi(t_env *env, unsigned int j)
 		else
 		{
 			v1 = get_value_index(env, j, &cursor, 1);
-			save_param(env, j, v1, IND_CODE, 0);
+			if (env->verb == 1)
+				save_param(env, j, v1, IND_CODE, 0);
 		}
 		if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 		{
@@ -50,16 +52,19 @@ void		op_ldi(t_env *env, unsigned int j)
 				v2 = get_value_index(env, j, &cursor, 2);
 			else
 				cursor++;
-			save_param(env, j, v2, IND_CODE, 1);
+			if (env->verb == 1)
+				save_param(env, j, v2, IND_CODE, 1);
 		}
 		else
 		{
 			v2 = get_value_index(env, j, &cursor, 2);
-			save_param(env, j, v2, IND_CODE, 1);
+			if (env->verb == 1)
+				save_param(env, j, v2, IND_CODE, 1);
 		}
 		cursor++;
 		nb_reg3 = env->process[j].op.saved[cursor];
-		save_param(env, j, nb_reg3, REG_CODE, 2);
+		if (env->verb == 1)
+			save_param(env, j, nb_reg3, REG_CODE, 2);
 		cursor++;
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{

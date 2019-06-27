@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/26 15:21:47 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 10:47:40 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ void		op_st(t_env *env, unsigned int j)
 	if (check_args(env, j, &cursor, 2))
 	{
 		nb_reg = env->process[j].op.saved[2];
-		save_param(env, j, nb_reg, REG_CODE, 0);
+		if (env->verb == 1)
+			save_param(env, j, nb_reg, REG_CODE, 0);
 		reg_content = get_value(env, j, &cursor, 1);
 		cursor++;
 		if (type_param(env->process[j].op.saved[1], 2) == IND_CODE)
 		{
 			dest = read_bytes(env->memory, current_pos + cursor, IND_SIZE);
-			save_param(env, j, dest, IND_CODE, 1);
+			if (env->verb == 1)
+				save_param(env, j, dest, IND_CODE, 1);
 			dest %= IDX_MOD;
 			cursor += 2;
 			if (nb_reg >= 1 && nb_reg <= 16)
@@ -52,7 +54,8 @@ void		op_st(t_env *env, unsigned int j)
 		else
 		{
 			dest = env->process[j].op.saved[cursor];
-			save_param(env, j, dest, IND_CODE, 1);
+			if (env->verb == 1)
+				save_param(env, j, dest, IND_CODE, 1);
 			cursor++;
 			if (nb_reg >= 1 && nb_reg <= 16)
 			{
