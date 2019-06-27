@@ -22,7 +22,7 @@ then
 	*.cor)
 		echo "$champs selected"
 		echo "Store first to exec_1.debug"
-		$PATH_1 -verb $champs > exec_1.debug
+		$PATH_1 -verb -a $champs > exec_1.debug
 		find .. $PATH_1 > /dev/null
 		let "ret1 = $?"
 		if [ $ret1 != 0 ]
@@ -49,6 +49,16 @@ then
 			read -p "Select arguments for diff : " args
 			read -p "Store the output ? | less ? (y/n/less) " answer2
 		fi
+		if [ "$answer2" = "y" ] || [ "$answer2" = "Y" ] || [ "$answer2" = "yes" ]
+		then
+			echo "Store diff to diff.debug"
+			diff $args exec_1.debug exec_2.debug > diff.debug
+		elif [ "$answer2" = "less" ]
+		then
+			diff $args exec_1.debug exec_2.debug | less
+		else
+			diff $args exec_1.debug exec_2.debug
+		fi
 	;;
 	"quit")
 		exit
@@ -68,7 +78,7 @@ then
 	exit
 else
 	echo "Store first to exec_1.debug"
-	$PATH_1 -verb $champs > exec_1.debug
+	$PATH_1 -verb -a $champs > exec_1.debug
 	find .. $PATH_1 > /dev/null
 	let "ret1 = $?"
 	if [ $ret1 != 0 ]
@@ -78,7 +88,7 @@ else
 		echo -e "${LIGHTGREEN}[ok]${NOCOLOR}"
 	fi
 	echo "Store second to exec_2.debug"
-	$PATH_2 -v 30 $champs > exec_2.debug
+	$PATH_2 -v 31 $champs > exec_2.debug
 	find .. $PATH_2 > /dev/null
 	let "ret2 = $?"
 	if [ $ret2 != 0 ]
