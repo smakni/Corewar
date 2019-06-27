@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_addr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:51:26 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 18:11:33 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:47:57 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ static t_bytes	*search_data(t_bytes *list, const char *data_ref)
 	return (NULL);
 }
 
+static void		ft_fill_addr_suite(t_parser *data, t_bytes *tmp, int replace)
+{
+	if (tmp->size == 4)
+	{
+		data->bytecode[tmp->index] = replace >> 24;
+		data->bytecode[tmp->index + 1] = replace >> 16;
+		data->bytecode[tmp->index + 2] = replace >> 8;
+		data->bytecode[tmp->index + 3] = replace;
+	}
+	if (tmp->size == 2)
+	{
+		data->bytecode[tmp->index] = replace >> 8;
+		data->bytecode[tmp->index + 1] = replace;
+	}
+}
+
 int				ft_fill_addr(t_parser *data)
 {
 	t_bytes	*tmp;
@@ -33,18 +49,19 @@ int				ft_fill_addr(t_parser *data)
 		while ((tmp = search_data(data->blanks, data->labels->label)))
 		{
 			replace = data->labels->index - tmp->index_instruction;
-			if (tmp->size == 4)
-			{
-				data->bytecode[tmp->index] = replace >> 24;
-				data->bytecode[tmp->index + 1] = replace >> 16;
-				data->bytecode[tmp->index + 2] = replace >> 8;
-				data->bytecode[tmp->index + 3] = replace;
-			}
-			if (tmp->size == 2)
-			{
-				data->bytecode[tmp->index] = replace >> 8;
-				data->bytecode[tmp->index + 1] = replace;
-			}
+			ft_fill_addr_suite(data, tmp, replace);
+			// if (tmp->size == 4)
+			// {
+			// 	data->bytecode[tmp->index] = replace >> 24;
+			// 	data->bytecode[tmp->index + 1] = replace >> 16;
+			// 	data->bytecode[tmp->index + 2] = replace >> 8;
+			// 	data->bytecode[tmp->index + 3] = replace;
+			// }
+			// if (tmp->size == 2)
+			// {
+			// 	data->bytecode[tmp->index] = replace >> 8;
+			// 	data->bytecode[tmp->index + 1] = replace;
+			// }
 			ft_del_byte_elem(&data->blanks, tmp);
 		}
 		ft_del_byte_elem(&data->labels, data->labels);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encode_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:48:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 17:37:57 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:43:25 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		encode_name(t_parser *data, int i, int *nb_chars)
 		{
 			data->err_code = 11;
 			data->err_msg = "Champion name too long (Max length 128)";
-			return (FAIL);			
+			return (FAIL);
 		}
 	}
 	if (data->index > 0x8b)

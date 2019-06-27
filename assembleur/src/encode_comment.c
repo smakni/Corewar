@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encode_comment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:47:19 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 17:37:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:42:05 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		encode_comment(t_parser *data, int i, int *nb_chars)
 		{
 			data->err_code = 10;
 			data->err_msg = "Champion comment too long (Max length 2048)";
-			return (FAIL);			
+			return (FAIL);
 		}
 	}
 	if (data->index > 0x890)
