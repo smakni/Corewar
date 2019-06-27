@@ -28,15 +28,15 @@ static void	del_processess_visu(t_env *env)
 			remove_bold(env, j);
 			color = mvwinch(env->mem, y, x) & A_COLOR;
 			if (color == COLOR_PAIR(12))
-				mvwchgat(env->mem, y, x, 2, A_NORMAL, 1, NULL);
+				protect_mvwchgat(env, y, x, 1);
 			else if (color == COLOR_PAIR(8))
-				mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
+				protect_mvwchgat(env, y, x, 4);
 			else if (color == COLOR_PAIR(9))
-				mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
+				protect_mvwchgat(env, y, x, 5);
 			else if (color == COLOR_PAIR(10))
-				mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
+				protect_mvwchgat(env, y, x, 6);
 			else if (color == COLOR_PAIR(11))
-				mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
+				protect_mvwchgat(env, y, x, 7);
 		}
 }
 
