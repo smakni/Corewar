@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   encode_header.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 16:41:43 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 10:43:09 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:01:44 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
+
+static void	encode_magic_number(t_parser *data)
+{
+	data->index = 0;
+	data->bytecode[data->index++] = (char)0x00;
+	data->bytecode[data->index++] = (char)0xEA;
+	data->bytecode[data->index++] = (char)0x83;
+	data->bytecode[data->index] = (char)0xF3;
+}
 
 static int	encode_header_name(t_parser *data, int i)
 {
 	int	nb_chars;
 
 	data->header_name_flag++;
-	data->index = 0;
-	data->bytecode[data->index++] = 0;
-	data->bytecode[data->index++] = (char)234;
-	data->bytecode[data->index++] = (char)131;
-	data->bytecode[data->index] = (char)243;
+	encode_magic_number(data);
 	if (data->line[i + 5] != '\t' && data->line[i + 5] != ' '
 			&& data->line[i + 5] != '"')
 		return (FAIL);

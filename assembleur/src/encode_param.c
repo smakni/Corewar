@@ -6,11 +6,24 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:12:43 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/12 19:26:41 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:10:57 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
+
+static int	ft_indirect_label(char *param, t_parser *data, int i, int is_index)
+{
+	i = ft_memorize_blank_label(param, data, is_index);
+	ft_strdel(&param);
+	return (i);
+}
+
+static void	set_err_msg(t_parser *data)
+{
+	data->err_code = 4;
+	data->err_msg = "Invalid parameter near line ";
+}
 
 int			ft_encode_param(const char *rough_param, const int type_param,
 				t_parser *data, int is_index)
@@ -34,14 +47,9 @@ int			ft_encode_param(const char *rough_param, const int type_param,
 		if (ft_str_is_numeric(&param[i]))
 			return (ft_encode_indirect(param, data));
 		if (param[0] == ':')
-		{
-			i = ft_memorize_blank_label(param, data, is_index);
-			ft_strdel(&param);
-			return (i);
-		}
+			return (ft_indirect_label(param, data, i, is_index));
 	}
 	ft_strdel(&param);
-	data->err_code = 4;
-	data->err_msg = "Invalid parameter near line ";
+	set_err_msg(data);
 	return (FAIL);
 }

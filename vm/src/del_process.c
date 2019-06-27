@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/26 19:03:05 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 11:26:23 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	aff_del_processess(t_env *env)
 		if (env->process[j].nb_live == -1)
 		{
 			if (env->verb == 1)
-				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", j + 1,
+				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+							j + 1,
 							env->cycle_index - env->process[j].last_live - 1,
 							env->cycle_to_die);
 			env->process[j].nb_live = -2;

@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 10:27:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:24:53 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,27 @@ int			check_last_live(t_env *env)
 	return (save);
 }
 
+static void	init_op_tab(t_env *env)
+{
+	env->op_cycles[0] = 1;
+	env->op_cycles[1] = 10;
+	env->op_cycles[2] = 5;
+	env->op_cycles[3] = 5;
+	env->op_cycles[4] = 10;
+	env->op_cycles[5] = 10;
+	env->op_cycles[6] = 6;
+	env->op_cycles[7] = 6;
+	env->op_cycles[8] = 6;
+	env->op_cycles[9] = 20;
+	env->op_cycles[10] = 25;
+	env->op_cycles[11] = 25;
+	env->op_cycles[12] = 800;
+	env->op_cycles[13] = 10;
+	env->op_cycles[14] = 50;
+	env->op_cycles[15] = 1000;
+	env->op_cycles[16] = 2;
+}
+
 int			main(int argc, char **argv)
 {
 	t_env	env;
@@ -122,6 +143,7 @@ int			main(int argc, char **argv)
 	if (argc > 1)
 	{
 		ft_bzero(&env, sizeof(t_env));
+		init_op_tab(&env);
 		env.nb_realloc = 1;
 		if (!(env.process = ft_memalloc(sizeof(t_process) * ARR_SIZE)))
 			return (-1);

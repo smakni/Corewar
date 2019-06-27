@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/26 18:57:41 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 11:19:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_process
 typedef struct		s_env
 {
 	unsigned char	memory[MEM_SIZE];
+	int				op_cycles[17];
 	t_player		player[MAX_PLAYERS];
 	t_process		*process;
 	unsigned		nb_process;

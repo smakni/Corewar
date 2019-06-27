@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   decode_byte_param.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:37:00 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 18:41:53 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:25:32 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int		decode_byte_param(unsigned char param, int is_index, int len)
 			op_len += 2;
 		i++;
 	}
-	//ft_printf("ADV --> %i\n", op_len);
 	return (op_len);
 }

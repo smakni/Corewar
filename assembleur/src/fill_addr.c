@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_addr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:51:26 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 10:47:57 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:11:25 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,6 @@ int				ft_fill_addr(t_parser *data)
 		{
 			replace = data->labels->index - tmp->index_instruction;
 			ft_fill_addr_suite(data, tmp, replace);
-			// if (tmp->size == 4)
-			// {
-			// 	data->bytecode[tmp->index] = replace >> 24;
-			// 	data->bytecode[tmp->index + 1] = replace >> 16;
-			// 	data->bytecode[tmp->index + 2] = replace >> 8;
-			// 	data->bytecode[tmp->index + 3] = replace;
-			// }
-			// if (tmp->size == 2)
-			// {
-			// 	data->bytecode[tmp->index] = replace >> 8;
-			// 	data->bytecode[tmp->index + 1] = replace;
-			// }
 			ft_del_byte_elem(&data->blanks, tmp);
 		}
 		ft_del_byte_elem(&data->labels, data->labels);
