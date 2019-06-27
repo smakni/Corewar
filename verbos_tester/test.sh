@@ -5,7 +5,9 @@ RED='\033[0;31m'
 LIGHTGREEN='\033[1;32m'
 
 PATH_1=../corewar
+OPT_1="-v -a"
 PATH_2=../ressources/vm_champs/corewar
+OPT_2="-v 30 -a"
 
 echo -e "${LIGHTGREEN}***********************************************************"
 echo -e ">>>>>>>>>>>>>>>>>>>>VERBOS_TESTER<<<<<<<<<<<<<<<<<<<<<<<<<<"
@@ -22,7 +24,7 @@ then
 	*.cor)
 		echo "$champs selected"
 		echo "Store first to exec_1.debug"
-		$PATH_1 -verb -a $champs > exec_1.debug
+		$PATH_1 $OPT_1 $champs > exec_1.debug
 		find .. $PATH_1 > /dev/null
 		let "ret1 = $?"
 		if [ $ret1 != 0 ]
@@ -32,7 +34,7 @@ then
 			echo -e "${LIGHTGREEN}[ok]${NOCOLOR}"
 		fi
 		echo "Store second to exec_2.debug"
-		$PATH_2 -v 30 $champs > exec_2.debug
+		$PATH_2 $OPT_2 $champs > exec_2.debug
 		find .. $PATH_2 > /dev/null
 		let "ret2 = $?"
 		if [ $ret2 != 0 ]
@@ -78,7 +80,7 @@ then
 	exit
 else
 	echo "Store first to exec_1.debug"
-	$PATH_1 -verb -a $champs > exec_1.debug
+	$PATH_1 $OPT_1 $champs > exec_1.debug
 	find .. $PATH_1 > /dev/null
 	let "ret1 = $?"
 	if [ $ret1 != 0 ]
@@ -88,7 +90,7 @@ else
 		echo -e "${LIGHTGREEN}[ok]${NOCOLOR}"
 	fi
 	echo "Store second to exec_2.debug"
-	$PATH_2 -v 31 $champs > exec_2.debug
+	$PATH_2 $OPT_2 $champs > exec_2.debug
 	find .. $PATH_2 > /dev/null
 	let "ret2 = $?"
 	if [ $ret2 != 0 ]
