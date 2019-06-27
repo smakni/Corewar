@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 17:50:09 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 18:55:27 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int			ft_parse_argc(int argc, char **argv, t_env *env)
 			ft_memcpy(tmp[env->nb_process].header.prog_name,
 				argv[i], PROG_NAME_LENGTH + 1);
 			env->nb_process++;
+			env->nb_player++;
 		}
 		else if (ft_strequ(argv[i], "-n"))
 		{

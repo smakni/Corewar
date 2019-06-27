@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 11:31:00 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:03:50 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,11 @@ int			check_last_live(t_env *env)
 
 	i = 0;
 	save = 0;
-	last_live = -1;
-	while (i < MAX_PLAYERS)
+	last_live = 0;
+	while ((unsigned)i < env->nb_player)
 	{
-		//ft_printf("[%s]live = %d\n",
-		//		env->player[i].header.prog_name, env->player[i].last_live);
-		if (env->player[i].last_live > last_live)
+		if (env->player[i].last_live >= last_live)
 		{
-			//ft_printf("SAVE");
-			//ft_printf("[%s]live = %d\n",
-			//	env->player[i].header.prog_name, env->player[i].last_live);
 			last_live = env->player[i].last_live;
 			save = i;
 		}
