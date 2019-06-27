@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 10:46:07 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:42:59 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		op_ld(t_env *env, unsigned int j)
 			save_param(env, j, nb_reg, REG_CODE, 1);
 		cursor++;
 		if (nb_reg >= 1 && nb_reg <= 16)
-		{			
+		{
 			if (value == 0)
 				env->process[j].carry = 1;
 			else

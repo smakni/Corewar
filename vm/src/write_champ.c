@@ -18,13 +18,15 @@ static void		check_last(t_env *env, unsigned j)
 	{
 		if (env->option == 1)
 		{
-			mvwprintw(env->state, 0, 0, "** PAUSED ** ");
+			if (mvwprintw(env->state, 0, 0, "** PAUSED ** ") == ERR)
+				exit_clean(env);
 			print_infos(env);
-			wrefresh(env->state);
-			env->traceinfos[env->cycle_index] = dupwin(env->infos);
+			protect_wrefresh(env, env->state);
+			env->traceinfos[env->cycle_index] = protect_dupwin(env, env->infos);
 		}
-		wrefresh(env->mem);
-		env->trace[env->cycle_index] = dupwin(env->mem);
+		protect_wrefresh(env, env->mem);
+		if (!(env->trace[env->cycle_index] = dupwin(env->mem)))
+			exit_clean(env);
 	}
 }
 
@@ -35,10 +37,12 @@ static void		write_champ_body(t_env *env, unsigned y, unsigned x, unsigned j)
 
 	k = 1;
 	start = 4096 * j / env->nb_process;
-	wattron(env->mem, COLOR_PAIR(env->process[j].color));
+	if (wattron(env->mem, COLOR_PAIR(env->process[j].color)) == ERR)
+		exit_clean(env);
 	while (k < env->player[j].header.prog_size)
 	{
-		mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]);
+		if (mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]) == ERR)
+			exit_clean(env);
 		x += 3;
 		if (x >= 192)
 		{
@@ -47,7 +51,8 @@ static void		write_champ_body(t_env *env, unsigned y, unsigned x, unsigned j)
 		}
 		k++;
 	}
-	wattroff(env->mem, COLOR_PAIR(4 + j));
+	if (wattroff(env->mem, COLOR_PAIR(4 + j)) == ERR)
+		exit_clean(env);
 }
 
 static void		write_champ_visu(t_env *env, unsigned j)
@@ -58,15 +63,18 @@ static void		write_champ_visu(t_env *env, unsigned j)
 	env->process[j].color = 4 + j;
 	x = 4096 * j / env->nb_process % 64 * 3;
 	y = 4096 / env->nb_process / 64 * j;
-	wattron(env->mem, COLOR_PAIR(env->process[j].color + 4));
-	mvwprintw(env->mem, y, x, "%.2x", env->memory[4096 * j / env->nb_process]);
+	if (wattron(env->mem, COLOR_PAIR(env->process[j].color + 4)) == ERR)
+		exit_clean(env);
+	if (mvwprintw(env->mem, y, x, "%.2x", env->memory[4096 * j / env->nb_process]) == ERR)
+		exit_clean(env);
 	x += 3;
 	if (x >= 192)
 	{
 		x -= 192;
 		y++;
 	}
-	wattroff(env->mem, COLOR_PAIR(env->process[j].color + 4));
+	if (wattroff(env->mem, COLOR_PAIR(env->process[j].color + 4)) == ERR)
+		exit_clean(env);
 	write_champ_body(env, y, x, j);
 	check_last(env, j);
 }

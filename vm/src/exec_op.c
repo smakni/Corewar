@@ -12,6 +12,12 @@
 
 #include "../../includes/vm.h"
 
+void			protect_mvwchgat(t_env *env, int y, int x, int color)
+{
+	if (mvwchgat(env->mem, y, x, 2, A_NORMAL, color, NULL) == ERR)	
+		exit_clean(env);
+}
+
 static void		redraw_pc_2(t_env *env, int pc, int len)
 {
 	int x;
@@ -25,15 +31,15 @@ static void		redraw_pc_2(t_env *env, int pc, int len)
 	y = pc / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;
 	if (color == COLOR_PAIR(12))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 1, NULL);
+		protect_mvwchgat(env, y, x, 1);
 	else if (color == COLOR_PAIR(8))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
+		protect_mvwchgat(env, y, x, 4);
 	else if (color == COLOR_PAIR(9))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
+		protect_mvwchgat(env, y, x, 5);
 	else if (color == COLOR_PAIR(10))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
+		protect_mvwchgat(env, y, x, 6);
 	else if (color == COLOR_PAIR(11))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
+		protect_mvwchgat(env, y, x, 7);
 }
 
 static void		redraw_pc(t_env *env, int pc, int len)
@@ -48,15 +54,15 @@ static void		redraw_pc(t_env *env, int pc, int len)
 	y = pc / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;
 	if (color == COLOR_PAIR(1))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 12, NULL);
+		protect_mvwchgat(env, y, x, 12);
 	else if (color == COLOR_PAIR(4))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 8, NULL);
+		protect_mvwchgat(env, y, x, 8);
 	else if (color == COLOR_PAIR(5))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 9, NULL);
+		protect_mvwchgat(env, y, x, 9);
 	else if (color == COLOR_PAIR(6))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 10, NULL);
+		protect_mvwchgat(env, y, x, 10);
 	else if (color == COLOR_PAIR(7))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 11, NULL);
+		protect_mvwchgat(env, y, x, 11);
 	redraw_pc_2(env, pc, len);
 }
 
@@ -70,13 +76,13 @@ static void		remove_live_color(t_env *env, unsigned j)
 	y = env->process[j].live / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;
 	if (color == COLOR_PAIR(13))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 4, NULL);
+		protect_mvwchgat(env, y, x, 4);
 	else if (color == COLOR_PAIR(14))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 5, NULL);
+		protect_mvwchgat(env, y, x, 5);
 	else if (color == COLOR_PAIR(15))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 6, NULL);
+		protect_mvwchgat(env, y, x, 6);
 	else if (color == COLOR_PAIR(16))
-		mvwchgat(env->mem, y, x, 2, A_NORMAL, 7, NULL);
+		protect_mvwchgat(env, y, x, 7);
 }
 
 void			exec_op(t_env *env, unsigned j)

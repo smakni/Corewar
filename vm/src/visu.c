@@ -21,19 +21,23 @@ void	update_visu(t_env *env, int dest, unsigned j)
 
 	env->process[j].dest = dest;
 	k = 0;
-	wattron(env->mem, COLOR_PAIR(env->process[j].color));
+	if (wattron(env->mem, COLOR_PAIR(env->process[j].color)) == ERR)
+		exit_clean(env);
 	env->process[j].bold = 1;
-	wattron(env->mem, A_BOLD);
+	if (wattron(env->mem, A_BOLD) == ERR)
+		exit_clean(env);
 	while (k < 4)
 	{
 		x = dest % 64 * 3;
 		y = dest / 64;
-		mvwprintw(env->mem, y, x, "%.2x", env->memory[dest++]);
+		if (mvwprintw(env->mem, y, x, "%.2x", env->memory[dest++]) == ERR)
+			exit_clean(env);
 		if (dest >= 4096)
 			dest -= 4096;
 		k++;
 	}
-	wattroff(env->mem, A_BOLD);
+	if (wattroff(env->mem, A_BOLD) == ERR)
+		exit_clean(env);
 }
 
 void	remove_bold(t_env *env, unsigned j)
@@ -52,7 +56,7 @@ void	remove_bold(t_env *env, unsigned j)
 		{
 			x = dest % 64 * 3;
 			y = dest / 64;
-			mvwchgat(env->mem, y, x, 2, A_NORMAL, env->process[j].color, NULL);
+			protect_mvwchgat(env, y, x, env->process[j].color);
 			dest++;
 			if (dest >= 4096)
 				dest -= 4096;

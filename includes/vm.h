@@ -23,7 +23,7 @@
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
-# define GO_BACK				10000
+# define GO_BACK				1000
 
 typedef	struct 		s_op
 {
@@ -141,6 +141,14 @@ void				remove_bold(t_env *env, unsigned j);
 void				fill_commands_mv_back(t_env *env);
 void				fill_commands(t_env *env);
 void 				mv_back(t_env *env);
+void				exit_clean(t_env *env);
+void				protect_wclear(t_env *env, WINDOW *toclear);
+void				protect_wrefresh(t_env *env, WINDOW *torefresh);
+void				protect_werase(t_env *env, WINDOW *toerase);
+void				protect_overlay(t_env *env, WINDOW *win1, WINDOW *win2);
+void				protect_overwrite(t_env *env, WINDOW *win1, WINDOW *win2);
+void				protect_mvwchgat(t_env *env, int y, int x, int color);
 int					print_error(char *error);
+WINDOW				*protect_dupwin(t_env *env, WINDOW *to_dup);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/27 10:45:49 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:42:22 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void		op_and(t_env *env, unsigned int j)
 		nb_reg3 = env->process[j].op.saved[cursor];
 		if (env->verb == 1)
 			save_param(env, j, nb_reg3, REG_CODE, 2);
-		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1
+				&& nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
 			if (diff == 0)
 				env->process[j].carry = 1;
