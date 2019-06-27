@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/26 19:51:52 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 10:27:01 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			check_last_live(t_env *env)
 
 int			main(int argc, char **argv)
 {
-	t_env env;
+	t_env	env;
 
 	if (argc > 1)
 	{
@@ -127,16 +127,13 @@ int			main(int argc, char **argv)
 			return (-1);
 		if (ft_parse_argc(argc, argv, &env) == FAIL)
 			return (clean_quit(&env, -1));
+		if (write_champ(&env) == FAIL)
+			return (clean_quit(&env, -1));
+		if (read_memory(&env) == FAIL)
+			return (clean_quit(&env, -1));
+		check_last_live(&env);
+		free(env.process);
+		return (0);
 	}
-	else
-		return (ft_display_commands());
-	// env.verb = 1; 									//for test
-	// env.aff = 1;									//for test
-	if (write_champ(&env) == FAIL)
-		return (clean_quit(&env, -1));
-	if (read_memory(&env) == FAIL)
-		return (clean_quit(&env, -1));
-	check_last_live(&env);
-	free(env.process);
-	return (0);
+	return (ft_display_commands());
 }
