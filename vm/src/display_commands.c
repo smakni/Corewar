@@ -31,7 +31,7 @@ void			fill_commands_mv_back(t_env *env)
 	protect_mvwprintw(env, 8, 2, "Cycle += 10 : 'l'");
 	protect_mvwprintw(env, 10, 2, "Cannot move in future cycles");
 	if (mvwprintw(env->commands, 12, 2,
-		"Cannot move back more than %d cycles",	GO_BACK) == ERR)
+		"Cannot move back more than %d cycles",	GO_BACK - 1) == ERR)
 		exit_clean(env);
 	if (wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT) == ERR)
 		exit_clean(env);

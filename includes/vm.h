@@ -23,7 +23,7 @@
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
-# define GO_BACK				1000
+# define GO_BACK				10000
 
 typedef	struct 		s_op
 {

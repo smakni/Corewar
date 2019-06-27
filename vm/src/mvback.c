@@ -64,10 +64,10 @@ static void		while_mv_back(t_env *env, int key, int where, int cycle)
 			exit_explo_mode(env);
 			break ;
 		}
-		else if (key == 'h' && cycle > env->cycle_index - GO_BACK - 10
+		else if (key == 'h' && cycle > env->cycle_index - GO_BACK + 10
 			&& cycle > 9)
 			travel(env, &where, &cycle, -10);
-		else if (key == 'j' && cycle > env->cycle_index - GO_BACK && cycle > 0)
+		else if (key == 'j' && cycle > env->cycle_index - GO_BACK  + 1 && cycle > 0)
 			travel(env, &where, &cycle, -1);
 		else if (key == 'k' && cycle < env->cycle_index)
 			travel(env, &where, &cycle, 1);
