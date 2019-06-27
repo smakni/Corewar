@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 17:19:14 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/27 17:50:09 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_options(int argc, char **argv, t_env *env, int i)
 		env->option = 1;
 	else if (ft_strequ(argv[i], "-svisu"))
 		env->option = 2;
-	else if (ft_strequ(argv[i], "-verb"))
+	else if (ft_strequ(argv[i], "-v"))
 		env->verb = 1;
 	else if (ft_strequ(argv[i], "-goback"))
 		env->goback = 1;
