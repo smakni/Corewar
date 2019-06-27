@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 10:27:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 10:31:02 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,7 @@ int			main(int argc, char **argv)
 		if (read_memory(&env) == FAIL)
 			return (clean_quit(&env, -1));
 		check_last_live(&env);
-		free(env.process);
-		return (0);
+		return (clean_quit(&env, 0));
 	}
 	return (ft_display_commands());
 }
