@@ -100,6 +100,26 @@ static int processess_execution(t_env *env)
 	return (1);
 }
 
+WINDOW		*protect_dupwin(t_env *env, WINDOW *to_dup)
+{
+	WINDOW	*dup;
+
+	if (!(dup = dupwin(to_dup)))
+		exit_clean(env);
+	return (dup);
+}
+
+void		protect_overlay(t_env *env, WINDOW *win1, WINDOW *win2)
+{
+	if (overlay(win1, win2) == ERR)
+	exit_clean(env);
+}
+
+void		protect_overwrite(t_env *env, WINDOW *win1, WINDOW *win2)
+{
+	if (overwrite(win1, win2) == ERR)
+		exit_clean(env);
+}
 
 int read_memory(t_env *env)
 {
@@ -134,24 +154,24 @@ int read_memory(t_env *env)
 		if (env->option == 1 || env->option == 2)
 		{
 			print_infos(env);
-			wrefresh(env->mem);
+			protect_wrefresh(env, env->mem);
 			if (env->goback == 1)
 			{
 				if (env->cycle_index > GO_BACK)
 				{
-					overlay(env->mem, env->trace[env->cycle_index % GO_BACK]);
+					protect_overlay(env, env->mem, env->trace[env->cycle_index % GO_BACK]);
 					if (env->option == 1)
-						overwrite(env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
+						protect_overwrite(env, env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
 					if (env->option == 1 && env->verb == 1)
-						overwrite(env->verbos, env->traceverbos[env->cycle_index % GO_BACK]);
+						protect_overwrite(env, env->verbos, env->traceverbos[env->cycle_index % GO_BACK]);
 				}
 				else
 				{
-					env->trace[env->cycle_index % GO_BACK] = dupwin(env->mem);
+					env->trace[env->cycle_index % GO_BACK] = protect_dupwin(env, env->mem);
 					if (env->option == 1)
-						env->traceinfos[env->cycle_index % GO_BACK] = dupwin(env->infos);
+						env->traceinfos[env->cycle_index % GO_BACK] = protect_dupwin(env, env->infos);
 					if (env->option == 1 && env->verb == 1)
-						env->traceverbos[env->cycle_index % GO_BACK] = dupwin(env->verbos);
+						env->traceverbos[env->cycle_index % GO_BACK] = protect_dupwin(env, env->verbos);
 				}
 			}
 			key_events(env);

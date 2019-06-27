@@ -32,8 +32,9 @@ static void print_pc(t_env *env, unsigned j, int save)
 	while (save + i < env->process[j].pc)
 		wprintw(env->verbos, "%.2x ", env->memory[(save + i++) % MEM_SIZE]);
 	wprintw(env->verbos, "\n");
-	wattroff(env->verbos, COLOR_PAIR(env->process[j].color));
-	wrefresh(env->verbos);
+	if (wattroff(env->verbos, COLOR_PAIR(env->process[j].color)) == ERR)
+		exit_clean(env);
+	protect_wrefresh(env, env->verbos);
 	}
 
 void verbos_visu(t_env *env, unsigned j, int save)
@@ -42,7 +43,8 @@ void verbos_visu(t_env *env, unsigned j, int save)
 	int tmp;
 
 	i = 0;
-	wattron(env->verbos, COLOR_PAIR(0));
+	if (wattron(env->verbos, COLOR_PAIR(0)) == ERR)
+		exit_clean(env);
 	if (env->process[j].op.name != NULL)
 		wprintw(env->verbos, "Process %4d | ", j + 1);
 	if (env->process[j].op.saved[0] == 0x09 && env->process[j].carry == 1)

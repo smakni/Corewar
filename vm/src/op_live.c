@@ -20,28 +20,16 @@ static void	op_live_visu(t_env *env, unsigned j, unsigned id)
 
 	x = env->process[j].pc % 64 * 3;
 	y = env->process[j].pc / 64;
-
+	color = 0;
 	if (id == (unsigned)-1)
-	{
 		color = 13;
-//		env->process[j].color2 = 4;
-	}
 	else if (id == (unsigned)-2)
-		{
 			color = 14;
-		//env->process[j].color2 = 5;
-	}
 	else if (id == (unsigned)-3)
-		{
 			color = 15;
-		//env->process[j].color2 = 6;
-	}
 	else if (id == (unsigned)-4)
-	{
 		color = 16;
-		//env->process[j].color2 = 7;
-	}
-	mvwchgat(env->mem, y, x, 2, A_NORMAL, color, NULL);
+	protect_mvwchgat(env, y, x, color);
 	env->process[j].live = env->process[j].pc;
 }
 
