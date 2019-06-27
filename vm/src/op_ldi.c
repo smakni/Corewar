@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:24:07 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 10:46:32 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:45:38 by cmoulini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void		op_ldi(t_env *env, unsigned int j)
 		if (env->verb == 1)
 			save_param(env, j, nb_reg3, REG_CODE, 2);
 		cursor++;
-		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1
+				&& nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
 			env->process[j].op.name = "ldi";
 			if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
@@ -81,7 +82,7 @@ void		op_ldi(t_env *env, unsigned int j)
 			env->process[j].r[nb_reg3] = sum;
 		}
 	}
-else
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 1, 3);
 	env->process[j].pc += cursor;
 }
