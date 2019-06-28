@@ -145,9 +145,6 @@ void				exit_clean(t_env *env);
 void				protect_wclear(t_env *env, WINDOW *toclear);
 void				protect_wrefresh(t_env *env, WINDOW *torefresh);
 void				protect_werase(t_env *env, WINDOW *toerase);
-void				protect_overlay(t_env *env, WINDOW *win1, WINDOW *win2);
-void				protect_overwrite(t_env *env, WINDOW *win1, WINDOW *win2);
-void				protect_mvwchgat(t_env *env, int y, int x, int color);
 int					print_error(char *error);
 WINDOW				*protect_dupwin(t_env *env, WINDOW *to_dup);
 

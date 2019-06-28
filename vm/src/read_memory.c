@@ -109,18 +109,6 @@ WINDOW		*protect_dupwin(t_env *env, WINDOW *to_dup)
 	return (dup);
 }
 
-void		protect_overlay(t_env *env, WINDOW *win1, WINDOW *win2)
-{
-	if (overlay(win1, win2) == ERR)
-	exit_clean(env);
-}
-
-void		protect_overwrite(t_env *env, WINDOW *win1, WINDOW *win2)
-{
-	if (overwrite(win1, win2) == ERR)
-		exit_clean(env);
-}
-
 int read_memory(t_env *env)
 {
 	int i;
@@ -159,11 +147,11 @@ int read_memory(t_env *env)
 			{
 				if (env->cycle_index > GO_BACK)
 				{
-					protect_overlay(env, env->mem, env->trace[env->cycle_index % GO_BACK]);
+					overlay(env->mem, env->trace[env->cycle_index % GO_BACK]);
 					if (env->option == 1)
-						protect_overwrite(env, env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
+						overwrite(env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
 					if (env->option == 1 && env->verb == 1)
-						protect_overwrite(env, env->verbos, env->traceverbos[env->cycle_index % GO_BACK]);
+						overwrite(env->verbos, env->traceverbos[env->cycle_index % GO_BACK]);
 				}
 				else
 				{

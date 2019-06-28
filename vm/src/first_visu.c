@@ -76,8 +76,7 @@ static void		fill_first(t_env *env)
 	int		i;
 
 	i = 0;
-	if (wattron(env->mem, COLOR_PAIR(1)) == ERR)
-		exit(-1);
+	wattron(env->mem, COLOR_PAIR(1));
 	while (i < 4096)
 	{
 		if (wprintw(env->mem, "%.2x ", env->memory[i]) == ERR)
@@ -87,8 +86,7 @@ static void		fill_first(t_env *env)
 			if (wprintw(env->mem, "\n") == ERR)
 				exit(-1);
 	}
-	if (wattroff(env->mem, COLOR_PAIR(1)) == ERR)
-		exit(-1);
+	wattroff(env->mem, COLOR_PAIR(1));
 }
 
 static void		check_size(t_env *env)
@@ -97,23 +95,19 @@ static void		check_size(t_env *env)
 	int	x;
 	int	y;
 
-	if (getmaxyx(stdscr, y, x) == ERR)
-		exit(-1);
+	getmaxyx(stdscr, y, x);
 	if (y < 68 || x < 255)
 	{
 		while (1)
 		{
-			if (mvprintw(y / 2, x / 2, "Terminal size too small") == ERR)
-				exit(-1);
-			if ((key = getch()) == ERR)
-				exit(-1);
+			mvprintw(y / 2, x / 2, "Terminal size too small");
+			key = getch();
 			if (key == KEY_RESIZE)
 			{
 				protect_wclear(env, stdscr);
 				protect_wrefresh(env, stdscr);
 			}
-			if (getmaxyx(stdscr, y, x) == ERR)
-				exit(-1);
+			getmaxyx(stdscr, y, x);
 			if (y >= 68 && x >= 255)
 				break ;
 		}
@@ -122,14 +116,11 @@ static void		check_size(t_env *env)
 
 static void		first_visu_small(t_env *env)
 {
-	if (attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT) == ERR)
-		exit(-1);
+	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	if ((env->around_memory = subwin(stdscr, 68, 197, 0, 0)) == NULL)
 		exit(-1);
-	if ((wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ')) == ERR)
-		exit(-1);
-	if ((attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2))) == ERR)
-		exit(-1);
+	wborder(env->around_memory, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	if ((env->mem = subwin(stdscr, 64, 193, 2, 3)) == NULL)
 		exit(-1);
 	fill_first(env);

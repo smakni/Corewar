@@ -18,8 +18,7 @@ static void		check_last(t_env *env, unsigned j)
 	{
 		if (env->option == 1)
 		{
-			if (mvwprintw(env->state, 0, 0, "** PAUSED ** ") == ERR)
-				exit_clean(env);
+			mvwprintw(env->state, 0, 0, "** PAUSED ** ");
 			print_infos(env);
 			protect_wrefresh(env, env->state);
 			env->traceinfos[env->cycle_index] = protect_dupwin(env, env->infos);
@@ -37,12 +36,10 @@ static void		write_champ_body(t_env *env, unsigned y, unsigned x, unsigned j)
 
 	k = 1;
 	start = 4096 * j / env->nb_process;
-	if (wattron(env->mem, COLOR_PAIR(env->process[j].color)) == ERR)
-		exit_clean(env);
+	wattron(env->mem, COLOR_PAIR(env->process[j].color));
 	while (k < env->player[j].header.prog_size)
 	{
-		if (mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]) == ERR)
-			exit_clean(env);
+		mvwprintw(env->mem, y, x, "%.2x", env->memory[start + k]);
 		x += 3;
 		if (x >= 192)
 		{
@@ -51,8 +48,7 @@ static void		write_champ_body(t_env *env, unsigned y, unsigned x, unsigned j)
 		}
 		k++;
 	}
-	if (wattroff(env->mem, COLOR_PAIR(4 + j)) == ERR)
-		exit_clean(env);
+	wattroff(env->mem, COLOR_PAIR(4 + j));
 }
 
 static void		write_champ_visu(t_env *env, unsigned j)
@@ -63,18 +59,15 @@ static void		write_champ_visu(t_env *env, unsigned j)
 	env->process[j].color = 4 + j;
 	x = 4096 * j / env->nb_process % 64 * 3;
 	y = 4096 / env->nb_process / 64 * j;
-	if (wattron(env->mem, COLOR_PAIR(env->process[j].color + 4)) == ERR)
-		exit_clean(env);
-	if (mvwprintw(env->mem, y, x, "%.2x", env->memory[4096 * j / env->nb_process]) == ERR)
-		exit_clean(env);
+	wattron(env->mem, COLOR_PAIR(env->process[j].color + 4));
+	mvwprintw(env->mem, y, x, "%.2x", env->memory[4096 * j / env->nb_process]);
 	x += 3;
 	if (x >= 192)
 	{
 		x -= 192;
 		y++;
 	}
-	if (wattroff(env->mem, COLOR_PAIR(env->process[j].color + 4)) == ERR)
-		exit_clean(env);
+	wattroff(env->mem, COLOR_PAIR(env->process[j].color + 4));
 	write_champ_body(env, y, x, j);
 	check_last(env, j);
 }

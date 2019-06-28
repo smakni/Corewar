@@ -15,17 +15,17 @@
 
 static void		exit_explo_mode(t_env *env)
 {
-	protect_overlay(env, env->trace[env->cycle_index % GO_BACK], env->mem);
+	overlay(env->trace[env->cycle_index % GO_BACK], env->mem);
 	protect_wrefresh(env, env->mem);
 	if (env->option == 1)
 	{
 		fill_commands(env);
-		protect_overwrite(env, env->traceinfos[env->cycle_index % GO_BACK],
+		overwrite(env->traceinfos[env->cycle_index % GO_BACK],
 			env->infos);
 		protect_wrefresh(env, env->infos);
 		if (env->verb == 1)
 		{
-			protect_overwrite(env, env->traceverbos[env->cycle_index % GO_BACK],
+			overwrite(env->traceverbos[env->cycle_index % GO_BACK],
 				env->verbos);
 			protect_wrefresh(env, env->verbos);
 		}
@@ -40,15 +40,15 @@ static void		travel(t_env *env, int *where, int *cycle, int mv)
 		*where += GO_BACK;
 	else if (*where >= GO_BACK)
 		*where -= GO_BACK;
-	protect_overlay(env, env->trace[*where], env->mem);
+	overlay(env->trace[*where], env->mem);
 	protect_wrefresh(env, env->mem);
 	if (env->option == 1)
 	{
-		protect_overwrite(env, env->traceinfos[*where], env->infos);
+		overwrite(env->traceinfos[*where], env->infos);
 		protect_wrefresh(env, env->infos);
 		if (env->verb == 1)
 		{
-			protect_overwrite(env, env->traceverbos[*where], env->verbos);
+			overwrite(env->traceverbos[*where], env->verbos);
 			protect_wrefresh(env, env->verbos);
 		}
 	}
@@ -85,8 +85,7 @@ void			mv_back(t_env *env)
 	key = 0;
 	if (env->option == 1)
 	{
-		if (mvwprintw(env->state, 0, 0, "EXPLORATION MODE") == ERR)
-			exit_clean(env);
+		mvwprintw(env->state, 0, 0, "EXPLORATION MODE");
 		protect_wrefresh(env, env->state);
 		fill_commands_mv_back(env);
 	}
