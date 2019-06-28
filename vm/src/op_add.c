@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/27 17:47:51 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/29 00:10:25 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static void	set_reg(t_env *env, unsigned int j, int sum, int nb_reg)
 	env->process[j].r[nb_reg] = sum;
 }
 
-static void	add_op(t_env *env, unsigned int j, int nb_reg, int *sum)
+static void	add_op(t_env *env, unsigned int j, int nb_reg, int *sum, int param)
 {
 	int reg_content;
 
 	reg_content = env->process[j].r[nb_reg];
 	if (env->verb == 1)
-		save_param(env, j, nb_reg, REG_CODE, 0);
+		save_param(env, j, nb_reg, REG_CODE, param);
 	if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
 		*sum += reg_content;
 }
@@ -44,10 +44,10 @@ void		op_add(t_env *env, unsigned int j)
 	{
 		sum = 0;
 		nb_reg[0] = env->process[j].op.saved[2];
-		add_op(env, j, nb_reg[0], &sum);
+		add_op(env, j, nb_reg[0], &sum, 0);
 		nb_reg[1] = env->process[j].op.saved[3];
-		add_op(env, j, nb_reg[1], &sum);
-		nb_reg[2] = env->process[j].op.saved[4];
+		add_op(env, j, nb_reg[1], &sum, 1);
+		nb_reg[2] = env->process[j].op.saved[4];	
 		if (env->verb == 1)
 			save_param(env, j, nb_reg[2], REG_CODE, 2);
 		if (nb_reg[0] >= 1 && nb_reg[0] <= REG_NUMBER
