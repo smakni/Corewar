@@ -77,11 +77,10 @@ then
 	diff $args exec_1.debug exec_2.debug | less
 else
 	diff $args exec_1.debug exec_2.debug 
-fi
-
-if [ $? != 0 ]
-then
-	echo -e "${RED}[diff error]${NOCOLOR}"
-else
-	echo -e "${LIGHTGREEN}[diff ok]${NOCOLOR}"
+	if [ $? != 0 ]
+	then
+		echo -e "${RED}[diff error]${NOCOLOR}"
+	else
+		echo -e "${LIGHTGREEN}[diff ok]${NOCOLOR}"
+	fi
 fi
