@@ -13,6 +13,24 @@
 #include "../../includes/vm.h"
 #include <curses.h>
 
+void	fill_first(t_env *env)
+{
+	int		i;
+
+	i = 0;
+	wattron(env->mem, COLOR_PAIR(1));
+	while (i < 4096)
+	{
+		if (wprintw(env->mem, "%.2x ", env->memory[i]) == ERR)
+			exit(-1);
+		i++;
+		if (i % 64 == 0 && i != 4096)
+			if (wprintw(env->mem, "\n") == ERR)
+				exit(-1);
+	}
+	wattroff(env->mem, COLOR_PAIR(1));
+}
+
 void	update_visu(t_env *env, int dest, unsigned j)
 {
 	int k;

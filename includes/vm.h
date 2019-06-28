@@ -146,6 +146,8 @@ void				protect_wclear(t_env *env, WINDOW *toclear);
 void				protect_wrefresh(t_env *env, WINDOW *torefresh);
 void				protect_werase(t_env *env, WINDOW *toerase);
 int					print_error(char *error);
+void				init_color_palet(void);
+void				fill_first(t_env *env);
 WINDOW				*protect_dupwin(t_env *env, WINDOW *to_dup);
 
 #endif

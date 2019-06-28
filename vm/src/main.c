@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 19:03:50 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/28 12:04:01 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			check_last_live(t_env *env)
 					delwin(env->infos);
 					delwin(env->around_infos);
 					if (env->verb == 1)
-					delwin(env->verbos);
+						delwin(env->verbos);
 					delwin(env->around_verbos);
 				}
 				endwin();

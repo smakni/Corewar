@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _visu.c                              :+:      :+:    :+:   */
+/*   verbos_visu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 14:44:54 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/14 17:52:28 by marvin           ###   ########.fr       */
+/*   Created: 2019/06/28 12:18:58 by vrenaudi          #+#    #+#             */
+/*   Updated: 2019/06/28 12:20:00 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void print_pc(t_env *env, unsigned j, int save)
+static void	print_pc(t_env *env, unsigned j, int save)
 {
 	int i;
 
@@ -34,9 +34,9 @@ static void print_pc(t_env *env, unsigned j, int save)
 	wprintw(env->verbos, "\n");
 	wattroff(env->verbos, COLOR_PAIR(env->process[j].color));
 	protect_wrefresh(env, env->verbos);
-	}
+}
 
-void verbos_visu(t_env *env, unsigned j, int save)
+void		verbos_visu(t_env *env, unsigned j, int save)
 {
 	int i;
 	int tmp;
@@ -76,7 +76,7 @@ void verbos_visu(t_env *env, unsigned j, int save)
 					|| ft_strcmp(env->process[j].op.param[0], "-3") == 0
 					|| ft_strcmp(env->process[j].op.param[0], "-4") == 0))
 			wprintw(env->verbos, "\nPlayer %c (%s) is said to be alive",
-						env->process[j].op.param[0][1], env->player[env->process[j].nb].header.prog_name);
+					env->process[j].op.param[0][1], env->player[env->process[j].nb].header.prog_name);
 		else if (env->process[j].op.saved[0] == 0x0b && env->process[j].check_args == 1)
 		{
 			tmp = ft_atoi(env->process[j].op.param[1]) + ft_atoi(env->process[j].op.param[2]);

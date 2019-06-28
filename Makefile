@@ -91,6 +91,8 @@ SOURCES_P2	=	main.c\
 				print_error.c\
 				verbos.c\
 				verbos_visu.c\
+				protection_visu.c\
+				init_color.c\
 				check_args.c\
 				save_op.c
 

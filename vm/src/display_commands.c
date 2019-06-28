@@ -6,7 +6,7 @@
 /*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:51:41 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/17 18:52:06 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:32:25 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			fill_commands_mv_back(t_env *env)
 	mvwprintw(env->commands, 8, 2, "Cycle += 10 : 'l'");
 	mvwprintw(env->commands, 10, 2, "Cannot move in future cycles");
 	mvwprintw(env->commands, 12, 2,
-		"Cannot move back more than %d cycles",	GO_BACK - 1);
+			"Cannot move back more than %d cycles", GO_BACK - 1);
 	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);

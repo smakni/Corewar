@@ -6,88 +6,12 @@
 /*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 15:10:36 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/17 18:56:03 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:52:45 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 #include <curses.h>
-
-void			protect_wclear(t_env *env, WINDOW *toclear)
-{
-	if (wclear(toclear) == ERR)
-		exit_clean(env);
-}
-
-void			protect_werase(t_env *env, WINDOW *toerase)
-{
-	if (werase(toerase) == ERR)
-		exit_clean(env);
-}
-
-void			protect_wrefresh(t_env *env, WINDOW *torefresh)
-{
-	if (wrefresh(torefresh) == ERR)
-		exit_clean(env);
-}
-
-void			exit_clean(t_env *env)
-{
-	delwin(env->infos);
-	delwin(env->around_infos);
-	delwin(env->mem);
-	delwin(env->around_memory);
-	delwin(env->state);
-	delwin(env->commands);
-	delwin(env->verbos);
-	delwin(env->around_verbos);
-	curs_set(1);
-	endwin();
-	exit(-1);
-}
-
-static void		init_color_palet(void)
-{
-	if (start_color() == ERR)
-		exit(-1);
-	init_color(COLOR_CYAN, 460, 460, 460);
-	init_color(COLOR_MAGENTA, 520, 520, 520);
-	init_color(COLOR_WHITE, 1000, 1000, 1000);
-	init_pair(1, COLOR_CYAN, COLOR_BLACK);
-	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(3, COLOR_WHITE, COLOR_BLACK);
-	init_pair(4, COLOR_GREEN, COLOR_BLACK);
-	init_pair(5, COLOR_BLUE, COLOR_BLACK);
-	init_pair(6, COLOR_RED, COLOR_BLACK);
-	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(8, COLOR_BLACK, COLOR_GREEN);
-	init_pair(9, COLOR_BLACK, COLOR_BLUE);
-	init_pair(10, COLOR_BLACK, COLOR_RED);
-	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
-	init_pair(12, COLOR_BLACK, COLOR_CYAN);
-	init_pair(13, COLOR_WHITE, COLOR_GREEN);
-	init_pair(14, COLOR_WHITE, COLOR_BLUE);
-	init_pair(15, COLOR_WHITE, COLOR_RED);
-	init_pair(16, COLOR_WHITE, COLOR_YELLOW);
-}
-
-static void		fill_first(t_env *env)
-{
-	int		i;
-
-	i = 0;
-	wattron(env->mem, COLOR_PAIR(1));
-	while (i < 4096)
-	{
-		if (wprintw(env->mem, "%.2x ", env->memory[i]) == ERR)
-			exit(-1);
-		i++;
-		if (i % 64 == 0 && i != 4096)
-			if (wprintw(env->mem, "\n") == ERR)
-				exit(-1);
-	}
-	wattroff(env->mem, COLOR_PAIR(1));
-}
 
 static void		check_size(t_env *env)
 {
@@ -128,18 +52,8 @@ static void		first_visu_small(t_env *env)
 	protect_wrefresh(env, env->mem);
 }
 
-void			first_visu(t_env *env)
+void			create_border_windows(t_env *env)
 {
-	if (initscr() == NULL)
-		exit(-1);
-	noecho();
-	cbreak();
-	curs_set(0);
-	check_size(env);
-	env->nb_player = env->nb_process;
-	init_color_palet();
-	if (env->option == 2)
-		return (first_visu_small(env));
 	attron(COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
 	if (!(env->around_memory = subwin(stdscr, 68, 197, 0, 0)))
 		exit_clean(env);
@@ -156,7 +70,10 @@ void			first_visu(t_env *env)
 		wborder(env->around_verbos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	}
 	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
-	fill_commands(env);
+}
+
+void			create_inside_windows(t_env *env)
+{
 	if (!(env->mem = subwin(stdscr, 64, 193, 2, 3)))
 		exit_clean(env);
 	if (!(env->state = subwin(stdscr, 2, 52, 2, 199)))
@@ -169,6 +86,23 @@ void			first_visu(t_env *env)
 			exit_clean(env);
 		scrollok(env->verbos, TRUE);
 	}
+}
+
+void			first_visu(t_env *env)
+{
+	if (initscr() == NULL)
+		exit(-1);
+	noecho();
+	cbreak();
+	curs_set(0);
+	check_size(env);
+	env->nb_player = env->nb_process;
+	init_color_palet();
+	if (env->option == 2)
+		return (first_visu_small(env));
+	create_border_windows(env);
+	fill_commands(env);
+	create_inside_windows(env);
 	fill_first(env);
 	protect_wrefresh(env, stdscr);
 	protect_wrefresh(env, env->mem);

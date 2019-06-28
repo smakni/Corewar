@@ -6,7 +6,7 @@
 /*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 15:10:51 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/17 19:13:10 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/28 12:06:39 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,16 @@ static int		print_players_infos(t_env *env, int i)
 	j = 0;
 	while (j < env->nb_player)
 	{
-		if (mvwprintw(env->infos, i, 0, "Player %d: ", j + 1) == ERR)
-			exit_clean(env);
-		if (wattron(env->infos, COLOR_PAIR(4 + j)) == ERR)
-			exit_clean(env);
-		if (wprintw(env->infos, "%s", env->player[j].header.prog_name) == ERR)
-			exit_clean(env);
+		mvwprintw(env->infos, i, 0, "Player %d: ", j + 1);
+		wattron(env->infos, COLOR_PAIR(4 + j));
+		wprintw(env->infos, "%s", env->player[j].header.prog_name);
 		i++;
-		if (wattroff(env->infos, COLOR_PAIR(4 + j)) == ERR)
-			exit_clean(env);
-		if (mvwprintw(env->infos, i++, 2, "Last live : %d",
-				env->player[j].last_live) == ERR)
-			exit_clean(env);
+		wattroff(env->infos, COLOR_PAIR(4 + j));
+		mvwprintw(env->infos, i++, 2, "Last live : %d",
+				env->player[j].last_live);
 		nb_live = count_live(env, j);
-		if (mvwprintw(env->infos, i, 2, "Total lives during current cycle : %-10d",
-				nb_live) == ERR)
-			exit_clean(env);
+		mvwprintw(env->infos, i, 2, "Total lives during current cycle : %-10d",
+				nb_live);
 		i += 2;
 		j++;
 	}
@@ -67,29 +61,20 @@ void			print_infos(t_env *env)
 	i = 0;
 	if (env->speed == 0)
 		env->speed = 50;
-	if (wattron(env->infos, COLOR_PAIR(3)) == ERR)
-		exit_clean(env);
-	if (mvwprintw(env->infos, i, 0, "Cycles/second limit : %-10d", env->speed) == ERR)
-		exit_clean(env);
-	if (mvwprintw(env->infos, i += 2, 0, "Cycle : %d", env->cycle_index) == ERR)
-		exit_clean(env);
-	if (mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_process) == ERR)
-		exit_clean(env);
+	wattron(env->infos, COLOR_PAIR(3));
+	mvwprintw(env->infos, i, 0, "Cycles/second limit : %-10d", env->speed);
+	mvwprintw(env->infos, i += 2, 0, "Cycle : %d", env->cycle_index);
+	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_process);
 	i += 2;
 	i = print_players_infos(env, i);
-	if (mvwprintw(env->infos, i, 0, "CYCLE_TO_DIE : %-5d", env->cycle_to_die) == ERR)
-		exit_clean(env);
+	mvwprintw(env->infos, i, 0, "CYCLE_TO_DIE : %-5d", env->cycle_to_die);
 	if (env->cycle_index < 1)
 	{
-		if (mvwprintw(env->infos, i += 2, 0, "CYCLE_DELTA : %d", CYCLE_DELTA) == ERR)
-			exit_clean(env);
-		if (mvwprintw(env->infos, i += 2, 0, "NBR_LIVE : %d", NBR_LIVE) == ERR)
-			exit_clean(env);
-		if (mvwprintw(env->infos, i += 2, 0, "MAX_CHECKS : %d", MAX_CHECKS) == ERR)
-			exit_clean(env);
+		mvwprintw(env->infos, i += 2, 0, "CYCLE_DELTA : %d", CYCLE_DELTA);
+		mvwprintw(env->infos, i += 2, 0, "NBR_LIVE : %d", NBR_LIVE);
+		mvwprintw(env->infos, i += 2, 0, "MAX_CHECKS : %d", MAX_CHECKS);
 	}
-	if (wattroff(env->infos, COLOR_PAIR(3)) == ERR)
-		exit_clean(env);
+	wattroff(env->infos, COLOR_PAIR(3));
 	protect_wrefresh(env, env->infos);
 	if (env->speed != -1)
 		usleep(1000000 / env->speed);
