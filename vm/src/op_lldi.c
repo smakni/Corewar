@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 10:47:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 01:03:53 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void		op_lldi(t_env *env, unsigned int j)
 		if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
 		{
 			nb_reg1 = env->process[j].op.saved[cursor + 1];
-			if (env->verb == 1)
-				save_param(env, j, nb_reg1, REG_CODE, 0);
 			v1 = 0;
 			if (nb_reg1 >= 1 && nb_reg1 <= 16)
 				v1 = get_value_index(env, j, &cursor, 1);
@@ -42,14 +40,10 @@ void		op_lldi(t_env *env, unsigned int j)
 		else
 		{
 			v1 = get_value_index(env, j, &cursor, 1);
-			if (env->verb == 1)
-				save_param(env, j, v1, IND_CODE, 0);
 		}
 		if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 		{
 			nb_reg2 = env->process[j].op.saved[cursor + 1];
-			if (env->verb == 1)
-				save_param(env, j, nb_reg1, REG_SIZE, 1);
 			v2 = 0;
 			if (nb_reg2 >= 1 && nb_reg2 <= 16)
 				v2 = get_value_index(env, j, &cursor, 2);

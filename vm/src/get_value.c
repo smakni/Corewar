@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/13 18:32:42 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/29 01:03:00 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		value = get_addr(env, value, j);
 		*cursor += IND_SIZE - 1;
 	}
+	if (env->verb == 1)
+		save_param(env, j, value, IND_CODE, param - 1);
 	return (value);
 }
 
@@ -68,5 +70,7 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 			//save_param(env, j, value, DIR_CODE);
 		(*cursor) += IND_SIZE - 1;
 	}
+	if (env->verb == 1)
+		save_param(env, j, value, IND_CODE, param - 1);
 	return (value);
 }

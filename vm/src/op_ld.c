@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 15:42:59 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/29 01:01:50 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void		op_ld(t_env *env, unsigned int j)
 	if (check_args(env, j, &cursor, 2))
 	{
 		value = get_value(env, j, &cursor, 1);
-		if (env->verb == 1)
-			save_param(env, j, value, IND_CODE, 0);
 		cursor++;
 		nb_reg = env->process[j].op.saved[cursor];
 		if (env->verb == 1)

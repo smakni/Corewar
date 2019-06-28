@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/27 15:42:22 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/06/29 01:02:24 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void		op_and(t_env *env, unsigned int j)
 		if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
 		{
 			nb_reg1 = env->process[j].op.saved[cursor + 1];
-			if (env->verb == 1)
-				save_param(env, j, nb_reg1, REG_CODE, 0);
 			diff = 0;
 			if (nb_reg1 >= 1 && nb_reg1 <= 16)
 				diff = get_value(env, j, &cursor, 1);
@@ -42,8 +40,6 @@ void		op_and(t_env *env, unsigned int j)
 		if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 		{
 			nb_reg2 = env->process[j].op.saved[cursor + 1];
-			if (env->verb == 1)
-				save_param(env, j, nb_reg2, REG_CODE, 1);
 			value = 0;
 			if (nb_reg2 >= 1 && nb_reg2 <= 16)
 				value = get_value(env, j, &cursor, 2);
