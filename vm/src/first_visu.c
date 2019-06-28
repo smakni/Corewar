@@ -13,24 +13,6 @@
 #include "../../includes/vm.h"
 #include <curses.h>
 
-void			protect_init_color(int color, int r, int g, int b)
-{
-	if (init_color(color, r, g, b) == ERR)
-	{
-		endwin();
-		exit(-1);
-	}
-}
-
-void			protect_init_pair(int nb, int color1, int color2)
-{
-	if (init_pair(nb, color1, color2) == ERR)
-	{
-		endwin();
-		exit(-1);
-	}
-}
-
 void			protect_wclear(t_env *env, WINDOW *toclear)
 {
 	if (wclear(toclear) == ERR)
@@ -68,25 +50,25 @@ static void		init_color_palet(void)
 {
 	if (start_color() == ERR)
 		exit(-1);
-	protect_init_color(COLOR_CYAN, 460, 460, 460);
-	protect_init_color(COLOR_MAGENTA, 520, 520, 520);
-	protect_init_color(COLOR_WHITE, 1000, 1000, 1000);
-	protect_init_pair(1, COLOR_CYAN, COLOR_BLACK);
-	protect_init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	protect_init_pair(3, COLOR_WHITE, COLOR_BLACK);
-	protect_init_pair(4, COLOR_GREEN, COLOR_BLACK);
-	protect_init_pair(5, COLOR_BLUE, COLOR_BLACK);
-	protect_init_pair(6, COLOR_RED, COLOR_BLACK);
-	protect_init_pair(7, COLOR_YELLOW, COLOR_BLACK);
-	protect_init_pair(8, COLOR_BLACK, COLOR_GREEN);
-	protect_init_pair(9, COLOR_BLACK, COLOR_BLUE);
-	protect_init_pair(10, COLOR_BLACK, COLOR_RED);
-	protect_init_pair(11, COLOR_BLACK, COLOR_YELLOW);
-	protect_init_pair(12, COLOR_BLACK, COLOR_CYAN);
-	protect_init_pair(13, COLOR_WHITE, COLOR_GREEN);
-	protect_init_pair(14, COLOR_WHITE, COLOR_BLUE);
-	protect_init_pair(15, COLOR_WHITE, COLOR_RED);
-	protect_init_pair(16, COLOR_WHITE, COLOR_YELLOW);
+	init_color(COLOR_CYAN, 460, 460, 460);
+	init_color(COLOR_MAGENTA, 520, 520, 520);
+	init_color(COLOR_WHITE, 1000, 1000, 1000);
+	init_pair(1, COLOR_CYAN, COLOR_BLACK);
+	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(3, COLOR_WHITE, COLOR_BLACK);
+	init_pair(4, COLOR_GREEN, COLOR_BLACK);
+	init_pair(5, COLOR_BLUE, COLOR_BLACK);
+	init_pair(6, COLOR_RED, COLOR_BLACK);
+	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(8, COLOR_BLACK, COLOR_GREEN);
+	init_pair(9, COLOR_BLACK, COLOR_BLUE);
+	init_pair(10, COLOR_BLACK, COLOR_RED);
+	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(12, COLOR_BLACK, COLOR_CYAN);
+	init_pair(13, COLOR_WHITE, COLOR_GREEN);
+	init_pair(14, COLOR_WHITE, COLOR_BLUE);
+	init_pair(15, COLOR_WHITE, COLOR_RED);
+	init_pair(16, COLOR_WHITE, COLOR_YELLOW);
 }
 
 static void		fill_first(t_env *env)
@@ -159,12 +141,9 @@ void			first_visu(t_env *env)
 {
 	if (initscr() == NULL)
 		exit(-1);
-	if (noecho() == ERR)
-		exit(-1);
-	if (cbreak() == ERR)
-		exit(-1);
-	if (curs_set(0) == ERR)
-		exit(-1);
+	noecho();
+	cbreak();
+	curs_set(0);
 	check_size(env);
 	env->nb_player = env->nb_process;
 	init_color_palet();
@@ -185,8 +164,7 @@ void			first_visu(t_env *env)
 			exit_clean(env);
 		wborder(env->around_verbos, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	}
-	if (attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2)) == ERR)
-		exit_clean(env);
+	attroff(A_REVERSE | A_STANDOUT | COLOR_PAIR(2));
 	fill_commands(env);
 	if (!(env->mem = subwin(stdscr, 64, 193, 2, 3)))
 		exit_clean(env);
@@ -198,8 +176,7 @@ void			first_visu(t_env *env)
 	{
 		if (!(env->verbos = subwin(stdscr, 64, 54, 2, 255)))
 			exit_clean(env);
-		if (scrollok(env->verbos, TRUE) == ERR)
-			exit_clean(env);
+		scrollok(env->verbos, TRUE);
 	}
 	fill_first(env);
 	protect_wrefresh(env, stdscr);
