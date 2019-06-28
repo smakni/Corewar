@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 01:03:00 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/29 01:16:45 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		value = get_addr(env, value, j);
 		*cursor += IND_SIZE - 1;
 	}
-	if (env->verb == 1)
+	if (env->verb == 1 && env->process[j].op.code != 0x03)
 		save_param(env, j, value, IND_CODE, param - 1);
 	return (value);
 }
