@@ -39,11 +39,12 @@ case $champs in
 			champ4="$champs"
 			((i++))
 		else
-			echo "You already selected 4 champions(MAX)"
+			echo -e "${RED}You already selected 4 champions(MAX)${NOCOLOR}"
 			break
 		fi
 	;;
 	"stop selection")
+		echo -e "${LIGHTGREEN}Process selection...${NOCOLOR}"
 		break
 	;;
 	*)
@@ -58,38 +59,29 @@ then
 	exit
 fi
 
-echo "Store first to exec_1.debug"
+echo -e "${LIGHTGREEN}Store first to exec_1.debug...${NOCOLOR}"
 $PATH_1 $OPT_1 $champ1 $champ2 $champ3 $champ4 > exec_1.debug
 
-if [ $? != 0 ]
-then
-	echo -e "${RED}ERROR : Path_1 not found${NOCOLOR}"
-	exit
-else
-	echo -e "${LIGHTGREEN}[ok]${NOCOLOR}"
-fi
-
-echo "Store second to exec_2.debug"
+echo -e "${LIGHTGREEN}Store first to exec_2.debug...${NOCOLOR}"
 $PATH_2 $OPT_2 $champ1 $champ2 $champ3 $champ4 > exec_2.debug
 
-if [ $? == 127 ]
-then
-	echo -e "${RED}ERROR : Path_2 not found${NOCOLOR}"
-	exit
-else
-	echo -e "${LIGHTGREEN}[ok]${NOCOLOR}"
-fi
-
-read -p "Select arguments for diff : " args
+read -p "Write here the arguments for diff : " args
 read -p "Store the output ? | less ? (y/n/less) " answer2
 
 if [ "$answer2" = "y" ] || [ "$answer2" = "Y" ] || [ "$answer2" = "yes" ]
 then
-	echo "Store diff to diff.debug"
+	echo -e "${LIGHTGREEN}Store diff to diff.debug${NOCOLOR}"
 	diff $args exec_1.debug exec_2.debug > diff.debug
 elif [ "$answer2" = "less" ]
 then
 	diff $args exec_1.debug exec_2.debug | less
 else
-	diff $args exec_1.debug exec_2.debug
+	diff $args exec_1.debug exec_2.debug 
+fi
+
+if [ $? != 0 ]
+then
+	echo -e "${RED}[diff error]${NOCOLOR}"
+else
+	echo -e "${LIGHTGREEN}[diff ok]${NOCOLOR}"
 fi
