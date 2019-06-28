@@ -62,7 +62,7 @@ fi
 echo -e "${LIGHTGREEN}Store first to exec_1.debug...${NOCOLOR}"
 $PATH_1 $OPT_1 $champ1 $champ2 $champ3 $champ4 > exec_1.debug
 
-echo -e "${LIGHTGREEN}Store first to exec_2.debug...${NOCOLOR}"
+echo -e "${LIGHTGREEN}Store second to exec_2.debug...${NOCOLOR}"
 $PATH_2 $OPT_2 $champ1 $champ2 $champ3 $champ4 > exec_2.debug
 
 read -p "Write here the arguments for diff : " args
