@@ -98,7 +98,7 @@ void			exec_op(t_env *env, unsigned j)
 			verbos(env, j, save);
 		else if (env->option == 1 && env->verb == 1)
 			verbos_visu(env, j, save);
-		else if (env->verb == 1)
+		else if (env->verb == 1 && env->option != 2)
 			verbos(env, j, save);
 	}
 	else

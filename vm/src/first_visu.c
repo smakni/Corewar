@@ -18,11 +18,17 @@ static void		check_size(t_env *env)
 	int	key;
 	int	x;
 	int	y;
+	int	columns;
 
+	columns = 254;
+	if (env->option == 2)
+		columns = 197;
+	else if (env->option == 1 && env->verb == 1)
+		columns = 311;
 	getmaxyx(stdscr, y, x);
-	if (y < 68 || x < 255)
+	if (y < 68 || x < columns)
 	{
-		while (1)
+		while (y < 68 || x < columns)
 		{
 			mvprintw(y / 2, x / 2, "Terminal size too small");
 			key = getch();
@@ -32,8 +38,6 @@ static void		check_size(t_env *env)
 				protect_wrefresh(env, stdscr);
 			}
 			getmaxyx(stdscr, y, x);
-			if (y >= 68 && x >= 255)
-				break ;
 		}
 	}
 }

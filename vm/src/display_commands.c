@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-#include <curses.h>
 
 void			fill_commands_mv_back(t_env *env)
 {

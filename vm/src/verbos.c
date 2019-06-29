@@ -6,13 +6,13 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 12:35:25 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:54:55 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static	void	print_pc(t_env *env, unsigned j, int save)
+static void	print_pc(t_env *env, unsigned j, int save)
 {
 	int	i;
 
@@ -34,16 +34,18 @@ static	void	print_pc(t_env *env, unsigned j, int save)
 	ft_putendl("");
 }
 
-void	print_live(t_env *env, unsigned j)
+void		print_live(t_env *env, unsigned j)
 {
-	char *tmp;
+	char	*tmp;
+	int		save;
 
-	tmp = env->player[ft_atoi(&env->process[j].op.param[0][1]) - 1].header.prog_name;
+	save = ft_atoi(&env->process[j].op.param[0][1]) - 1;
+	tmp = env->player[save].header.prog_name;
 	ft_printf("\nPlayer %c (%s) is said to be alive",
 						env->process[j].op.param[0][1], tmp);
 }
 
-void	print_ldi(t_env *env, unsigned j, int save)
+void		print_ldi(t_env *env, unsigned j, int save)
 {
 	int	tmp;
 
@@ -54,7 +56,7 @@ void	print_ldi(t_env *env, unsigned j, int save)
 				tmp, save + (tmp % IDX_MOD));
 }
 
-void	print_sti(t_env *env, unsigned j, int save)
+void		print_sti(t_env *env, unsigned j, int save)
 {
 	int	tmp;
 
@@ -65,7 +67,7 @@ void	print_sti(t_env *env, unsigned j, int save)
 				tmp, save + (tmp % IDX_MOD));
 }
 
-void 			print_verbos(t_env *env, unsigned j, int save)
+void		print_verbos(t_env *env, unsigned j, int save)
 {
 	int	i;
 
@@ -86,9 +88,9 @@ void 			print_verbos(t_env *env, unsigned j, int save)
 	ft_putendl("");
 }
 
-void 			verbos(t_env *env, unsigned j, int save)
+void		verbos(t_env *env, unsigned j, int save)
 {
-	int 		i;
+	int	i;
 
 	i = 0;
 	if (env->process[j].op.name != NULL)

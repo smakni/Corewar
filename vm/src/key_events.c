@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-#include <curses.h>
 
 static void		handle_resize2(t_env *env, int y, int x)
 {
@@ -36,9 +35,15 @@ static void		handle_resize(t_env *env)
 	int x;
 	int y;
 	int i;
+	int	columns;
 
+	columns = 254;
+	if (env->option == 2)
+		columns = 197;
+	else if (env->option == 1 && env->verb == 1)
+		columns = 311;
 	getmaxyx(stdscr, y, x);
-	if (y < 68 || x < 255)
+	if (y < 68 || x < columns)
 	{
 		timeout(-1);
 		i = 0;
