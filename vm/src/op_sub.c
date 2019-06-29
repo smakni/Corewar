@@ -6,60 +6,59 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/27 10:48:24 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:22:39 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
+static void	set_reg(t_env *env, unsigned int j, int diff, int nb_reg)
+{
+	if (diff == 0)
+		env->process[j].carry = 1;
+	else
+		env->process[j].carry = 0;
+	env->process[j].op.name = "sub";
+	env->process[j].r[nb_reg] = diff;
+}
+
+static int	sub_op(t_env *env, unsigned int j, int nb_reg, int param)
+{
+	int reg_content;
+	int	ret;
+
+	reg_content = env->process[j].r[nb_reg];
+	ret = 0;
+	if (env->verb == 1)
+		save_param(env, j, nb_reg, REG_CODE, param);
+	if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
+		ret = reg_content;
+	return (ret);
+}
+
 void		op_sub(t_env *env, unsigned int j)
 {
 	int cursor;
-	int	reg_content;
-	int	nb_reg1;
-	int	nb_reg2;
-	int	nb_reg3;
+	int	nb_reg[3];
 	int	diff;
 
 	cursor = 1;
 	if (check_args(env, j, &cursor, 3))
 	{
-		cursor++;
-		nb_reg1 = env->process[j].op.saved[cursor];
+		nb_reg[0] = env->process[j].op.saved[2];
+		diff = sub_op(env, j, nb_reg[0], 0);
+		nb_reg[1] = env->process[j].op.saved[3];
+		diff -= sub_op(env, j, nb_reg[0], 1);
+		nb_reg[2] = env->process[j].op.saved[4];
 		if (env->verb == 1)
-			save_param(env, j, nb_reg1, REG_CODE, 0);
-		if (nb_reg1 >= 1 && nb_reg1 <= 16)
-		{
-			reg_content = env->process[j].r[env->process[j].op.saved[cursor]];
-			diff = reg_content;
-		}
-		else
-			diff = 0;
-		cursor++;
-		nb_reg2 = env->process[j].op.saved[cursor];
-		if (env->verb == 1)
-			save_param(env, j, nb_reg2, REG_CODE, 1);
-		if (nb_reg2 >= 1 && nb_reg2 <= 16)
-		{
-			reg_content = env->process[j].r[env->process[j].op.saved[cursor]];
-			diff -= reg_content;
-		}
-		cursor++;
-		nb_reg3 = env->process[j].op.saved[cursor];
-		if (env->verb == 1)
-			save_param(env, j, nb_reg3, REG_CODE, 2);
-		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
-		{
-			if (diff == 0)
-				env->process[j].carry = 1;
-			else
-				env->process[j].carry = 0;
-			env->process[j].op.name = "sub";
-			env->process[j].r[env->process[j].op.saved[cursor]] = diff;
-		}
-		cursor++;
+			save_param(env, j, nb_reg[2], REG_CODE, 2);
+		if (nb_reg[0] >= 1 && nb_reg[0] <= REG_NUMBER
+				&& nb_reg[1] >= 1 && nb_reg[1] <= REG_NUMBER
+				&& nb_reg[2] >= 1 && nb_reg[2] <= REG_NUMBER)
+			set_reg(env, j, diff, nb_reg[2]);
+		cursor += 4;
 	}
-else
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 0, 3);
 	env->process[j].pc += cursor;
 }

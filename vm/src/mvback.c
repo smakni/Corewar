@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mvback.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:55:04 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/25 17:13:08 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/29 12:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static void		while_mv_back(t_env *env, int key, int where, int cycle)
 		else if (key == 'h' && cycle > env->cycle_index - GO_BACK + 10
 			&& cycle > 9)
 			travel(env, &where, &cycle, -10);
-		else if (key == 'j' && cycle > env->cycle_index - GO_BACK  + 1 && cycle > 0)
+		else if (key == 'j' && cycle > env->cycle_index - GO_BACK + 1
+				&& cycle > 0)
 			travel(env, &where, &cycle, -1);
 		else if (key == 'k' && cycle < env->cycle_index)
 			travel(env, &where, &cycle, 1);

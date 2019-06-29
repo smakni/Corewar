@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 13:24:48 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 15:44:09 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 11:59:41 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			protect_mvwchgat(t_env *env, int y, int x, int color)
 {
-	if (mvwchgat(env->mem, y, x, 2, A_NORMAL, color, NULL) == ERR)	
+	if (mvwchgat(env->mem, y, x, 2, A_NORMAL, color, NULL) == ERR)
 		exit_clean(env);
 }
 
