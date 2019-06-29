@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 15:05:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 12:05:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:41:28 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		op_live(t_env *env, unsigned j)
 	env->process[j].live = -1;
 	id = (unsigned)read_bytes(env->process[j].op.saved, 1, 4);
 	if (env->verb == 1)
-		save_param(env, j, id, IND_CODE, 0);
+		save_ind_param(env, j, id, 0);
 	if (id == (unsigned)-1)
 		env->player[0].last_live = env->cycle_index;
 	else if (id == (unsigned)-2)

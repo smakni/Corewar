@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 12:03:08 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:41:12 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		op_ld(t_env *env, unsigned int j)
 		cursor++;
 		nb_reg = env->process[j].op.saved[cursor];
 		if (env->verb == 1)
-			save_param(env, j, nb_reg, REG_CODE, 1);
+			save_reg_param(env, j, nb_reg, 1);
 		cursor++;
 		if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
 		{

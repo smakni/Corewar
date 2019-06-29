@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 18:29:17 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:39:12 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,14 @@ void				op_lfork(t_env *env, unsigned j);
 void				op_aff(t_env *env, unsigned j);
 int					del_processess(t_env *env);
 void				save_op(t_env *env, unsigned j);
+void				save_reg_param(t_env *env, int j, int value, int index);
+void				save_ind_param(t_env *env, int j, int value, int index);
+void				save_dir_param(t_env *env, int j, int value, int index);
 
 
 // DEBUG
 void				ft_print_memory(t_env *env);
-void				save_param(t_env *env, int j, int value, int code, int index);
+// void				save_param(t_env *env, int j, int value, int code, int index);
 void				first_visu(t_env *env);
 void				update_visu(t_env *env, int dest, unsigned j);
 void				print_infos(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 11:59:15 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:40:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 		*cursor += IND_SIZE - 1;
 	}
 	if (env->verb == 1 && env->process[j].op.code != 0x03)
-		save_param(env, j, value, IND_CODE, param - 1);
+		save_ind_param(env, j, value, param - 1);
 	return (value);
 }
 
@@ -66,6 +66,6 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 		(*cursor) += IND_SIZE - 1;
 	}
 	if (env->verb == 1)
-		save_param(env, j, value, IND_CODE, param - 1);
+		save_ind_param(env, j, value, param - 1);
 	return (value);
 }

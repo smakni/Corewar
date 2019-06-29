@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 12:20:03 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:25:36 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	update_visu(t_env *env, int dest, unsigned j)
 		y = dest / 64;
 		if (mvwprintw(env->mem, y, x, "%.2x", env->memory[dest++]) == ERR)
 			exit_clean(env);
-		if (dest >= 4096)
-			dest -= 4096;
+		if (dest >= MEM_SIZE)
+			dest -= MEM_SIZE;
 		k++;
 	}
 	if (wattroff(env->mem, A_BOLD) == ERR)
@@ -58,8 +58,8 @@ void	remove_bold(t_env *env, unsigned j)
 			y = dest / 64;
 			protect_mvwchgat(env, y, x, env->process[j].color);
 			dest++;
-			if (dest >= 4096)
-				dest -= 4096;
+			if (dest >= MEM_SIZE)
+				dest -= MEM_SIZE;
 			k++;
 		}
 		env->process[j].bold = 0;
