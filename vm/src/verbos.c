@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 11:38:02 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:35:25 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,20 +112,4 @@ void 			verbos(t_env *env, unsigned j, int save)
 	print_pc(env, j, save);
 	while (env->process[j].op.param[i])
 		free(env->process[j].op.param[i++]);
-}
-
-void	save_param(t_env *env, int j, int value, int code, int index)
-{
-	char *tmp;
-
-	tmp = NULL;
-	tmp = ft_itoa(value);
-	if (code == REG_CODE)
-		env->process[j].op.param[index] = ft_strjoin("r", tmp);
-	else if (code == IND_CODE)
-		env->process[j].op.param[index] = ft_strjoin(env->process[j].op.param[index], tmp);
-	else if (code == DIR_CODE)
-		env->process[j].op.param[index] = ft_strjoin("%", tmp);
-	ft_strdel(&tmp);
-	env->process[j].op.param[3] = NULL;
 }

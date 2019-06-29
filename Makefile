@@ -94,7 +94,8 @@ SOURCES_P2	=	main.c\
 				protection_visu.c\
 				init_color.c\
 				check_args.c\
-				save_op.c
+				save_op.c\
+				save_params.c
 
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))

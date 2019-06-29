@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 18:52:07 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/18 22:05:30 by marvin           ###   ########.fr       */
+/*   Created: 2019/06/29 12:03:31 by jergauth          #+#    #+#             */
+/*   Updated: 2019/06/29 12:04:37 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	ft_realloc_tab(t_env *env)
 {
-	t_process *tmp;
-	unsigned 	i;
+	t_process		*tmp;
+	unsigned int	i;
 
 	env->nb_realloc++;
 	i = 0;
-	if (!(tmp = ft_memalloc(sizeof(t_player)	* (ARR_SIZE * env->nb_realloc))))
+	if (!(tmp = ft_memalloc(sizeof(t_player) * (ARR_SIZE * env->nb_realloc))))
 	{
 		ft_memdel((void *)&env->process);
 		return (-1);

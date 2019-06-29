@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 10:48:42 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 12:43:05 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,10 @@ void		op_xor(t_env *env, unsigned int j)
 				diff = get_value(env, j, &cursor, 1);
 			else
 				cursor++;
-			if (env->verb == 1)
-				save_param(env, j, diff, IND_CODE, 0);
 		}
 		else
 		{
 			diff = get_value(env, j, &cursor, 1);
-			if (env->verb == 1)
-				save_param(env, j, diff, DIR_CODE, 0);
 		}
 		if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 		{
@@ -51,21 +47,17 @@ void		op_xor(t_env *env, unsigned int j)
 				value = get_value(env, j, &cursor, 2);
 			else
 				cursor++;
-			if (env->verb == 1)
-				save_param(env, j, value, IND_CODE, 1);
 		}
 		else
 		{
 			value = get_value(env, j, &cursor, 2);
-			if (env->verb == 1)
-				save_param(env, j, value, DIR_CODE, 1);
 		}
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16)
 			diff ^= value;
 		cursor++;
 		nb_reg3 = env->process[j].op.saved[cursor];
 		if (env->verb == 1)
-			save_param(env, j, nb_reg3, REG_CODE, 2);
+			save_reg_param(env, j, nb_reg3, 2);
 		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
 		{
 			if (diff == 0)

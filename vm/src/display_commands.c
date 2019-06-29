@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:51:41 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/28 11:32:25 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/29 11:58:35 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,22 @@ void			fill_commands_mv_back(t_env *env)
 {
 	protect_werase(env, env->commands);
 	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
-	mvwprintw(env->commands, 1, 2, "COMMANDS :");
-	mvwprintw(env->commands, 3, 2, "Press 'p' to quit exploration mode");
-	mvwprintw(env->commands, 5, 2, "Cycle -= 10 : 'h'");
-	mvwprintw(env->commands, 6, 2, "Cycle -= 1 : 'j'");
-	mvwprintw(env->commands, 7, 2, "Cycle += 1 : 'k'");
-	mvwprintw(env->commands, 8, 2, "Cycle += 10 : 'l'");
-	mvwprintw(env->commands, 10, 2, "Cannot move in future cycles");
-	mvwprintw(env->commands, 12, 2,
-			"Cannot move back more than %d cycles", GO_BACK - 1);
-	wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
-	wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT);
+	mvwprintw(env, 1, 2, "COMMANDS :");
+	mvwprintw(env, 3, 2, "Press 'p' to quit exploration mode");
+	mvwprintw(env, 5, 2, "Cycle -= 10 : 'h'");
+	mvwprintw(env, 6, 2, "Cycle -= 1 : 'j'");
+	mvwprintw(env, 7, 2, "Cycle += 1 : 'k'");
+	mvwprintw(env, 8, 2, "Cycle += 10 : 'l'");
+	mvwprintw(env, 10, 2, "Cannot move in future cycles");
+	if (mvwprintw(env->commands, 12, 2,
+			"Cannot move back more than %d cycles", GO_BACK - 1) == ERR)
+		exit_clean(env);
+	if (wattron(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT) == ERR)
+		exit_clean(env);
+	if (wborder(env->commands, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ') == ERR)
+		exit_clean(env);
+	if (wattroff(env->commands, COLOR_PAIR(2) | A_REVERSE | A_STANDOUT) == ERR)
+		exit_clean(env);
 	protect_wrefresh(env, env->commands);
 }
 
