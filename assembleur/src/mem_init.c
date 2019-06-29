@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:45:59 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 16:11:33 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:57:16 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int			ft_realloc_bytecode(t_parser *data)
 					* sizeof(*data->bytecode))))
 	{
 		ft_memdel((void*)&tmp);
+		data->err_code = 2;
+		data->err_msg = "Fail to malloc.";
 		return (FAIL);
 	}
 	ft_memcpy(data->bytecode, tmp, data->index);

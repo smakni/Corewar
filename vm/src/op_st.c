@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 13:11:13 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:26:48 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		op_st(t_env *env, unsigned int j)
 	int		nb_reg;
 
 	cursor = 1;
-	if (check_args(env, j, &cursor, 2))
+	if (check_args(env, j, cursor, 2))
 	{
 		nb_reg = env->process[j].op.saved[2];
 		if (env->verb == 1)

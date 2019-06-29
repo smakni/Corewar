@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 12:41:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:26:40 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		op_lldi(t_env *env, unsigned int j)
 	int	nb_reg3;
 
 	cursor = 1;
-	if (check_args(env, j, &cursor, 3))
+	if (check_args(env, j, cursor, 3))
 	{
 		nb_reg1 = 1;
 		nb_reg2 = 1;

@@ -6,11 +6,20 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:55:20 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 18:25:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 17:06:04 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
+
+static int	verbose_exit(t_parser *data)
+{
+	if (ft_instr(data->err_code + 48, "3478"))
+		ft_printf("{red}%s%i.{reset}\n", data->err_msg, data->nb_line);
+	else
+		ft_printf("{red}%s{reset}\n", data->err_msg);
+	exit(EXIT_FAILURE);
+}
 
 static int	line_parser_extension(t_parser *data, int i, int *label_flag)
 {
@@ -94,18 +103,17 @@ int			reader(t_parser *data)
 	{
 		if (data->index >= SIZE_BUFFER * data->nb_realloc - 10)
 			if (!(ft_realloc_bytecode(data)))
-				exit(EXIT_FAILURE);
+				verbose_exit(data);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
 		if (data->eol == 1 && data->line[i] != '\0')
 		{
 			data->err_code = 5;
 			data->err_msg = "Syntax error - unexpected end of input";
-			ft_strdel(&data->line);
-			exit(EXIT_FAILURE);
+			verbose_exit(data);
 		}
 		if (!(line_parser(data, i, label_flag)))
-			exit(EXIT_FAILURE);
+			verbose_exit(data);
 		ft_strdel(&data->line);
 		data->nb_line++;
 	}

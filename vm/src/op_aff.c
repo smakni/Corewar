@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:24:52 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 00:50:21 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/29 15:26:24 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	op_aff(t_env *env, unsigned j)
 	int	cursor;
 
 	cursor = 1;
-	if (check_args(env, j, &cursor, 1))
+	if (check_args(env, j, cursor, 1))
 	{
 		reg = get_value(env, j, &cursor, 1);
 		if (env->aff == 1)

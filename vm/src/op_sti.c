@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 12:42:48 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:26:52 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	op_sti(t_env *env, unsigned int j)
 	current_pos = env->process[j].pc;
 	cursor = 1;
 	dest = 0;
-	if (check_args(env, j, &cursor, 3))
+	if (check_args(env, j, cursor, 3))
 	{
 		nb_reg1 = 0;
 		cursor++;
