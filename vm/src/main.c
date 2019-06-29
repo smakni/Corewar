@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/27 19:03:50 by smakni           ###   ########.fr       */
+/*   Updated: 2019/06/28 12:04:01 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,15 @@ static int	clean_quit(t_env *env, const int ret)
 	return (ret);
 }
 
-static int	ft_display_commands(void)
+static int	ft_display_usage(void)
 {
 	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
 	ft_printf("	-Maximum number of champions : 4\n");
+	ft_printf("Options :\n");
+	ft_printf("\tNcurses visualizer : -visu (without infos : -svisu)\n");
+	ft_printf("\tMove through cycles in the visualizer : -visu -goback\n");
+	ft_printf("\tPrint verbos (works with visualizer and without it) : -v\n");
 	return (-1);
-}
-
-void		ft_print_memory(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("0x0000 : ");
-	while (i < 4096)
-	{
-		ft_printf("%.2x ", env->memory[i]);
-		i++;
-		if (i % 64 == 0)
-		{
-			if (i != 4096)
-				ft_printf("\n%#.4x : ", i);
-			else
-				ft_putendl("");
-		}
-	}
 }
 
 int			check_last_live(t_env *env)
@@ -70,7 +54,8 @@ int			check_last_live(t_env *env)
 			mvwprintw(env->state, 0, 0, "**Game Over**");
 			mvwprintw(env->infos, 46, 0, "WINNER :");
 			wattron(env->infos, COLOR_PAIR(4 + save));
-			mvwprintw(env->infos, 46, 9, "%s", env->player[save].header.prog_name);
+			mvwprintw(env->infos, 46, 9, "%s",
+				env->player[save].header.prog_name);
 			wattroff(env->infos, COLOR_PAIR(4 + save));
 			wrefresh(env->infos);
 			wrefresh(env->state);
@@ -98,7 +83,7 @@ int			check_last_live(t_env *env)
 					delwin(env->infos);
 					delwin(env->around_infos);
 					if (env->verb == 1)
-					delwin(env->verbos);
+						delwin(env->verbos);
 					delwin(env->around_verbos);
 				}
 				endwin();
@@ -106,7 +91,8 @@ int			check_last_live(t_env *env)
 			}
 	}
 	else
-		ft_printf("Contestant %d, \"%s\", has won !\n", save + 1, env->player[save].header.prog_name);
+		ft_printf("Contestant %d, \"%s\", has won !\n", save + 1,
+			env->player[save].header.prog_name);
 	return (save);
 }
 
@@ -172,5 +158,5 @@ int			main(int argc, char **argv)
 		check_last_live(&env);
 		return (clean_quit(&env, 0));
 	}
-	return (ft_display_commands());
+	return (ft_display_usage());
 }

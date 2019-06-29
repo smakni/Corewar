@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-#include <curses.h>
 
 static void		handle_resize2(t_env *env, int y, int x)
 {
@@ -23,10 +22,8 @@ static void		handle_resize2(t_env *env, int y, int x)
 		delwin(env->around_infos);
 	}
 	protect_wclear(env, stdscr);
-	if (mvprintw(y / 2, x / 2, "Terminal size too small") == ERR)
-		exit_clean(env);
-	if (mvprintw(y / 2 + 1, x / 2, "Quitting") == ERR)
-		exit_clean(env);
+	mvprintw(y / 2, x / 2, "Terminal size too small");
+	mvprintw(y / 2 + 1, x / 2, "Quitting");
 	timeout(-1);
 	while (1)
 		if (getch())
@@ -38,10 +35,15 @@ static void		handle_resize(t_env *env)
 	int x;
 	int y;
 	int i;
+	int	columns;
 
-	if (getmaxyx(stdscr, y, x) == ERR)
-		exit_clean(env);
-	if (y < 68 || x < 255)
+	columns = 254;
+	if (env->option == 2)
+		columns = 197;
+	else if (env->option == 1 && env->verb == 1)
+		columns = 311;
+	getmaxyx(stdscr, y, x);
+	if (y < 68 || x < columns)
 	{
 		timeout(-1);
 		i = 0;
@@ -80,8 +82,7 @@ static void		handle_key(t_env *env, int key, char *state)
 		if (env->option == 1)
 		{
 			protect_werase(env, env->state);
-			if (mvwprintw(env->state, 0, 0, "%s", state) == ERR)
-				exit_clean(env);
+			mvwprintw(env->state, 0, 0, "%s", state);
 			protect_wrefresh(env, env->state);
 		}
 	}
@@ -96,8 +97,7 @@ static void		while_paused_events(t_env *env, int key)
 		{
 			if (env->option == 1)
 			{
-				if (mvwprintw(env->state, 0, 0, "** RUNNING **") == ERR)
-					exit_clean(env);
+				mvwprintw(env->state, 0, 0, "** RUNNING **");
 				protect_wrefresh(env, env->state);
 			}
 			break ;
@@ -121,8 +121,7 @@ void			key_events(t_env *env)
 	key = getch();
 	if (env->cycle_index > 0 && env->option == 1)
 	{
-		if (mvwprintw(env->state, 0, 0, "** RUNNING **") == ERR)
-			exit_clean(env);
+		mvwprintw(env->state, 0, 0, "** RUNNING **");
 		protect_wrefresh(env, env->state);
 	}
 	handle_key(env, key, "** RUNNING **");
@@ -130,8 +129,7 @@ void			key_events(t_env *env)
 	{
 		if (env->option == 1)
 		{
-			if (mvwprintw(env->state, 0, 0, "** PAUSED ** ") == ERR)
-				exit_clean(env);
+			mvwprintw(env->state, 0, 0, "** PAUSED ** ");
 			protect_wrefresh(env, env->state);
 		}
 		while_paused_events(env, key);

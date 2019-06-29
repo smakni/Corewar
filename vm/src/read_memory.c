@@ -6,13 +6,13 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/27 10:38:17 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 21:09:53 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void intro_game(t_env *env)
+static void		intro_game(t_env *env)
 {
 	unsigned i;
 
@@ -21,13 +21,13 @@ static void intro_game(t_env *env)
 	while (i < env->nb_process)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
-				  env->player[i].header.prog_size, env->player[i].header.prog_name,
-				  env->player[i].header.comment);
+			env->player[i].header.prog_size,
+				env->player[i].header.prog_name, env->player[i].header.comment);
 		i++;
 	}
 }
 
-static int check_live(t_env *env, int *check_delta)
+static int		check_live(t_env *env, int *check_delta)
 {
 	int living_process;
 
@@ -45,7 +45,7 @@ static int check_live(t_env *env, int *check_delta)
 	return (living_process);
 }
 
-static int reset_cycles(t_env *env, int *check_delta)
+static int		reset_cycles(t_env *env, int *check_delta)
 {
 	if (*check_delta == MAX_CHECKS)
 	{
@@ -57,7 +57,7 @@ static int reset_cycles(t_env *env, int *check_delta)
 	return (0);
 }
 
-static int move_pc(t_env *env, int j)
+static int		move_pc(t_env *env, int j)
 {
 	if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc -= MEM_SIZE;
@@ -66,12 +66,11 @@ static int move_pc(t_env *env, int j)
 	if (env->err_code != 0)
 		return (FAIL);
 	ft_bzero(&(env->process[j].op), sizeof(t_op));
-	env->process[j].cycles = check_cycles(env, j);;
+	env->process[j].cycles = check_cycles(env, j);
 	return (1);
 }
 
-
-static int processess_execution(t_env *env)
+static int		processess_execution(t_env *env)
 {
 	int j;
 
@@ -100,28 +99,7 @@ static int processess_execution(t_env *env)
 	return (1);
 }
 
-WINDOW		*protect_dupwin(t_env *env, WINDOW *to_dup)
-{
-	WINDOW	*dup;
-
-	if (!(dup = dupwin(to_dup)))
-		exit_clean(env);
-	return (dup);
-}
-
-void		protect_overlay(t_env *env, WINDOW *win1, WINDOW *win2)
-{
-	if (overlay(win1, win2) == ERR)
-	exit_clean(env);
-}
-
-void		protect_overwrite(t_env *env, WINDOW *win1, WINDOW *win2)
-{
-	if (overwrite(win1, win2) == ERR)
-		exit_clean(env);
-}
-
-int read_memory(t_env *env)
+int				read_memory(t_env *env)
 {
 	int i;
 	int check_delta;
@@ -144,7 +122,7 @@ int read_memory(t_env *env)
 		if (i == env->cycle_to_die)
 		{
 			if (check_live(env, &check_delta) == 0)
-				break;
+				break ;
 			i = reset_cycles(env, &check_delta);
 		}
 		if (env->option == 0 && env->verb == 1)
@@ -152,30 +130,7 @@ int read_memory(t_env *env)
 		if (processess_execution(env) == FAIL)
 			return (FAIL);
 		if (env->option == 1 || env->option == 2)
-		{
-			print_infos(env);
-			protect_wrefresh(env, env->mem);
-			if (env->goback == 1)
-			{
-				if (env->cycle_index > GO_BACK)
-				{
-					protect_overlay(env, env->mem, env->trace[env->cycle_index % GO_BACK]);
-					if (env->option == 1)
-						protect_overwrite(env, env->infos, env->traceinfos[env->cycle_index % GO_BACK]);
-					if (env->option == 1 && env->verb == 1)
-						protect_overwrite(env, env->verbos, env->traceverbos[env->cycle_index % GO_BACK]);
-				}
-				else
-				{
-					env->trace[env->cycle_index % GO_BACK] = protect_dupwin(env, env->mem);
-					if (env->option == 1)
-						env->traceinfos[env->cycle_index % GO_BACK] = protect_dupwin(env, env->infos);
-					if (env->option == 1 && env->verb == 1)
-						env->traceverbos[env->cycle_index % GO_BACK] = protect_dupwin(env, env->verbos);
-				}
-			}
-			key_events(env);
-		}
+			read_memory_visu(env);
 		else if (env->option == 3 && env->cycle_index == env->dump)
 		{
 			ft_print_memory(env);

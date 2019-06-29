@@ -13,6 +13,24 @@
 #include "../../includes/vm.h"
 #include <curses.h>
 
+void	fill_first(t_env *env)
+{
+	int		i;
+
+	i = 0;
+	wattron(env->mem, COLOR_PAIR(1));
+	while (i < MEM_SIZE)
+	{
+		if (wprintw(env->mem, "%.2x ", env->memory[i]) == ERR)
+			exit(-1);
+		i++;
+		if (i % 64 == 0 && i != MEM_SIZE)
+			if (wprintw(env->mem, "\n") == ERR)
+				exit(-1);
+	}
+	wattroff(env->mem, COLOR_PAIR(1));
+}
+
 void	update_visu(t_env *env, int dest, unsigned j)
 {
 	int k;
@@ -21,11 +39,9 @@ void	update_visu(t_env *env, int dest, unsigned j)
 
 	env->process[j].dest = dest;
 	k = 0;
-	if (wattron(env->mem, COLOR_PAIR(env->process[j].color)) == ERR)
-		exit_clean(env);
+	wattron(env->mem, COLOR_PAIR(env->process[j].color));
 	env->process[j].bold = 1;
-	if (wattron(env->mem, A_BOLD) == ERR)
-		exit_clean(env);
+	wattron(env->mem, A_BOLD);
 	while (k < 4)
 	{
 		x = dest % 64 * 3;
@@ -36,8 +52,7 @@ void	update_visu(t_env *env, int dest, unsigned j)
 			dest -= MEM_SIZE;
 		k++;
 	}
-	if (wattroff(env->mem, A_BOLD) == ERR)
-		exit_clean(env);
+	wattroff(env->mem, A_BOLD);
 }
 
 void	remove_bold(t_env *env, unsigned j)
@@ -56,7 +71,7 @@ void	remove_bold(t_env *env, unsigned j)
 		{
 			x = dest % 64 * 3;
 			y = dest / 64;
-			protect_mvwchgat(env, y, x, env->process[j].color);
+			mvwchgat(env->mem, y, x, 2, A_NORMAL, env->process[j].color, NULL);
 			dest++;
 			if (dest >= MEM_SIZE)
 				dest -= MEM_SIZE;
