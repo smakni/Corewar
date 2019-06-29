@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 13:06:42 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:26:55 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		op_sub(t_env *env, unsigned int j)
 	int	diff;
 
 	cursor = 1;
-	if (check_args(env, j, &cursor, 3))
+	if (check_args(env, j, cursor, 3))
 	{
 		nb_reg[0] = env->process[j].op.saved[2];
 		diff = sub_op(env, j, nb_reg[0], 0);

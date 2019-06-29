@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 12:41:12 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:26:30 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		op_ld(t_env *env, unsigned int j)
 	int	value;
 
 	cursor = 1;
-	if (check_args(env, j, &cursor, 2))
+	if (check_args(env, j, cursor, 2))
 	{
 		value = get_value(env, j, &cursor, 1);
 		cursor++;
