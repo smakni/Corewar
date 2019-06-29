@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/27 15:41:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:29:17 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # define SUCCESS				1
 # define ARR_SIZE				1024
 # define GO_BACK				10000
+
+typedef struct		s_op_vars
+{
+	int	nb_reg[3];
+	int	v1;
+	int	v2;
+	int	v3;
+	int	cursor;
+}					t_op_vars;
 
 typedef	struct 		s_op
 {
