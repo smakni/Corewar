@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 15:26:52 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:03:48 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,54 +34,52 @@ void	op_sti(t_env *env, unsigned int j)
 	int		reg_content;
 	int		current_pos;
 	int		tmp;
-	int		nb_reg1;
-	int		nb_reg2;
-	int		nb_reg3;
+	int		nb_reg[3];
 
 	current_pos = env->process[j].pc;
 	cursor = 1;
 	dest = 0;
 	if (check_args(env, j, cursor, 3))
 	{
-		nb_reg1 = 0;
+		nb_reg[0] = 0;
 		cursor++;
-		reg_content = get_reg_content(env, j, &cursor, &nb_reg1, 0);
+		reg_content = get_reg_content(env, j, &cursor, &nb_reg[0], 0);
 		if (env->verb == 1)
-			save_reg_param(env, j, nb_reg1, 0);
-		nb_reg2 = 1;
-		nb_reg3 = 1;
+			save_reg_param(env, j, nb_reg[0], 0);
+		nb_reg[1] = 1;
+		nb_reg[2] = 1;
 		if (type_param(env->process[j].op.saved[1], 2) == IND_CODE)
 		{
-			tmp = read_bytes(env->memory, current_pos + cursor, IND_SIZE) % IDX_MOD;
+			tmp = read_bytes(env->memory, current_pos + cursor, IND_SIZE);
 			cursor += 2;
 			if (current_pos + tmp < 0)
 				tmp += (current_pos + MEM_SIZE);
 			else if (current_pos + tmp >= MEM_SIZE)
 				tmp = (current_pos + tmp) % MEM_SIZE;
-			dest = read_bytes(env->memory, current_pos + tmp, 4) % IDX_MOD;
+			dest = read_bytes(env->memory, current_pos + tmp, 4);
 			if (env->verb == 1)
 				save_ind_param(env, j, dest, 1);
 		}
 		else if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
-			dest = get_reg_content(env, j, &cursor, &nb_reg2, 1);
+			dest = get_reg_content(env, j, &cursor, &nb_reg[1], 1);
 		else
 		{
-			dest = read_bytes(env->process[j].op.saved, cursor, IND_SIZE) % IDX_MOD;
+			dest = read_bytes(env->process[j].op.saved, cursor, IND_SIZE);
 			cursor += 2;
 			if (env->verb == 1)
 				save_ind_param(env, j, dest, 1);
 		}
 		if (type_param(env->process[j].op.saved[1], 3) == REG_CODE)
-			dest += get_reg_content(env, j, &cursor, &nb_reg3, 2);
+			dest += get_reg_content(env, j, &cursor, &nb_reg[2], 2);
 		else
 		{
-			tmp = read_bytes(env->process[j].op.saved, cursor, 2) % IDX_MOD;
+			tmp = read_bytes(env->process[j].op.saved, cursor, 2);
 			cursor += 2;
 			dest += tmp;
 			if (env->verb == 1)
 				save_ind_param(env, j, tmp, 2);
 		}
-		if (nb_reg1 >= 1 && nb_reg1 <= 16 && nb_reg2 >= 1 && nb_reg2 <= 16 && nb_reg3 >= 1 && nb_reg3 <= 16)
+		if (nb_reg[0] >= 1 && nb_reg[0] <= 16 && nb_reg[1] >= 1 && nb_reg[1] <= 16 && nb_reg[2] >= 1 && nb_reg[2] <= 16)
 		{
 			env->process[j].op.name = "sti";
 			dest += current_pos;
