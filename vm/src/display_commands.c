@@ -17,13 +17,13 @@ void			fill_commands_mv_back(t_env *env)
 {
 	protect_werase(env, env->commands);
 	wattrset(env->commands, A_NORMAL | COLOR_PAIR(3));
-	mvwprintw(env, 1, 2, "COMMANDS :");
-	mvwprintw(env, 3, 2, "Press 'p' to quit exploration mode");
-	mvwprintw(env, 5, 2, "Cycle -= 10 : 'h'");
-	mvwprintw(env, 6, 2, "Cycle -= 1 : 'j'");
-	mvwprintw(env, 7, 2, "Cycle += 1 : 'k'");
-	mvwprintw(env, 8, 2, "Cycle += 10 : 'l'");
-	mvwprintw(env, 10, 2, "Cannot move in future cycles");
+	mvwprintw(env->commands, 1, 2, "COMMANDS :");
+	mvwprintw(env->commands, 3, 2, "Press 'p' to quit exploration mode");
+	mvwprintw(env->commands, 5, 2, "Cycle -= 10 : 'h'");
+	mvwprintw(env->commands, 6, 2, "Cycle -= 1 : 'j'");
+	mvwprintw(env->commands, 7, 2, "Cycle += 1 : 'k'");
+	mvwprintw(env->commands, 8, 2, "Cycle += 10 : 'l'");
+	mvwprintw(env->commands, 10, 2, "Cannot move in future cycles");
 	if (mvwprintw(env->commands, 12, 2,
 			"Cannot move back more than %d cycles", GO_BACK - 1) == ERR)
 		exit_clean(env);
