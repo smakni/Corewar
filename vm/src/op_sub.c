@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 12:42:59 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/29 13:06:42 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		op_sub(t_env *env, unsigned int j)
 		nb_reg[0] = env->process[j].op.saved[2];
 		diff = sub_op(env, j, nb_reg[0], 0);
 		nb_reg[1] = env->process[j].op.saved[3];
-		diff -= sub_op(env, j, nb_reg[0], 1);
+		diff -= sub_op(env, j, nb_reg[1], 1);
 		nb_reg[2] = env->process[j].op.saved[4];
 		if (env->verb == 1)
 			save_reg_param(env, j, nb_reg[2], 2);
