@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 12:03:23 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 17:54:01 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/30 18:45:14 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
 static void	ldi_first_param(t_env *env, unsigned int j, t_op_vars *data,
-				int nb_reg)
+				int *nb_reg)
 {
 	if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
 	{
-		nb_reg = env->process[j].op.saved[data->cursor + 1];
+		*nb_reg = env->process[j].op.saved[data->cursor + 1];
 		data->v1 = 0;
-		if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
+		if (*nb_reg >= 1 && *nb_reg <= REG_NUMBER)
 			data->v1 = get_value_index(env, j, &data->cursor, 1);
 		else
 			data->cursor++;
@@ -29,13 +29,13 @@ static void	ldi_first_param(t_env *env, unsigned int j, t_op_vars *data,
 }
 
 static void	ldi_second_param(t_env *env, unsigned int j, t_op_vars *data,
-				int nb_reg)
+				int *nb_reg)
 {
 	if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 	{
-		nb_reg = env->process[j].op.saved[data->cursor + 1];
+		*nb_reg = env->process[j].op.saved[data->cursor + 1];
 		data->v2 = 0;
-		if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
+		if (*nb_reg >= 1 && *nb_reg <= REG_NUMBER)
 			data->v2 = get_value_index(env, j, &data->cursor, 2);
 		else
 			data->cursor++;
@@ -76,8 +76,8 @@ void		op_ldi(t_env *env, unsigned int j)
 	{
 		nb_reg[0] = 1;
 		nb_reg[1] = 1;
-		ldi_first_param(env, j, &data, nb_reg[0]);
-		ldi_second_param(env, j, &data, nb_reg[1]);
+		ldi_first_param(env, j, &data, &nb_reg[0]);
+		ldi_second_param(env, j, &data, &nb_reg[1]);
 		data.cursor++;
 		nb_reg[2] = env->process[j].op.saved[data.cursor];
 		if (env->verb == 1)
