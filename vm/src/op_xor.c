@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/30 18:39:39 by sabri            ###   ########.fr       */
+/*   Updated: 2019/06/30 18:46:34 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void		op_xor(t_env *env, unsigned int j)
 
 	ft_bzero(&data, sizeof(t_op_vars));
 	data.cursor = 1;
-	if (j == 177 && env->cycle_index == 23119)
-		ft_printf("debug\n");
 	if (check_args(env, j, data.cursor, 3))
 	{
 		nb_reg[0] = 1;
