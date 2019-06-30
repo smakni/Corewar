@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 15:46:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/30 18:42:36 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
 static void	and_first_param(t_env *env, unsigned int j, t_op_vars *data,
-				int nb_reg)
+				int *nb_reg)
 {
 	if (type_param(env->process[j].op.saved[1], 1) == REG_CODE)
 	{
-		nb_reg = env->process[j].op.saved[data->cursor + 1];
-		if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
+		*nb_reg = env->process[j].op.saved[data->cursor + 1];
+		if (*nb_reg >= 1 && *nb_reg <= REG_NUMBER)
 			data->v1 = get_value(env, j, &data->cursor, 1);
 		else
 			data->cursor++;
@@ -28,12 +28,12 @@ static void	and_first_param(t_env *env, unsigned int j, t_op_vars *data,
 }
 
 static void	and_second_param(t_env *env, unsigned int j, t_op_vars *data,
-				int nb_reg)
+				int *nb_reg)
 {
 	if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 	{
-		nb_reg = env->process[j].op.saved[data->cursor + 1];
-		if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
+		*nb_reg = env->process[j].op.saved[data->cursor + 1];
+		if (*nb_reg >= 1 && *nb_reg <= REG_NUMBER)
 			data->v2 = get_value(env, j, &data->cursor, 2);
 		else
 			data->cursor++;
@@ -66,8 +66,8 @@ void		op_and(t_env *env, unsigned int j)
 	{
 		nb_reg[0] = 1;
 		nb_reg[1] = 1;
-		and_first_param(env, j, &data, nb_reg[0]);
-		and_second_param(env, j, &data, nb_reg[1]);
+		and_first_param(env, j, &data, &nb_reg[0]);
+		and_second_param(env, j, &data, &nb_reg[1]);
 		if (nb_reg[0] >= 1 && nb_reg[0] <= REG_NUMBER
 				&& nb_reg[1] >= 1 && nb_reg[1] <= REG_NUMBER)
 			data.v1 &= data.v2;
