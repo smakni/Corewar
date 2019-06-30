@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/28 12:04:01 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/30 17:30:40 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,73 +27,6 @@ static int	ft_display_usage(void)
 	ft_printf("\tMove through cycles in the visualizer : -visu -goback\n");
 	ft_printf("\tPrint verbos (works with visualizer and without it) : -v\n");
 	return (-1);
-}
-
-int			check_last_live(t_env *env)
-{
-	int	i;
-	int	save;
-	int	last_live;
-
-	i = 0;
-	save = 0;
-	last_live = 0;
-	while ((unsigned)i < env->nb_player)
-	{
-		if (env->player[i].last_live >= last_live)
-		{
-			last_live = env->player[i].last_live;
-			save = i;
-		}
-		i++;
-	}
-	if (env->option == 1 || env->option == 2)
-	{
-		if (env->option == 1)
-		{
-			mvwprintw(env->state, 0, 0, "**Game Over**");
-			mvwprintw(env->infos, 46, 0, "WINNER :");
-			wattron(env->infos, COLOR_PAIR(4 + save));
-			mvwprintw(env->infos, 46, 9, "%s",
-				env->player[save].header.prog_name);
-			wattroff(env->infos, COLOR_PAIR(4 + save));
-			wrefresh(env->infos);
-			wrefresh(env->state);
-		}
-		timeout(-1);
-		while (1)
-			if (getch())
-			{
-				i = 0;
-				while (i < GO_BACK && i < env->cycle_index)
-				{
-					delwin(env->trace[i]);
-					if (env->option == 1)
-						delwin(env->traceinfos[i]);
-					if (env->option == 1 && env->verb == 1)
-						delwin(env->traceverbos[i]);
-					i++;
-				}
-				delwin(env->mem);
-				delwin(env->around_memory);
-				if (env->option == 1)
-				{
-					delwin(env->state);
-					delwin(env->commands);
-					delwin(env->infos);
-					delwin(env->around_infos);
-					if (env->verb == 1)
-						delwin(env->verbos);
-					delwin(env->around_verbos);
-				}
-				endwin();
-				break ;
-			}
-	}
-	else
-		ft_printf("Contestant %d, \"%s\", has won !\n", save + 1,
-			env->player[save].header.prog_name);
-	return (save);
 }
 
 static void	init_op_tab(t_env *env)

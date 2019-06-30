@@ -72,25 +72,31 @@ static int	ft_sort_argc(t_env *env, t_player *tmp)
 	return (SUCCESS);
 }
 
-static int	ft_options(int argc, char **argv, t_env *env, int i)
+static int	ft_options(int argc, char **argv, t_env *env, int *i)
 {
-	if (ft_strequ(argv[i], "-visu"))
+	if (ft_strequ(argv[*i], "-visu"))
 		env->option = 1;
-	else if (ft_strequ(argv[i], "-svisu"))
+	else if (ft_strequ(argv[*i], "-svisu"))
 		env->option = 2;
-	else if (ft_strequ(argv[i], "-v"))
-		env->verb = 1;
-	else if (ft_strequ(argv[i], "-goback"))
-		env->goback = 1;
-	else if (ft_strequ(argv[i], "-dump"))
+	else if (ft_strequ(argv[*i], "-v"))
 	{
-		if (i + 1 < argc && ft_isdigit(argv[i + 1][0]) != 0)
-			env->dump = ft_atoi(argv[++i]);
+		env->verb = 1;
+		if (*i + 1 < argc && ft_isdigit(argv[*i + 1][0]) != 0)
+			(*i)++;
+		return (SUCCESS);
+	}
+	else if (ft_strequ(argv[*i], "-goback"))
+		env->goback = 1;
+	else if (ft_strequ(argv[*i], "-dump"))
+	{
+		if (*i + 1 < argc && ft_isdigit(argv[*i + 1][0]) != 0)
+			env->dump = ft_atoi(argv[++*i]);
 		else
 			return (print_error("error\n"));
 		env->option = 3;
+		return (SUCCESS);
 	}
-	else if (ft_strequ(argv[i], "-a"))
+	else if (ft_strequ(argv[*i], "-a"))
 		env->aff = 1;
 	else
 		return (FAIL);
@@ -120,7 +126,7 @@ int			ft_parse_argc(int argc, char **argv, t_env *env)
 			else
 				return (print_error("error\n"));
 		}
-		else if (ft_options(argc, argv, env, i) == FAIL)
+		else if (ft_options(argc, argv, env, &i) == FAIL)
 			return (FAIL);
 	}
 	return (ft_sort_argc(env, tmp));

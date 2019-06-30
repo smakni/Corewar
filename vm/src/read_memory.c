@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/29 21:09:53 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/30 17:00:17 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,24 +99,8 @@ static int		processess_execution(t_env *env)
 	return (1);
 }
 
-int				read_memory(t_env *env)
+int				while_playing(t_env *env, int i, int check_delta)
 {
-	int i;
-	int check_delta;
-
-	i = 0;
-	check_delta = 0;
-	if (env->option == 1)
-	{
-		print_infos(env);
-		key_events(env);
-	}
-	else if (env->option == 2)
-		key_events(env);
-	env->cycle_index = 1;
-	env->cycle_to_die = CYCLE_TO_DIE;
-	if (env->option == 0 || env->option == 3)
-		intro_game(env);
 	while (env->cycle_to_die > 0)
 	{
 		if (i == env->cycle_to_die)
@@ -139,6 +123,29 @@ int				read_memory(t_env *env)
 		env->cycle_index++;
 		i++;
 	}
+	return (SUCCESS);
+}
+
+int				read_memory(t_env *env)
+{
+	int i;
+	int check_delta;
+
+	i = 0;
+	check_delta = 0;
+	if (env->option == 1)
+	{
+		print_infos(env);
+		key_events(env);
+	}
+	else if (env->option == 2)
+		key_events(env);
+	env->cycle_index = 1;
+	env->cycle_to_die = CYCLE_TO_DIE;
+	if (env->option == 0 || env->option == 3)
+		intro_game(env);
+	if (while_playing(env, i, check_delta) == FAIL)
+		return (FAIL);
 	del_processess(env);
 	return (SUCCESS);
 }

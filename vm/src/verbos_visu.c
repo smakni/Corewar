@@ -6,13 +6,13 @@
 /*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 12:18:58 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 19:54:57 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/30 13:05:38 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void	print_pc(t_env *env, unsigned j, int save)
+static void	print_pc_visu(t_env *env, unsigned j, int save)
 {
 	int i;
 
@@ -40,7 +40,7 @@ static void	verbos_forklfork_visu(t_env *env, unsigned j, int save, char *str)
 {
 	wprintw(env->verbos, str, read_bytes(env->process[j].op.saved, 1, 2),
 			save + read_bytes(env->process[j].op.saved, 1, 2));
-	print_pc(env, j, save);
+	print_pc_visu(env, j, save);
 }
 
 static void	ldisti(t_env *env, unsigned j, int save, int op)
@@ -89,7 +89,7 @@ static void	verbos_visu_2(t_env *env, unsigned j, int save, int i)
 		ldisti(env, j, save, 1);
 	if (env->process[j].op.name != NULL)
 		wprintw(env->verbos, "\n");
-	print_pc(env, j, save);
+	print_pc_visu(env, j, save);
 	while (env->process[j].op.param[i])
 		free(env->process[j].op.param[i++]);
 }
@@ -109,7 +109,7 @@ void		verbos_visu(t_env *env, unsigned j, int save)
 	{
 		wprintw(env->verbos, "zjmp %d FAILED\n",
 				read_bytes(env->process[j].op.saved, 1, 2));
-		print_pc(env, j, save);
+		print_pc_visu(env, j, save);
 	}
 	else if (env->process[j].op.code == 0x0c)
 		verbos_forklfork_visu(env, j, save, "fork %d (%d)\n");

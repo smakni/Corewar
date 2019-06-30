@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 18:03:48 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/30 12:23:00 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_reg_content(t_env *env, unsigned int j, int *cursor, int *nb_reg,
 	return (content);
 }
 
-void	op_sti(t_env *env, unsigned int j)
+void		op_sti(t_env *env, unsigned int j)
 {
 	int		cursor;
 	int		dest;
@@ -95,7 +95,7 @@ void	op_sti(t_env *env, unsigned int j)
 		if (env->option == 1 || env->option == 2)
 			update_visu(env, dest, j);
 	}
-else
+	else
 		cursor += decode_byte_param(env->process[j].op.saved[1], 1, 3);
 	env->process[j].pc += cursor;
 }

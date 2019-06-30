@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 15:26:03 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/06/30 17:31:59 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
-# define GO_BACK				10000
+# define GO_BACK				1000
 # define DUMP					64
 
 typedef struct		s_op_vars
@@ -157,11 +157,13 @@ void				exit_clean(t_env *env);
 void				protect_wclear(t_env *env, WINDOW *toclear);
 void				protect_wrefresh(t_env *env, WINDOW *torefresh);
 void				protect_werase(t_env *env, WINDOW *toerase);
+void				print_pc(t_env *env, unsigned j, int save);
 int					print_error(char *error);
 void				init_color_palet(void);
 void				fill_first(t_env *env);
 void				write_champ_visu(t_env *env, unsigned j);
 void				read_memory_visu(t_env *env);
+int					check_last_live(t_env *env);
 WINDOW				*protect_dupwin(t_env *env, WINDOW *to_dup);
 
 #endif

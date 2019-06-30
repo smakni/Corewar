@@ -98,6 +98,8 @@ SOURCES_P2	=	main.c\
 				check_args.c\
 				save_op.c\
 				print_memory.c\
+				print_pc.c\
+				check_last_live.c\
 				save_params.c
 
 

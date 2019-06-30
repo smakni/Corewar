@@ -6,7 +6,7 @@
 /*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:16:27 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 12:16:31 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/06/30 12:24:34 by vrenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ static void		handle_resize2(t_env *env, int y, int x)
 			exit_clean(env);
 }
 
-static void		handle_resize(t_env *env)
+static void		handle_resize(t_env *env, int columns)
 {
 	int x;
 	int y;
 	int i;
-	int	columns;
 
-	columns = 254;
 	if (env->option == 2)
 		columns = 197;
 	else if (env->option == 1 && env->verb == 1)
@@ -75,7 +73,7 @@ static void		handle_key(t_env *env, int key, char *state)
 	else if (key == 't')
 		env->speed = 1;
 	else if (key == KEY_RESIZE)
-		handle_resize(env);
+		handle_resize(env, 254);
 	else if (env->goback == 1 && key == 'p')
 	{
 		mv_back(env);
