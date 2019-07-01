@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/01 11:45:52 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/01 13:56:59 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		verbos(t_env *env, unsigned j, int save)
 							read_bytes(env->process[j].op.saved, 1, 2));
 	else if (env->process[j].op.code == 0x0c)
 		ft_printf("fork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
-							save + read_bytes(env->process[j].op.saved, 1, 2));
+							(save + read_bytes(env->process[j].op.saved, 1, 2) % IDX_MOD));
 	else if (env->process[j].op.code == 0x0f)
 		ft_printf("lfork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
 							save + read_bytes(env->process[j].op.saved, 1, 2));
