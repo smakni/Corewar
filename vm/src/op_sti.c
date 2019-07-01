@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/01 12:08:15 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:24:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		op_sti(t_env *env, unsigned int j)
 		nb_reg[0] = 0;
 		cursor++;
 		reg_content = get_reg_content(env, j, &cursor, &nb_reg[0], 0);
-		//ft_printf("reg_content = %i\n", reg_content);
 		if (env->verb == 1)
 			save_reg_param(env, j, nb_reg[0], 0);
 		nb_reg[1] = 1;
@@ -58,9 +57,7 @@ void		op_sti(t_env *env, unsigned int j)
 				tmp += MEM_SIZE;
 			else if (tmp >= MEM_SIZE)
 				tmp %= MEM_SIZE;
-			//ft_printf("tmp ap mod = %i\n", tmp);			
 			dest = read_bytes(env->memory, tmp, 4);
-			//ft_printf("dest content = %.x\n", dest);			
 			if (env->verb == 1)
 				save_ind_param(env, j, read_bytes(env->memory, tmp, 4), 1);
 		}
@@ -86,11 +83,10 @@ void		op_sti(t_env *env, unsigned int j)
 		if (nb_reg[0] >= 1 && nb_reg[0] <= 16 && nb_reg[1] >= 1 && nb_reg[1] <= 16 && nb_reg[2] >= 1 && nb_reg[2] <= 16)
 		{
 			env->process[j].op.name = "sti";
+			dest %= IDX_MOD;
 			dest += current_pos;
 			if (dest < 0)
 				dest += MEM_SIZE;
-			else if (dest >= MEM_SIZE)
-				dest %= MEM_SIZE;
 			env->memory[dest % MEM_SIZE] = reg_content >> 24;
 			env->memory[(dest + 1) % MEM_SIZE] = reg_content >> 16;
 			env->memory[(dest + 2) % MEM_SIZE] = reg_content >> 8;
