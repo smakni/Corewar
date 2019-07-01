@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 12:03:23 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/30 18:45:14 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/01 11:21:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ static void	ldi_first_param(t_env *env, unsigned int j, t_op_vars *data,
 		*nb_reg = env->process[j].op.saved[data->cursor + 1];
 		data->v1 = 0;
 		if (*nb_reg >= 1 && *nb_reg <= REG_NUMBER)
-			data->v1 = get_value_index(env, j, &data->cursor, 1);
+			data->v1 = (short)get_value_index(env, j, &data->cursor, 1);
 		else
 			data->cursor++;
 	}
 	else
-		data->v1 = get_value_index(env, j, &data->cursor, 1);
+	{
+		//ft_printf("%i - %i\n", IND_CODE, type_param(env->process[j].op.saved[1], 1));
+		data->v1 = get_value_index(env, j, &data->cursor, 1) % IDX_MOD;
+	}
 }
 
 static void	ldi_second_param(t_env *env, unsigned int j, t_op_vars *data,
@@ -36,7 +39,7 @@ static void	ldi_second_param(t_env *env, unsigned int j, t_op_vars *data,
 		*nb_reg = env->process[j].op.saved[data->cursor + 1];
 		data->v2 = 0;
 		if (*nb_reg >= 1 && *nb_reg <= REG_NUMBER)
-			data->v2 = get_value_index(env, j, &data->cursor, 2);
+			data->v2 = (short)get_value_index(env, j, &data->cursor, 2);
 		else
 			data->cursor++;
 	}

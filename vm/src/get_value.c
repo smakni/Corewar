@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/01 10:43:25 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/01 11:25:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 static int	get_addr(t_env *env, int value, unsigned int j)
 {
-	int	ret;
+	int		ret;
+	short	dest;
 
-	ret = read_bytes(env->memory, (env->process[j].pc + value),
-			REG_SIZE);
+	dest = env->process[j].pc + value;
+	if (dest < 0)
+		dest += MEM_SIZE;
+	else if (dest >= MEM_SIZE)
+		dest %= MEM_SIZE;
+	ret = read_bytes(env->memory, dest, REG_SIZE);
+	//ft_printf("ret = %i\n");
 	return (ret);
 }
 
@@ -39,6 +45,7 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 	}
 	else if (type_param(env->process[j].op.saved[1], param) == IND_CODE)
 	{
+		//ft_printf("ICI");
 		(*cursor)++;
 		value = read_bytes(env->process[j].op.saved, *cursor, IND_SIZE) % IDX_MOD;
 		value = get_addr(env, value, j);
@@ -59,10 +66,17 @@ int			get_value_index(t_env *env, unsigned j, int *cursor, int param)
 		(*cursor)++;
 		value = env->process[j].r[env->process[j].op.saved[*cursor]];
 	}
+	else if (type_param(env->process[j].op.saved[1], param) == DIR_CODE)
+	{
+		(*cursor)++;
+		value = read_bytes(env->process[j].op.saved, *cursor, IND_SIZE);
+		(*cursor) += IND_SIZE - 1;
+	}
 	else
 	{
 		(*cursor)++;
 		value = read_bytes(env->process[j].op.saved, *cursor, IND_SIZE);
+		value = get_addr(env, value, j);
 		(*cursor) += IND_SIZE - 1;
 	}
 	if (env->verb == 1)
