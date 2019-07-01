@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 12:03:23 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/01 11:21:50 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:52:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ldi_first_param(t_env *env, unsigned int j, t_op_vars *data,
 	}
 	else
 	{
-		//ft_printf("%i - %i\n", IND_CODE, type_param(env->process[j].op.saved[1], 1));
+		////ft_printf("%i - %i\n", IND_CODE, type_param(env->process[j].op.saved[1], 1));
 		data->v1 = get_value_index(env, j, &data->cursor, 1) % IDX_MOD;
 	}
 }
@@ -66,6 +66,7 @@ static void	ldi_third_param(t_env *env, unsigned int j, t_op_vars *data,
 			data->v3 += MEM_SIZE;
 		data->v3 = read_bytes(env->memory, data->v3, REG_SIZE);
 		env->process[j].r[nb_reg[2]] = data->v3;
+		//ft_printf("reg_content = %i\n", env->process[j].r[nb_reg[2]]);
 	}
 }
 
