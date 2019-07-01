@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 16:40:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 16:35:34 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:34:01 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		op_lld(t_env *env, unsigned int j)
 		if (env->verb == 1)
 			save_reg_param(env, j, nb_reg, 1);
 		cursor += 2;
-		if (nb_reg >= 1 && nb_reg <= 16)
+		if (nb_reg >= 1 && nb_reg <= REG_NUMBER)
 		{
 			env->process[j].carry = (value == 0) ? 1 : 0;
 			env->process[j].op.name = "lld";
