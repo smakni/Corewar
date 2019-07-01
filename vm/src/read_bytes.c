@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_bytes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 16:32:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 16:32:45 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:20:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		read_bytes(unsigned char *line, int index, int n)
 		nb += line[(index + 1) % MEM_SIZE] << 16;
 		nb += line[(index + 2) % MEM_SIZE] << 8;
 		nb += line[(index + 3) % MEM_SIZE];
-		if (nb >> 15 == 1)
+		if (line[index] >> 15 == 1)
 			nb |= (-1 & ~0xFFFF);
 	}
 	return (nb);

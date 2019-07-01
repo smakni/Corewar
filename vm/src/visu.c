@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 12:25:36 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:22:01 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	update_visu(t_env *env, int dest, unsigned j)
 		y = dest / 64;
 		if (mvwprintw(env->mem, y, x, "%.2x", env->memory[dest++]) == ERR)
 			exit_clean(env);
-		if (dest >= MEM_SIZE)
+		if (dest < 0)
+			dest += MEM_SIZE;
+		else if (dest >= MEM_SIZE)
 			dest -= MEM_SIZE;
 		k++;
 	}
