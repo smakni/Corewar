@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/01 10:45:32 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/01 12:08:15 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		op_sti(t_env *env, unsigned int j)
 		nb_reg[0] = 0;
 		cursor++;
 		reg_content = get_reg_content(env, j, &cursor, &nb_reg[0], 0);
+		//ft_printf("reg_content = %i\n", reg_content);
 		if (env->verb == 1)
 			save_reg_param(env, j, nb_reg[0], 0);
 		nb_reg[1] = 1;
@@ -51,14 +52,17 @@ void		op_sti(t_env *env, unsigned int j)
 		if (type_param(env->process[j].op.saved[1], 2) == IND_CODE)
 		{
 			tmp = read_bytes(env->memory, current_pos + cursor, IND_SIZE);
+			tmp += current_pos;
 			cursor += 2;
-			if (current_pos + tmp < 0)
-				tmp += (current_pos + MEM_SIZE);
-			else if (current_pos + tmp >= MEM_SIZE)
-				tmp = (current_pos + tmp) % MEM_SIZE;
-			dest = read_bytes(env->memory, current_pos + tmp, 4);
+			if (tmp < 0)
+				tmp += MEM_SIZE;
+			else if (tmp >= MEM_SIZE)
+				tmp %= MEM_SIZE;
+			//ft_printf("tmp ap mod = %i\n", tmp);			
+			dest = read_bytes(env->memory, tmp, 4);
+			//ft_printf("dest content = %.x\n", dest);			
 			if (env->verb == 1)
-				save_ind_param(env, j, dest, 1);
+				save_ind_param(env, j, read_bytes(env->memory, tmp, 4), 1);
 		}
 		else if (type_param(env->process[j].op.saved[1], 2) == REG_CODE)
 			dest = get_reg_content(env, j, &cursor, &nb_reg[1], 1);

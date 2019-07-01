@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/01 11:25:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:09:59 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,8 @@
 static int	get_addr(t_env *env, int value, unsigned int j)
 {
 	int		ret;
-	short	dest;
 
-	dest = env->process[j].pc + value;
-	if (dest < 0)
-		dest += MEM_SIZE;
-	else if (dest >= MEM_SIZE)
-		dest %= MEM_SIZE;
-	ret = read_bytes(env->memory, dest, REG_SIZE);
+	ret = read_bytes(env->memory, env->process[j].pc + value, REG_SIZE);
 	//ft_printf("ret = %i\n");
 	return (ret);
 }
