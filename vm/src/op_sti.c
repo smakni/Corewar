@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/30 12:23:00 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/01 10:45:32 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_reg_content(t_env *env, unsigned int j, int *cursor, int *nb_reg,
 void		op_sti(t_env *env, unsigned int j)
 {
 	int		cursor;
-	int		dest;
+	short	dest;
 	int		reg_content;
 	int		current_pos;
 	int		tmp;
