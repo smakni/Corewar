@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verbos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/30 13:04:04 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:45:52 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,20 @@ void		print_live(t_env *env, unsigned j)
 						env->process[j].op.param[0][1], tmp);
 }
 
-void		print_ldi(t_env *env, unsigned j, int save)
+void		print_ldi_lldi(t_env *env, unsigned j, int save)
 {
 	int	tmp;
 
 	tmp = ft_atoi(env->process[j].op.param[0])
 						+ ft_atoi(env->process[j].op.param[1]);
-	ft_printf("\n       | -> load from %s + %s = %d (with pc and mod %d)",
-				env->process[j].op.param[0], env->process[j].op.param[1],
-				tmp, save + (tmp % IDX_MOD));
+	if (env->process[j].op.code == 0x0a)
+		ft_printf("\n       | -> load from %s + %s = %d (with pc and mod %d)",
+					env->process[j].op.param[0], env->process[j].op.param[1],
+					tmp, save + (tmp % IDX_MOD));
+	else
+		ft_printf("\n       | -> load from %s + %s = %d (with pc %d)",
+					env->process[j].op.param[0], env->process[j].op.param[1],
+					tmp, save + (tmp % IDX_MOD));
 }
 
 void		print_sti(t_env *env, unsigned j, int save)
@@ -61,8 +66,8 @@ void		print_verbos(t_env *env, unsigned j, int save)
 		print_live(env, j);
 	else if (env->process[j].op.code == 0x0b && env->process[j].check_args == 1)
 		print_sti(env, j, save);
-	else if (env->process[j].op.code == 0x0a && env->process[j].check_args == 1)
-		print_ldi(env, j, save);
+	else if ((env->process[j].op.code == 0x0a || env->process[j].op.code == 0x0e) && env->process[j].check_args == 1)
+		print_ldi_lldi(env, j, save);
 	ft_putendl("");
 }
 
