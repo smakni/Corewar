@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 12:03:23 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/01 11:52:50 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:29:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ static void	ldi_first_param(t_env *env, unsigned int j, t_op_vars *data,
 			data->cursor++;
 	}
 	else
-	{
-		////ft_printf("%i - %i\n", IND_CODE, type_param(env->process[j].op.saved[1], 1));
 		data->v1 = get_value_index(env, j, &data->cursor, 1) % IDX_MOD;
-	}
+	//ft_printf("v1 %i\n", data->v1);
 }
 
 static void	ldi_second_param(t_env *env, unsigned int j, t_op_vars *data,
@@ -45,6 +43,7 @@ static void	ldi_second_param(t_env *env, unsigned int j, t_op_vars *data,
 	}
 	else
 		data->v2 = get_value_index(env, j, &data->cursor, 2);
+	//ft_printf("p2 = %i\n", data->v2);
 }
 
 static void	ldi_third_param(t_env *env, unsigned int j, t_op_vars *data,
@@ -55,13 +54,17 @@ static void	ldi_third_param(t_env *env, unsigned int j, t_op_vars *data,
 			&& nb_reg[2] >= 1 && nb_reg[2] <= REG_NUMBER)
 	{
 		env->process[j].op.name = "ldi";
-		if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
-			data->v3 = read_bytes(env->memory,
-				env->process[j].pc + (data->v1 % IDX_MOD), REG_SIZE);
-		else
-			data->v3 = data->v1;
-		data->v3 += data->v2;
+		// if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
+		// 	data->v3 = read_bytes(env->memory,
+		// 		env->process[j].pc + (data->v1 % IDX_MOD), REG_SIZE);
+		// else
+		// 	data->v3 = data->v1;
+		data->v3 = data->v1 + data->v2;
+		//ft_printf("pc = %i\n", env->process[j].pc);
+
+		//ft_printf("sum v3 = %i\n", data->v3);
 		data->v3 = (env->process[j].pc + (data->v3 % (IDX_MOD))) % MEM_SIZE;
+		//ft_printf("addr v3 = %i\n", data->v3);
 		if (data->v3 < 0)
 			data->v3 += MEM_SIZE;
 		data->v3 = read_bytes(env->memory, data->v3, REG_SIZE);

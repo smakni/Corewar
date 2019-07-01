@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/30 18:44:37 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/01 12:31:55 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static void	lldi_third_param(t_env *env, unsigned int j, t_op_vars *data,
 			&& nb_reg[2] >= 1 && nb_reg[2] <= REG_NUMBER)
 	{
 		env->process[j].op.name = "lldi";
-		if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
-			data->v3 = read_bytes(env->memory, env->process[j].pc + data->v1,
-				REG_SIZE);
-		else
-			data->v3 = data->v1;
-		data->v3 += data->v2;
+		// if (type_param(env->process[j].op.saved[1], 1) == IND_CODE)
+		// 	data->v3 = read_bytes(env->memory, env->process[j].pc + data->v1,
+		// 		REG_SIZE);
+		// else
+		// 	data->v3 = data->v1;
+		data->v3 = data->v1 + data->v2;
 		data->v3 = (env->process[j].pc + data->v3) % MEM_SIZE;
 		if (data->v3 < 0)
 			data->v3 += MEM_SIZE;
