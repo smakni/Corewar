@@ -6,14 +6,13 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/02 19:46:30 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:08:06 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static int		check_header_cor_file(t_env *env, unsigned int j,
-					unsigned char line[MAX_SIZE + 1])
+static int		check_header_cor_file(t_env *env, unsigned int j)
 {
 	ft_dprintf(2, "Error: File %s has an invalid header\n",
 			env->player[j].header.prog_name);
@@ -25,7 +24,7 @@ static int		check_champ(t_env *env, unsigned int j, unsigned int ret,
 {
 	if (line[0] != 0x00 || line[1] != 0xea
 			|| line[2] != 0x83 || line[3] != 0xf3)
-		return (check_header_cor_file(env, j, line));
+		return (check_header_cor_file(env, j));
 	if (ret - 0x890 != env->player[j].header.prog_size)
 	{
 		ft_dprintf(2,
