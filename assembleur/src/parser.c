@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:55:20 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 17:06:04 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:47:14 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,30 @@ static int	verbose_exit(t_parser *data)
 	exit(EXIT_FAILURE);
 }
 
-static int	line_parser_extension(t_parser *data, int i, int *label_flag)
+static int	line_parser_extension(t_parser *data, int *i, int *label_flag)
 {
-	if (data->line[i] == '.')
+	if (data->line[*i] == '.')
 	{
-		if (!(encode_header(data, i)))
+		if (!(encode_header(data, *i)))
 			return (FAIL);
 		return (2);
 	}
-	else if (data->line[i] == ':' && *label_flag == 0)
+	else if (data->line[*i] == ':' && *label_flag == 0)
 	{
-		*label_flag = i + 1;
+		*label_flag = *i + 1;
 		if (!(save_label_address(data)))
 			return (FAIL);
 	}
-	else if (data->line[i] == ' ' || data->line[i] == '\t'
-		|| data->line[i] == '%' || data->line[i] == ':')
+	else if (data->line[*i] == ' ' || data->line[*i] == '\t'
+		|| data->line[*i] == '%' || data->line[*i] == ':')
 	{
-		i = (*label_flag == 0) ? 0 : *label_flag;
-		i += ft_strspn(&data->line[i], " \t");
-		if (data->line[i])
-			if (!(choose_encoding(data, i)))
+		*i = (*label_flag == 0) ? 0 : *label_flag;
+		*i += ft_strspn(&data->line[*i], " \t");
+		if (data->line[*i] && data->line[*i] != ' ' && data->line[*i] != '\t' && data->line[*i] != ';' && data->line[*i] != '#')
+		{
+			if (!(choose_encoding(data, *i)))
 				return (FAIL);
+		}
 		return (2);
 	}
 	return (SUCCESS);
@@ -59,7 +61,7 @@ int			line_parser(t_parser *data, int i, int label_flag)
 			return (SUCCESS);
 		else
 		{
-			ret = line_parser_extension(data, i, &label_flag);
+			ret = line_parser_extension(data, &i, &label_flag);
 			if (ret == 2)
 				break ;
 			else if (ret == FAIL)
@@ -106,7 +108,8 @@ int			reader(t_parser *data)
 				verbose_exit(data);
 		i = ft_strspn(data->line, " \t");
 		label_flag = 0;
-		if (data->eol == 1 && data->line[i] != '\0')
+		if (data->eol == 1 && data->line[i] != '\0'
+				&& data->line[i] != '#' && data->line[i] != ';')
 		{
 			data->err_code = 5;
 			data->err_msg = "Syntax error - unexpected end of input";

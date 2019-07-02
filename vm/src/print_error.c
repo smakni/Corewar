@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:34:10 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/24 14:34:58 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:53:49 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int		print_error(char *error)
 {
-	ft_printf("%s", error);
+	ft_dprintf(2, "{red}%s.{reset}\n", error);
 	return (FAIL);
 }

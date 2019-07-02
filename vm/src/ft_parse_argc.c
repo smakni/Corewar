@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/02 19:29:45 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:55:25 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	ft_options(int argc, char **argv, t_env *env, int *i)
 		if (*i + 1 < argc && ft_isdigit(argv[*i + 1][0]) != 0)
 			env->dump = ft_atoi(argv[++*i]);
 		else
-			return (print_error("error\n"));
+			return (print_error("ERROR"));
 		env->option = 3;
 		return (SUCCESS);
 	}
@@ -56,9 +56,9 @@ static int	ft_options(int argc, char **argv, t_env *env, int *i)
 int			ft_parse_argc(int argc, char **argv, t_env *env)
 {
 	int			i;
-	t_player	tmp[4];
+	t_player	tmp[MAX_PLAYERS];
 
-	ft_bzero(tmp, 4 * sizeof(t_player));
+	ft_bzero(tmp, MAX_PLAYERS * sizeof(t_player));
 	i = 0;
 	while (++i < argc)
 	{
@@ -71,10 +71,11 @@ int			ft_parse_argc(int argc, char **argv, t_env *env)
 		}
 		else if (ft_strequ(argv[i], "-n"))
 		{
-			if (i + 2 < argc && ft_isdigit(argv[i + 1][0]) != 0)
+			if (i + 2 < argc && ft_isdigit(argv[i + 1][0]) != 0
+					&& argv[i + 1][0] != '0' && ft_strlen(argv[i + 1]) == 1)
 				tmp[env->nb_process].id = ft_atoi(argv[++i]);
 			else
-				return (print_error("error\n"));
+				return (print_error("ERROR: wrong arg received"));
 		}
 		else if (ft_options(argc, argv, env, &i) == FAIL)
 			return (FAIL);
