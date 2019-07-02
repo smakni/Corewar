@@ -100,8 +100,9 @@ SOURCES_P2	=	main.c\
 				print_memory.c\
 				print_pc.c\
 				check_last_live.c\
-				save_params.c
-
+				save_params.c\
+				ft_check_args_validity.c\
+				ft_sort_argc.c
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
 OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))

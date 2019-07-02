@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/01 20:32:56 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:28:33 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define ARR_SIZE				1024
 # define GO_BACK				1000
 # define DUMP					64
+# define CHAMP_EXTENSION		".cor\0"
 
 typedef struct		s_op_vars
 {
@@ -138,6 +139,8 @@ void				save_reg_param(t_env *env, int j, int value, int index);
 void				save_ind_param(t_env *env, int j, int value, int index);
 void				save_dir_param(t_env *env, int j, int value, int index);
 
+int					ft_sort_argc(t_env *env, t_player *tmp);
+int					ft_check_args_validity(char **argv, t_env *env);
 
 // DEBUG
 void				ft_print_memory(t_env *env);

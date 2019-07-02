@@ -3,71 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_argc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 22:17:24 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:29:45 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static int	ft_check_duplicate(t_player *tmp, unsigned int nb)
+static int	ft_options2(t_env *env, char **argv, int *i)
 {
-	unsigned int i;
-	unsigned int j;
-
-	i = 0;
-	while (i < nb)
+	if (ft_strequ(argv[*i], "-a"))
+		env->aff = 1;
+	else
 	{
-		j = 0;
-		if (tmp[i].id > nb)
-			return (print_error("error, player number too high\n"));
-		while (j < nb)
-		{
-			if (j != i && tmp[i].id == tmp[j].id && tmp[i].id != 0)
-				return (print_error("error\n"));
-			j++;
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-static void	ft_sort_argc2(t_env *env, t_player *tmp, unsigned i, unsigned j)
-{
-	j = 0;
-	while (j < env->nb_process)
-	{
-		if (tmp[j].id == 0)
-		{
-			tmp[j].id = i;
-			env->player[i - 1] = tmp[j];
-			break ;
-		}
-		j++;
-	}
-}
-
-static int	ft_sort_argc(t_env *env, t_player *tmp)
-{
-	unsigned int i;
-	unsigned int j;
-
-	i = 0;
-	if (ft_check_duplicate(tmp, env->nb_process) == FAIL)
+		env->err_code = 1;
 		return (FAIL);
-	while (++i < env->nb_process + 1)
-	{
-		j = -1;
-		while (++j < env->nb_process)
-			if (tmp[j].id == i)
-			{
-				env->player[i - 1] = tmp[j];
-				break ;
-			}
-		if (j == env->nb_process)
-			ft_sort_argc2(env, tmp, i, j);
 	}
 	return (SUCCESS);
 }
@@ -96,10 +48,8 @@ static int	ft_options(int argc, char **argv, t_env *env, int *i)
 		env->option = 3;
 		return (SUCCESS);
 	}
-	else if (ft_strequ(argv[*i], "-a"))
-		env->aff = 1;
 	else
-		return (FAIL);
+		return (ft_options2(env, argv, i));
 	return (SUCCESS);
 }
 
