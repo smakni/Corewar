@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/07/02 19:56:58 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/02 21:18:48 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,18 @@ static int		processess_execution(t_env *env)
 	j = env->nb_process - 1;
 	while (j >= 0)
 	{
-		if (env->process[j].cycles == 0)
+		if (env->process[j].nb_live >= 0)
 		{
-			if (check_pc(env, j) == FAIL)
-				return (FAIL);
+			if (env->process[j].cycles == 0)
+			{
+				if (check_pc(env, j) == FAIL)
+					return (FAIL);
+			}
+			else if (env->process[j].cycles > 1)
+				env->process[j].cycles--;
+			if (env->process[j].cycles == 1)
+				exec_op(env, j);
 		}
-		else if (env->process[j].cycles > 1)
-			env->process[j].cycles--;
-		if (env->process[j].nb_live >= 0 && env->process[j].cycles == 1)
-			exec_op(env, j);
 		j--;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/02 20:15:43 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/02 21:15:42 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct		s_op_vars
 typedef	struct 		s_op
 {
 	unsigned		code;
-	unsigned		encode;
 	unsigned char	saved[MAX_OP_LEN];
 	char			*param[MAX_ARGS_NUMBER];
 	char 			*name;
