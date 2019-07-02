@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/06/30 17:00:17 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:56:58 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int		reset_cycles(t_env *env, int *check_delta)
 	return (0);
 }
 
-static int		move_pc(t_env *env, int j)
+static int		check_pc(t_env *env, int j)
 {
 	if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc -= MEM_SIZE;
@@ -66,7 +66,12 @@ static int		move_pc(t_env *env, int j)
 	if (env->err_code != 0)
 		return (FAIL);
 	ft_bzero(&(env->process[j].op), sizeof(t_op));
-	env->process[j].cycles = check_cycles(env, j);
+	if ((env->process[j].cycles = check_cycles(env, j)) == 0)
+	{
+		env->process[j].pc++;
+		if (env->option == 1 || env->option == 2)
+			redraw_pc(env, env->process[j].pc, 1);
+	}
 	return (1);
 }
 
@@ -77,23 +82,15 @@ static int		processess_execution(t_env *env)
 	j = env->nb_process - 1;
 	while (j >= 0)
 	{
-		if (env->process[j].nb_live >= 0)
-		{
-			if (env->process[j].cycles == 1)
-			{
-				exec_op(env, j);
-				env->process[j].cycles = 0;
-			}
-			else if (env->process[j].cycles > 1)
-				env->process[j].cycles--;
-		}
-		j--;
-	}
-	j = env->nb_process - 1;
-	while (j >= 0)
-	{
 		if (env->process[j].cycles == 0)
-			move_pc(env, j);
+		{
+			if (check_pc(env, j) == FAIL)
+				return (FAIL);
+		}
+		else if (env->process[j].cycles > 1)
+			env->process[j].cycles--;
+		if (env->process[j].nb_live >= 0 && env->process[j].cycles == 1)
+			exec_op(env, j);
 		j--;
 	}
 	return (1);

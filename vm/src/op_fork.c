@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 15:42:33 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:37:09 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void		op_fork(t_env *env, unsigned int j)
 	env->process[env->nb_process].cycles = 0;
 	env->process[env->nb_process].bold = 0;
 	env->process[env->nb_process].live = -1;
+	env->process[j].cycles = 1;
 	env->nb_process++;
 	env->process[j].pc += 3;
 }

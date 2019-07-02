@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/01 20:32:56 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:56:13 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void				ft_print_memory(t_env *env);
 // void				save_param(t_env *env, int j, int value, int code, int index);
 void				first_visu(t_env *env);
 void				update_visu(t_env *env, int dest, unsigned j);
+void				redraw_pc(t_env *env, int pc, int len);
 void				print_infos(t_env *env);
 //void				redraw_pc(t_env *env, int pc, int len);
 void				key_events(t_env *env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 20:40:35 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:44:51 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int				write_champ(t_env *env)
 		env->process[j].nb = j;
 		env->process[j].r[1] = id--;
 		env->process[j].pc = i;
-		env->process[j].cycles = check_cycles(env, j);
+		env->process[j].cycles = 0;
 		env->process[j].carry = 0;
 		env->process[j].live = -1;
 		env->process[j].nb_live = 0;

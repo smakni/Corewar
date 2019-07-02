@@ -100,7 +100,8 @@ SOURCES_P2	=	main.c\
 				print_memory.c\
 				print_pc.c\
 				check_last_live.c\
-				save_params.c
+				save_params.c\
+				redraw_pc.c
 
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
