@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:28:38 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/02 19:29:57 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:53:58 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static int	ft_check_duplicate(t_player *tmp, unsigned int nb)
 	{
 		j = 0;
 		if (tmp[i].id > nb)
-			return (print_error("error, player number too high\n"));
+			return (print_error("ERROR: wrong player number"));
 		while (j < nb)
 		{
 			if (j != i && tmp[i].id == tmp[j].id && tmp[i].id != 0)
-				return (print_error("error\n"));
+				return (print_error("ERROR"));
 			j++;
 		}
 		i++;
