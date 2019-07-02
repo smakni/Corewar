@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 22:45:20 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/01 20:33:04 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:33:42 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	get_addr(t_env *env, int value, unsigned int j)
 	int		ret;
 
 	ret = read_bytes(env->memory, env->process[j].pc + value, REG_SIZE);
-	//ft_printf("ret = %i\n");
 	return (ret);
 }
 
@@ -39,9 +38,9 @@ int			get_value(t_env *env, unsigned j, int *cursor, int param)
 	}
 	else if (type_param(env->process[j].op.saved[1], param) == IND_CODE)
 	{
-		//ft_printf("ICI");
 		(*cursor)++;
-		value = read_bytes(env->process[j].op.saved, *cursor, IND_SIZE) % IDX_MOD;
+		value = read_bytes(env->process[j].op.saved, *cursor, IND_SIZE)
+					% IDX_MOD;
 		value = get_addr(env, value, j);
 		*cursor += IND_SIZE - 1;
 	}

@@ -28,3 +28,9 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Champion name too long (Max length 128)"
 13:	label inexistant
 	"No such label truc while attempting to dereference token"
+
+
+
+CODE ERR VM:
+	1: Show usage.
+	2: No .cor in args

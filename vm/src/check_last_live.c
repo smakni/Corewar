@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_last_live.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 17:29:58 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/01 18:36:07 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/02 19:31:18 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int			check_last_live(t_env *env)
 	last_live = 0;
 	while (i >= 0)
 	{
-		if (env->player[i].last_live >= last_live && env->player[i].last_live != 0)
+		if (env->player[i].last_live >= last_live
+				&& env->player[i].last_live != 0)
 		{
 			last_live = env->player[i].last_live;
 			save = i;

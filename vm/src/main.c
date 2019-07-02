@@ -3,30 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/30 17:30:40 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:21:03 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static int	clean_quit(t_env *env, const int ret)
-{
-	ft_memdel((void *)&env->process);
-	return (ret);
-}
-
 static int	ft_display_usage(void)
 {
-	ft_printf("./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
-	ft_printf("	-Maximum number of champions : 4\n");
-	ft_printf("Options :\n");
-	ft_printf("\tNcurses visualizer : -visu (without infos : -svisu)\n");
-	ft_printf("\tMove through cycles in the visualizer : -visu -goback\n");
-	ft_printf("\tPrint verbos (works with visualizer and without it) : -v\n");
+	ft_dprintf(2, "./corewar [-dump nbr_cycles] [[-n number] champion1.cor]");
+	ft_dprintf(2, " ...\n\t-Maximum number of champions : 4\n");
+	ft_dprintf(2, "Options :\n");
+	ft_dprintf(2, "\tNcurses visualizer : -visu (without infos : -svisu)\n");
+	ft_dprintf(2, "\tMove through cycles in the visualizer : -visu -goback\n");
+	ft_dprintf(2, "\tPrint verbos (works with visualizer and without it)");
+	ft_dprintf(2, " : -v\n");
 	return (-1);
+}
+
+static int	clean_quit(t_env *env, const int ret)
+{
+	if (env->err_code > 1)
+	{
+		ft_dprintf(2, "{red}%s.{reset}\n", env->err_msg);
+		if (env->err_code == 2)
+			return (ret);
+	}
+	else if (env->err_code == 1)
+	{
+		ft_memdel((void *)&env->process);
+		return (ft_display_usage());
+	}
+	ft_memdel((void *)&env->process);
+	return (ret);
 }
 
 static void	init_op_tab(t_env *env)
@@ -77,6 +89,8 @@ int			main(int argc, char **argv)
 	if (argc > 1)
 	{
 		ft_bzero(&env, sizeof(t_env));
+		if (ft_check_args_validity(argv, &env) == FAIL)
+			return (clean_quit(&env, -1));
 		init_op_tab(&env);
 		init_op_fun(&env);
 		env.nb_realloc = 1;

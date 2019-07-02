@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ_visu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 20:39:52 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 22:18:02 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:36:00 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		write_champ_body(t_env *env, unsigned y, unsigned x, unsigned j)
 	unsigned	start;
 
 	k = 1;
-	start = 4096 * j / env->nb_process;
+	start = MEM_SIZE * j / env->nb_process;
 	wattron(env->mem, COLOR_PAIR(env->process[j].color));
 	while (k < env->player[j].header.prog_size)
 	{
@@ -57,10 +57,11 @@ void			write_champ_visu(t_env *env, unsigned j)
 	unsigned	y;
 
 	env->process[j].color = 4 + j;
-	x = 4096 * j / env->nb_process % 64 * 3;
-	y = 4096 / env->nb_process / 64 * j;
+	x = MEM_SIZE * j / env->nb_process % 64 * 3;
+	y = MEM_SIZE / env->nb_process / 64 * j;
 	wattron(env->mem, COLOR_PAIR(env->process[j].color + 4));
-	mvwprintw(env->mem, y, x, "%.2x", env->memory[4096 * j / env->nb_process]);
+	mvwprintw(env->mem, y, x, "%.2x",
+				env->memory[MEM_SIZE * j / env->nb_process]);
 	x += 3;
 	if (x >= 192)
 	{
