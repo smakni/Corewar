@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/02 19:37:09 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/03 09:51:29 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ static int	ft_realloc_tab(t_env *env)
 	return (0);
 }
 
+static void	set_fork_values(t_env *env, unsigned int j)
+{
+	env->process[env->nb_process].nb_live = env->process[j].nb_live;
+	env->process[env->nb_process].cycles = 0;
+	env->process[env->nb_process].bold = 0;
+	env->process[env->nb_process].live = -1;
+	env->process[j].cycles = 1;
+}
+
 void		op_fork(t_env *env, unsigned int j)
 {
 	int	index;
@@ -55,11 +64,7 @@ void		op_fork(t_env *env, unsigned int j)
 		env->process[env->nb_process].pc += MEM_SIZE;
 	else if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc %= MEM_SIZE;
-	env->process[env->nb_process].nb_live = env->process[j].nb_live;
-	env->process[env->nb_process].cycles = 0;
-	env->process[env->nb_process].bold = 0;
-	env->process[env->nb_process].live = -1;
-	env->process[j].cycles = 1;
+	set_fork_values(env, j);
 	env->nb_process++;
 	env->process[j].pc += 3;
 }

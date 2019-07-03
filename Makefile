@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakni <smakni@student.42.fr>              +#+  +:+       +#+         #
+#    By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 20:15:21 by smakni            #+#    #+#              #
-#    Updated: 2019/07/02 20:15:22 by smakni           ###   ########.fr        #
+#    Updated: 2019/07/03 11:04:42 by jergauth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,7 +115,10 @@ SOURCES_P2	=	main.c\
 				save_params.c\
 				redraw_pc.c\
 				ft_check_args_validity.c\
-				ft_sort_argc.c
+				ft_sort_argc.c\
+				check_champ_content.c\
+				get_reg_content_sti.c\
+				process_exec.c
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
 OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/26 18:24:31 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/03 11:04:15 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 
 typedef struct	s_bytes
 {
+	struct s_bytes	*next;
 	char			*label;
 	int				index;
 	int				size;
 	int				index_instruction;
-	struct s_bytes	*next;
 }				t_bytes;
 
 typedef struct	s_parser
@@ -37,12 +37,12 @@ typedef struct	s_parser
 	unsigned char	*bytecode;
 	char			*pathname;
 	char			*line;
-	int				nb_line;
 	char			*err_msg;
-	int				err_code;
-	int				fd;
 	unsigned int	index;
 	unsigned int	nb_realloc;
+	int				nb_line;
+	int				err_code;
+	int				fd;
 	int				index_instruction;
 	int				comment_flag;
 	int				eol;
@@ -66,7 +66,9 @@ int				line_parser(t_parser *data, int i, int label_flag);
 int				reader(t_parser *data);
 int				ft_format_line(t_parser *data, int i);
 
-/*	MEMORY FUNCTIONS	*/
+/*
+**	MEMORY FUNCTIONS
+*/
 
 t_parser		*parser_init(char *av);
 t_bytes			*bytes_init(t_parser *data);
@@ -74,7 +76,9 @@ void			ft_bytesdel(t_bytes **list);
 int				ft_realloc_bytecode(t_parser *data);
 int				ft_format_line(t_parser *data, int i);
 
-/*	ENCODING FUNCTIONS	*/
+/*
+**	ENCODING FUNCTIONS
+*/
 
 int				save_label_address(t_parser *data);
 int				check_label_chars(char *str, t_parser *data);

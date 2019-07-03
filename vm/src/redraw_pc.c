@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redraw_pc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:54:38 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/02 19:54:41 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/03 09:52:21 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void		redraw_pc_2(t_env *env, int pc, int len)
+static void	redraw_pc_2(t_env *env, int pc, int len)
 {
 	int x;
 	int y;
