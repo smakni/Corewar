@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verbos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/01 13:56:59 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/03 14:56:21 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ void		verbos(t_env *env, unsigned j, int save)
 		print_verbos(env, j, save);
 	print_pc(env, j, save);
 	while (env->process[j].op.param[i])
-		free(env->process[j].op.param[i++]);
+		ft_strdel(&(env->process[j].op.param[i++]));
 }

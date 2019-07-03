@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_realloc_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:13:56 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 15:53:29 by sabri            ###   ########.fr       */
+/*   Created: 2019/07/03 15:27:15 by sabri             #+#    #+#             */
+/*   Updated: 2019/07/03 15:32:51 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../../includes/vm.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_realloc_tab(t_env *env)
 {
-	long	*str;
-	char	*str_2;
+	t_process		*tmp;
+	unsigned int	i;
 
-	str = (long*)s;
-	while ((n >= sizeof(long)))
+	env->capacity *= 2;
+	i = 0;
+	if (!(tmp = ft_memalloc(sizeof(t_player) * (env->capacity))))
 	{
-		*str++ = 0;
-		n -= sizeof(long);
+		ft_memdel((void *)&env->process);
+		return (-1);
 	}
-	str_2 = (char*)str;
-	while (n > 0)
+	while (i < env->nb_process)
 	{
-		*str_2++ = 0;
-		n--;
+		tmp[i] = env->process[i];
+		i++;
 	}
+	free(env->process);
+	env->process = tmp;
+	return (0);
 }

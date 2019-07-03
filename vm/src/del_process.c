@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 23:06:24 by sabri             #+#    #+#             */
-/*   Updated: 2019/06/30 00:59:34 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/03 16:57:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ static void	aff_del_processess(t_env *env)
 int			del_processess(t_env *env)
 {
 	int	j;
-	int	living_process;
-
+	
 	j = env->nb_process - 1;
-	living_process = 0;
+	env->living_proc = 0;
 	if (env->option == 1 || env->option == 2)
 		del_processess_visu(env);
 	while (j >= 0)
@@ -77,7 +76,7 @@ int			del_processess(t_env *env)
 				env->process[j].nb_live = -1;
 			else
 				env->process[j].nb_live = 0;
-			living_process++;
+			env->living_proc++;
 		}
 		else if (env->process[j].nb_live != -2)
 			env->process[j].nb_live = -1;
@@ -85,5 +84,5 @@ int			del_processess(t_env *env)
 	}
 	if (env->option == 0)
 		aff_del_processess(env);
-	return (living_process);
+	return (env->living_proc);
 }

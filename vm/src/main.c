@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:54:12 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/02 19:21:03 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:55:37 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			main(int argc, char **argv)
 			return (clean_quit(&env, -1));
 		init_op_tab(&env);
 		init_op_fun(&env);
-		env.nb_realloc = 1;
+		env.capacity = ARR_SIZE;
 		if (!(env.process = ft_memalloc(sizeof(t_process) * ARR_SIZE)))
 			return (-1);
 		if (ft_parse_argc(argc, argv, &env) == FAIL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:20:59 by marvin            #+#    #+#             */
-/*   Updated: 2019/07/02 21:18:48 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/03 15:30:47 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static int		check_pc(t_env *env, int j)
 		env->process[j].pc += MEM_SIZE;
 	if (env->err_code != 0)
 		return (FAIL);
-	ft_bzero(&(env->process[j].op), sizeof(t_op));
 	if ((env->process[j].cycles = check_cycles(env, j)) == 0)
 	{
 		env->process[j].pc++;

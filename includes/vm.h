@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/02 21:15:42 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/03 15:49:15 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FAIL					0
 # define SUCCESS				1
 # define ARR_SIZE				1024
-# define GO_BACK				1000
+# define GO_BACK				1
 # define DUMP					64
 # define CHAMP_EXTENSION		".cor\0"
 
@@ -77,8 +77,9 @@ typedef struct		s_env
 	t_player		player[MAX_PLAYERS];
 	t_process		*process;
 	unsigned		nb_process;
+	unsigned		living_proc;
 	unsigned		nb_player;
-	unsigned		nb_realloc;
+	unsigned		capacity;
 	int				live_period;
 	int				err_code;
 	int				fd;
@@ -107,6 +108,7 @@ typedef struct		s_env
 int					ft_parse_argc(int argc, char **argv, t_env *env);
 int					write_champ(t_env *env);
 int					read_memory(t_env *env);
+int					ft_realloc_tab(t_env *env);
 int					read_bytes(unsigned char *line, int index, int n);
 int					safe_open(const char *pathname, t_env *data, const int flags);
 int					type_param(unsigned char byte, int param);

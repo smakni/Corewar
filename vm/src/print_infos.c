@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_infos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 15:10:51 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 20:49:04 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:50:13 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			print_infos(t_env *env)
 	wattron(env->infos, COLOR_PAIR(3));
 	mvwprintw(env->infos, i, 0, "Cycles/second limit : %-10d", env->speed);
 	mvwprintw(env->infos, i += 2, 0, "Cycle : %d", env->cycle_index);
-	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->nb_process);
+	mvwprintw(env->infos, i += 2, 0, "Nb Processes : %-10d", env->living_proc);
 	i += 2;
 	i = print_players_infos(env, i);
 	mvwprintw(env->infos, i, 0, "CYCLE_TO_DIE : %-5d", env->cycle_to_die);
