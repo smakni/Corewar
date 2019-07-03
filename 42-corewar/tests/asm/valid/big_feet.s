@@ -6,7 +6,7 @@
 #    By: clafleur <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/16 20:28:04 by clafleur          #+#    #+#              #
-#    Updated: 2019/07/02 20:42:27 by jergauth         ###   ########.fr        #
+#    Updated: 2014/03/02 17:23:26 by clafleur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ sti		r1, %:begin, %1
 sti		r1, %:live, %1
 fork	%:begin
 
-piege1:# while(1)
+piege1:							# while(1)
 live	%118978653103279		# je suis en vie
 sti		r2, %:start, r5 
 sti		r3, %:start, r4

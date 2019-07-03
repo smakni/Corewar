@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:55:20 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/02 20:47:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/03 09:44:55 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	line_parser_extension(t_parser *data, int *i, int *label_flag)
 	{
 		*i = (*label_flag == 0) ? 0 : *label_flag;
 		*i += ft_strspn(&data->line[*i], " \t");
-		if (data->line[*i] && data->line[*i] != ' ' && data->line[*i] != '\t' && data->line[*i] != ';' && data->line[*i] != '#')
+		if (data->line[*i] && !ft_instr(data->line[*i], " \t;#"))
 		{
 			if (!(choose_encoding(data, *i)))
 				return (FAIL);

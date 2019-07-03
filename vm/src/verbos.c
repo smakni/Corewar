@@ -6,7 +6,7 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 14:56:21 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/03 17:01:39 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ void		print_verbos(t_env *env, unsigned j, int save)
 		print_live(env, j);
 	else if (env->process[j].op.code == 0x0b && env->process[j].check_args == 1)
 		print_sti(env, j, save);
-	else if ((env->process[j].op.code == 0x0a || env->process[j].op.code == 0x0e) && env->process[j].check_args == 1)
+	else if ((env->process[j].op.code == 0x0a
+				|| env->process[j].op.code == 0x0e)
+				&& env->process[j].check_args == 1)
 		print_ldi_lldi(env, j, save);
 	ft_putendl("");
 }
@@ -85,13 +87,13 @@ void		verbos(t_env *env, unsigned j, int save)
 	}
 	else if (env->process[j].op.code == 0x09 && env->process[j].carry == 0)
 		ft_printf("zjmp %d FAILED\n",
-							read_bytes(env->process[j].op.saved, 1, 2));
+				read_bytes(env->process[j].op.saved, 1, 2));
 	else if (env->process[j].op.code == 0x0c)
 		ft_printf("fork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
-							(save + read_bytes(env->process[j].op.saved, 1, 2) % IDX_MOD));
+				(save + read_bytes(env->process[j].op.saved, 1, 2) % IDX_MOD));
 	else if (env->process[j].op.code == 0x0f)
 		ft_printf("lfork %d (%d)\n", read_bytes(env->process[j].op.saved, 1, 2),
-							save + read_bytes(env->process[j].op.saved, 1, 2));
+				save + read_bytes(env->process[j].op.saved, 1, 2));
 	else if (env->process[j].op.name != NULL)
 		print_verbos(env, j, save);
 	print_pc(env, j, save);

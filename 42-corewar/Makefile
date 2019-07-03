@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakni <smakni@student.42.fr>              +#+  +:+       +#+         #
+#    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2019/07/01 15:35:22 by smakni           ###   ########.fr        #
+#    Updated: 2018/05/17 21:41:34 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ----- Config -----
 
-ASM_PATH:=../asm
-VM_PATH:=../corewar
+ASM_PATH:=./corewar-project/asm
+VM_PATH:=./corewar-project/corewar
 
-OPT_V:=-v 31
+OPT_V:=-v 30
 OPT_A:=-a
 OPT_DUMP:=-dump
 
@@ -183,7 +183,7 @@ T_VM_FILES_B:=$(shell cd $(T_VM_DIR_B); ls | egrep '^$(T_FILE).*.s$$' | egrep '^
 test_vm_battle :
 	@./binaries/asm $(T_VM_DIR_B)$(X).s > /dev/null; true
 	@./binaries/asm $(T_VM_DIR_B)$(X)X.s > /dev/null; true
-	@./$(VM_PATH) -v 31 $(T_VM_DIR_B)$(X).cor $(T_VM_DIR_B)$(X)X.cor > out1 2>> out1; true
+	@./$(VM_PATH) -v30 $(T_VM_DIR_B)$(X).cor $(T_VM_DIR_B)$(X)X.cor > out1 2>> out1; true
 	@./binaries/corewar $(OPT_V) -a $(T_VM_DIR_B)$(X).cor $(T_VM_DIR_B)$(X)X.cor > out2; true
 	@if diff out1 out2 $(SILENT); \
 		then echo $(GREEN) " - [OK] $(T_VM_DIR_B)$(X)" $(EOC) && echo "OK" >> $(TALLY); \

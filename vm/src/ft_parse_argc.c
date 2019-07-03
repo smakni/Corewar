@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/02 21:55:25 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/03 10:01:22 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static int	ft_options(int argc, char **argv, t_env *env, int *i)
 	return (SUCCESS);
 }
 
+static void	increment_values(t_env *env)
+{
+	env->nb_process++;
+	env->nb_player++;
+}
+
 int			ft_parse_argc(int argc, char **argv, t_env *env)
 {
 	int			i;
@@ -66,8 +72,7 @@ int			ft_parse_argc(int argc, char **argv, t_env *env)
 		{
 			ft_memcpy(tmp[env->nb_process].header.prog_name,
 				argv[i], PROG_NAME_LENGTH + 1);
-			env->nb_process++;
-			env->nb_player++;
+			increment_values(env);
 		}
 		else if (ft_strequ(argv[i], "-n"))
 		{

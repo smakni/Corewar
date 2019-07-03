@@ -6,11 +6,20 @@
 /*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 15:27:45 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/03 17:02:19 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+static void	set_fork_values(t_env *env, unsigned int j)
+{
+	env->process[env->nb_process].nb_live = env->process[j].nb_live;
+	env->process[env->nb_process].cycles = 0;
+	env->process[env->nb_process].bold = 0;
+	env->process[env->nb_process].live = -1;
+	env->process[j].cycles = 1;
+}
 
 void		op_fork(t_env *env, unsigned int j)
 {
@@ -33,11 +42,7 @@ void		op_fork(t_env *env, unsigned int j)
 		env->process[env->nb_process].pc += MEM_SIZE;
 	else if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc %= MEM_SIZE;
-	env->process[env->nb_process].nb_live = env->process[j].nb_live;
-	env->process[env->nb_process].cycles = 0;
-	env->process[env->nb_process].bold = 0;
-	env->process[env->nb_process].live = -1;
-	env->process[j].cycles = 1;
+	set_fork_values(env, j);
 	env->nb_process++;
 	env->process[j].pc += 3;
 }
