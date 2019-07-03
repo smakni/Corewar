@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verbos_visu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 12:18:58 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/30 13:05:38 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:43:23 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ static void	verbos_visu_2(t_env *env, unsigned j, int save, int i)
 	if (env->process[j].op.name != NULL)
 		wprintw(env->verbos, "\n");
 	print_pc_visu(env, j, save);
-	while (env->process[j].op.param[i])
-		free(env->process[j].op.param[i++]);
+	while (i < 4)
+		ft_strdel(&(env->process[j].op.param[i++]));
+	env->process[j].op.name = NULL;
 }
 
 void		verbos_visu(t_env *env, unsigned j, int save)
@@ -110,6 +111,7 @@ void		verbos_visu(t_env *env, unsigned j, int save)
 		wprintw(env->verbos, "zjmp %d FAILED\n",
 				read_bytes(env->process[j].op.saved, 1, 2));
 		print_pc_visu(env, j, save);
+		env->process[j].op.name = NULL;
 	}
 	else if (env->process[j].op.code == 0x0c)
 		verbos_forklfork_visu(env, j, save, "fork %d (%d)\n");

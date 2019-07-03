@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verbos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 17:01:39 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/03 17:50:50 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void		verbos(t_env *env, unsigned j, int save)
 	if (env->process[j].op.code == 0x09 && env->process[j].carry == 1)
 	{
 		ft_printf("zjmp %d OK\n", read_bytes(env->process[j].op.saved, 1, 2));
+		env->process[j].op.name = NULL;
 		return ;
 	}
 	else if (env->process[j].op.code == 0x09 && env->process[j].carry == 0)
@@ -97,6 +98,7 @@ void		verbos(t_env *env, unsigned j, int save)
 	else if (env->process[j].op.name != NULL)
 		print_verbos(env, j, save);
 	print_pc(env, j, save);
-	while (env->process[j].op.param[i])
+	while (i < 4)
 		ft_strdel(&(env->process[j].op.param[i++]));
+	env->process[j].op.name = NULL;
 }
