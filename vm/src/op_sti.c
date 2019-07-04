@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:36 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 10:29:50 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:52:09 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void	sti_op(t_env *env, unsigned int j, t_op_vars *data, int nb_reg[3])
 		env->memory[(data->dest + 1) % MEM_SIZE] = data->v1 >> 16;
 		env->memory[(data->dest + 2) % MEM_SIZE] = data->v1 >> 8;
 		env->memory[(data->dest + 3) % MEM_SIZE] = data->v1;
+		if (env->option == 1 || env->option == 2)
+			update_visu(env, data->dest, j);
 	}
 }
 
@@ -93,8 +95,6 @@ void		op_sti(t_env *env, unsigned int j)
 		sti_second_param(env, j, &data, &nb_reg[1]);
 		sti_third_param(env, j, &data, &nb_reg[2]);
 		sti_op(env, j, &data, nb_reg);
-		if (env->option == 1 || env->option == 2)
-			update_visu(env, data.dest, j);
 	}
 	else
 		data.cursor += decode_byte_param(env->process[j].op.saved[1], 1, 3);

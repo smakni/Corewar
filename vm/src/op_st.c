@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 21:20:45 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/06/29 15:26:48 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:52:59 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	type_ind(t_env *env, unsigned int j, int *cursor, int nb_reg)
 		else if (dest >= MEM_SIZE)
 			dest %= MEM_SIZE;
 		write_in_memory(env, dest, reg_content);
+		if (env->option == 1 || env->option == 2)
+			update_visu(env, dest, j);
 	}
-	if (env->option == 1 || env->option == 2)
-		update_visu(env, dest, j);
 }
 
 static void	type_reg(t_env *env, unsigned int j, int *cursor, int nb_reg)
@@ -63,9 +63,9 @@ static void	type_reg(t_env *env, unsigned int j, int *cursor, int nb_reg)
 	{
 		env->process[j].op.name = "st";
 		env->process[j].r[dest] = reg_content;
+		if (env->option == 1 || env->option == 2)
+			update_visu(env, dest, j);
 	}
-	if (env->option == 1 || env->option == 2)
-		update_visu(env, dest, j);
 }
 
 void		op_st(t_env *env, unsigned int j)

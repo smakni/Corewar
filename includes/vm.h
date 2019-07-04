@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/03 17:00:24 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/04 11:18:59 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define SUCCESS				1
 # define ARR_SIZE				1024
 # define GO_BACK				1
-# define DUMP					64
+# define DUMP					32
 # define CHAMP_EXTENSION		".cor\0"
 
 typedef struct		s_op_vars
