@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/04 12:50:35 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:47:35 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,11 @@ void	update_visu(t_env *env, int dest, unsigned j)
 	wattron(env->mem, A_BOLD);
 	while (k < 4)
 	{
+		dest %= MEM_SIZE;
 		x = dest % 64 * 3;
 		y = dest / 64;
 		if (mvwprintw(env->mem, y, x, "%.2x", env->memory[dest++]) == ERR)
 			exit_clean(env);
-		if (dest < 0)
-			dest += MEM_SIZE;
-		else if (dest >= MEM_SIZE)
-			dest -= MEM_SIZE;
 		k++;
 	}
 	wattroff(env->mem, A_BOLD);
@@ -71,12 +68,10 @@ void	remove_bold(t_env *env, unsigned j)
 		k = 0;
 		while (k < 4)
 		{
+			dest %= MEM_SIZE;
 			x = dest % 64 * 3;
 			y = dest / 64;
 			mvwchgat(env->mem, y, x, 2, A_NORMAL, env->process[j].color, NULL);
-			dest++;
-			if (dest >= MEM_SIZE)
-				dest -= MEM_SIZE;
 			k++;
 		}
 		env->process[j].bold = 0;

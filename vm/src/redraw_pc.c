@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redraw_pc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 19:54:38 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/03 09:52:21 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:51:20 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static void	redraw_pc_2(t_env *env, int pc, int len)
 	int color;
 
 	pc -= len;
-	if (pc < 0)
-		pc += MEM_SIZE;
+	pc %= MEM_SIZE;
 	x = pc % 64 * 3;
 	y = pc / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;
@@ -42,8 +41,7 @@ void		redraw_pc(t_env *env, int pc, int len)
 	int y;
 	int color;
 
-	if (pc >= MEM_SIZE)
-		pc -= MEM_SIZE;
+	pc %= MEM_SIZE;
 	x = pc % 64 * 3;
 	y = pc / 64;
 	color = mvwinch(env->mem, y, x) & A_COLOR;
