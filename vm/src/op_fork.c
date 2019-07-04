@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 00:00:08 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 18:21:45 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/04 01:16:39 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void		op_fork(t_env *env, unsigned int j)
 		env->process[j].pc %= MEM_SIZE;
 	set_fork_values(env, j);
 	env->nb_process++;
+	env->living_proc++;
 	env->process[j].pc += 3;
 }

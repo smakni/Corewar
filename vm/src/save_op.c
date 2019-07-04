@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 17:04:01 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 13:16:29 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 01:25:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int			op_len(t_env *env, unsigned j, int op)
 	if (op == 16)
 		return (3);
 	else if (op == 2 || op == 3 || op == 13)
-		return (1 + decode_byte_param(env->memory[current_pos + 1], 0, 2));
+		return (1 + decode_byte_param(env->memory[(current_pos + 1) % MEM_SIZE], 0, 2));
 	else if (op == 10 || op == 11 || op == 14)
-		return (1 + decode_byte_param(env->memory[current_pos + 1], 1, 3));
-	return (1 + decode_byte_param(env->memory[current_pos + 1], 0, 3));
+		return (1 + decode_byte_param(env->memory[(current_pos + 1) % MEM_SIZE], 1, 3));
+	return (1 + decode_byte_param(env->memory[(current_pos + 1) % MEM_SIZE], 0, 3));
 }
 
 void		save_op(t_env *env, unsigned j)

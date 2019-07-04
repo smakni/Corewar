@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 12:03:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 18:21:41 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/04 01:16:49 by sabri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void		op_lfork(t_env *env, unsigned int j)
 	env->process[env->nb_process].bold = 0;
 	env->process[env->nb_process].live = -1;
 	env->nb_process++;
+	env->living_proc++;
 	env->process[j].pc += 3;
 }
