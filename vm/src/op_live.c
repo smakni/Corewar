@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 15:05:14 by smakni            #+#    #+#             */
-/*   Updated: 2019/06/29 12:41:28 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:45:05 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ void		op_live(t_env *env, unsigned j)
 		env->player[2].last_live = env->cycle_index;
 	else if (id == (unsigned)-4)
 		env->player[3].last_live = env->cycle_index;
-	if ((env->option == 1 || env->option == 2)
-			&& (id == (unsigned)-1 || id == (unsigned)-2
-			|| id == (unsigned)-3 || id == (unsigned)-4))
-		op_live_visu(env, j, id);
+	if (id == (unsigned)-1 || id == (unsigned)-2
+			|| id == (unsigned)-3 || id == (unsigned)-4)
+	{
+		env->winner = -(unsigned)id;
+		if (env->option == 1 || env->option == 2)
+			op_live_visu(env, j, id);
+	}
 	env->live_period++;
 	env->process[j].nb_live++;
 	env->process[j].pc += 5;

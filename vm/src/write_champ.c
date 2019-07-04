@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/03 10:01:40 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:45:05 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int				write_champ(t_env *env)
 		i += MEM_SIZE / env->nb_process;
 		j++;
 	}
+	env->winner = env->nb_process;
 	return (SUCCESS);
 }

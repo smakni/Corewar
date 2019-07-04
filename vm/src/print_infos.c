@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_infos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 15:10:51 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/04 15:56:45 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/04 19:45:14 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ static int		print_players_infos(t_env *env, int i)
 		nb_live = count_live(env, j);
 		mvwprintw(env->infos, i, 2, "Total lives during current cycle : %-10d",
 				nb_live);
+		i++;
+		if (env->winner == env->player[j].id)
+			mvwprintw(env->infos, i, 4, "Is winning !");
+		else
+			mvwprintw(env->infos, i, 4, "            ");
 		i += 2;
 		j++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:00:09 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/04 15:47:35 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/04 18:22:58 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ void	remove_bold(t_env *env, unsigned j)
 		k = 0;
 		while (k < 4)
 		{
-			dest %= MEM_SIZE;
-			x = dest % 64 * 3;
-			y = dest / 64;
+			x = (dest + k) % 64 * 3;
+			y = (dest + k) / 64;
 			mvwchgat(env->mem, y, x, 2, A_NORMAL, env->process[j].color, NULL);
 			k++;
 		}

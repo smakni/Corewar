@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/04 11:18:59 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:44:44 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct		s_env
 	unsigned		living_proc;
 	unsigned		nb_player;
 	unsigned		capacity;
+	unsigned 		winner;
 	int				live_period;
 	int				err_code;
 	int				dump;

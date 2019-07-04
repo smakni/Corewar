@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_last_live.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 17:29:58 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/02 19:31:18 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:47:24 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	last_visu_infos(t_env *env, int save)
 	wattron(env->infos, COLOR_PAIR(4 + save));
 	mvwprintw(env->infos, 46, 9, "%s", env->player[save].header.prog_name);
 	wattroff(env->infos, COLOR_PAIR(4 + save));
-	mvwprintw(env->infos, 44, 0, "env->nb_process:%d", env->nb_process);
 	wrefresh(env->infos);
 	wrefresh(env->state);
 }
@@ -71,27 +70,10 @@ static void	last_visu(t_env *env, int save)
 
 int			check_last_live(t_env *env)
 {
-	int	i;
-	int	save;
-	int	last_live;
-
-	i = env->nb_player - 1;
-	save = i;
-	last_live = 0;
-	while (i >= 0)
-	{
-		if (env->player[i].last_live >= last_live
-				&& env->player[i].last_live != 0)
-		{
-			last_live = env->player[i].last_live;
-			save = i;
-		}
-		i--;
-	}
 	if (env->option == 1 || env->option == 2)
-		last_visu(env, save);
+		last_visu(env, (int)env->winner - 1);
 	else
-		ft_printf("Contestant %d, \"%s\", has won !\n", save + 1,
-				env->player[save].header.prog_name);
-	return (save);
+		ft_printf("Contestant %d, \"%s\", has won !\n", (int)(env->winner),
+				env->player[(int)(env->winner) - 1].header.prog_name);
+	return (0);
 }
