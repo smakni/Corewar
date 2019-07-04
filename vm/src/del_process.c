@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:06:45 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/04 11:06:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:55:28 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	aff_del_processess(t_env *env)
 int			del_processess(t_env *env)
 {
 	int	j;
-	
+
 	j = env->nb_process - 1;
 	env->living_proc = 0;
 	if (env->option == 1 || env->option == 2)

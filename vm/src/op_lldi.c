@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/04 11:11:20 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:54:53 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void		op_lldi(t_env *env, unsigned int j)
 	t_op_vars	data;
 	int			nb_reg[3];
 
-	//ft_bzero(&data, sizeof(t_op_vars));
 	data.cursor = 1;
 	if (check_args(env, j, data.cursor, 3))
 	{
