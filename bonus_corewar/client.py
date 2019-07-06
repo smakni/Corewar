@@ -50,6 +50,9 @@ class Client(Controller):
 			self.checklist["sent"] = True
 
 	def	exchange_bin(self):
+		if not os.path.exists(PATH_TO_COREWAR):
+			print("[-] ERROR: No file found.")
+			sys.exit(-1)
 		client_bin = self.send_bin(PATH_TO_COREWAR)
 		self.s.send(client_bin)
 		server_bin = self.s.recv(64)

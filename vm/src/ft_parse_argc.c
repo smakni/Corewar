@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/06 12:14:25 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/06 14:37:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static int	valid_file_ext(const char *argv)
 	char	*ptr;
 
 	ptr = ft_strstr(argv, ".cor");
+	if (!ptr)
+		return (FAIL);
 	if (ft_strlen(ptr) != 4)
 		return (FAIL);
 	return (SUCCESS);
