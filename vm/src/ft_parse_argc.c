@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/03 10:01:22 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/06 12:14:25 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,25 @@ static int	ft_options(int argc, char **argv, t_env *env, int *i)
 	return (SUCCESS);
 }
 
-static void	increment_values(t_env *env)
+static int	copy_player_name(t_env *env, t_player *tmp, const char *argv)
 {
+	ft_memcpy(tmp[env->nb_process].header.prog_name,
+		argv, PROG_NAME_LENGTH + 1);
 	env->nb_process++;
 	env->nb_player++;
+	if (env->nb_process > MAX_PLAYERS)
+		return (print_error("ERROR: Too many players received"));
+	return (SUCCESS);
+}
+
+static int	valid_file_ext(const char *argv)
+{
+	char	*ptr;
+
+	ptr = ft_strstr(argv, ".cor");
+	if (ft_strlen(ptr) != 4)
+		return (FAIL);
+	return (SUCCESS);
 }
 
 int			ft_parse_argc(int argc, char **argv, t_env *env)
@@ -68,11 +83,10 @@ int			ft_parse_argc(int argc, char **argv, t_env *env)
 	i = 0;
 	while (++i < argc)
 	{
-		if (ft_strstr(argv[i], ".cor"))
+		if (valid_file_ext(argv[i]))
 		{
-			ft_memcpy(tmp[env->nb_process].header.prog_name,
-				argv[i], PROG_NAME_LENGTH + 1);
-			increment_values(env);
+			if (copy_player_name(env, tmp, argv[i]) == FAIL)
+				return (FAIL);
 		}
 		else if (ft_strequ(argv[i], "-n"))
 		{
