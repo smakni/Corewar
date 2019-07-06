@@ -6,14 +6,14 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/05/17 21:41:34 by rnugroho         ###   ########.fr        #
+#    Updated: 2019/07/06 15:05:02 by jergauth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ----- Config -----
 
-ASM_PATH:=./corewar-project/asm
-VM_PATH:=./corewar-project/corewar
+ASM_PATH:=./../asm
+VM_PATH:=./../corewar
 
 OPT_V:=-v 30
 OPT_A:=-a
