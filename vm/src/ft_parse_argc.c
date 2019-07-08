@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:31:42 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/06 15:08:52 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:43:52 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,16 @@ static int	ft_options(int argc, char **argv, t_env *env, int *i)
 	else if (ft_strequ(argv[*i], "-svisu"))
 		env->option = 2;
 	else if (ft_strequ(argv[*i], "-v"))
-	{
 		env->verb = 1;
-		if (*i + 1 < argc && ft_isdigit(argv[*i + 1][0]) != 0)
-			(*i)++;
-		return (SUCCESS);
-	}
 	else if (ft_strequ(argv[*i], "-goback"))
 		env->goback = 1;
 	else if (ft_strequ(argv[*i], "-dump"))
 	{
-		if (*i + 1 < argc && ft_isdigit(argv[*i + 1][0]) != 0)
+		if (*i + 1 < argc && ft_str_is_numeric(argv[*i + 1]) != 0)
 			env->dump = ft_atoi(argv[++*i]);
 		else
-			return (print_error("ERROR"));
+			return (print_error("ERROR: Invalid option `-dump`"));
 		env->option = 3;
-		return (SUCCESS);
 	}
 	else
 		return (ft_options2(env, argv, i));

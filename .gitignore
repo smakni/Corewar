@@ -12,3 +12,5 @@
 diff
 corewar
 asm
+bonus_corewar/__pycache__
+*.pyc

@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/06 15:08:38 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:23:25 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define SUCCESS				1
 # define ARR_SIZE				1024
 # define GO_BACK				1
-# define DUMP					64
+# define DUMP					32
 # define CHAMP_EXTENSION		".cor"
 
 typedef struct		s_op_vars
