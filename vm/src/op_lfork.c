@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 12:03:31 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/04 13:02:25 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/08 14:15:59 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+static void	set_fork_values(t_env *env, unsigned int j)
+{
+	env->process[env->nb_process].nb_live = env->process[j].nb_live;
+	env->process[env->nb_process].cycles = 0;
+	env->process[env->nb_process].bold = 0;
+	env->process[env->nb_process].live = -1;
+}
 
 void		op_lfork(t_env *env, unsigned int j)
 {
@@ -33,10 +41,7 @@ void		op_lfork(t_env *env, unsigned int j)
 		env->process[env->nb_process].pc += MEM_SIZE;
 	else if (env->process[j].pc >= MEM_SIZE)
 		env->process[j].pc %= MEM_SIZE;
-	env->process[env->nb_process].nb_live = env->process[j].nb_live;
-	env->process[env->nb_process].cycles = 0;
-	env->process[env->nb_process].bold = 0;
-	env->process[env->nb_process].live = -1;
+	set_fork_values(env, j);
 	env->nb_process++;
 	env->living_proc++;
 	env->process[j].pc += 3;

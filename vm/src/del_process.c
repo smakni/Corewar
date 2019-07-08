@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:06:45 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/04 12:55:28 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:26:59 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int			del_processess(t_env *env)
 	{
 		if (env->process[j].nb_live > 0)
 		{
-			if (env->cycle_to_die <= 0)
-				env->process[j].nb_live = -1;
-			else
-				env->process[j].nb_live = 0;
+			env->process[j].nb_live = 0;
 			env->living_proc++;
 		}
 		else if (env->process[j].nb_live != -2)

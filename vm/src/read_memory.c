@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:11:58 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/04 11:11:59 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:59:59 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,14 @@ static int		reset_cycles(t_env *env, int *check_delta)
 
 int				while_playing(t_env *env, int i, int check_delta)
 {
-	while (env->cycle_to_die > 0)
+	while (env->living_proc > 0)
 	{
-		if (i == env->cycle_to_die)
+		if (i == env->cycle_to_die || env->cycle_to_die < 0)
 		{
-			if (check_live(env, &check_delta) == 0)
-				break ;
+			check_live(env, &check_delta);
 			i = reset_cycles(env, &check_delta);
 		}
-		if (env->option == 0 && env->verb == 1)
+		if (env->option == 0 && env->verb == 1 && env->living_proc > 0)
 			ft_printf("It is now cycle %d\n", env->cycle_index);
 		if (processess_execution(env) == FAIL)
 			return (FAIL);
@@ -104,6 +103,5 @@ int				read_memory(t_env *env)
 		intro_game(env);
 	if (while_playing(env, i, check_delta) == FAIL)
 		return (FAIL);
-	del_processess(env);
 	return (SUCCESS);
 }

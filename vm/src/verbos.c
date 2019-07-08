@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verbos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:13:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/04 11:12:10 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:08:07 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,4 @@ void		verbos(t_env *env, unsigned j, int save)
 	else if (env->process[j].op.name != NULL)
 		print_verbos(env, j, save);
 	print_pc(env, j, save);
-	while (i < 4)
-		ft_strdel(&(env->process[j].op.param[i++]));
-	env->process[j].op.name = NULL;
 }
