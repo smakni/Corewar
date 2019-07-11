@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 11:04:15 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/11 19:33:16 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define IDENTICAL	0
 # define SUCCESS	1
 # define FAIL		0
+# define EXTENSION	".s"
 
 typedef struct	s_bytes
 {
@@ -57,7 +58,7 @@ int				ft_memorize_blank_label(const char *param, t_parser *data,
 int				ft_write_cor(t_parser *data, const char *path_name);
 void			write_prog_size(t_parser *data);
 int				safe_open(const char *pathname, t_parser *data,
-					const int flags);
+					const int flags, const int check_ext);
 
 void			ft_add_byte_elem(t_bytes **list, t_bytes *elem);
 void			ft_del_byte_elem(t_bytes **list, t_bytes *elem);

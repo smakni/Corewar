@@ -28,7 +28,8 @@ Utilises dans la partie ASM -> struct s_parser -> attribut err_code
 	->	"Champion name too long (Max length 128)"
 13:	label inexistant
 	"No such label truc while attempting to dereference token"
-
+14: Mauvaise extension fichier
+	->	"Wrong file extension "
 
 
 CODE ERR VM:
