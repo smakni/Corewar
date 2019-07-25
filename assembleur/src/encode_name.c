@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encode_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoulini <cmoulini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:48:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 10:43:25 by cmoulini         ###   ########.fr       */
+/*   Updated: 2019/07/25 18:54:01 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ int		encode_name(t_parser *data, int i, int *nb_chars)
 			return (FAIL);
 		}
 	}
-	if (data->index > 0x8b)
+	if (data->index > 0x8b || check_eol(data, i) == FAIL)
+	{
+		data->err_code = 10;
+		data->err_msg = "Bad name and/or comment format";
 		return (FAIL);
+	}
 	return (SUCCESS);
 }
 

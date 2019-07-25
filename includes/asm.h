@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/11 19:33:16 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/25 18:56:37 by smakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ int				encode_multi_comment(t_parser *data, int *nb_chars);
 int				encode_name(t_parser *data, int i, int *nb_chars);
 int				encode_multi_name(t_parser *data, int *nb_chars);
 int				ft_strlen_c(const char *str, char c);
+int				check_eol(t_parser *data, int i);
 
 #endif

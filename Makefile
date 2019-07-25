@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+         #
+#    By: smakni <smakni@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 20:15:21 by smakni            #+#    #+#              #
-#    Updated: 2019/07/06 11:54:41 by jergauth         ###   ########.fr        #
+#    Updated: 2019/07/25 18:56:48 by smakni           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ SOURCES_P1	=	encode_param.c\
 				add_byte_elem.c\
 				del_byte_elem.c\
 				fill_addr.c\
-				ft_strlen_c.c
+				ft_strlen_c.c\
+				check_eol.c
 
 SRCS_P1	=	$(addprefix $(ASM_PATH),$(SOURCES_P1))
 OBJS_P1	=	$(addprefix $(DIR_O_P1),$(SOURCES_P1:.c=.o))
