@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 09:55:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 09:56:29 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 
 static int	check_header_cor_file(t_env *env, unsigned int j)
 {

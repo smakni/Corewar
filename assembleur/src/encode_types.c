@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:13:38 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/12 19:26:14 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:59:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "asm.h"
 
 static int	clean_quit(t_parser *data, char **param, const int ret)
 {

@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:57:52 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/27 12:10:59 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 #include <curses.h>
 
 static int	pair_colors_to_black(int *n)

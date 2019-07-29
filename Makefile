@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakni <smakni@student.42.fr>              +#+  +:+       +#+         #
+#    By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 20:15:21 by smakni            #+#    #+#              #
-#    Updated: 2019/07/25 18:56:48 by smakni           ###   ########.fr        #
+#    Updated: 2019/07/29 20:20:45 by jergauth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ LIB			=	$(LIB_PATH)libft.a
 
 HDR		=	includes/
 
-DIR_O		=	temporary
-DIR_O_P1	=	$(DIR_O)/tmp_asm/
-DIR_O_P2	=	$(DIR_O)/tmp_corewar/
+DIR_O		=	.o
+DIR_O_P1	=	$(DIR_O)/asm/
+DIR_O_P2	=	$(DIR_O)/corewar/
 
 SOURCES_P1	=	encode_param.c\
 				choose_encoding.c\
@@ -62,7 +62,9 @@ SOURCES_P1	=	encode_param.c\
 				del_byte_elem.c\
 				fill_addr.c\
 				ft_strlen_c.c\
-				check_eol.c
+				check_eol.c\
+				count.c\
+				split_args.c
 
 SRCS_P1	=	$(addprefix $(ASM_PATH),$(SOURCES_P1))
 OBJS_P1	=	$(addprefix $(DIR_O_P1),$(SOURCES_P1:.c=.o))
@@ -138,39 +140,38 @@ CLEAN	=	clean
 all:	$(NAME_P1) $(NAME_P2)
 
 $(LIB):
-			@make -C $(LIB_PATH)
+			make -C $(LIB_PATH)
 
-$(NAME_P1):	$(OBJS_P1) $(HDR)asm.h $(LIB) Makefile
-				@$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
+$(NAME_P1):	$(OBJS_P1) $(HDR)asm.h $(HDR)op.h $(LIB) Makefile
+				$(CC) $(CFLAGS) -o $(NAME_P1) $(SRCS_P1) $(LIB) -I $(HDR)
 				@echo "ASM	: assembleur has been successfully created."
 
-
-$(NAME_P2):	$(OBJS_P2) $(HDR)vm.h $(LIB) Makefile
-				@$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR) -lncurses
+$(NAME_P2):	$(OBJS_P2) $(HDR)vm.h $(HDR)op.h $(LIB) Makefile
+				$(CC) $(CFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR) -lncurses
 				@echo "Corewar	: corewar has been successfully created."
 
 $(DIR_O_P1)%.o: $(ASM_PATH)%.c
-		@mkdir -p temporary
-		@mkdir -p temporary/tmp_asm
-		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
+		@mkdir -p $(DIR_O)
+		@mkdir -p $(DIR_O)/asm
+		$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
 
 $(DIR_O_P2)%.o: $(COR_PATH)%.c
-		@mkdir -p temporary/tmp_corewar
-		@$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
+		@mkdir -p $(DIR_O)/corewar
+		$(CC) $(CFLAGS) -I $(HDR) -o $@ -c $<
 
 sanitize:
-			@$(CC) $(CFLAGS) $(FFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR) -lncurses
+			$(CC) $(CFLAGS) $(FFLAGS) -o $(NAME_P2) $(SRCS_P2) $(LIB) -I $(HDR) -lncurses
 			@echo "Corewar	: corewar in debug mode has been successfully created."
 
 clean:
-			@$(RM) $(OBJS_P1) $(OBJS_P2)
-			@rm -rf $(DIR_O)
-			@make clean -C $(LIB_PATH)
+			$(RM) $(OBJS_P1) $(OBJS_P2)
+			rm -rf $(DIR_O)
+			make clean -C $(LIB_PATH)
 			@echo "Corewar : All .o files have been deleted."
 
 fclean:	clean
-			@make fclean -C $(LIB_PATH)
-			@$(RM) $(NAME_P1) $(NAME_P2) $(LIB)
+			make fclean -C $(LIB_PATH)
+			$(RM) $(NAME_P1) $(NAME_P2) $(LIB)
 			@echo "Corewar	: exe have been deleted."
 
 re:	fclean all

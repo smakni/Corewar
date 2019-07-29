@@ -184,13 +184,13 @@ SRCS	=	ft_memset.c		\
 			ft_lstpop.c\
 			ft_arrjoin.c
 
-DIR_O	=	temporary
+DIR_O	=	.o
 
 OBJS	=	$(addprefix $(DIR_O)/,$(SRCS:.c=.o))
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Werror -Wextra -g3
+CFLAGS	=	-Wall -Werror -Wextra
 
 LIB		=	libft.h
 
@@ -202,20 +202,20 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(LIB) Makefile
 			@echo "Libft		: Compilation in progress..."
-			@ar rc $(NAME) $(OBJS)
-			@ranlib $(NAME)
+			ar rc $(NAME) $(OBJS)
+			ranlib $(NAME)
 			@echo "Libft		: The libft.a file has been successfully created."
 
 $(DIR_O)/%.o: %.c
-			@mkdir -p temporary
-			@$(CC) $(CFLAGS) -I. -o $@ -c $<
+			@mkdir -p $(DIR_O)
+			$(CC) $(CFLAGS) -I. -o $@ -c $<
 
 clean:	
-			@$(RM) $(DIR_O)
+			$(RM) $(DIR_O)
 			@echo "Libft		: *.o files have been deleted."
 
 fclean:		clean
-			@$(RM) $(NAME)
+			$(RM) $(NAME)
 			@echo "Libft		: The libft.a file has been deleted."
 
 re:			fclean all

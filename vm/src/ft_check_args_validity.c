@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:45:38 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/06 15:08:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 
 int	ft_check_args_validity(char **argv, t_env *env)
 {

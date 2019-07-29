@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 22:19:16 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/25 18:56:37 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/29 21:54:06 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int				ft_format_line(t_parser *data, int i);
 **	MEMORY FUNCTIONS
 */
 
-t_parser		*parser_init(char *av);
+int				parser_init(t_parser *parser, char *pathname);
 t_bytes			*bytes_init(t_parser *data);
 void			ft_bytesdel(t_bytes **list);
 int				ft_realloc_bytecode(t_parser *data);
@@ -81,6 +81,8 @@ int				ft_format_line(t_parser *data, int i);
 **	ENCODING FUNCTIONS
 */
 
+char			**split_args(t_parser *data, const char *str, const int arg_required);
+int				count(const char *str, const int c);
 int				save_label_address(t_parser *data);
 int				check_label_chars(char *str, t_parser *data);
 int				ft_fill_addr(t_parser *data);

@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:55:04 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 12:00:19 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 #include <curses.h>
 
 static void		exit_explo_mode(t_env *env)

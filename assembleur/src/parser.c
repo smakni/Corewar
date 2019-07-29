@@ -6,13 +6,13 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:55:20 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/03 09:44:55 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 20:32:17 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "asm.h"
 
-static int	verbose_exit(t_parser *data)
+static void	verbose_exit(t_parser *data)
 {
 	if (ft_instr(data->err_code + 48, "3478"))
 		ft_printf("{red}%s%i.{reset}\n", data->err_msg, data->nb_line);

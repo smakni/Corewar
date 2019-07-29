@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   del_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:06:45 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/08 15:26:59 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 
 static void	del_processess_visu(t_env *env)
 {

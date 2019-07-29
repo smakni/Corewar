@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:19:53 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/30 20:49:53 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:37:59 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 int	ft_encode_lfork(t_parser *data)
 {

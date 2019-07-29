@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   encode_byte_param.c                                :+:      :+:    :+:   */
+/*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/29 16:20:46 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/29 18:58:50 by jergauth         ###   ########.fr       */
+/*   Created: 2019/07/29 20:08:38 by jergauth          #+#    #+#             */
+/*   Updated: 2019/07/29 21:37:06 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_encode_byte_param(const char *param)
+int		count(const char *str, const int c)
 {
-	char	*trimmed;
-	int		i;
+	int	ret;	
 
-	i = ft_strspn(param, " \t");
-	if (param[i] == 'r')
-		return (REG_CODE);
-	if (param[i] == '%')
-		return (DIR_CODE);
-	if (!(trimmed = ft_strtrim(param)))
-		return (FAIL);
-	i = 0;
-	if (trimmed[i] == '-')
-		i++;
-	if (ft_str_is_numeric(&trimmed[i]) || trimmed[0] == ':')
+	ret = 0;
+	while (*str && *str != ';' && *str != '#')
 	{
-		ft_strdel(&trimmed);
-		return (IND_CODE);
+		if (*str == c)
+			ret++;
+		str++;
 	}
-	ft_strdel(&trimmed);
-	return (FAIL);
+	return (ret);
 }

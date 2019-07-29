@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   write_champ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:58:56 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/08 14:42:43 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 
 static void		init_process(t_env *env, unsigned int j, int *id, int i)
 {

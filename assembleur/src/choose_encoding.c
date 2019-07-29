@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:21:10 by jergauth          #+#    #+#             */
-/*   Updated: 2019/05/29 16:33:20 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:58:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static int	choose_encoding_suite(t_parser *data)
 {

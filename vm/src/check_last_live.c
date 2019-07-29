@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_last_live.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 17:29:58 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/04 19:47:24 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 
 static void	last_visu_infos(t_env *env, int save)
 {

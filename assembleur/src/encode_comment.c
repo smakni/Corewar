@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   encode_comment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:47:19 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/25 18:57:43 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/29 18:58:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 int		encode_comment(t_parser *data, int i, int *nb_chars)
 {

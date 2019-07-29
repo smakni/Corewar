@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:06:39 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/12 19:25:28 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:58:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static int	clean_quit(t_bytes *elem, const int ret)
 {

@@ -6,30 +6,23 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:45:59 by jergauth          #+#    #+#             */
-/*   Updated: 2019/06/29 16:57:16 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:51:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
-t_parser	*parser_init(char *pathname)
+int			parser_init(t_parser *parser, char *pathname)
 {
-	t_parser	*new;
-
-	if (!(new = (t_parser*)malloc(sizeof(*new))))
-		return (NULL);
-	ft_bzero((void*)new, sizeof(*new));
-	if (!(new->bytecode = (unsigned char*)malloc(sizeof(*new->bytecode)
+	ft_bzero(parser, sizeof(t_parser));
+	if (!(parser->bytecode = (unsigned char*)malloc(sizeof(*parser->bytecode)
 						* SIZE_BUFFER)))
-	{
-		ft_memdel((void*)&new);
 		return (FAIL);
-	}
-	new->nb_realloc = 1;
-	new->pathname = pathname;
-	new->nb_line = 1;
-	new->fd = -1;
-	return (new);
+	parser->nb_realloc = 1;
+	parser->pathname = pathname;
+	parser->nb_line = 1;
+	parser->fd = -1;
+	return (SUCCESS);
 }
 
 t_bytes		*bytes_init(t_parser *data)

@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:48:27 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/02 20:29:49 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:59:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "asm.h"
 
 int		check_label_chars(char *str, t_parser *data)
 {

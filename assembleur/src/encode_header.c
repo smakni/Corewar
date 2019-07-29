@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 16:41:43 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/02 20:55:43 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:58:50 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static void	encode_magic_number(t_parser *data)
 {

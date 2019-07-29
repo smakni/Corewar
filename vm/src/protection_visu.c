@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   protection_visu.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabri <sabri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 11:33:36 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/07/04 15:24:36 by sabri            ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 #include <curses.h>
 
 void			protect_wclear(t_env *env, WINDOW *toclear)

@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:11:48 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/11 19:32:39 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:54:12 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static int	safe_read(const int fd, t_parser *data)
 {

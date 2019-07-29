@@ -6,11 +6,11 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 16:26:18 by smakni            #+#    #+#             */
-/*   Updated: 2019/05/29 16:23:16 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:57:51 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 int	ft_strlen_c(const char *str, char c)
 {

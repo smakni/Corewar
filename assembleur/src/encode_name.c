@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   encode_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakni <smakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:48:42 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/25 18:54:01 by smakni           ###   ########.fr       */
+/*   Updated: 2019/07/29 18:59:11 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "asm.h"
 
 int		encode_name(t_parser *data, int i, int *nb_chars)
 {

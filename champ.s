@@ -1,5 +1,5 @@
-.name "NAME"
-.comment "COMMENT"
+.name "Donatello"
+.comment "KOWABUNGAAAA !!!"
 
 	ld %654860, r2
 	st r1, 112

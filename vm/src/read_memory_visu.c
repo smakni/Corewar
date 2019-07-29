@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_memory_visu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrenaudi <vrenaudi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 20:59:55 by vrenaudi          #+#    #+#             */
-/*   Updated: 2019/06/29 22:25:56 by vrenaudi         ###   ########.fr       */
+/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "vm.h"
 
 WINDOW			*protect_dupwin(t_env *env, WINDOW *to_dup)
 {
