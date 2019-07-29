@@ -6,15 +6,15 @@
 #    By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 20:15:21 by smakni            #+#    #+#              #
-#    Updated: 2019/07/29 20:20:45 by jergauth         ###   ########.fr        #
+#    Updated: 2019/07/29 22:02:42 by jergauth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_P1	=	asm
 NAME_P2	=	corewar
 
-ASM_PATH	=	assembleur/src/
-COR_PATH	=	vm/src/
+ASM_PATH	=	assembleur/
+COR_PATH	=	vm/
 
 LIB_PATH	=	libft/
 LIB			=	$(LIB_PATH)libft.a
