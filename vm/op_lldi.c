@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:21:50 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/30 11:14:23 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:24:02 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	lldi_third_param(t_env *env, unsigned int j, t_op_vars *data,
 			data->v3 += MEM_SIZE;
 		data->v3 = read_bytes(env->memory, data->v3, REG_SIZE);
 		env->process[j].r[nb_reg[2]] = data->v3;
-		env->process[j].carry = (data->v3 == 0) ? 1 : 0;
+		set_carry(env, j, data->v3);
 	}
 }
 

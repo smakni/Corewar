@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:12:56 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/30 11:12:58 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:22:26 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 static void	set_reg(t_env *env, unsigned int j, int diff, int nb_reg)
 {
-	if (diff == 0)
-		env->process[j].carry = 1;
-	else
-		env->process[j].carry = 0;
+	set_carry(env, j, diff);
 	env->process[j].op.name = "sub";
 	env->process[j].r[nb_reg] = diff;
 }

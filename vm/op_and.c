@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 23:38:43 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/30 11:13:28 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:23:08 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	and_third_param(t_env *env, unsigned int j, t_op_vars *data,
 {
 	if (all_reg_valid(nb_reg, 3))
 	{
-		env->process[j].carry = (data->v1 == 0) ? 1 : 0;
+		set_carry(env, j, data->v1);
 		env->process[j].op.name = "and";
 		env->process[j].r[env->process[j].op.saved[data->cursor]] = data->v1;
 	}

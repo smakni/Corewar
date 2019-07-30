@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/30 11:12:46 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:22:18 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 static void	set_reg(t_env *env, unsigned int j, int sum, int nb_reg)
 {
-	if (sum == 0)
-		env->process[j].carry = 1;
-	else
-		env->process[j].carry = 0;
+	set_carry(env, j, sum);
 	env->process[j].op.name = "add";
 	env->process[j].r[nb_reg] = sum;
 }
