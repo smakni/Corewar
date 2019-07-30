@@ -6,7 +6,7 @@
 #    By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 20:15:21 by smakni            #+#    #+#              #
-#    Updated: 2019/07/30 11:10:54 by jergauth         ###   ########.fr        #
+#    Updated: 2019/07/30 11:26:37 by jergauth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,7 +123,8 @@ SOURCES_P2	=	main.c\
 				check_champ_content.c\
 				get_reg_content_sti.c\
 				process_exec.c\
-				all_reg_valid.c
+				all_reg_valid.c\
+				set_carry.c
 
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))

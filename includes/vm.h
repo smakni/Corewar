@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 13:10:12 by smakni            #+#    #+#             */
-/*   Updated: 2019/07/30 11:11:17 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:26:28 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int					check_args(t_env *env, unsigned int j, int cursor,
 						int nb_param);
 void				exec_op(t_env *env, unsigned j);
 int					all_reg_valid(const int	*tab, const unsigned int len);
+void				set_carry(t_env *env, unsigned int j, int value);
 void				op_live(t_env *env, unsigned j);
 void				op_sti(t_env *env, unsigned j);
 void				op_ld(t_env *env, unsigned j);
