@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 22:57:09 by cmoulini          #+#    #+#             */
-/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:12:46 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void		op_add(t_env *env, unsigned int j)
 		nb_reg[2] = env->process[j].op.saved[4];
 		if (env->verb == 1)
 			save_reg_param(env, j, nb_reg[2], 2);
-		if (nb_reg[0] >= 1 && nb_reg[0] <= REG_NUMBER
-				&& nb_reg[1] >= 1 && nb_reg[1] <= REG_NUMBER
-				&& nb_reg[2] >= 1 && nb_reg[2] <= REG_NUMBER)
+		if (all_reg_valid(nb_reg, 3))
 			set_reg(env, j, sum, nb_reg[2]);
 		cursor += 4;
 	}

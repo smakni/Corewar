@@ -6,7 +6,7 @@
 /*   By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:17:24 by jergauth          #+#    #+#             */
-/*   Updated: 2019/07/29 19:00:19 by jergauth         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:14:35 by jergauth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static void	or_second_param(t_env *env, unsigned int j, t_op_vars *data,
 static void	or_third_param(t_env *env, unsigned int j, t_op_vars *data,
 				int nb_reg[3])
 {
-	if (nb_reg[0] >= 1 && nb_reg[0] <= REG_NUMBER
-			&& nb_reg[1] >= 1 && nb_reg[1] <= REG_NUMBER
-			&& nb_reg[2] >= 1 && nb_reg[2] <= REG_NUMBER)
+	if (all_reg_valid(nb_reg, 3))
 	{
 		env->process[j].carry = (data->v1 == 0) ? 1 : 0;
 		env->process[j].op.name = "or";

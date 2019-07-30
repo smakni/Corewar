@@ -6,7 +6,7 @@
 #    By: jergauth <jergauth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 20:15:21 by smakni            #+#    #+#              #
-#    Updated: 2019/07/29 22:02:42 by jergauth         ###   ########.fr        #
+#    Updated: 2019/07/30 11:10:54 by jergauth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,9 @@ SOURCES_P2	=	main.c\
 				ft_realloc_tab.c\
 				check_champ_content.c\
 				get_reg_content_sti.c\
-				process_exec.c
+				process_exec.c\
+				all_reg_valid.c
+
 
 SRCS_P2	=	$(addprefix $(COR_PATH),$(SOURCES_P2))
 OBJS_P2	=	$(addprefix $(DIR_O_P2),$(SOURCES_P2:.c=.o))
